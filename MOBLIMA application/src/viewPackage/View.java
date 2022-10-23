@@ -1,3 +1,4 @@
+package viewPackage;
 public class View {
 
 	public void displayMenu() {

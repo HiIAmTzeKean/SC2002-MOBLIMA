@@ -1,3 +1,6 @@
+import Customer;
+
+package cinemapackage;
 public class Seat {
 
 	private boolean isBook;

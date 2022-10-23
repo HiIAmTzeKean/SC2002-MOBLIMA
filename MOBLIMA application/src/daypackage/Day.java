@@ -1,3 +1,4 @@
+package daypackage;
 import daypackage.*;
 
 public class Day implements IDay {

@@ -1,3 +1,5 @@
+package cinemapackage;
+
 public abstract class Cinema {
 
 	private Seat seats;

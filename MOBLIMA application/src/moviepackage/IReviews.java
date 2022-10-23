@@ -1,3 +1,4 @@
+package moviepackage;
 public interface IReviews {
 
 	void addReview();

@@ -1,3 +1,6 @@
+package cineplexpackage;
+import cinemapackage.Cinema;
+
 public class Cineplex {
 
 	private String location;

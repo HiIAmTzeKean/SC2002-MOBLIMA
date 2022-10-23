@@ -1,3 +1,4 @@
+package moviepackage;
 public interface ISales {
 
 	/**
