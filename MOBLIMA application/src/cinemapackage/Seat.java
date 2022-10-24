@@ -1,8 +1,10 @@
 package cinemapackage;
+import java.io.Serializable;
+
 import customerpackage.Customer;
 
 
-public class Seat {
+public class Seat implements Serializable{
 
 	private boolean isBook;
 	private int x;
@@ -22,7 +24,7 @@ public class Seat {
 
 	public void SetBooked() {
 		isBook = true;
-		System.out.println("Seat " + x + "," + y + "booked.");
+		System.out.println("Seat " + x + "," + y + " is booked.");
 	}
 
 	public Customer getCustomer() {
@@ -30,7 +32,7 @@ public class Seat {
 	}
 
 	public void setCustomer(Customer customer) {
-		customer = customer;
+		this.customer = customer;
 	}
 
 }

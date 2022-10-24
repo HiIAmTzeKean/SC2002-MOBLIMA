@@ -46,6 +46,9 @@ public abstract class Cinema  implements Serializable{
 	public void setCinemaType(CinemaType cinemaType){
 		this.cinemaType = cinemaType;
 	}
+	public void printCinema(){
+		System.out.println("Cinema ID: " + id + " Cinema Name: " + name + " Cinema Type: "+ cinemaType);
+	}
 	/**
 	 * Abstract method declared here as we have 3 different subclass of cinema
 	 * which will perform differently due to different seat layout
