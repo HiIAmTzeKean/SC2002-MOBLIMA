@@ -1,23 +1,43 @@
 package cineplexpackage;
 
+import java.util.ArrayList;
+
+import cinemapackage.Cinema;
+
 public interface ICineplex {
+	
+	ArrayList<Cineplex> getCineplexes();
 
-	void createCineplex();
+	void createCineplex(int id, String name, String location);
 
-	void deleteCineplex();
+	void deleteCineplex(int id);
+	
+	String getName(int id);
+	
+	void setName(int id, String name);
+	
+	String getLocation(int id);
 
-	void setLocation();
+	void setLocation(int id, String Location);
 
-	void getCineplexes();
+	void addCinema(int id, Cinema cinema);
 
-	void getName();
+	/**
+	 * Finds cineplex object by id specified
+	 * Removes specified cinema from cineplex object
+	 * If not found raise IllegalArgumentException
+	 * @param id
+	 * @param cinema
+	 */
+	void removeCinema(int id, Cinema cinema);
 
-	void setName();
+	void removeCinemaWithoutID(Cinema cinema);
 
-	void getLocation();
-
-	void addCinema();
-
-	void removeCinema();
-
+	/**
+	 * Finds cineplex object by id specified
+	 * If not found raise IllegalArgumentException
+	 * @param id
+	 * @return Cineplex object
+	 */
+	Cineplex getCineplex(int id);
 }
