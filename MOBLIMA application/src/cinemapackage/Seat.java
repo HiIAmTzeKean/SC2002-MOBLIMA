@@ -1,29 +1,36 @@
-import Customer;
-
 package cinemapackage;
+import customerpackage.Customer;
+
+
 public class Seat {
 
 	private boolean isBook;
+	private int x;
+	private int y;
 	private Customer customer;
 
-	public void IsBooked() {
-		// TODO - implement Seat.IsBooked
-		throw new UnsupportedOperationException();
+	public Seat(int x, int y){
+		this.x = x;
+		this.y = y;
+		isBook = false;
+		customer = null;
+	}
+
+	public boolean IsBooked() {
+		return isBook;
 	}
 
 	public void SetBooked() {
-		// TODO - implement Seat.SetBooked
-		throw new UnsupportedOperationException();
+		isBook = true;
+		System.out.println("Seat " + x + "," + y + "booked.");
 	}
 
-	public void getCustomer() {
-		// TODO - implement Seat.getCustomer
-		throw new UnsupportedOperationException();
+	public Customer getCustomer() {
+		return customer;
 	}
 
-	public void setCustomer() {
-		// TODO - implement Seat.setCustomer
-		throw new UnsupportedOperationException();
+	public void setCustomer(Customer customer) {
+		customer = customer;
 	}
 
 }
