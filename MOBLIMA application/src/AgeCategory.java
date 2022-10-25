@@ -1,5 +1,5 @@
 public enum AgeCategory {
-	Senior Citizen,
+	SeniorCitizen,
 	Adult,
 	Child
 }
