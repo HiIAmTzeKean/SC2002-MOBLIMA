@@ -2,7 +2,7 @@ package agepackage;
 public enum AgeCategory {
 	SENIOR("Senior Citizen"),
 	ADULT("Adult"),
-	CHILD("Child');
+	CHILD("Child");
 	      
 	private String category;
 	      
