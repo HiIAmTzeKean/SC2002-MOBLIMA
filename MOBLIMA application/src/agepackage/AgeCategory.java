@@ -1,13 +1,18 @@
 package agepackage;
 public enum AgeCategory {
-	SENIOR("Senior Citizen"),
-	ADULT("Adult"),
-	CHILD("Child");
+	SENIOR,
+	ADULT,
+	CHILD;
 	      
-	private String category;
+	private AgeCategory category;
 	      
-	AgeCategory(String category) {
-		this.category = category;
+	public void setCategory(int age) {
+		if(age>=60)
+			this.category = AgeCategory.SENIOR;
+		else if(age<=12)
+			this.category = AgeCategory.CHILD;
+		else
+			this.category = AgeCategory.ADULT;
 	}
 	public String getCategory() {
 		return category;
