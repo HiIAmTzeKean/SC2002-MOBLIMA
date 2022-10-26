@@ -9,34 +9,38 @@ import cinemapackage.Cinema;
 
 public class CineplexManager implements ICineplex {
 
-	private ArrayList<Cineplex> cineplexes;
-	private Cineplex cineplex;
-	public CineplexManager() {
+	private static ArrayList<Cineplex> cineplexes;
+	private static CineplexManager cineplexManager;
+
+	private CineplexManager() {
 		cineplexes = new ArrayList<Cineplex>();
 	}
 
-	public CineplexManager(ArrayList<Cineplex> c) {
-		this.cineplexes = c;
+	private CineplexManager(ArrayList<Cineplex> c) {
+		CineplexManager.cineplexes = c;
 	} 
 
-	public static ArrayList<Cineplex> deseraliseCineplexes(String filename){
+	private static ArrayList<Cineplex> deseraliseCineplexes(String filename){
 		ArrayList<Cineplex>  c = null;
 		try {
 			FileInputStream fileIn = new FileInputStream(filename);
 			ObjectInputStream in = new ObjectInputStream(fileIn);
 			c = (ArrayList<Cineplex>) in.readObject();
 			in.close();
-		 } 
-		 catch (IOException i) {
-			i.printStackTrace();
-		 } 
-		 catch (ClassNotFoundException e) {
+		} 
+		catch (IOException i) {
+			// empty binary file
+			// or file not found
+			return new ArrayList<Cineplex>();
+			// i.printStackTrace();
+		} 
+		catch (ClassNotFoundException e) {
 			e.printStackTrace();
-		 }
-		 return c;
+		}
+		return c;
 	}
 
-	public static void seraliseCineplexes(String filename, ArrayList<Cineplex> c) {
+	private static void seraliseCineplexes(String filename, ArrayList<Cineplex> c) {
 		try{
 			FileOutputStream fos = new FileOutputStream(filename);
 			ObjectOutputStream oos = new ObjectOutputStream(fos);
@@ -48,6 +52,19 @@ public class CineplexManager implements ICineplex {
 		}
 	}
 
+	public static CineplexManager getInstance(){
+		if (cineplexManager == null){
+			ArrayList<Cineplex> c = CineplexManager.deseraliseCineplexes("./MOBLIMA application/data/cineplex/cineplex.dat");
+			CineplexManager.cineplexManager = new CineplexManager(c);
+			return CineplexManager.cineplexManager;
+		}
+		return CineplexManager.cineplexManager;
+	}
+
+	public static void close() {
+		CineplexManager.seraliseCineplexes("./MOBLIMA application/data/cineplex/cineplex.dat",cineplexes);
+		CineplexManager.cineplexManager = null;
+	}
 
 	public int findCineplex(int id){
 		int target=0;
@@ -71,7 +88,7 @@ public class CineplexManager implements ICineplex {
 	}
 
 	@Override
-	public void deleteCineplex(int id) {
+	public void deleteCineplex(int id) throws IllegalArgumentException {
 		try{
 			int target = findCineplex(id);
 			cineplexes.remove(target);
@@ -119,7 +136,7 @@ public class CineplexManager implements ICineplex {
 	}
 	
 	@Override
-	public void setLocation(int id, String location) {
+	public void setLocation(int id, String location) throws IllegalArgumentException{
 		try{
 			int target = findCineplex(id);
 			cineplexes.get(target).setLocation(location);
@@ -133,7 +150,7 @@ public class CineplexManager implements ICineplex {
 	}
 
 	@Override
-	public String getLocation(int id) {
+	public String getLocation(int id) throws IllegalArgumentException{
 		try{
 			int target = findCineplex(id);
 			return cineplexes.get(target).getLocation();
@@ -144,56 +161,84 @@ public class CineplexManager implements ICineplex {
 	}
 
 	@Override
-	public void addCinema(int id, Cinema cinema) {
+	public void addCinema(int id, Cinema cinema) throws IllegalArgumentException{
+		System.out.printf("===== Adding Cinema to Cinplex =====\n");
+		int target = 0;
 		try{
-			int target = findCineplex(id);
-			cineplexes.get(target).addCinema(cinema);
-			System.out.println("Cineplex new Cinema updated");
-			System.out.println("The list of Cinemas under Cinema " + cineplexes.get(target).getName() + " is:");
-			cineplexes.get(target).printCineplexCinemas();
+			target = findCineplex(id);
+			// Check if the cinema exist in the cineplex
 		}
 		catch (IllegalArgumentException ex) {
 			throw new IllegalArgumentException("Cineplex is not found");
 		}
+		ArrayList<Cinema> cinemas = cineplexes.get(target).getCinemas();
+		for (Iterator<Cinema> it = cinemas.iterator(); it.hasNext();) {
+			if (it.next().getID() == cinema.getID()) {
+				System.out.printf("Cinema is not added as it already exist in Cineplex\n");
+				System.out.printf("===== Adding Cinema to Cinplex finished =====\n");
+				return;
+			}
+		}
+		
+		cineplexes.get(target).addCinema(cinema);
+		cinema.setCineplexid(cineplexes.get(target).getID());
+		cinema.setCineplexid(id);
+		System.out.println("Cineplex updated with new Cinema");
+		System.out.println("The list of Cinemas under Cinema " + cineplexes.get(target).getName() + " is:");
+		cineplexes.get(target).printCineplexCinemas();
+		System.out.printf("===== Adding Cinema to Cinplex finished =====\n");
 	}
 	
 	@Override
-	public void removeCinema(int id, Cinema cinema) {
+	public void removeCinema(int id, Cinema cinema) throws IllegalArgumentException {
+		System.out.printf("===== Removing Cinema from Cinplex =====\n");
+		int target = 0;
 		try{
-			int target = findCineplex(id);
-			cineplexes.get(target).removeCinema(cinema);
-			System.out.println("Cineplex has been updated");
-			System.out.println("The list of Cinemas under Cinema " + cineplexes.get(target).getName() + " is:");
-			cineplexes.get(target).printCineplexCinemas();
+			target = findCineplex(id);
 		}
 		catch (IllegalArgumentException ex) {
 			throw new IllegalArgumentException("Cineplex is not found");
 		}
+		if (cineplexes.get(target).getID() != cinema.getCineplexID()) {
+			// User trying to delete the cinema that does not exist in cineplex
+			// raise an error
+			throw new IllegalArgumentException("Cinema does not exist in the Cineplex");
+		}
+		cineplexes.get(target).removeCinema(cinema);
+		cinema.setCineplexid(-1);
+		System.out.println("Cineplex has been updated");
+		System.out.println("The list of Cinemas under Cinema " + cineplexes.get(target).getName() + " is:");
+		cineplexes.get(target).printCineplexCinemas();
+		System.out.printf("===== Removing Cinema from Cinplex finished =====\n");
 	}
 
 	@Override
-	public void removeCinemaWithoutID(Cinema cinema) {
-		for (Iterator<Cineplex> it = cineplexes.iterator(); it.hasNext();) {
-			Cineplex cineplex = it.next();
-			ArrayList<Cinema> cinemas = cineplex.getCinemas();
-			for (Cinema c:cinemas){
-				if (c.getID() == cinema.getID()){
-					// Found the cinema in Cinplex
-					// Continue to do removal
-					System.out.println("Cinema to be remove also found in a Cineplex");
-					System.out.println("Cineplex affected:");
-					cineplex.printCineplex();
-					cineplex.removeCinema(cinema);
-					return;
-				}
+	public void removeCinema(Cinema cinema) throws IllegalArgumentException{
+		System.out.printf("===== Removing Cinema from Cinplex =====\n");
+		if (cinema.getCineplexID()!=-1) {
+			// There exist some cineplex that we need to modify
+			int id = cinema.getCineplexID();
+			try{
+				int target = findCineplex(id);
+				System.out.println("Cinema to be remove also found in a Cineplex");
+				System.out.println("Cineplex affected:");
+				cineplexes.get(target).printCineplexCinemas();
+				cineplexes.get(target).removeCinema(cinema);
+				cinema.setCineplexid(-1);
+				System.out.println("Cinema has been removed from Cineplex");
+			}
+			catch (IllegalArgumentException ex) {
+				throw new IllegalArgumentException("Cineplex is not found");
 			}
 		}
+		System.out.println("Cinema to be remove not found in any Cineplex");
 		// Not found
 		// Do not need to throw error since cinema might not exist
+		System.out.printf("===== Removing Cinema from Cinplex finished =====\n");
 	}
 
 	@Override
-	public Cineplex getCineplex(int id) {
+	public Cineplex getCineplex(int id) throws IllegalArgumentException{
 		for (Iterator<Cineplex> it = cineplexes.iterator(); it.hasNext();) {
 			Cineplex c = it.next();
 			if (c.getID() == id) {
