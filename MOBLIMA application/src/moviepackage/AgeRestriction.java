@@ -1,10 +1,13 @@
 package moviepackage;
-public enum MovieType {
-	_2D("2D"),
-	_3D("3D"),
-	BLOCKBUSTER("BLOCKBUSTER");
+
+public enum AgeRestriction {
+	GENERAL("General"),
+	PG("PG"),
+	PG13("PG13"),
+	M18("M18"),
+	R21("R21");
 	private final String textRepresenatation;
-    private MovieType(String textRepresentation){
+    private AgeRestriction(String textRepresentation){
         this.textRepresenatation = textRepresentation;
     }
     @Override
