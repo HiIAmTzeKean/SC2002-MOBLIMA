@@ -1,5 +1,6 @@
 package showtimepackage;
 import cinemapackage.Seat;
+import moviepackage.movie;
 public class Showtime {
 	
 
@@ -35,6 +36,16 @@ public class Showtime {
 	
 	public float getBasePrice(){
 		return basePrice;
+	}
+	
+	public String getMovieName()
+	{
+		return movie.getMovieTitle();
+	}
+	
+	public Date time()
+	{
+		return this.time;
 	}
 
 }
