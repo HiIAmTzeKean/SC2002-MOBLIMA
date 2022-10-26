@@ -29,6 +29,9 @@ public class CinemaManager implements ICinema {
 		} 
 		catch (IOException i) {
 			// i.printStackTrace();
+			// The reason why i return an empty list is because this error occurs
+			// when the binary file is empty (No object state as it is a fresh file)
+			// or the file cannot be read for whatever reason
 			return new ArrayList<Cinema>();
 		} 
 		catch (ClassNotFoundException e) {
@@ -104,7 +107,6 @@ public class CinemaManager implements ICinema {
 		throw new IllegalArgumentException("Cinema is not found");
 	}
 
-	@Override
 	public ArrayList<Cinema> getCinemas() {
 		return cinemas;
 	}

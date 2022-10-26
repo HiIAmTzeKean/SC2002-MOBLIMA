@@ -5,8 +5,6 @@ import java.util.ArrayList;
 import cinemapackage.Cinema;
 
 public interface ICineplex {
-	
-	ArrayList<Cineplex> getCineplexes();
 
 	void createCineplex(int id, String name, String location) throws IllegalArgumentException;
 

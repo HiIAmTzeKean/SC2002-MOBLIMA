@@ -17,16 +17,11 @@ public interface ICinema {
 	 * Search through array of cinemas and locate the id to be delete. If the ID is found, success
 	 * message will be printed else
 	 * 
-	 * @param id
+	 * @param CinemaID
 	 * @param cineplexManager
 	 */
-	void deleteCinema(int id, ICineplex cineplexManager);
+	void deleteCinema(int CinemaID, ICineplex cineplexManager);
 
-	/**
-	 * Returns an array list of objects(cinema)
-	 * @return
-	 */
-	ArrayList<Cinema> getCinemas();
 
 	/**
 	 * Print all cinema that cinema manager has

@@ -7,7 +7,7 @@ import cinemapackage.*;
 
 public class appTest {
     public static void main(String args []){
-        boolean createDat = true;
+        boolean createDat = false;
         if (createDat){
             File file = new File("./MOBLIMA application/data/cineplex/cineplex.dat");
             file.delete();
@@ -28,19 +28,17 @@ public class appTest {
             CinemaManager.close();
         }
         else {
-            CinemaManager cinemaManager = CinemaManager.getInstance();
+            // using an object that implements ICinema
+            // -> i do not need to know what methods are in CinemaManager
+            // By using the interface, i do not accidentally use a method that is not supposed to be
+            // seen by another package
+            ICinema cinemaHandler = CinemaManager.getInstance();
             CineplexManager cineplexManager =  CineplexManager.getInstance();
             
-            cineplexManager.getCineplex(0).printCineplexCinemas();
-            // System.out.println();
-            // cinemaManager.deleteCinema(0,cineplexManager);
-            // System.out.println();
-            // cinemaManager.deleteCinema(1,cineplexManager);
-            // System.out.println();
-            // cineplexManager.removeCinema(0, cinemaManager.getCinema(2));
-            // cineplexManager.getCineplex(0).printCineplexCinemas();
-            // System.out.println();
-            cinemaManager.printCinemas();
+            // Here we can see the power of DIP
+            // using an interface type object to perform a function that it states it has
+            // some class will implement this function, but we dont need to know who
+            cinemaHandler.deleteCinema(1,cineplexManager);
         }
     }
 }

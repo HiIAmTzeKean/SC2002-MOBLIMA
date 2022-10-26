@@ -14,7 +14,7 @@ public class appTest {
                 file.createNewFile();
             }
             catch (IOException ex){}
-
+            
             CinemaManager cm = CinemaManager.getInstance();
             cm.createCinema(0,"Westgate 1","Platinum");
             cm.createCinema(1,"Westgate 2","Gold");
