@@ -5,7 +5,6 @@ import java.util.ArrayList;
 import cineplexpackage.ICineplex;
 
 public interface ICinema {
-
 	/**
 	 * Create a new cinema in cinema manager
 	 * @param id

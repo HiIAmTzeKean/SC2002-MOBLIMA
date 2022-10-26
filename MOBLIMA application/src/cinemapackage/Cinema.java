@@ -3,11 +3,14 @@ package cinemapackage;
 import java.io.Serializable;
 import java.util.ArrayList;
 
+
 public abstract class Cinema  implements Serializable{
-	protected ArrayList<ArrayList<Seat>> seats;
+	private static final long serialVersionUID = 6266710308272298089L;
 	protected char colList[] = {'A', 'B', 'C', 'D', 'E'};
+	protected ArrayList<ArrayList<Seat>> seats;
 	private CinemaType cinemaType;
 	private String name;
+	private int Cineplexid;
 	private int id;
 
 	/**
@@ -20,12 +23,21 @@ public abstract class Cinema  implements Serializable{
 		this();
 		this.name = name;
 		this.id = id;
+		this.Cineplexid = -1;
 	}
 
+	/**
+	 * Returns an ArrayList of seat objects
+	 * @return
+	 */
 	public ArrayList<ArrayList<Seat>> getSeats() {
 		return seats;
 	}
 
+	/**
+	 * Returns name of Cinema
+	 * @return
+	 */
 	public String getName() {
 		return name;
 	}
@@ -48,6 +60,12 @@ public abstract class Cinema  implements Serializable{
 	}
 	public void printCinema(){
 		System.out.println("Cinema ID: " + id + " Cinema Name: " + name + " Cinema Type: "+ cinemaType);
+	}
+	public int getCineplexID(){
+		return this.Cineplexid;
+	}
+	public void setCineplexid(int cineplexID) {
+		this.Cineplexid = cineplexID;
 	}
 	/**
 	 * Abstract method declared here as we have 3 different subclass of cinema
