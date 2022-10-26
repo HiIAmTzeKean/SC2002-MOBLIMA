@@ -1,14 +1,6 @@
 package moviepackage;
 public interface ISales {
-
-	/**
-	 * 
-	 * @param movieName
-	 */
-	int getSales(String movieName);
-
+	void getSales();
 	void getTop5_sales();
-
 	void getTop5_rating();
-
 }
