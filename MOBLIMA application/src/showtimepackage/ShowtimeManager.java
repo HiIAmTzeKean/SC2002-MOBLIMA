@@ -24,7 +24,7 @@ public class ShowtimeManager implements IBooking, IShowtimeSystem {
 	
 	
 	public void bookShow(int n){
-		bookSeat();
+		bookSeat(showtimes.get(n));
 	}
 		
 		
