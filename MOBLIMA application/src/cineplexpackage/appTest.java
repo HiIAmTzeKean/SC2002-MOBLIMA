@@ -1,41 +1,45 @@
 package cineplexpackage;
 
-import java.util.ArrayList;
+import java.io.File;
+import java.io.IOException;
 
 import cinemapackage.*;
 
 public class appTest {
     public static void main(String args []){
-        boolean createDat = false;
+        boolean createDat = true;
         if (createDat){
-            CineplexManager cm = new CineplexManager();
+            File file = new File("./MOBLIMA application/data/cineplex/cineplex.dat");
+            file.delete();
+            try{
+                file.createNewFile();
+            }
+            catch (IOException ex){}
+            
+            CineplexManager cm =  CineplexManager.getInstance();
             cm.createCineplex(0,"Westgate", "Jurong East");
             cm.createCineplex(1,"JEM", "Jurong East");
-
-            ArrayList<Cinema> cinemas = CinemaManager.deseraliseCinemas("./MOBLIMA application/data/cinema/cinema.dat");
-            CinemaManager cinemaManager = new CinemaManager(cinemas);
-            
+            CinemaManager cinemaManager = CinemaManager.getInstance();
             cm.addCinema(0,cinemaManager.getCinema(0));
             cm.addCinema(0,cinemaManager.getCinema(1));
             cm.addCinema(0,cinemaManager.getCinema(2));
-            ArrayList<Cineplex>c=cm.getCineplexes();
-            CineplexManager.seraliseCineplexes("./MOBLIMA application/data/cineplex/cineplex.dat", c);
+
+            CineplexManager.close();
+            CinemaManager.close();
         }
         else {
-            ArrayList<Cinema> cc = CinemaManager.deseraliseCinemas("./MOBLIMA application/data/cinema/cinema.dat");
-            CinemaManager cinemaManager = new CinemaManager(cc);
-            ArrayList<Cineplex> c = CineplexManager.deseraliseCineplexes("./MOBLIMA application/data/cineplex/cineplex.dat");
-            CineplexManager cineplexManager = new CineplexManager(c);
+            CinemaManager cinemaManager = CinemaManager.getInstance();
+            CineplexManager cineplexManager =  CineplexManager.getInstance();
             
             cineplexManager.getCineplex(0).printCineplexCinemas();
-            System.out.println();
+            // System.out.println();
             // cinemaManager.deleteCinema(0,cineplexManager);
             // System.out.println();
             // cinemaManager.deleteCinema(1,cineplexManager);
             // System.out.println();
-            cineplexManager.removeCinema(0, cinemaManager.getCinema(2));
-            cineplexManager.getCineplex(0).printCineplexCinemas();
-            System.out.println();
+            // cineplexManager.removeCinema(0, cinemaManager.getCinema(2));
+            // cineplexManager.getCineplex(0).printCineplexCinemas();
+            // System.out.println();
             cinemaManager.printCinemas();
         }
     }

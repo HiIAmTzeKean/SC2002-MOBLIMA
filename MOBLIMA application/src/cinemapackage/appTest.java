@@ -1,13 +1,21 @@
 package cinemapackage;
 
 import java.io.File;
+import java.io.IOException;
 import java.util.ArrayList;
 
 public class appTest {
     public static void main(String args []){
         boolean createDat = true;
         if (createDat){
-            CinemaManager cm = new CinemaManager();
+            File file = new File("./MOBLIMA application/data/cinema/cinema.dat");
+            file.delete();
+            try{
+                file.createNewFile();
+            }
+            catch (IOException ex){}
+
+            CinemaManager cm = CinemaManager.getInstance();
             cm.createCinema(0,"Westgate 1","Platinum");
             cm.createCinema(1,"Westgate 2","Gold");
             cm.createCinema(2,"Westgate 3","Sliver");
@@ -15,12 +23,12 @@ public class appTest {
             cm.createCinema(4,"JEM 2","Gold");
             cm.createCinema(5,"JEM 3","Gold");
             cm.createCinema(6,"JEM 4","Sliver");
-            ArrayList<Cinema> c = cm.getCinemas();
-            CinemaManager.seraliseCinemas("./MOBLIMA application/data/cinema/cinema.dat", c);
+            CinemaManager.close();
         }
         else {
-            ArrayList<Cinema> c = CinemaManager.deseraliseCinemas("./MOBLIMA application/data/cinema/cinema.dat");
-            CinemaManager cm = new CinemaManager(c);
+            CinemaManager cm = CinemaManager.getInstance();
+            cm.printCinemas();
+            CinemaManager.close();
         }
     }
 }
