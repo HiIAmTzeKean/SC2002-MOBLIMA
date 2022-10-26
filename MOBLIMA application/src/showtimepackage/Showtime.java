@@ -5,6 +5,7 @@ public class Showtime {
 
 	private Movie movie;
 	private Cinema cinema;
+	private Cineplex cineplex;
 	private Date time;
 	private float basePrice;
 	private Day day;
@@ -27,4 +28,13 @@ public class Showtime {
 			System.out.println("");
 		}
 	}	
+	
+	public void setBasePrice(float p){
+		basePrice = p;
+	}
+	
+	public float getBasePrice(){
+		return basePrice;
+	}
+
 }
