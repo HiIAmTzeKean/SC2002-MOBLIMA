@@ -1,11 +1,31 @@
 package showtimepackage;
 
 public class Showtime {
+	
 
 	private Movie movie;
-	private Cinema cinemia;
+	private Cinema cinema;
 	private Date time;
 	private float basePrice;
 	private Day day;
+	private int[][] layout = new int[10][10];
+	
+	Showtime()
+	{
+		for(int i=0;i<10;i++)
+			for(int j=0;j<1;j++)
+				layout[i][j] = 0;
+		
+		basePrice = 10;
+	}
+	
+	public void printLayout()
+	{
+		for(int i=0;i<10;i++){
+			for(int j=0;j<1;j++)
+				System.out.print(layout[i][j];
+			System.out.println("");
+		}
+	}	
 
 }
