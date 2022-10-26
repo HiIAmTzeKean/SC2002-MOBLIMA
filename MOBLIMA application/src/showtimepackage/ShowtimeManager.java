@@ -22,12 +22,19 @@ public class ShowtimeManager implements IBooking, IShowtimeSystem {
 		showtimes.remove(n);
 	}
 	
+	public void displayShowtime()
+	{
+		for(int i=0;i<showtimes.size();i++)
+		{
+			
+		}
+			
+	}
 	
 	public void bookShow(int n){
 		bookSeat(showtimes.get(n));
 	}
 		
 		
-	}
-	
 }
+
