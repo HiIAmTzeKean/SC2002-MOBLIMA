@@ -1,12 +1,13 @@
 package agepackage;
-
+import customerpackage.Customer;
 public class Age implements IAge {
 
 	
-	private int age = getAge();
+	private int age;
 	private AgeCategory category;
 	      
-	public float getMultiplier(int age) {
+	public float getMultiplier() {
+		age = getAge();
 		if(age>=60){
 			this.category = AgeCategory.SENIOR;
 			return 0.7;
