@@ -6,7 +6,7 @@ public class Day implements IDay {
 	private int isHoliday;
 	private DayOfWeek dayOfWeek;
 	private static int multiplier;
-
+	private int id;
 	// range 1 - 30
 	private int dayNumber;
 	// range 1 - 12
