@@ -1,51 +1,46 @@
 package showtimepackage;
-import cinemapackage.Seat;
-import moviepackage.movie;
-public class Showtime {
+import java.util.Date;
+
+import javax.naming.directory.SearchControls;
+
+import cinemapackage.ICinemaBooking;
+import daypackage.IDay;
+import moviepackage.Movie;
+
+public class Showtime implements IBooking{
 	
 
 	private Movie movie;
-	private Cinema cinema;
-	private Cineplex cineplex;
-	private Date time;
-	private float basePrice;
-	private Day day;
-	private Seat[][] layout = new Seat[10][10];
+	private ICinemaBooking cinema;
+	private static float basePrice;
+	private IDay day;
 	
-	Showtime()
-	{
-		for(int i=0;i<10;i++)
-			for(int j=0;j<1;j++)
-				layout[i][j] = new Seat(i,j);
-		
+	Showtime() {
 		basePrice = 10;
 	}
 	
-	public void printLayout()
-	{
-		for(int i=0;i<10;i++){
-			for(int j=0;j<1;j++)
-				System.out.print(layout[i][j].isBooked + "  ");
-			System.out.println("");
-		}
+	public void printLayout() {
+		// Cinema has this interface
+		cinema.printCinemaLayout();
 	}	
-	
-	public void setBasePrice(float p){
-		basePrice = p;
+	public void bookSeat(int cinemaID, String seatRow, int seatCol, Customer customer){
+		cinema.bookSeat(cinemaID, seatRow, seatCol, customer);
 	}
-	
+	public void removeBooking(int cinemaID, String seatRow, int seatCol){
+		cinema.removeBooking(cinemaID, seatRow, seatCol);
+	}
+	public boolean isBooked(String seatRow, int seatCol){
+		return cinema.isBooked(seatRow, seatCol);
+	}
 	public float getBasePrice(){
 		return basePrice;
 	}
-	
+	public void setBasePrice(float basePrice){
+		Showtime.basePrice = basePrice;
+	}
 	public String getMovieName()
 	{
 		return movie.getMovieTitle();
-	}
-	
-	public Date time()
-	{
-		return this.time;
 	}
 
 }

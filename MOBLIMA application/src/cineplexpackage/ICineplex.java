@@ -1,46 +1,44 @@
 package cineplexpackage;
 
-import java.util.ArrayList;
-
 import cinemapackage.Cinema;
 
 public interface ICineplex {
 
-	void createCineplex(int id, String name, String location) throws IllegalArgumentException;
+	void createCineplex(int CineplexID, String name, String location) throws IllegalArgumentException;
 
-	void deleteCineplex(int id) throws IllegalArgumentException;
+	void deleteCineplex(int CineplexID) throws IllegalArgumentException;
 	
-	String getName(int id) throws IllegalArgumentException;
+	String getName(int CineplexID) throws IllegalArgumentException;
 	
-	void setName(int id, String name) throws IllegalArgumentException;
+	void setName(int CineplexID, String name) throws IllegalArgumentException;
 	
-	String getLocation(int id) throws IllegalArgumentException;
+	String getLocation(int CineplexID) throws IllegalArgumentException;
 
-	void setLocation(int id, String Location) throws IllegalArgumentException;
+	void setLocation(int CineplexID, String Location) throws IllegalArgumentException;
 
-	void addCinema(int id, Cinema cinema) throws IllegalArgumentException;
+	void addCinema(int CineplexID, Cinema cinema) throws IllegalArgumentException;
 
 	/**
-	 * Finds cineplex object by id specified
+	 * Finds cineplex object by CineplexID specified
 	 * Removes specified cinema from cineplex object
 	 * If not found raise IllegalArgumentException
-	 * @param id
+	 * @param CineplexID
 	 * @param cinema
 	 */
-	void removeCinema(int id, Cinema cinema) throws IllegalArgumentException;
+	void removeCinema(int CineplexID, Cinema cinema) throws IllegalArgumentException;
 
 	/**
-	 * Uses the id stored in cinema to find the cineplex object
-	 * Used when id of cineplex is not known
+	 * Uses the CineplexID stored in cinema to find the cineplex object
+	 * Used when CineplexID of cineplex is not known
 	 * @param cinema
 	 */
 	void removeCinema(Cinema cinema) throws IllegalArgumentException;
 
 	/**
-	 * Finds cineplex object by id specified
+	 * Finds cineplex object by CineplexID specified
 	 * If not found raise IllegalArgumentException
-	 * @param id
+	 * @param CineplexID
 	 * @return Cineplex object
 	 */
-	Cineplex getCineplex(int id) throws IllegalArgumentException;
+	Cineplex getCineplex(int CineplexID) throws IllegalArgumentException;
 }
