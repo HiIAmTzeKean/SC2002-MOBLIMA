@@ -35,4 +35,15 @@ public class Showtime{
 	public float setBasePrice(float basePrice){
 		this.basePrice = basePrice;
 	}
+	
+	public String getMovieName()
+	{
+		return movie.getMovieTitle();
+	}
+	
+	public Date time()
+	{
+		return this.time;
+	}
+
 }
