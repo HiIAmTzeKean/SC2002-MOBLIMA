@@ -5,7 +5,7 @@ public class Day implements IDay {
 
 	private int isHoliday;
 	private DayOfWeek dayOfWeek;
-	private int multiplier;
+	private static int multiplier;
 
 	// range 1 - 30
 	private int dayNumber;
@@ -13,6 +13,8 @@ public class Day implements IDay {
 	private int monthNumber;
 	private int yearNumber;
 
+	// "1300" means 1pm
+	private String time;
 	@Override
 	public void getMultiplier() {
 		// if holiday then the multiplier should be doubled
@@ -53,6 +55,16 @@ public class Day implements IDay {
 	public DayOfWeek getDayOfWeek() {
 		// TODO Auto-generated method stub
 		return null;
+	}
+	@Override
+	public String getDate() {
+		// returns date string
+		// DDMMYYYY
+	}
+	@Override
+	public void setDayOfWeek(DayOfWeek day) {
+		// TODO Auto-generated method stub
+		
 	}
 
 	

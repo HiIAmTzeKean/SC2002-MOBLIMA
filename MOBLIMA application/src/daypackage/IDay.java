@@ -8,6 +8,8 @@ public interface IDay {
 	void setHoliday();
 	void removeHoliday();
 	void setDate(int dayNumber, int monthNumber, int yearNumber);
+	String getDate();
+	void setDayOfWeek(DayOfWeek day);
 	DayOfWeek getDayOfWeek();
 
 }
