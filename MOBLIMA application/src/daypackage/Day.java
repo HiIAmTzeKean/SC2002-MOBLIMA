@@ -66,6 +66,4 @@ public class Day implements IDay {
 		// TODO Auto-generated method stub
 		
 	}
-
-	
 }

@@ -9,7 +9,7 @@ public abstract class Cinema  implements Serializable{
 	protected char colList[] = {'A', 'B', 'C', 'D', 'E'};
 	protected ArrayList<ArrayList<Seat>> seats;
 	private CinemaType cinemaType;
-	private String code;
+	private String name;
 	private int Cineplexid;
 	private int id;
 
@@ -19,9 +19,9 @@ public abstract class Cinema  implements Serializable{
 	public Cinema() {
 		seats = new ArrayList<ArrayList<Seat>>();
 	}
-	public Cinema(String code,int id) {
+	public Cinema(String name,int id) {
 		this();
-		this.code = code;
+		this.name = name;
 		this.id = id;
 		this.Cineplexid = -1;
 	}
@@ -33,16 +33,17 @@ public abstract class Cinema  implements Serializable{
 	public ArrayList<ArrayList<Seat>> getSeats() {
 		return seats;
 	}
+
 	/**
-	 * Returns code of Cinema
+	 * Returns name of Cinema
 	 * @return
 	 */
-	public String getCode() {
-		return code;
+	public String getName() {
+		return name;
 	}
 
-	public void setCode(String code) {
-		this.code = code;
+	public void setName(String name) {
+		this.name = name;
 	}
 
 	public int getID(){
@@ -58,7 +59,7 @@ public abstract class Cinema  implements Serializable{
 		this.cinemaType = cinemaType;
 	}
 	public void printCinema(){
-		System.out.println("Cinema ID: " + id + " Cinema code: " + code + " Cinema Type: "+ cinemaType);
+		System.out.println("Cinema ID: " + id + " Cinema Name: " + name + " Cinema Type: "+ cinemaType);
 	}
 	public int getCineplexID(){
 		return this.Cineplexid;

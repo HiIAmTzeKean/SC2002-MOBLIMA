@@ -18,7 +18,6 @@ public class Cineplex implements Serializable{
 		this.name = name;
 		cinemas = new ArrayList<Cinema>();
 	}
-
 	public void addCinema(Cinema cinema){
 		cinemas.add(cinema);
 		System.out.println("===== Target is =====");
@@ -64,34 +63,16 @@ public class Cineplex implements Serializable{
 	public void setID(int id) {
 		this.id = id;
 	}
-	/**
-	 * Returns ArrayList of cinema objects under Cineplex object
-	 * Method to be used with caution as cinema under Cineplex is only
-	 * stored as template, and booking should be done under the CinemaManager
-	 * @return
-	 */
+
 	public ArrayList<Cinema> getCinemas(){
 		return cinemas;
 	}
-	/**
-	 * Prints all cinemas under Cineplex object
-	 */
 	public void printCineplexCinemas() {
 		for (Cinema c: cinemas){
 			c.printCinema();
 		}
 	}
-	/**
-	 * Prints the current state of Cinplex object
-	 */
 	public void printCineplex() {
 		System.out.println("Cineplex ID: " + id + " Cineplex Name: " + name + " Cineplex Location: "+ location);
-	}
-
-	/**
-	 * Returns String formmated Cineplex object for display
-	 */
-	public String toString() {
-		return "Cineplex ID: " + id + " Cineplex Name: " + name + " Cineplex Location: "+ location;
 	}
 }
