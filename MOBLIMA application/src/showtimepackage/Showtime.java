@@ -1,16 +1,19 @@
 package showtimepackage;
+import java.util.Date;
+
 import javax.naming.directory.SearchControls;
 
 import cinemapackage.ICinemaBooking;
-import cinemapackage.Seat;
-public class Showtime{
+import daypackage.IDay;
+import moviepackage.Movie;
+
+public class Showtime implements IBooking{
 	
 
 	private Movie movie;
 	private ICinemaBooking cinema;
-	private Date time;
-	private float basePrice;
-	private Day day;
+	private static float basePrice;
+	private IDay day;
 	
 	Showtime() {
 		basePrice = 10;
@@ -26,24 +29,18 @@ public class Showtime{
 	public void removeBooking(int cinemaID, String seatRow, int seatCol){
 		cinema.removeBooking(cinemaID, seatRow, seatCol);
 	}
-	public boolean IsBooked(String seatRow, int seatCol){
-		cinema.IsBooked(seatRow, seatCol);
+	public boolean isBooked(String seatRow, int seatCol){
+		return cinema.isBooked(seatRow, seatCol);
 	}
 	public float getBasePrice(){
 		return basePrice;
 	}
-	public float setBasePrice(float basePrice){
-		this.basePrice = basePrice;
+	public void setBasePrice(float basePrice){
+		Showtime.basePrice = basePrice;
 	}
-	
 	public String getMovieName()
 	{
 		return movie.getMovieTitle();
-	}
-	
-	public Date time()
-	{
-		return this.time;
 	}
 
 }
