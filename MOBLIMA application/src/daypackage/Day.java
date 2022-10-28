@@ -17,7 +17,7 @@ public class Day implements IDay {
 	// "1300" means 1pm
 	private String time;
 	
-	public Day{
+	public Day(){
 		this.isHoliday = false;
 		multiplier = 1;
 	}
@@ -26,7 +26,7 @@ public class Day implements IDay {
 	public float getMultiplier() {
 		// if holiday then the multiplier should be doubled
 		// for eg. if the mulitplier is 0.5 then holiday = 0.5 * 2
-		if(this.dayOfWeek.equals(SUN)||this.dayOfWeek.equals(SAT)
+		if(this.dayOfWeek.equals(DayOfWeek.SUN)||this.dayOfWeek.equals(DayOfWeek.SAT)
 		   return multiplier
 		else if(this.isHoliday)
 		   return 2;
