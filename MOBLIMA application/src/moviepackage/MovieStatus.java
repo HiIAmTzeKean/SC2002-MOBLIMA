@@ -1,6 +1,7 @@
 package moviepackage;
 
 public enum MovieStatus {
+    PREVIEW("PREVIEW"),
     NOW_SHOWING("NOW SHOWING"),
     COMING_SOON("COMING SOON");
     private final String textRepresenatation;

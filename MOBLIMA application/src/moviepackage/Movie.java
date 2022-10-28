@@ -1,8 +1,9 @@
 package moviepackage;
 import java.util.Comparator;
+import java.util.HashMap;
 import java.util.ArrayList;
-
 public class Movie {
+	private int id;
 	private String movieTitle;
 	private MovieStatus movieStatus;
 	private String synopsis;
@@ -10,9 +11,18 @@ public class Movie {
 	private String cast;
 	private AgeRestriction ageRestriction;
 	private MovieType movieType;
-	private ArrayList<Review> reviews;
 	private int sales;
-	public Movie(String movieTitle, MovieStatus movieStatus, String synopsis, String director, String cast, AgeRestriction ageRestriction, MovieType movieType, ArrayList<Review> reviews, int sales){
+	private int duration;
+	private ArrayList<Review> reviews = new ArrayList<Review>();
+	private static HashMap<MovieType, Double> multiplier;
+	static{
+		multiplier = new HashMap<MovieType, Double>();
+		multiplier.put(MovieType.valueOf("2D"),1.10);
+		multiplier.put(MovieType.valueOf("3D"),1.25);
+		multiplier.put(MovieType.valueOf("BLOCKBUSTER"),1.5);
+	}
+	public Movie(int movieID, String movieTitle, MovieStatus movieStatus, String synopsis, String director, String cast, AgeRestriction ageRestriction, MovieType movieType, int duration){
+		this.id = movieID;
 		this.movieTitle = movieTitle;
 		this.movieStatus = movieStatus;
 		this.synopsis = synopsis;
@@ -20,8 +30,11 @@ public class Movie {
 		this.cast = cast;
 		this.ageRestriction = ageRestriction;
 		this.movieType = movieType;
-		this.reviews = reviews;
-		this.sales = sales;
+		this.duration = duration;
+		this.sales = 0;
+	}
+	public int getID(){
+		return this.id;
 	}
 	public String getMovieTitle(){
 		return this.movieTitle;
@@ -47,6 +60,9 @@ public class Movie {
 	public MovieType getMovieType(){
 		return this.movieType;
 	}
+	public void setMovieType(MovieType movieType){
+		this.movieType = movieType;
+	}
 	public ArrayList<Review> getReviews(){
 		return this.reviews;
 	}
@@ -57,11 +73,41 @@ public class Movie {
 		}
 		return answer/(float)this.getReviews().size();
 	}
+	public void addReview(Review review){
+		this.reviews.add(review);
+	}
 	public int getSales(){
 		return this.sales;
 	}
-	public void setMovieStatus(ShowStatus status){
-		//TODO: Check if needed??
+	public double getMultiplier(){
+		double m = multiplier.get(this.movieType);
+		return m;
+	}
+	public int getDuration(){
+		return this.duration;
+	}
+	public void setDuration(int duration){
+		this.duration = duration;
+	}
+	public void setMovieStatus(MovieStatus status){
+		this.movieStatus = status;
+	}
+	public void addSales(int toAdd){
+		this.sales+=toAdd;
+	}
+	public void printMovieComplete(){
+		System.out.printf("Name: %s\n",this.movieTitle);
+		System.out.printf("Director: %s\n",this.director);
+		System.out.printf("Cast: %s\n",this.cast);
+		System.out.printf("Age Rating: %s\n",this.ageRestriction.toString());
+		System.out.printf("Duration: %d\n",this.duration);
+		System.out.printf("Average Review Score: %\n",this.getReviewScores());
+	}
+	public void printMovieIncomplete(){
+		System.out.printf("Name: %s\n",this.movieTitle);
+		System.out.printf("Director: %s\n",this.director);
+		System.out.printf("Age Rating: %s\n",this.ageRestriction.toString());
+		System.out.printf("Duration: %d\n",this.duration);
 	}
 	
 	public static Comparator<Movie> salesComparator = new Comparator<Movie>(){
