@@ -4,7 +4,7 @@ import java.util.*;
 
 public class Day implements IDay {
 
-	private int isHoliday;
+	private boolean isHoliday;
 	private DayOfWeek dayOfWeek;
 	private static float multiplier;
 
@@ -18,7 +18,7 @@ public class Day implements IDay {
 	private String time;
 	
 	public Day{
-		this.isHoliday = 0;
+		this.isHoliday = false;
 		multiplier = 1;
 	}
 	
@@ -46,13 +46,13 @@ public class Day implements IDay {
 	@Override
 	public void setHoliday() {
 		// TODO Auto-generated method stub
-		this.isHoldiay = 1;
+		this.isHoldiay = true;
 		
 	}
 	@Override
 	public void removeHoliday() {
 		// TODO Auto-generated method stub
-		this.isHoliday = 0;
+		this.isHoliday = false;
 		
 	}
 	@Override
