@@ -19,7 +19,7 @@ public class Day implements IDay {
 	
 	public Day{
 		this.isHoliday = 0;
-		this.multiplier = 1;
+		multiplier = 1;
 	}
 	
 	@Override
@@ -27,7 +27,7 @@ public class Day implements IDay {
 		// if holiday then the multiplier should be doubled
 		// for eg. if the mulitplier is 0.5 then holiday = 0.5 * 2
 		if(this.dayOfWeek.equals(SUN)||this.dayOfWeek.equals(SAT)
-		   return this.multiplier
+		   return multiplier
 		else if(this.isHoliday)
 		   return 2;
 		else
@@ -38,9 +38,9 @@ public class Day implements IDay {
 	public void setMultiplier(float newMulitplier) {
 		// TODO Auto-generated method stub
 		if(isHoliday)
-			this.multiplier = 2*newMulitplier;
+			multiplier = 2*newMulitplier;
 		else
-			this.multiplie = newMulitplier;
+			multiplie = newMulitplier;
 		
 	}
 	@Override
