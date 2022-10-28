@@ -2,10 +2,10 @@ package daypackage;
 
 public enum DayOfWeek {
 	MON("Monday"),
-	TUE("Tuesday'),
+	TUE("Tuesday"),
 	WED("Wednesday"),
 	THU("Thursday"),
-	FRI("Friday'),
+	FRI("Friday"),
 	SAT("Saturday"),
 	SUN("Sunday";
 	    
