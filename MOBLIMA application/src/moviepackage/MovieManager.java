@@ -8,19 +8,29 @@ import java.io.ObjectOutputStream;
 import java.util.ArrayList;
 import java.io.IOException;
 //TODO - Add JavaDoc Comments
-//TODO - Add Serializable Data
 /**
  * Manager class that implements interface methods to manage movies, sales, and reviews for a cinema.
  */
 public class MovieManager implements ISales, IReviews, IMovie {
 	private static ArrayList <Movie> movies;
 	private static MovieManager movieManager;
+	/**
+	 * Default Constructor for MovieManager - initializes an empty ArrayList for Movies.
+	 */
 	private MovieManager(){
 		movies = new ArrayList<Movie>();
 	}
+	/**
+	 * Alternate Constructor for MovieManager that is used when serialising data - assigns the 
+	 * @param movies
+	 */
 	private MovieManager(ArrayList<Movie> movies){
 		MovieManager.movies = movies;
 	}
+	/**
+	 * @param fileName
+	 * @return
+	 */
 	private static ArrayList<Movie> deseraliseMovies(String fileName){
 		ArrayList<Movie> m = null;
 		try{
