@@ -28,7 +28,7 @@ public class Day implements IDay {
 		// for eg. if the mulitplier is 0.5 then holiday = 0.5 * 2
 		if(this.dayOfWeek.equals(SUN)||this.dayOfWeek.equals(SAT)
 		   return this.multiplier
-		if(this.isHoliday)
+		else if(this.isHoliday)
 		   return 2;
 		else
 		   return 1;
