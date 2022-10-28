@@ -7,7 +7,6 @@ import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.util.ArrayList;
 import java.io.IOException;
-//TODO - Add JavaDoc Comments
 /**
  * Manager class that implements interface methods to manage movies, sales, and reviews for a cinema.
  */
@@ -22,14 +21,15 @@ public class MovieManager implements ISales, IReviews, IMovie {
 	}
 	/**
 	 * Alternate Constructor for MovieManager that is used when serialising data - assigns the 
-	 * @param movies
+	 * @param movies the ArrayList of movies that is assigned to the instantiated object.
 	 */
 	private MovieManager(ArrayList<Movie> movies){
 		MovieManager.movies = movies;
 	}
 	/**
-	 * @param fileName
-	 * @return
+	 * Reads serialised data from a .dat file, returns an empty ArrayList if there is an error reading the file.
+	 * @param fileName the filename to read the serialized data from
+	 * @return an ArrayList containing the serialised movie data from the file.
 	 */
 	private static ArrayList<Movie> deseraliseMovies(String fileName){
 		ArrayList<Movie> m = null;
@@ -47,6 +47,11 @@ public class MovieManager implements ISales, IReviews, IMovie {
 		}
 		return m;
 	}
+	/**
+	 * Function that writes a serialisable ArrayList of movies to a .dat file.
+	 * @param filename filepath of the .dat file to serialise data to
+	 * @param m ArrayList of movies to serialise
+	 */
 	private static void serialiseMovies(String filename, ArrayList<Movie> m){
 		try{
 			FileOutputStream fos = new FileOutputStream(filename);
@@ -58,6 +63,11 @@ public class MovieManager implements ISales, IReviews, IMovie {
 			i.printStackTrace();
 		}
 	}
+	/**
+	 * Checks if there is an existing instance of MovieManager. 
+	 * If none exists, load movie information stored in the data file with deserialiseMovies() and return the instantiated object.
+	 * @return an instantiated MovieManager instance.
+	 */
 	public static MovieManager getInstance(){
 		if(movieManager == null){
 			ArrayList<Movie> m = MovieManager.deseraliseMovies("./MOBLIMA application/data/movie/movie.dat");
@@ -66,10 +76,19 @@ public class MovieManager implements ISales, IReviews, IMovie {
 		}
 		return MovieManager.movieManager;
 	}
+	/**
+	 * A destructor that saves the current state of the movies array into a .dat file and deallocates memory to the MovieManager object.
+	 */
 	public static void close(){
 		MovieManager.serialiseMovies("./MOBLIMA application/data/movie/movie.dat", movies);
 		MovieManager.movieManager = null;
 	}
+	/**
+	 * Returns the index of the movie with the corresponding movieID
+	 * @param id movieID to search for
+	 * @return index of movie in the movies array
+	 * @throws IllegalArgumentException if the movies array is empty or if the movie is not found.
+	 */
 	public int findMovie(int id) throws IllegalArgumentException{
 		if(movies.size() == 0 || movies == null){
 			throw new IllegalArgumentException("There are no movies to find");
@@ -84,6 +103,9 @@ public class MovieManager implements ISales, IReviews, IMovie {
 		}
 		throw new IllegalArgumentException("Movie not found");
 	}
+	/**
+	 * @return current array of movies
+	 */
 	public ArrayList<Movie> getMovies(){
 		return movies;
 	}
@@ -91,6 +113,7 @@ public class MovieManager implements ISales, IReviews, IMovie {
 	@Override
 	/**
 	 * Prints the movies stored in the movies array. Used to support class functions to get and set movie attributes.
+	 * Ignores movies that have been marked as "End of Showing"
 	 */
 	public void printMovies(){
 		for(Iterator<Movie> it = movies.iterator(); it.hasNext();){
@@ -100,8 +123,14 @@ public class MovieManager implements ISales, IReviews, IMovie {
 			}
 		}
 	}
+	/** 
+	 * Function that checks if the review object is valid and appends it to the a movie's review array if the movieID is valid.
+	@param movieID ID of the movie to add the review to.
+	@param review Review object to append to the movie's existing reviews.
+	@throws IllegalArgumentException in the case of an invalid review or movieID.
+	 **/
 	@Override
-	public void addReview(int movieID, Review review){
+	public void addReview(int movieID, Review review) throws IllegalArgumentException{
 		int target = 0;
 		try{
 			target = findMovie(movieID);
@@ -120,6 +149,10 @@ public class MovieManager implements ISales, IReviews, IMovie {
 		//If no errors, add the review to the array of the movie object
 		movies.get(target).addReview(review);
 	}
+	/**
+	 * Instantiates a movie object if the arguments are valid and appends it to the movies array.
+	 * @throws IllegalArgumentException if movie constructor arguments are invalid.
+	 */
 	@Override
 	public void createMovie(int movieID, String movieTitle, MovieStatus movieStatus, String synopsis, String director, String cast, AgeRestriction ageRestriction, MovieType movieType, int duration)throws IllegalArgumentException {
 		//Check if ID already exists - O(n) complexity can be improved?
@@ -137,6 +170,11 @@ public class MovieManager implements ISales, IReviews, IMovie {
 		Movie toAdd = new Movie(movieID, movieTitle,movieStatus,synopsis,director,cast,ageRestriction,movieType,duration);
 		movies.add(toAdd);
 	}
+	/**
+	 * Deletes the Movie object with the movieID from the movies array if it exists.
+	 * @param movieID movieID to delete from the array
+	 * @throws IllegalArgumentException if the movieID is not found or if there are no movies to search.
+	 */
 	@Override
 	public void deleteMovie(int movieID) throws IllegalArgumentException {
 		int target = 0;
@@ -148,6 +186,12 @@ public class MovieManager implements ISales, IReviews, IMovie {
 			throw new IllegalArgumentException("Movie not found");
 		}
 	}
+	/**
+	 * Returns a MovieStatus object for the movie with the corresponding ID.
+	 * @param movieID movieID to return MovieStatus for
+	 * @return MovieStatus object for the requested movie
+	 * @throws IllegalArgumentException if the movieID is not found or if there are no movies to search.
+	 */
 	@Override
 	public MovieStatus getMovieStatus(int movieID)throws IllegalArgumentException{
 		int target = 0;
@@ -161,6 +205,13 @@ public class MovieManager implements ISales, IReviews, IMovie {
 			throw new IllegalArgumentException("Movie not found");
 		}
 	}
+	//TODO: Discuss - use string or use MovieStatus?
+	/**
+	 * Sets the MovieStatus for the movie with the corresponding movieID.
+	 * @param movieID to set MovieStatus for
+	 * @param status to set for the requested movie
+	 * @throws IllegalArgumentException if the movieID is not found, if there are no movies to search, or if MovieStatus argument is invalid.
+	 */
 	@Override
 	public void setMovieStatus(int movieID, MovieStatus status)throws IllegalArgumentException{
 		int target = 0;
@@ -173,6 +224,12 @@ public class MovieManager implements ISales, IReviews, IMovie {
 		movies.get(target).setMovieStatus(status);
 	}
 	@Override
+	/**
+	 * Gets the director parameter for the movie with the corresponding movieID.
+	 * @param movieID to get director for
+	 * @return String value of the movieDirector
+	 * @throws IllegalArgumentException if the movieID is not found or if there are no movies to search.
+	 */
 	public String getMovieDirector(int movieID)throws IllegalArgumentException{
 		int target = 0;
 		try{
@@ -183,7 +240,14 @@ public class MovieManager implements ISales, IReviews, IMovie {
 			throw new IllegalArgumentException("Movie not found");
 		}
 	}
+	
 	@Override
+	/**
+	 * Sets the director parameter for the movie with the corresponding movieID.
+	 * @param movieID to get director for
+	 * @param directorName string to change director to
+	 * @throws IllegalArgumentException if the movieID is not found, if there are no movies to search, or if the directorName string is invalid.
+	 */
 	public void setMovieDirector(int movieID, String directorName)throws IllegalArgumentException{
 		int target = 0;
 		try{
@@ -198,6 +262,12 @@ public class MovieManager implements ISales, IReviews, IMovie {
 		movies.get(target).setMovieDirector(directorName);
 	}
 	@Override
+	/**
+	 * Gets the movieType parameter for the movie with the corresponding movieID.
+	 * @param movieID to get movieType for
+	 * @return MovieType object for the movie.
+	 * @throws IllegalArgumentException if the movieID is not found or if there are no movies to search.
+	 */
 	public MovieType getMovieType(int movieID)throws IllegalArgumentException{
 		int target = 0;
 		try{
@@ -208,6 +278,12 @@ public class MovieManager implements ISales, IReviews, IMovie {
 			throw new IllegalArgumentException("Movie not found");
 		}
 	}
+	/**
+	 * Sets the movieType parameter for the movie with the corresponding movieID.
+	 * @param movieID to get director for
+	 * @param movieType to set value to
+	 * @throws IllegalArgumentException if the movieID is not found, if there are no movies to search or if movieType is invalid.
+	 */
 	public void setMovieType(int movieID, String movieType)throws IllegalArgumentException{
 		int target = 0;
 		try{
@@ -224,7 +300,14 @@ public class MovieManager implements ISales, IReviews, IMovie {
 			throw new IllegalArgumentException("Invalid movie type");
 		}
 	}
+	
 	@Override
+	/**
+	 * Gets the ArrayList of reviews for the movie with the corresponding movieID.
+	 * @param movieID to get reviews for
+	 * @return ArrayList of reviews for the corresponding movie.
+	 * @throws IllegalArgumentException if the movieID is not found or if there are no movies to search.
+	 */
 	public ArrayList<Review> getReviews(int movieID)throws IllegalArgumentException{	
 		int target = 0;
 		try{
@@ -236,6 +319,12 @@ public class MovieManager implements ISales, IReviews, IMovie {
 		}
 	}
 	@Override
+	/**
+	 * Gets the sales parameter for the movie with the corresponding movieID.
+	 * @param movieID to get director for
+	 * @return value of sales for the current movie
+	 * @throws IllegalArgumentException if the movieID is not found or if there are no movies to search.
+	 */
 	public int getSales(int movieID)throws IllegalArgumentException{
 		int target = 0;
 		try{
@@ -246,6 +335,12 @@ public class MovieManager implements ISales, IReviews, IMovie {
 			throw new IllegalArgumentException("Movie not found");
 		}
 	}
+	/**
+	 * Adds to the sales parameter for the movie with the corresponding movieID.
+	 * @param movieID to get director for
+	 * @param sales amount of sales to add to the counter
+	 * @throws IllegalArgumentException if the movieID is not found, if there are no movies to search or if sales=0.
+	 */
 	public void addSales(int movieID, int sales) throws IllegalArgumentException{
 		int target = 0;
 		try{
@@ -260,10 +355,17 @@ public class MovieManager implements ISales, IReviews, IMovie {
 		movies.get(target).addSales(sales);
 	}
 	@Override
-	public void getTop5_rating(){
+	/**
+	 * Creates a copy of the movies array, sorts it by the average review rating parameter, and prints the information for the first n<=5 movies in the array based on array size.
+	 * @throws IllegalArgumentException if the movies array is empty.
+	 */
+	public void getTop5_rating() throws IllegalArgumentException{
+		if(movies.size() == 0 || movies == null){
+			throw new IllegalArgumentException("There are no movies to sort");
+		}
 		int limit = 0;
 		ArrayList<Movie> moviecopy = this.getMovies();
-		Collections.sort(moviecopy, Movie.salesComparator);
+		Collections.sort(moviecopy, Movie.reviewComparator);
 		if(moviecopy.size() > 5){
 			limit = 4;
 		}
@@ -276,7 +378,14 @@ public class MovieManager implements ISales, IReviews, IMovie {
 		}
 	}
 	@Override
-	public void getTop5_sales(){
+	/**
+	 * Creates a copy of the movies array, sorts it by the sales parameter, and prints the information for the first n<=5 movies in the array based on array size.
+	 * @throws IllegalArgumentException if the movies array is empty.
+	 */
+	public void getTop5_sales() throws IllegalArgumentException{
+		if(movies.size() == 0 || movies == null){
+			throw new IllegalArgumentException("There are no movies to sort");
+		}
 		int limit = 0;
 		ArrayList<Movie> moviecopy = this.getMovies();
 		Collections.sort(moviecopy, Movie.salesComparator);
