@@ -11,5 +11,7 @@ public interface IDay {
 	String getDate();
 	void setDayOfWeek(DayOfWeek day);
 	DayOfWeek getDayOfWeek();
+	void setTime(String time);
+	String getTime();
 
 }
