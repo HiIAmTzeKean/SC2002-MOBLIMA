@@ -7,7 +7,7 @@ public enum DayOfWeek {
 	THU("Thursday"),
 	FRI("Friday"),
 	SAT("Saturday"),
-	SUN("Sunday";
+	SUN("Sunday");
 	    
 	private String day;
 	
