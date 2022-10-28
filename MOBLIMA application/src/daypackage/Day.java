@@ -83,7 +83,7 @@ public class Day implements IDay {
 		String day = Integer.toString(this.dayNumber);
 		String month = Integer.toString(this.monthNumber);
 		String year = Integer.toString(this.yearNumber);
-		String fulldate = year + month +day;
+		String fulldate = year + month + day;
 		return fulldate;
 	}
 	@Override
@@ -98,7 +98,7 @@ public class Day implements IDay {
 	}
 	@Override
 	public String getTime(){
-		retuen this.time;
+		return this.time;
 	}
 	
 
