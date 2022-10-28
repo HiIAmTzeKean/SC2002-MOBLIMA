@@ -7,5 +7,5 @@ public interface ICinemaBooking {
     float getMultiplier();
     void printCinemaLayout();
     String getCinemaCode();
-    
+    int getCineplexID();
 }

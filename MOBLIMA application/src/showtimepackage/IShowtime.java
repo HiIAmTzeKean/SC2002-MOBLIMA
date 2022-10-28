@@ -13,6 +13,8 @@ public interface IShowtime {
 	 * via encapsulated calculations
 	 */
 	float getPrice(int showtimeID);
+
+    void printShowtimeAdmin();
     /**
      * Prints all showtimes that are still showing
      */
@@ -21,30 +23,28 @@ public interface IShowtime {
      * Prints the seat layout of the showtime
      * @param showtimeID
      */
-	void printSeats(int showtimeID);
+	void printSeats(int showtimeID) throws IllegalArgumentException;
     /**
      * Prints movie object stored in showtime object
      * @param showtimeID
      */
-    void printMovie(int showtimeID);
-    void printCinema(int showtimeID);
-    void printCineplex(int showtimeID);
+    void printMovie(int showtimeID) throws IllegalArgumentException;
+    void printCinemaLayout(int showtimeID) throws IllegalArgumentException;
+    void printCineplex(int showtimeID) throws IllegalArgumentException;
     /**
      * Returns the cinema code of the showtime requested
      * @param showtimeID
      */
-    String getCinemaCode(int showtimeID);
-    String getCineplexName(int showtimeID);
-    String getCineplexLocation(int showtimeID);
+    String getCinemaCode(int showtimeID) throws IllegalArgumentException;
     /**
      * Returns Date string "DDMMYYYY"
      * @param showtimeID
      * @return
      */
-    String getDate(int showtimeID);
+    String getDate(int showtimeID) throws IllegalArgumentException;
     /**
      * Returns time string "2359" 24H clock format
      * @param showtimeID
      */
-    String getTime(int showtimeID);
+    String getTime(int showtimeID) throws IllegalArgumentException;
 }
