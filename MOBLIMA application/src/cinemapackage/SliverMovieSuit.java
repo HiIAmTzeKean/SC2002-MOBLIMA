@@ -34,4 +34,7 @@ public class SliverMovieSuit extends Cinema {
         System.out.printf("             |    SCREEN    |\n");
         System.out.printf("\n");
     }
+    public float getMultiplier(){
+        return 1.0f;
+    }
 }

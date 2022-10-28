@@ -1,9 +1,7 @@
 package showtimepackage;
 
-import moviepackage.Movie;
-
 public interface IShowtime {
-    void bookSeat(int showtimeID, String seatRow, int seatCol, Customer customer);
+    void bookSeat(int showtimeID, String seatRow, int seatCol, int customerID);
 	/**
 	 * Check if the requested seat is booked
 	 * @return
@@ -48,5 +46,5 @@ public interface IShowtime {
      * Returns time string "2359" 24H clock format
      * @param showtimeID
      */
-    Strring getTime(int showtimeID);
+    String getTime(int showtimeID);
 }

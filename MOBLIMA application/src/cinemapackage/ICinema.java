@@ -21,23 +21,21 @@ public interface ICinema {
 	 * @param cineplexManager
 	 */
 	void deleteCinema(int cinemaID, ICineplex cineplexManager);
-
-
 	/**
 	 * Print all cinema under CinemaManger
 	 */
 	void printCinemas();
-
 	/**
 	 * Finds the requested cinemaID and returns the cinema object
+	 * Used in showtime class
 	 * @param cinemaID
 	 * @return
 	 */
 	Cinema getCinema(int cinemaID);
-	void getCinemaCode(int cinemaID);
-	void setCinemaCode(int cinemaID, int code);
-	void getCinemaType(int cinemaID);
-	void getCineplexID(int cinemaID);
+	String getCinemaCode(int cinemaID);
+	void setCinemaCode(int cinemaID, String code);
+	CinemaType getCinemaType(int cinemaID);
+	int getCineplexID(int cinemaID);
 	void setCineplexID(int cinemaID, int cineplexID);
 	void printCinemaLayout(int cinemaID);
 }
