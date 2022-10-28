@@ -1,8 +1,10 @@
 package moviepackage;
 import java.util.Comparator;
 import java.util.HashMap;
+import java.util.Iterator;
+import java.io.Serializable;
 import java.util.ArrayList;
-public class Movie {
+public class Movie implements Serializable{
 	private int id;
 	private String movieTitle;
 	private MovieStatus movieStatus;
@@ -17,9 +19,9 @@ public class Movie {
 	private static HashMap<MovieType, Double> multiplier;
 	static{
 		multiplier = new HashMap<MovieType, Double>();
-		multiplier.put(MovieType.valueOf("2D"),1.10);
-		multiplier.put(MovieType.valueOf("3D"),1.25);
-		multiplier.put(MovieType.valueOf("BLOCKBUSTER"),1.5);
+		multiplier.put(MovieType._2D,1.10);
+		multiplier.put(MovieType._3D,1.25);
+		multiplier.put(MovieType.BLOCKBUSTER,1.5);
 	}
 	public Movie(int movieID, String movieTitle, MovieStatus movieStatus, String synopsis, String director, String cast, AgeRestriction ageRestriction, MovieType movieType, int duration){
 		this.id = movieID;
@@ -96,18 +98,30 @@ public class Movie {
 		this.sales+=toAdd;
 	}
 	public void printMovieComplete(){
-		System.out.printf("Name: %s\n",this.movieTitle);
+		//Printing out the requirements needed in the PDF
+		System.out.println("---------------------");
+		System.out.printf("Title: %s\n",this.movieTitle);
+		System.out.printf("Showing Status: %s\n",this.movieStatus.toString());
+		System.out.printf("Synopsis: %s\n",this.synopsis);
 		System.out.printf("Director: %s\n",this.director);
 		System.out.printf("Cast: %s\n",this.cast);
-		System.out.printf("Age Rating: %s\n",this.ageRestriction.toString());
-		System.out.printf("Duration: %d\n",this.duration);
 		System.out.printf("Average Review Score: %\n",this.getReviewScores());
+		System.out.printf("Past Reviews:\n");
+
 	}
 	public void printMovieIncomplete(){
+		System.out.println("---------------------");
+		System.out.printf("ID: %d\n",this.id);
 		System.out.printf("Name: %s\n",this.movieTitle);
 		System.out.printf("Director: %s\n",this.director);
 		System.out.printf("Age Rating: %s\n",this.ageRestriction.toString());
-		System.out.printf("Duration: %d\n",this.duration);
+		System.out.printf("Duration: %d minutes\n",this.duration);
+		//Right now this prints all the reviews, are we thinking about setting a cap on this?
+		//Maybe iterate in reverse to look at the most recent reviews? Last 3 reviews? etc.
+		for(Iterator<Review> it = reviews.iterator(); it.hasNext();){
+			Review re = it.next();
+			System.out.printf("%f : %s", re.getRating(), re.getReview());
+		}
 	}
 	
 	public static Comparator<Movie> salesComparator = new Comparator<Movie>(){

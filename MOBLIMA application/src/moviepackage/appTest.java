@@ -1,5 +1,4 @@
 package moviepackage;
-import moviepackage.*;
 import java.io.File;
 import java.io.IOException;
 public class appTest {
@@ -96,9 +95,11 @@ public class appTest {
                 MovieType._3D,
                 147
             );
+            System.out.println("All movies have been added, closing MovieManager");
             MovieManager.close();
         }
         else{
+            System.out.println("Reading movies from file");
             MovieManager mm = MovieManager.getInstance();
             mm.printMovies();
             MovieManager.close();

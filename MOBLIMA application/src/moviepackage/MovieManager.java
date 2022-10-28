@@ -85,7 +85,9 @@ public class MovieManager implements ISales, IReviews, IMovie {
 	public void printMovies(){
 		for(Iterator<Movie> it = movies.iterator(); it.hasNext();){
 			Movie m = it.next();
-			m.printMovieIncomplete();
+			if(m.getMovieStatus()!=MovieStatus.END_OF_SHOWING){
+				m.printMovieIncomplete();
+			}
 		}
 	}
 	@Override
