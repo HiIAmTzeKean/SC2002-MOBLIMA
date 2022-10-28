@@ -4,7 +4,7 @@ import java.util.Date;
 
 import cinemapackage.ICinemaBooking;
 import daypackage.IDay;
-import moviepackage.IMovieBooking;
+import moviepackage.Movie;
 
 public interface IShowtimeSystem extends IShowtime {
 
@@ -20,7 +20,7 @@ public interface IShowtimeSystem extends IShowtime {
 	 * Create a new showtime object
 	 * Checks if movie is "Preview" or "Now Showing" before creating entry
 	 */
-	void addShowtime(IMovieBooking movie,ICinemaBooking cinema ,Date time,IDay day);
+	void addShowtime(int movieID, int CinemaID,IDay day);
 	/**
 	 * When a movie status changes to "End of Showing" invoke this method to
 	 * update all movie entires in showtime to stop booking for a showtime

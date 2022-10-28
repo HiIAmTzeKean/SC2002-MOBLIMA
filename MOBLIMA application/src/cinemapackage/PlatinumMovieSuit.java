@@ -34,4 +34,7 @@ public class PlatinumMovieSuit extends Cinema {
         System.out.printf("          |    SCREEN    |\n");
         System.out.printf("\n");
     }
+    public float getMultiplier(){
+        return 2.0f;
+    }
 }

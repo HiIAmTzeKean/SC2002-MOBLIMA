@@ -2,7 +2,13 @@ package showtimepackage;
 
 public interface IBooking{
 
-	void bookSeat(String seatRow, int seatCol, Customer customer);
+	/**
+	 * Books seat in showtime object
+	 * @param seatRow
+	 * @param seatCol
+	 * @param customerID
+	 */
+	void bookSeat(String seatRow, int seatCol, int customerID);
 	/**
 	 * Check if the requested seat is booked
 	 * @return

@@ -133,4 +133,29 @@ public class CinemaManager implements ICinema {
 		// Not found
 		throw new IllegalArgumentException("Cinema is not found");
 	}
+	@Override
+	public String getCinemaCode(int cinemaID) {
+		return getCinema(cinemaID).getCode();
+	}
+	@Override
+	public void setCinemaCode(int cinemaID, String code) {
+		getCinema(cinemaID).setCode(code);;
+	}
+	@Override
+	public CinemaType getCinemaType(int cinemaID) {
+		return getCinema(cinemaID).getCinemaType();
+		
+	}
+	@Override
+	public int getCineplexID(int cinemaID) {
+		return getCinema(cinemaID).getCineplexID();
+	}
+	@Override
+	public void setCineplexID(int cinemaID, int cineplexID) {
+		getCinema(cinemaID).setCineplexid(cineplexID);
+	}
+	@Override
+	public void printCinemaLayout(int cinemaID) {
+		getCinema(cinemaID).printLayout();
+	}
 }

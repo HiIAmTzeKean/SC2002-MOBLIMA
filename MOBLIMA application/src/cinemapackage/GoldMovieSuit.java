@@ -35,4 +35,7 @@ public class GoldMovieSuit extends Cinema {
         System.out.printf("             |    SCREEN    |\n");
         System.out.printf("\n");
     }
+    public float getMultiplier(){
+        return 1.5f;
+    }
 }
