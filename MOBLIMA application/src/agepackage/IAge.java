@@ -2,7 +2,7 @@ package agepackage;
 
 public interface IAge {
 
-	void setAgeNumber(int ageNumber);
+	void setAge(int ageNumber);
 	int getAgeNumber();
 	void setAgeCategory();
 	AgeCategory getAgeCategory();
