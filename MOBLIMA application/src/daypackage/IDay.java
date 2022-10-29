@@ -3,8 +3,7 @@ package daypackage;
 public interface IDay {
 
 	float getDayMultiplier();
-	void setWeekendMultiplier(float newWeekendMulitplier);
-	void setHolidayMultiplier(float newHolidayMulitplier);
+	void setMultiplier(float newMulitplier);
 	boolean isHoliday();
 	void setHoliday();
 	void removeHoliday();
