@@ -4,8 +4,8 @@ import java.util.ArrayList;
 
 public class GoldMovieSuit extends Cinema {
 
-    public GoldMovieSuit(String name, int id) {
-        super(name,id);
+    public GoldMovieSuit(String code, int id) {
+        super(code,id);
         super.setCinemaType(CinemaType.GOLD);
         // Create the layout of gold class
         // 3 - 3 - 3 seating

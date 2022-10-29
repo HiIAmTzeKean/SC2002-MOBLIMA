@@ -27,7 +27,6 @@ public abstract class Cinema  implements Serializable, ICinemaBooking{
 		this.id = id;
 		this.Cineplexid = -1;
 	}
-
 	/**
 	 * Returns an ArrayList of seat objects
 	 * @return
