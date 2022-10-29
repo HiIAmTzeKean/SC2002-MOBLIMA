@@ -5,15 +5,9 @@ public class Age implements IAge {
 	private int ageNumber;
 	private AgeCategory category;
 	      
-	public void setAgeNumber(int ageNumber){
+	public void setAge(int ageNumber){
 		this.ageNumber = ageNumber;
-	}
-
-	public int getAgeNumber(){
-		return this.ageNumber;
-	}
-
-	public void setAgeCategory(){
+		
 		if(this.ageNumber>=60){
 			this.category = AgeCategory.SENIOR;
 		}
@@ -23,7 +17,13 @@ public class Age implements IAge {
 		else{
 			this.category = AgeCategory.ADULT;
 		}
+		
 	}
+
+	public int getAgeNumber(){
+		return this.ageNumber;
+	}
+
 	public AgeCategory getAgeCategory(){
 		return this.category;
 	}
