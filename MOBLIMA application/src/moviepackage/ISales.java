@@ -1,6 +1,7 @@
 package moviepackage;
 public interface ISales {
-	void getSales();
+	int getSales(int movieID);
+	void addSales(int movieID, int sales);
 	void getTop5_sales();
 	void getTop5_rating();
 }
