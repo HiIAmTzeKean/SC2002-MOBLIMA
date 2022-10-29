@@ -1,11 +1,12 @@
 package daypackage;
 import daypackage.*;
+import java.util.*;
 
 public class Day implements IDay {
 
-	private int isHoliday;
+	private boolean isHoliday;
 	private DayOfWeek dayOfWeek;
-	private static int multiplier;
+	private static float multiplier;
 
 	// range 1 - 30
 	private int dayNumber;
@@ -15,57 +16,91 @@ public class Day implements IDay {
 
 	// "1300" means 1pm
 	private String time;
+	
+	public Day(){
+		this.isHoliday = false;
+		multiplier = 1;
+	}
+	
 	@Override
-	public void getMultiplier() {
+	public float getMultiplier() {
 		// if holiday then the multiplier should be doubled
 		// for eg. if the mulitplier is 0.5 then holiday = 0.5 * 2
-		
+		if(this.dayOfWeek.equals(DayOfWeek.SUN)||this.dayOfWeek.equals(DayOfWeek.SAT)
+		   return multiplier
+		else if(this.isHoliday)
+		   return 2;
+		else
+		   return 1;
+		   
 	}
 	@Override
-	public void setMultiplier() {
+	public void setMultiplier(float newMulitplier) {
 		// TODO Auto-generated method stub
+		if(isHoliday)
+			multiplier = 2*newMulitplier;
+		else
+			multiplie = newMulitplier;
 		
 	}
 	@Override
 	public void setHoliday() {
 		// TODO Auto-generated method stub
+		this.isHoldiay = true;
 		
 	}
 	@Override
 	public void removeHoliday() {
 		// TODO Auto-generated method stub
-		
-	}
-	@Override
-	public void setMultiplier(float newMulitplier) {
-		// TODO Auto-generated method stub
+		this.isHoliday = false;
 		
 	}
 	@Override
 	public boolean isHoliday() {
 		// TODO Auto-generated method stub
-		return false;
+		if(isHoliday)
+			return true;
+		else
+			return false;
 	}
 	@Override
 	public void setDate(int dayNumber, int monthNumber, int yearNumber) {
 		// TODO Auto-generated method stub
+		this.dayNumber = dayNumber;
+		this.monthNumber = monthNumber;
+		this.yearNumber = yearNumber;
 		
 	}
 	@Override
 	public DayOfWeek getDayOfWeek() {
 		// TODO Auto-generated method stub
-		return null;
+		return this.dayOfWeek;
 	}
 	@Override
 	public String getDate() {
 		// returns date string
 		// DDMMYYYY
+		String day = Integer.toString(this.dayNumber);
+		String month = Integer.toString(this.monthNumber);
+		String year = Integer.toString(this.yearNumber);
+		String fulldate = year + month + day;
+		return fulldate;
 	}
 	@Override
 	public void setDayOfWeek(DayOfWeek day) {
 		// TODO Auto-generated method stub
+		this.dayOfWeek = day;
 		
 	}
+	@Override
+	public void setTime(String time){
+		this.time = time;
+	}
+	@Override
+	public String getTime(){
+		return this.time;
+	}
+	
 
 	
 }
