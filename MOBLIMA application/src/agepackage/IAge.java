@@ -6,6 +6,6 @@ public interface IAge {
 	int getAgeNumber();
 	void setAgeCategory();
 	AgeCategory getAgeCategory();
-	float getMultiplier();
+	float getAgeMultiplier();
 
 }
