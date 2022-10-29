@@ -27,7 +27,7 @@ public class Age implements IAge {
 	public AgeCategory getAgeCategory(){
 		return this.category;
 	}
-	public float getMultiplier() {
+	public float getAgeMultiplier() {
 		if(this.category == AgeCategory.SENIOR){
 			return (float) 0.7;
 		}
