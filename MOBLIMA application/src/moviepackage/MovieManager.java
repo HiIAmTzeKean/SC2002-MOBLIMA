@@ -103,6 +103,15 @@ public class MovieManager implements ISales, IReviews, IMovie {
 		}
 		throw new IllegalArgumentException("Movie not found");
 	}
+	public Movie getMoviefromID(int id) throws IllegalArgumentException{
+		try{
+			Movie toReturn = movies.get(findMovie(id));
+			return toReturn;
+		}
+		catch(IllegalArgumentException e){
+			throw new IllegalArgumentException("Movie not found");
+		}
+	}
 	/**
 	 * @return current array of movies
 	 */

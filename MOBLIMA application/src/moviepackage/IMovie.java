@@ -1,13 +1,16 @@
 package moviepackage;
 
 public interface IMovie {
-	void createMovie(int movieID, String movieTitle, MovieStatus movieStatus, String synopsis, String director, String cast, AgeRestriction ageRestriction, MovieType movieType, int duration);
+	int findMovie(int id) throws IllegalArgumentException;
+	Movie getMoviefromID(int id) throws IllegalArgumentException;
+	void createMovie(int movieID, String movieTitle, MovieStatus movieStatus, 
+	String synopsis, String director, String cast, AgeRestriction ageRestriction, MovieType movieType, int duration);
 	void deleteMovie(int movieID) throws IllegalArgumentException;
-	MovieStatus getMovieStatus(int movieID);
-	void setMovieStatus(int movieID, MovieStatus status);
-	String getMovieDirector(int movieID);
-	void setMovieDirector(int movieID, String directorName);
-	MovieType getMovieType(int movieID);
-	void setMovieType(int movieID, String movieType);
-	void printMovies();
+	MovieStatus getMovieStatus(int movieID)throws IllegalArgumentException;
+	void setMovieStatus(int movieID, MovieStatus status)throws IllegalArgumentException;
+	String getMovieDirector(int movieID)throws IllegalArgumentException;
+	void setMovieDirector(int movieID, String directorName)throws IllegalArgumentException;
+	MovieType getMovieType(int movieID)throws IllegalArgumentException;
+	void setMovieType(int movieID, String movieType)throws IllegalArgumentException;
+	void printMovies()throws IllegalArgumentException;
 }
