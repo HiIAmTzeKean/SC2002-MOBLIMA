@@ -192,7 +192,7 @@ public class ShowtimeManager implements IShowtimeSystem {
 		if (movie.getStatus()==MovieStatus.COMING_SOON || 
 			movie.getStatus()==MovieStatus.NOW_SHOWING ||
 			movie.getStatus()==MovieStatus.PREVIEW){
-			ShowtimeManager.showtimes.add(new Showtime(movie,cinema,day,lastID));
+			ShowtimeManager.showtimes.add(new Showtime(movie,cinema,day,++lastID));
 		}
 		throw new IllegalArgumentException("Movie status is not Coming, Showing or Preview");
 	}

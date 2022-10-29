@@ -3,8 +3,8 @@ package cinemapackage;
 import java.util.ArrayList;
 
 public class SliverMovieSuit extends Cinema {
-    public SliverMovieSuit(String name, int id) {
-        super(name,id);
+    public SliverMovieSuit(String code, int id) {
+        super(code,id);
         super.setCinemaType(CinemaType.SLIVER);
         // Create the layout of sliver class
         // 5 - 4 seating

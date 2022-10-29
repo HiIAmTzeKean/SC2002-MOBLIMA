@@ -108,5 +108,4 @@ public class Showtime implements IBooking{
 	public void printSeats() {
 		cinema.printCinemaLayout();
 	}
-
 }

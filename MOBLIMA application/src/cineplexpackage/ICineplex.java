@@ -4,7 +4,7 @@ import cinemapackage.Cinema;
 
 public interface ICineplex {
 
-	void createCineplex(int CineplexID, String name, String location) throws IllegalArgumentException;
+	void createCineplex(String name, String location) throws IllegalArgumentException;
 
 	void deleteCineplex(int CineplexID) throws IllegalArgumentException;
 	
@@ -13,11 +13,20 @@ public interface ICineplex {
 	void setName(int CineplexID, String name) throws IllegalArgumentException;
 	
 	String getLocation(int CineplexID) throws IllegalArgumentException;
-
+	/**
+	 * Sets the location of a specified cineplex object
+	 * @param CineplexID
+	 * @param Location
+	 * @throws IllegalArgumentException
+	 */
 	void setLocation(int CineplexID, String Location) throws IllegalArgumentException;
-
+	/**
+	 * Adds a new cinema object to a cineplex specified
+	 * @param CineplexID
+	 * @param cinema
+	 * @throws IllegalArgumentException
+	 */
 	void addCinema(int CineplexID, Cinema cinema) throws IllegalArgumentException;
-
 	/**
 	 * Finds cineplex object by CineplexID specified
 	 * Removes specified cinema from cineplex object
@@ -33,7 +42,10 @@ public interface ICineplex {
 	 * @param cinema
 	 */
 	void removeCinema(Cinema cinema) throws IllegalArgumentException;
-
+	/**
+	 * Prints all cineplex objects in CineplexManager
+	 */
+	void printCineplexes();
 	/**
 	 * Finds cineplex object by CineplexID specified
 	 * If not found raise IllegalArgumentException

@@ -3,7 +3,6 @@ package cineplexpackage;
 import java.io.*;
 import java.util.ArrayList;
 import java.util.Iterator;
-import java.util.Scanner;
 
 import cinemapackage.Cinema;
 
@@ -11,13 +10,16 @@ public class CineplexManager implements ICineplex {
 
 	private static ArrayList<Cineplex> cineplexes;
 	private static CineplexManager cineplexManager;
+	private static int lastID;
 
 	private CineplexManager() {
 		cineplexes = new ArrayList<Cineplex>();
+		lastID = 0;
 	}
 
 	private CineplexManager(ArrayList<Cineplex> c) {
 		CineplexManager.cineplexes = c;
+		lastID = cineplexes.size();
 	} 
 
 	private static ArrayList<Cineplex> deseraliseCineplexes(String filename){
@@ -79,9 +81,9 @@ public class CineplexManager implements ICineplex {
 	}
 
 	@Override
-	public void createCineplex(int id, String name, String location) {
+	public void createCineplex(String name, String location) {
 		System.out.printf("===== Creating new Cinplex =====\n");
-		Cineplex c=new Cineplex(id, name, location);
+		Cineplex c=new Cineplex(++lastID, name, location);
 		cineplexes.add(c);
 		c.printCineplex();
 		System.out.printf("===== Cinplex created =====\n");
@@ -100,10 +102,6 @@ public class CineplexManager implements ICineplex {
 	}
 
 	@Override
-	public ArrayList<Cineplex> getCineplexes() {
-		return cineplexes;
-	}
-
 	public void printCineplexes() {
 		for (Cineplex c:cineplexes){
 			c.printCineplex();

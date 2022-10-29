@@ -1,17 +1,14 @@
 package cinemapackage;
-
-import java.util.ArrayList;
-
 import cineplexpackage.ICineplex;
 
 public interface ICinema {
 	/**
-	 * Create a new cinema in cinema manager
-	 * @param cinemaID
-	 * @param name
-	 * @param type
+	 * Create a new cinema in cinema manager. Performs check if size of code is 3.
+	 * Performs check if type is valid.
+	 * @param code of length 3
+	 * @param type ["Platinum", "Gold", "Sliver"]
 	 */
-	void createCinema(int cinemaID, String name, String type);
+	void createCinema(String code, String type);
 
 	/**
 	 * Search through array of cinemas and locate the id to be delete. If the ID is found, success
