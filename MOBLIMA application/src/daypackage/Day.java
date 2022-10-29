@@ -24,7 +24,7 @@ public class Day implements IDay {
 	}
 	
 	@Override
-	public float getMultiplier() {
+	public float getDayMultiplier() {
 		if(holiday){
 			if(this.dayOfWeek==DayOfWeek.SUN || this.dayOfWeek==DayOfWeek.SAT){
 				return weekendMultiplier*holidayMultiplier;
@@ -43,59 +43,53 @@ public class Day implements IDay {
 		}
 	}
 
-	@Override
 	public void setWeekendMultiplier(float newWeekendMulitplier) {
 		weekendMultiplier = newWeekendMulitplier;
 	}
-	@Override
+	
 	public void setHolidayMultiplier(float newHolidayMulitplier) {
 		holidayMultiplier = newHolidayMulitplier;
 	}
 
-	@Override
+	
 	public void setHoliday() {
 		this.holiday = true;
-		
 	}
-	@Override
+
 	public void removeHoliday() {
 		this.holiday = false;
-		
 	}
-	@Override
+	
 	public boolean isHoliday() {
 		if(holiday)
 			return true;
 		else
 			return false;
 	}
-	@Override
+	
 	public void setDate(int dayNumber, int monthNumber, int yearNumber) {
 		this.dayNumber = dayNumber;
 		this.monthNumber = monthNumber;
 		this.yearNumber = yearNumber;
 		this.fullDate = Integer.toString(this.yearNumber) + Integer.toString(this.monthNumber) + Integer.toString(this.dayNumber);
-		
 	}
-	@Override
+
 	public String getDate() {
 		return this.fullDate;
 	}
-	@Override
+	
 	public void setDayOfWeek(DayOfWeek day) {
 		this.dayOfWeek = day;
-		
 	}
-	@Override
+	
 	public DayOfWeek getDayOfWeek() {
 		return this.dayOfWeek;
-		
 	}
-	@Override
+	
 	public void setTime(String time){
 		this.time = time;
 	}
-	@Override
+	
 	public String getTime(){
 		return this.time;
 	}
