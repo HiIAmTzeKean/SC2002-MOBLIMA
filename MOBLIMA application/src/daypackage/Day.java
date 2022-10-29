@@ -23,7 +23,6 @@ public class Day implements IDay {
 		holidayMultiplier = 1;
 	}
 	
-	@Override
 	public float getDayMultiplier() {
 		if(holiday){
 			if(this.dayOfWeek==DayOfWeek.SUN || this.dayOfWeek==DayOfWeek.SAT){
