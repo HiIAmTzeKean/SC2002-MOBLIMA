@@ -4,8 +4,8 @@ public class Day implements IDay {
 
 	private boolean holiday;
 	private DayOfWeek dayOfWeek;
-	private static float weekendMultiplier;
-	private static float holidayMultiplier;
+	private static float multiplier;
+	
 
 	// range 1 - 30
 	private int dayNumber;
@@ -19,22 +19,21 @@ public class Day implements IDay {
 	
 	public Day(){
 		this.holiday = false;
-		weekendMultiplier = 1;
-		holidayMultiplier = 1;
+		multiplier = 1;
 	}
 	
 	public float getDayMultiplier() {
 		if(holiday){
 			if(this.dayOfWeek==DayOfWeek.SUN || this.dayOfWeek==DayOfWeek.SAT){
-				return weekendMultiplier*holidayMultiplier;
+				return multiplier*2;
 			}
 			else{
-				return holidayMultiplier;
+				return 2;
 			}
 		}
 		else{
 			if(this.dayOfWeek==DayOfWeek.SUN || this.dayOfWeek==DayOfWeek.SAT){
-				return weekendMultiplier;
+				return multiplier;
 			}
 			else{
 				return 1;
@@ -42,15 +41,10 @@ public class Day implements IDay {
 		}
 	}
 
-	public void setWeekendMultiplier(float newWeekendMulitplier) {
-		weekendMultiplier = newWeekendMulitplier;
-	}
-	
-	public void setHolidayMultiplier(float newHolidayMulitplier) {
-		holidayMultiplier = newHolidayMulitplier;
+	public void setMultiplier(float newMulitplier) {
+		multiplier = newMulitplier;
 	}
 
-	
 	public void setHoliday() {
 		this.holiday = true;
 	}
