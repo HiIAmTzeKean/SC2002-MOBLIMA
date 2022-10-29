@@ -2,6 +2,10 @@ package agepackage;
 
 public interface IAge {
 
-	float getMultiplier();
+	void setAgeNumber(int ageNumber);
+	int getAgeNumber();
+	void setAgeCategory();
+	AgeCategory getAgeCategory();
+	float getAgeMultiplier();
 
 }
