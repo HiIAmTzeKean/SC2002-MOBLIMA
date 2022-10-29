@@ -1,95 +1,94 @@
 package daypackage;
-import daypackage.*;
-import java.util.*;
 
 public class Day implements IDay {
 
-	private boolean isHoliday;
+	private boolean holiday;
 	private DayOfWeek dayOfWeek;
-	private static float multiplier;
+	private static float weekendMultiplier;
+	private static float holidayMultiplier;
 
 	// range 1 - 30
 	private int dayNumber;
 	// range 1 - 12
 	private int monthNumber;
 	private int yearNumber;
+	private String fullDate;
 
 	// "1300" means 1pm
 	private String time;
 	
 	public Day(){
-		this.isHoliday = false;
-		multiplier = 1;
+		this.holiday = false;
+		weekendMultiplier = 1;
+		holidayMultiplier = 1;
 	}
 	
 	@Override
 	public float getMultiplier() {
-		// if holiday then the multiplier should be doubled
-		// for eg. if the mulitplier is 0.5 then holiday = 0.5 * 2
-		if(this.dayOfWeek.equals(DayOfWeek.SUN)||this.dayOfWeek.equals(DayOfWeek.SAT)
-		   return multiplier
-		else if(this.isHoliday)
-		   return 2;
-		else
-		   return 1;
-		   
+		if(holiday){
+			if(this.dayOfWeek==DayOfWeek.SUN || this.dayOfWeek==DayOfWeek.SAT){
+				return weekendMultiplier*holidayMultiplier;
+			}
+			else{
+				return holidayMultiplier;
+			}
+		}
+		else{
+			if(this.dayOfWeek==DayOfWeek.SUN || this.dayOfWeek==DayOfWeek.SAT){
+				return weekendMultiplier;
+			}
+			else{
+				return 1;
+			}
+		}
+	}
+
+	@Override
+	public void setWeekendMultiplier(float newWeekendMulitplier) {
+		weekendMultiplier = newWeekendMulitplier;
 	}
 	@Override
-	public void setMultiplier(float newMulitplier) {
-		// TODO Auto-generated method stub
-		if(isHoliday)
-			multiplier = 2*newMulitplier;
-		else
-			multiplie = newMulitplier;
-		
+	public void setHolidayMultiplier(float newHolidayMulitplier) {
+		holidayMultiplier = newHolidayMulitplier;
 	}
+
 	@Override
 	public void setHoliday() {
-		// TODO Auto-generated method stub
-		this.isHoldiay = true;
+		this.holiday = true;
 		
 	}
 	@Override
 	public void removeHoliday() {
-		// TODO Auto-generated method stub
-		this.isHoliday = false;
+		this.holiday = false;
 		
 	}
 	@Override
 	public boolean isHoliday() {
-		// TODO Auto-generated method stub
-		if(isHoliday)
+		if(holiday)
 			return true;
 		else
 			return false;
 	}
 	@Override
 	public void setDate(int dayNumber, int monthNumber, int yearNumber) {
-		// TODO Auto-generated method stub
 		this.dayNumber = dayNumber;
 		this.monthNumber = monthNumber;
 		this.yearNumber = yearNumber;
+		this.fullDate = Integer.toString(this.yearNumber) + Integer.toString(this.monthNumber) + Integer.toString(this.dayNumber);
+		
+	}
+	@Override
+	public String getDate() {
+		return this.fullDate;
+	}
+	@Override
+	public void setDayOfWeek(DayOfWeek day) {
+		this.dayOfWeek = day;
 		
 	}
 	@Override
 	public DayOfWeek getDayOfWeek() {
-		// TODO Auto-generated method stub
 		return this.dayOfWeek;
-	}
-	@Override
-	public String getDate() {
-		// returns date string
-		// DDMMYYYY
-		String day = Integer.toString(this.dayNumber);
-		String month = Integer.toString(this.monthNumber);
-		String year = Integer.toString(this.yearNumber);
-		String fulldate = year + month + day;
-		return fulldate;
-	}
-	@Override
-	public void setDayOfWeek(DayOfWeek day) {
-		// TODO Auto-generated method stub
-		this.dayOfWeek = day;
 		
 	}
 	@Override
@@ -100,7 +99,5 @@ public class Day implements IDay {
 	public String getTime(){
 		return this.time;
 	}
-	
-
 	
 }
