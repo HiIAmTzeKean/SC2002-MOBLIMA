@@ -13,8 +13,6 @@ import viewPackage.View;
 public class StaffCinema extends View {
 
     private static ICinema cinemaHandler = CinemaManager.getInstance();
-
- 
     private static ICineplex cineplexHandler = CineplexManager.getInstance(); 
 
     public static void displayMenu(){ 
@@ -35,8 +33,12 @@ public class StaffCinema extends View {
         do {	
 			displayMenu();
 			System.out.println("Enter choice"); 
-			choice = sc.nextInt(); 
-			System.out.println("\f");
+            try {
+                choice = sc.nextInt(); 
+                System.out.println("\f");
+            } catch(InputMismatchException e ){ 
+                System.out.println(e.toString());
+            } 
 			
 			switch (choice) { 
 				case  1 : 
@@ -47,12 +49,19 @@ public class StaffCinema extends View {
                         // id = sc.nextInt();
                         System.out.println("Enter cineplex name to be created");
                         String name = new String (); 
+                        try {
                         name  = sc.next();
+                        }  catch(InputMismatchException e ){ 
+                            System.out.println(e.toString());
+                        } 
                         System.out.println("Enter cineplex location to be created");
                         String location = new String();
-                        location = sc.next();
+                        try {
+                            location = sc.next();
+                        }  catch(InputMismatchException e ){ 
+                                System.out.println(e.toString());
+                        } 
 
-                    
                         cineplexHandler.createCineplex( name, location);
 
                         System.out.println("\t\tNew Cineplex Created"); 
@@ -63,7 +72,13 @@ public class StaffCinema extends View {
                         System.out.println("\t\tDeleting  Cineplex"); 
                         System.out.println("-------------------------------------");
                         System.out.println("Enter cineplex ID to be deleted");
-                        id = sc.nextInt();
+                        
+
+                        try {
+                            id = sc.nextInt();
+                        }  catch(InputMismatchException e ){ 
+                                System.out.println(e.toString());
+                        } 
                         
                         cineplexHandler.deleteCineplex(id);
                         System.out.println("\t\tCineplex Deleted"); 
@@ -109,7 +124,7 @@ public class StaffCinema extends View {
         System.out.println("Enter choice"); 
         
         ch = sc.nextInt(); 
-        System.out.println("\f");
+        
 
         try { 
             switch (ch) { 
@@ -188,3 +203,8 @@ public class StaffCinema extends View {
   
 
 }// class bracket 
+
+
+
+
+
