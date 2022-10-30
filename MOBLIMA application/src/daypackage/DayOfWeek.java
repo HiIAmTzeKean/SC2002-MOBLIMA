@@ -14,9 +14,7 @@ public enum DayOfWeek {
 	DayOfWeek(String day) {
 		this.day = day;
 	}
-	public String getDayOfWeek() {
-		return this.day;
-	}
+
 	public boolean equals(String day) {
 		if (this.day==day)
 			return true;
