@@ -62,8 +62,8 @@ public class Showtime implements IBooking{
 	public int getMovieID() {
 		return movie.getMovieID();
 	}
-	public void setMovieStatus(MovieStatus status){
-		movie.setStatus(status);
+	public void setMovieStatus(ShowStatus status){
+		movie.setMovieStatus(status);
 	}
 	public void removeBooking(int cinemaID, String seatRow, int seatCol){
 		cinema.removeBooking(cinemaID, seatRow, seatCol);

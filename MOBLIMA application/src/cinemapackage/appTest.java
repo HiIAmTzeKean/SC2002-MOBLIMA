@@ -2,7 +2,6 @@ package cinemapackage;
 
 import java.io.File;
 import java.io.IOException;
-import java.util.ArrayList;
 
 public class appTest {
     public static void main(String args []){
@@ -16,17 +15,17 @@ public class appTest {
             catch (IOException ex){}
             
             CinemaManager cm = CinemaManager.getInstance();
-            cm.createCinema(0,"Westgate 1","Platinum");
-            cm.createCinema(1,"Westgate 2","Gold");
-            cm.createCinema(2,"Westgate 3","Sliver");
-            cm.createCinema(3,"JEM 1","Platinum");
-            cm.createCinema(4,"JEM 2","Gold");
-            cm.createCinema(5,"JEM 3","Gold");
-            cm.createCinema(6,"JEM 4","Sliver");
+            cm.createCinema("WG1","Platinum");
+            cm.createCinema("WG2","Gold");
+            cm.createCinema("WG3","Sliver");
+            cm.createCinema("JE1","Platinum");
+            cm.createCinema("JE2","Gold");
+            cm.createCinema("JE3","Gold");
+            cm.createCinema("JE4","Sliver");
             CinemaManager.close();
         }
         else {
-            CinemaManager cm = CinemaManager.getInstance();
+            ICinema cm = CinemaManager.getInstance();
             cm.printCinemas();
             CinemaManager.close();
         }
