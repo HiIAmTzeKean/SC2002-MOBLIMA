@@ -17,13 +17,13 @@ public class PlatinumMovieSuit extends Cinema {
         }
     }
     public void printLayout(){
-        System.out.printf("======== Layout of %s Platinum Class Cinema ========\n",super.getName());
+        System.out.printf("======== Layout of %s Platinum Class Cinema ========\n",super.getCinemaCode());
         System.out.printf("      1  2     3  4     5  6\n");
 
         for (int i=0; i<3; i++) {
             System.out.printf("%c  - ", colList[i]);
             for (int j=0; j<6; j++) {
-                System.out.printf("|%d|",seats.get(i).get(j).IsBooked()? 1:0);
+                System.out.printf("|%d|",seats.get(i).get(j).isBooked()? 1:0);
                 if (j==1 || j==3) System.out.printf(" - ");
             }
             System.out.printf(" -  %c\n", colList[i]);

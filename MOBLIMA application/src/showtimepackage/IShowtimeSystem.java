@@ -1,7 +1,5 @@
 package showtimepackage;
 
-import java.util.Date;
-
 import cinemapackage.ICinemaBooking;
 import daypackage.IDay;
 import moviepackage.Movie;
@@ -15,7 +13,7 @@ public interface IShowtimeSystem extends IShowtime {
 	/**
 	 * Returns base price of Showtime class
 	 */
-	void getBasePrice();
+	float getBasePrice();
 	/**
 	 * Create a new showtime object
 	 * Checks if movie is "Preview" or "Now Showing" before creating entry

@@ -39,6 +39,6 @@ public class Customer {
 		this.age = age;
 	}
 	public float getMultiplier(){
-		return age.getMultiplier();
+		return age.getAgeMultiplier();
 	}
 }

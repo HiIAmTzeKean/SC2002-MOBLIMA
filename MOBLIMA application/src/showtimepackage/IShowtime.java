@@ -1,5 +1,7 @@
 package showtimepackage;
 
+import customerpackage.Customer;
+
 public interface IShowtime {
     void bookSeat(int showtimeID, String seatRow, int seatCol, int customerID);
 	/**
@@ -12,7 +14,7 @@ public interface IShowtime {
 	 * Mulitpliers are obtained from composited objects and final price is obtained
 	 * via encapsulated calculations
 	 */
-	float getPrice(int showtimeID);
+	float getPrice(int showtimeID, Customer customer);
 
     void printShowtimeAdmin();
     /**

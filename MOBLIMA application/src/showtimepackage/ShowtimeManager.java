@@ -2,7 +2,6 @@ package showtimepackage;
 
 import java.io.*;
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.Iterator;
 
 import cinemapackage.ICinemaBooking;
@@ -10,7 +9,6 @@ import customerpackage.Customer;
 import daypackage.IDay;
 import moviepackage.Movie;
 import moviepackage.MovieStatus;
-import moviepackage.MovieType;
 
 public class ShowtimeManager implements IShowtimeSystem {
 	
@@ -107,9 +105,9 @@ public class ShowtimeManager implements IShowtimeSystem {
 	}
 
 	@Override
-	public float getPrice(int showtimeID) throws IllegalArgumentException{
+	public float getPrice(int showtimeID, Customer customer) throws IllegalArgumentException{
 		try {
-			return showtimes.get(getShowtimeIndex(showtimeID)).getPrice();
+			return showtimes.get(getShowtimeIndex(showtimeID)).getPrice(customer);
 		}
 		catch (IllegalArgumentException ex){
 			throw new IllegalArgumentException("Error in retriving seat");
@@ -189,9 +187,9 @@ public class ShowtimeManager implements IShowtimeSystem {
 
 	@Override
 	public void addShowtime(Movie movie, ICinemaBooking cinema, IDay day) throws IllegalArgumentException{
-		if (movie.getStatus()==MovieStatus.COMING_SOON || 
-			movie.getStatus()==MovieStatus.NOW_SHOWING ||
-			movie.getStatus()==MovieStatus.PREVIEW){
+		if (movie.getMovieStatus()==MovieStatus.COMING_SOON || 
+			movie.getMovieStatus()==MovieStatus.NOW_SHOWING ||
+			movie.getMovieStatus()==MovieStatus.PREVIEW){
 			ShowtimeManager.showtimes.add(new Showtime(movie,cinema,day,++lastID));
 		}
 		throw new IllegalArgumentException("Movie status is not Coming, Showing or Preview");
@@ -206,7 +204,7 @@ public class ShowtimeManager implements IShowtimeSystem {
 		for (Iterator<Showtime> it = showtimes.iterator(); it.hasNext();) {
 			Showtime s = it.next();
 			if (s.getMovieID() == movieID) {
-				s.setMovieStatus(MovieStatus.END);
+				s.setMovieStatus(MovieStatus.END_OF_SHOWING);
 			}
 		}
 	}
