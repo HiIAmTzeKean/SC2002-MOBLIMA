@@ -145,7 +145,7 @@ public class StaffMovie extends View {
                         System.out.println("Enter new Type :");
                         MovieType movieType = MovieType.valueOf(sc.next().toUpperCase());
 
-                        MovieManager.setMovieType(ID, movieType); 
+                        MovieHandler.setMovieType(ID, movieType); 
                         System.out.println("\t\tNew movie type has been set"); 
                 break;
                 case  2 : 
@@ -158,7 +158,7 @@ public class StaffMovie extends View {
                         System.out.println("Enter new movie Status ");
                         MovieStatus movieStatus = MovieStatus.valueOf(sc.next().toUpperCase());
 
-                        MovieManager.setMovieStatus(ID, movieStatus); 
+                        MovieHandler.setMovieStatus(ID, movieStatus); 
                         System.out.println("\t\tNew movie status has been set");
 
                 break;
@@ -171,7 +171,7 @@ public class StaffMovie extends View {
                         System.out.println("Enter new movie Director ");
                         String director = sc.next(); 
 
-                        MovieManager.setMovieDirector(ID, director); 
+                        MovieHandler.setMovieDirector(ID, director); 
                         System.out.println("\t\tNew movie director has been set");
                 break;
                 case  4 : start();
@@ -222,3 +222,7 @@ public class StaffMovie extends View {
 	    }
 
     }
+
+
+
+
