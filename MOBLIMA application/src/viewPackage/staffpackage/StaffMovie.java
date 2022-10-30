@@ -42,8 +42,12 @@ public class StaffMovie extends View {
 		do {	
 			displayMenu();
 			System.out.println("Enter choice"); 
-			choice = sc.nextInt(); 
-			System.out.println("\f");
+            try { 
+                choice = sc.nextInt(); 
+                System.out.println("\f");
+            }catch(InputMismatchException e){
+                System.out.println(e.toString());
+            }
 			
 			switch (choice) { 
 				case  1 : 
@@ -118,12 +122,18 @@ public class StaffMovie extends View {
             System.out.println("choice 2 : set movie status");
             System.out.println("choice 3 : Set movie director");
             System.out.println("choice 4 : Go Back to Staff Movie Main Menu");
+
             
-            System.out.println("Enter choice"); 
-            choice = sc.nextInt(); 
-            System.out.println("\f");
-            int ID;
+            try {
+                System.out.println("Enter choice"); 
+                choice = sc.nextInt(); 
+                System.out.println("\f");
+            } catch(InputMismatchException e){
+                System.out.println(e.toString());
+            }
             
+            int ID;       
+
             switch (choice) { 
                 case  1 : 
                         System.out.println("Set new Movie type"); 
