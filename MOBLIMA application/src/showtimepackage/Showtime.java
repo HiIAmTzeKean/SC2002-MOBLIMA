@@ -1,7 +1,4 @@
 package showtimepackage;
-import java.util.Date;
-
-import javax.naming.directory.SearchControls;
 
 import cinemapackage.ICinemaBooking;
 import cineplexpackage.CineplexManager;
@@ -60,10 +57,10 @@ public class Showtime implements IBooking{
 		return cinema.getCinemaCode();
 	}
 	public int getMovieID() {
-		return movie.getMovieID();
+		return movie.getID();
 	}
 	public void setMovieStatus(MovieStatus status){
-		movie.setStatus(status);
+		movie.setMovieStatus(status);
 	}
 	public void removeBooking(int cinemaID, String seatRow, int seatCol){
 		cinema.removeBooking(cinemaID, seatRow, seatCol);
@@ -72,7 +69,7 @@ public class Showtime implements IBooking{
 		return cinema.isBooked(seatRow, seatCol);
 	}
 	public static float getBasePrice(){
-		return basePrice;
+		return Showtime.basePrice;
 	}
 	public static void setBasePrice(float basePrice){
 		Showtime.basePrice = basePrice;
@@ -97,7 +94,7 @@ public class Showtime implements IBooking{
 	@Override
 	public float getPrice(Customer customer) {
 		// get multiplier from Movie
-		float movieMultiplier = movie.getMultiplier();
+		float movieMultiplier = (float)movie.getMultiplier();
 		// get multipler from customer
 		float customerMulitplier = customer.getMultiplier();
 		// get multiplier from Cinema

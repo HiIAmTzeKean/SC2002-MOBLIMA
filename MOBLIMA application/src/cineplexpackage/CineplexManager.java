@@ -246,5 +246,15 @@ public class CineplexManager implements ICineplex {
 		// Not found
 		throw new IllegalArgumentException("Cineplex is not found");
 	}
-
+	@Override
+	public Cineplex getCineplex(String name) throws IllegalArgumentException{
+		for (Iterator<Cineplex> it = cineplexes.iterator(); it.hasNext();) {
+			Cineplex c = it.next();
+			if (c.getName() == name) {
+				return c;
+			}
+		}
+		// Not found
+		throw new IllegalArgumentException("Cineplex is not found");
+	}
 }
