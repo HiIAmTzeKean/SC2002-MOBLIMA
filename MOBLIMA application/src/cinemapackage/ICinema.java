@@ -48,4 +48,5 @@ public interface ICinema {
 	 * @throws IllegalArgumentException
 	 */
 	void printCinemaLayout(String cinemaCode) throws IllegalArgumentException;
+	Cinema cloneCinemaByID(int id);
 }

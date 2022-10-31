@@ -250,4 +250,8 @@ public class CinemaManager implements ICinema {
 			throw new IllegalArgumentException("Cinema is not found");
 		}
 	}
+	@Override
+	public Cinema cloneCinemaByID(int id) {
+		return getCinema(id).cloneCinema();
+	}
 }

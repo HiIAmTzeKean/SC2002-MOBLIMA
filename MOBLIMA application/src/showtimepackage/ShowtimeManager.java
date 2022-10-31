@@ -66,8 +66,10 @@ public class ShowtimeManager implements IShowtimeSystem {
 	}
 
 	public static void close() {
-		ShowtimeManager.seraliseShowtimes("./MOBLIMA application/data/showtime/showtime.dat",showtimes);
-		ShowtimeManager.showtimeManager = null;
+		if (ShowtimeManager.showtimeManager != null){
+			ShowtimeManager.seraliseShowtimes("./MOBLIMA application/data/showtime/showtime.dat",showtimes);
+			ShowtimeManager.showtimeManager = null;
+		}
 	}
 
 	protected void addShowtimeSystem(Movie movie, ICinemaBooking cinema, IDay day){
@@ -110,6 +112,7 @@ public class ShowtimeManager implements IShowtimeSystem {
 			}
 		}
 		catch (IllegalArgumentException ex){
+			ex.printStackTrace();
 			throw new IllegalArgumentException("Error in booking seat");
 		}
 	}
@@ -141,7 +144,9 @@ public class ShowtimeManager implements IShowtimeSystem {
 			throw new IllegalArgumentException("No Cinema exist");
 		}
 		for (Iterator<Showtime> it = showtimes.iterator(); it.hasNext();) {
-			it.next().printShowtime();
+			Showtime s= it.next();
+			if (s.getMovieStatus() != MovieStatus.END_OF_SHOWING)
+				s.printShowtime();
 		}
 	}
 

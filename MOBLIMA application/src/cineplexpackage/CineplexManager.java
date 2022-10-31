@@ -111,7 +111,7 @@ public class CineplexManager implements ICineplex {
 			throw new IllegalArgumentException("Cineplex is not found");
 		}
 	}
-
+	
 	@Override
 	public void printCineplexes() {
 		for (Cineplex c:cineplexes){

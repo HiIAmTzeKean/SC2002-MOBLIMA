@@ -31,10 +31,10 @@ public class Showtime implements IBooking, Serializable{
 		this.id = id;
 	}
 	public void printShowtime(){
-		System.out.println("Movie is: " + movie.getMovieTitle() + "Cinema Code is: " + cinema.getCinemaCode() + "Day and time is: " + day.getDate());
+		System.out.println("Movie is: " + movie.getMovieTitle() + "Cinema Code is: " + cinema.getCinemaCode() + "Day and time is: " + day.getDate() + "\tStatus: " + movie.getMovieStatus());
 	}
 	public void printShowtimeAdmin(){
-		System.out.println("ShowtimeID: "+ id +"\tMovie is: " + movie.getMovieTitle() + "\tCinema Code is: " + cinema.getCinemaCode() + "\tDate: " + day.getDate() + "\tTime: "+day.getTime());
+		System.out.println("ShowtimeID: "+ id +"\tMovie is: " + movie.getMovieTitle() + "\tCinema Code is: " + cinema.getCinemaCode() + "\tDate: " + day.getDate() + "\tTime: "+day.getTime() + "\tStatus: " + movie.getMovieStatus());
 	}
 	public String getTime(){
 		return day.getTime();
