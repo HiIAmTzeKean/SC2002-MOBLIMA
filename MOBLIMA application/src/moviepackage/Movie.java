@@ -5,7 +5,9 @@ import java.util.Iterator;
 import java.io.Serializable;
 import java.util.ArrayList;
 public class Movie implements Serializable{
-	private static int instanceCounter = 1;
+	//Used to allocate each movie with a unique ID
+	//TODO: MAKE THIS PRIVATE LATER
+	public static int instanceCounter = 1;
 	private int id;
 	private String movieTitle;
 	private MovieStatus movieStatus;
@@ -16,7 +18,7 @@ public class Movie implements Serializable{
 	private MovieType movieType;
 	private int sales;
 	private int duration;
-	private ArrayList<Review> reviews = new ArrayList<Review>();
+	private ArrayList<Review> reviews; 
 	private static HashMap<MovieType, Double> multiplier;
 	static{
 		multiplier = new HashMap<MovieType, Double>();
@@ -35,9 +37,16 @@ public class Movie implements Serializable{
 		this.movieType = movieType;
 		this.duration = duration;
 		this.sales = 0;
+		this.reviews = new ArrayList<Review>();
 	}
 	public int getID(){
 		return this.id;
+	}
+	protected static void incrementInstance(int toIncrement){
+		instanceCounter+=toIncrement;
+	}
+	protected static int getInstance(){
+		return instanceCounter;
 	}
 	public String getMovieTitle(){
 		return this.movieTitle;
@@ -71,6 +80,9 @@ public class Movie implements Serializable{
 	}
 	public float getReviewScores(){
 		float answer = 0;
+		if(reviews.size() == 0){
+			return answer;
+		}
 		for(Review review: this.getReviews()){
 			answer+= review.getRating();
 		}
@@ -106,7 +118,7 @@ public class Movie implements Serializable{
 		System.out.printf("Synopsis: %s\n",this.synopsis);
 		System.out.printf("Director: %s\n",this.director);
 		System.out.printf("Cast: %s\n",this.cast);
-		System.out.printf("Average Review Score: %\n",this.getReviewScores());
+		System.out.printf("Average Review Score: %f\n",this.getReviewScores());
 		System.out.printf("Past Reviews:\n");
 		int counter = 1;
 		for(Iterator<Review> it = reviews.iterator(); it.hasNext();){

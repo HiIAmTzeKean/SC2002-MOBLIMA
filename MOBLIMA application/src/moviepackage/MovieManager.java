@@ -10,6 +10,9 @@ import java.io.IOException;
 //TODO: Move all function documentation to the interface file
 /**
  * Manager class that implements interface methods to manage movies, sales, and reviews for a cinema.
+ * @author Chaitanya Jadhav
+ * @version 1.0
+ * @since 2022-10-28
  */
 public class MovieManager implements ISales, IReviews, IMovie {
 	private static ArrayList <Movie> movies;
@@ -72,7 +75,16 @@ public class MovieManager implements ISales, IReviews, IMovie {
 	public static MovieManager getInstance(){
 		if(movieManager == null){
 			ArrayList<Movie> m = MovieManager.deseraliseMovies("./MOBLIMA application/data/movie/movie.dat");
+			//Is this a cheap way of solving this?
+			//There's a mismatch between the id counter in the movie class when external movies are loaded in
+			//I defined a protected method that just adds the number of movies in the array 
+			//once it's been read from the file and add that to the counter.
+			//So the next movie object created would have an ID of 8, and no conflicts.
+			//System.out.printf("getInstance(): size of m is %d\n",m.size());
+			//System.out.printf("GetInstance: incrementing the counter by %d\n",m.size());
+			Movie.incrementInstance(m.size());
 			MovieManager.movieManager = new MovieManager(m);
+			//System.out.printf("GetInstance: instance value is now %d\n",Movie.instanceCounter);	
 			return MovieManager.movieManager;
 		}
 		return MovieManager.movieManager;
@@ -90,14 +102,14 @@ public class MovieManager implements ISales, IReviews, IMovie {
 	 * @return index of movie in the movies array
 	 * @throws IllegalArgumentException if the movies array is empty or if the movie is not found.
 	 */
-	public int findMovie(int id) throws IllegalArgumentException{
+	public int findMovie(int movieID) throws IllegalArgumentException{
 		if(movies.size() == 0 || movies == null){
 			throw new IllegalArgumentException("There are no movies to find");
 		}
 		int search = 0;
 		for(Iterator<Movie> it = movies.iterator(); it.hasNext();){
 			Movie m = it.next();
-			if(m.getID() == id){
+			if(m.getID() == movieID){
 				return search;
 			}
 			search++;
@@ -108,19 +120,17 @@ public class MovieManager implements ISales, IReviews, IMovie {
 		if(movies.size() == 0 || movies == null){
 			throw new IllegalArgumentException("There are no movies to find");
 		}
-		int search = 0;
 		for(Iterator<Movie> it = movies.iterator(); it.hasNext();){
 			Movie m = it.next();
-			if(m.getMovieTitle() == movieName){
-				return movies.get(search);
+			if(m.getMovieTitle().equals(movieName)){
+				return m;
 			}
-			search++;
 		}
 		throw new IllegalArgumentException("Movie not found");
 	}
-	public Movie getMoviefromID(int id) throws IllegalArgumentException{
+	public Movie getMoviefromID(int movieID) throws IllegalArgumentException{
 		try{
-			Movie toReturn = movies.get(findMovie(id));
+			Movie toReturn = movies.get(findMovie(movieID));
 			return toReturn;
 		}
 		catch(IllegalArgumentException e){
@@ -149,12 +159,11 @@ public class MovieManager implements ISales, IReviews, IMovie {
 	}
 	/** 
 	 * Function that checks if the review object is valid and appends it to the a movie's review array if the movieID is valid.
-	@param movieID ID of the movie to add the review to.
-	@param review Review object to append to the movie's existing reviews.
-	@throws IllegalArgumentException in the case of an invalid review or movieID.
+	 * @param movieID ID of the movie to add the review to.
+	 * @param review Review object to append to the movie's existing reviews.
+	 * @throws IllegalArgumentException in the case of an invalid review or movieID.
 	 **/
 	@Override
-	//TODO: Change to String movieName
 	public void addReview(String movieName, String review, float rating) throws IllegalArgumentException{
 		Movie target;
 		try{
@@ -187,6 +196,7 @@ public class MovieManager implements ISales, IReviews, IMovie {
 		}
 		//Finally, create the movie object and add it to the movie array
 		Movie toAdd = new Movie(movieTitle,movieStatus,synopsis,director,cast,ageRestriction,movieType,duration);
+		toAdd.printMovieIncomplete();
 		movies.add(toAdd);
 	}
 	/**
@@ -232,7 +242,7 @@ public class MovieManager implements ISales, IReviews, IMovie {
 	 * @throws IllegalArgumentException if the movieID is not found, if there are no movies to search, or if MovieStatus argument is invalid.
 	 */
 	@Override
-	public void setMovieStatus(int movieID, MovieStatus status)throws IllegalArgumentException{
+	public void setMovieStatus(int movieID, String status)throws IllegalArgumentException{
 		int target = 0;
 		try{
 			target = findMovie(movieID);
@@ -240,7 +250,13 @@ public class MovieManager implements ISales, IReviews, IMovie {
 		catch(IllegalArgumentException e){
 			throw new IllegalArgumentException("Movie not found");
 		}
-		movies.get(target).setMovieStatus(status);
+		try{
+			MovieStatus mStatus = MovieStatus.valueOf(status);
+			movies.get(target).setMovieStatus(mStatus);
+		}
+		catch(IllegalArgumentException e){
+			throw new IllegalArgumentException("Invalid movie status");
+		}
 	}
 	@Override
 	/**
