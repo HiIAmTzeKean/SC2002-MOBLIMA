@@ -33,8 +33,8 @@ public class Day implements IDay {
 	
 	/*
 	*If showtime is on a weekend, return the multiplier i.e. the multiplier set by staff.
-	*If showtime is on a weekday, return 1 as there is no extra charge
-	*If showtime is on a holiday, return two times the multiplier
+	*If showtime is on a weekday, return 1 as there is no extra charge.
+	*If showtime is on a holiday, return two times the multiplier i.e. 2*1=2 for weekdays and 2*multiplier.
 	*/
 	public float getDayMultiplier() {
 		if(holiday){
