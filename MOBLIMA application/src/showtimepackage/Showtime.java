@@ -1,5 +1,7 @@
 package showtimepackage;
 
+import java.io.Serializable;
+
 import cinemapackage.ICinemaBooking;
 import cineplexpackage.CineplexManager;
 import customerpackage.Customer;
@@ -7,7 +9,8 @@ import daypackage.IDay;
 import moviepackage.Movie;
 import moviepackage.MovieStatus;
 
-public class Showtime implements IBooking{
+public class Showtime implements IBooking, Serializable{
+	private static final long serialVersionUID = 6266710308272298089L;
 	private Movie movie;
 	private ICinemaBooking cinema;
 	private static float basePrice;

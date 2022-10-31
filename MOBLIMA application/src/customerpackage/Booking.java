@@ -1,8 +1,10 @@
 package customerpackage;
 
+import java.io.Serializable;
+
 import showtimepackage.Showtime;
 
-public class Booking {
+public class Booking implements Serializable{
     private String transactionID;
     private Showtime showtime;
     private float price;
