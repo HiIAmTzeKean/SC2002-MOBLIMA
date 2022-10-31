@@ -5,6 +5,7 @@ import java.util.Iterator;
 import java.io.Serializable;
 import java.util.ArrayList;
 public class Movie implements Serializable{
+	private static int instanceCounter = 1;
 	private int id;
 	private String movieTitle;
 	private MovieStatus movieStatus;
@@ -23,8 +24,8 @@ public class Movie implements Serializable{
 		multiplier.put(MovieType._3D,1.25);
 		multiplier.put(MovieType.BLOCKBUSTER,1.5);
 	}
-	public Movie(int movieID, String movieTitle, MovieStatus movieStatus, String synopsis, String director, String cast, AgeRestriction ageRestriction, MovieType movieType, int duration){
-		this.id = movieID;
+	public Movie(String movieTitle, MovieStatus movieStatus, String synopsis, String director, String cast, AgeRestriction ageRestriction, MovieType movieType, int duration){
+		this.id = instanceCounter++;
 		this.movieTitle = movieTitle;
 		this.movieStatus = movieStatus;
 		this.synopsis = synopsis;
@@ -107,7 +108,15 @@ public class Movie implements Serializable{
 		System.out.printf("Cast: %s\n",this.cast);
 		System.out.printf("Average Review Score: %\n",this.getReviewScores());
 		System.out.printf("Past Reviews:\n");
-
+		int counter = 1;
+		for(Iterator<Review> it = reviews.iterator(); it.hasNext();){
+			if(counter<=3){
+				break;
+			}
+			Review re = it.next();
+			System.out.printf("%f : %s", re.getRating(), re.getReview());
+			counter++;
+		}
 	}
 	public void printMovieIncomplete(){
 		System.out.println("---------------------");
