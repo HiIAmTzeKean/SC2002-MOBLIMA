@@ -1,6 +1,7 @@
 package daypackage;
+import java.io.Serializable;
 
-public class Day implements IDay {
+public class Day implements Serializable, IDay {
 
 	private boolean holiday;
 	private DayOfWeek dayOfWeek;
