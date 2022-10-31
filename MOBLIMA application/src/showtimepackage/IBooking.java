@@ -1,5 +1,7 @@
 package showtimepackage;
 
+import customerpackage.Customer;
+
 public interface IBooking{
 
 	/**
@@ -17,8 +19,9 @@ public interface IBooking{
 	/**
 	 * Gets price of the cost of watching the showtime
 	 * Mulitpliers are obtained from composited objects and final price is obtained
-	 * via encapsulated calculations
+	 * through summing the multipiers with the customer multiplier in customer object
+	 * @param customer Objects which provides the multiplier
 	 */
-	float getPrice();
+	float getPrice(Customer customer);
 	void printSeats();
 }
