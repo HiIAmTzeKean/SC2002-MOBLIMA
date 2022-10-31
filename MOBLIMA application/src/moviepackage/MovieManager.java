@@ -104,7 +104,7 @@ public class MovieManager implements ISales, IReviews, IMovie {
 		}
 		throw new IllegalArgumentException("Movie not found");
 	}
-	public int findMoviebyName(String movieName) throws IllegalArgumentException{
+	public Movie findMoviebyName(String movieName) throws IllegalArgumentException{
 		if(movies.size() == 0 || movies == null){
 			throw new IllegalArgumentException("There are no movies to find");
 		}
@@ -112,7 +112,7 @@ public class MovieManager implements ISales, IReviews, IMovie {
 		for(Iterator<Movie> it = movies.iterator(); it.hasNext();){
 			Movie m = it.next();
 			if(m.getMovieTitle() == movieName){
-				return search;
+				return movies.get(search);
 			}
 			search++;
 		}
@@ -156,7 +156,7 @@ public class MovieManager implements ISales, IReviews, IMovie {
 	@Override
 	//TODO: Change to String movieName
 	public void addReview(String movieName, String review, float rating) throws IllegalArgumentException{
-		int target = 0;
+		Movie target;
 		try{
 			target = findMoviebyName(movieName);
 
@@ -173,7 +173,7 @@ public class MovieManager implements ISales, IReviews, IMovie {
 		}
 		Review newReview = new Review(rating, review);
 		//If no errors, add the review to the array of the movie object
-		movies.get(target).addReview(newReview);
+		target.addReview(newReview);
 	}
 	/**
 	 * Instantiates a movie object if the arguments are valid and appends it to the movies array.
