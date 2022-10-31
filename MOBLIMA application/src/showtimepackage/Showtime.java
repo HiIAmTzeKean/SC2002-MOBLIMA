@@ -5,6 +5,7 @@ import java.io.Serializable;
 import cinemapackage.ICinemaBooking;
 import cineplexpackage.CineplexManager;
 import customerpackage.Customer;
+import daypackage.Day;
 import daypackage.IDay;
 import moviepackage.Movie;
 import moviepackage.MovieStatus;
@@ -33,7 +34,7 @@ public class Showtime implements IBooking, Serializable{
 		System.out.println("Movie is: " + movie.getMovieTitle() + "Cinema Code is: " + cinema.getCinemaCode() + "Day and time is: " + day.getDate());
 	}
 	public void printShowtimeAdmin(){
-		System.out.println("ShowtimeID: "+ id +"Movie is: " + movie.getMovieTitle() + "Cinema Code is: " + cinema.getCinemaCode() + "Day and time is: " + day.getDate());
+		System.out.println("ShowtimeID: "+ id +"\tMovie is: " + movie.getMovieTitle() + "\tCinema Code is: " + cinema.getCinemaCode() + "\tDate: " + day.getDate() + "\tTime: "+day.getTime());
 	}
 	public String getTime(){
 		return day.getTime();
@@ -43,6 +44,12 @@ public class Showtime implements IBooking, Serializable{
 	}
 	public int getID() {
 		return id;
+	}
+	public Day getDayObject(){
+		return (Day)day;
+	}
+	public Movie getMovieObject(){
+		return movie;
 	}
 	public void printMovie() {
 		movie.printMovieComplete();
@@ -105,7 +112,7 @@ public class Showtime implements IBooking, Serializable{
 		return basePrice * (movieMultiplier + cinemaMultiplier + customerMulitplier);
 	}
 	@Override
-	public void printSeats() {
+	public void printSeat() {
 		cinema.printCinemaLayout();
 	}
 }

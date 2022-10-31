@@ -15,9 +15,9 @@ public class appTest {
         MovieManager movieMan = MovieManager.getInstance();
         CinemaManager cinemaManager = CinemaManager.getInstance();
 
-        boolean createDat = true;
+        boolean createDat = false;
         if (createDat){
-            File file = new File("./MOBLIMA application/data/cinema/cinema.dat");
+            File file = new File("./MOBLIMA application/data/showtime/showtime.dat");
             file.delete();
             try{
                 file.createNewFile();
@@ -119,10 +119,11 @@ public class appTest {
             man.addShowtimeSystem(movieMan.getMoviefromID(7), cinemaManager.getCinema(2), d2_t2);
             man.addShowtimeSystem(movieMan.getMoviefromID(7), cinemaManager.getCinema(3), d2_t2);
             //
+            System.out.println("Done");
             ShowtimeManager.close();
         }
         else{
-            
+            man.printShowtimeAdmin();
         }
     }
 }
