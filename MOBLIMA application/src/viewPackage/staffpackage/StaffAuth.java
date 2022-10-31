@@ -47,6 +47,7 @@ public class StaffAuth extends View {
 				no_of_tries++; 
 				System.out.print("\f"); continue;
 			}
+			break;
 
 			index = Arrays.asList(usernameDB).indexOf(username);
 		}
