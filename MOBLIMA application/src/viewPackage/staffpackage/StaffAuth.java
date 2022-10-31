@@ -21,6 +21,7 @@ public class StaffAuth extends View {
 	
 
 	public static void login() {
+
 		// TODO - implement StaffAuth.login
 
 		System.out.println("Please login to the MOBLIMA system");
@@ -28,13 +29,14 @@ public class StaffAuth extends View {
 		boolean contains; 
 
 		int no_of_tries = 0 ;
-		int index = -1;
+		int index = -1 ;
 
 		//username scanning and checking 
+
 		while (no_of_tries < 3 ) {
 
 			try {
-				System.out.println("Enter Username \n trial:" + (no_of_tries+1));
+				System.out.println("Enter Username (trial:)" + (no_of_tries+1));
 				username = sc.next(); 
 			} catch ( InputMismatchException  e){ 
 				System.out.println(e.toString());
@@ -55,7 +57,8 @@ public class StaffAuth extends View {
 			break; 
 		}
 		
-		//password scanning and checking 
+		//password scanning and checking
+		 
 		while (no_of_tries < 3) {
 			try { 
 			System.out.println("Enter Password \n trial:" + (no_of_tries+1));
@@ -71,11 +74,10 @@ public class StaffAuth extends View {
 				StaffView.start();;
 			}
 			
-			// if(password != passwordDB[index]) { 
-				System.out.println("Wrong password"); 
-			    no_of_tries++; 
-			// 	System.out.print("\f"); continue;
-			// }	
+	
+			System.out.println("Wrong password"); 
+			no_of_tries++; 
+			
 			
 			System.out.println("Access Granted");
 			StaffView.start();;
