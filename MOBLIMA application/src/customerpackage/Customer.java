@@ -1,7 +1,9 @@
 package customerpackage;
+import java.io.Serializable;
+
 import agepackage.Age;
 
-public class Customer {
+public class Customer implements Serializable{
 
 	private String name;
 	private int mobile;

@@ -68,6 +68,9 @@ public class ShowtimeManager implements IShowtimeSystem {
 		ShowtimeManager.showtimeManager = null;
 	}
 
+	protected void addShowtimeSystem(Movie movie, ICinemaBooking cinema, IDay day){
+		ShowtimeManager.showtimes.add(new Showtime(movie,cinema,day,++lastID));
+	}
 
 	public int getShowtimeIndex(int showtimeID) throws IllegalArgumentException {
 		if (showtimes== null || showtimes.size() == 0){
@@ -191,6 +194,7 @@ public class ShowtimeManager implements IShowtimeSystem {
 			movie.getMovieStatus()==MovieStatus.NOW_SHOWING ||
 			movie.getMovieStatus()==MovieStatus.PREVIEW){
 			ShowtimeManager.showtimes.add(new Showtime(movie,cinema,day,++lastID));
+			return;
 		}
 		throw new IllegalArgumentException("Movie status is not Coming, Showing or Preview");
 	}
