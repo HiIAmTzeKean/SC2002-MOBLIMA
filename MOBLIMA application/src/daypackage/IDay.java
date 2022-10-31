@@ -2,7 +2,7 @@ package daypackage;
 
 public interface IDay {
 
-	float getMultiplier();
+	float getDayMultiplier();
 	void setMultiplier(float newMulitplier);
 	boolean isHoliday();
 	void setHoliday();
@@ -11,5 +11,7 @@ public interface IDay {
 	String getDate();
 	void setDayOfWeek(DayOfWeek day);
 	DayOfWeek getDayOfWeek();
+	void setTime(String time);
+	String getTime();
 
 }

@@ -7,7 +7,7 @@ import cinemapackage.*;
 
 public class appTest {
     public static void main(String args []){
-        boolean createDat = false;
+        boolean createDat = true;
         if (createDat){
             File file = new File("./MOBLIMA application/data/cineplex/cineplex.dat");
             file.delete();
@@ -17,12 +17,12 @@ public class appTest {
             catch (IOException ex){}
             
             CineplexManager cm =  CineplexManager.getInstance();
-            cm.createCineplex(0,"Westgate", "Jurong East");
-            cm.createCineplex(1,"JEM", "Jurong East");
+            cm.createCineplex("Westgate", "Jurong East");
+            cm.createCineplex("JEM", "Jurong East");
             CinemaManager cinemaManager = CinemaManager.getInstance();
-            cm.addCinema(0,cinemaManager.getCinema(0));
-            cm.addCinema(0,cinemaManager.getCinema(1));
-            cm.addCinema(0,cinemaManager.getCinema(2));
+            cm.addCinema(1,cinemaManager.getCinema(1));
+            cm.addCinema(1,cinemaManager.getCinema(2));
+            cm.addCinema(1,cinemaManager.getCinema(3));
 
             CineplexManager.close();
             CinemaManager.close();

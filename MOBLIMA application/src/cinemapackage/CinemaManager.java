@@ -10,14 +10,16 @@ import java.io.*;
 public class CinemaManager implements ICinema {
 	private static CinemaManager cinemaManager = null;
 	private static ArrayList<Cinema> cinemas;
+	private static int lastID;
 
 	private CinemaManager() {
 		// Deseralise all objects here
 		cinemas = new ArrayList<Cinema>();
-
+		lastID = 0;
 	}
 	private CinemaManager(ArrayList<Cinema> cinemas) {
 		CinemaManager.cinemas = cinemas;
+		lastID = cinemas.size();
 	}
 	private static ArrayList<Cinema> deseraliseCinemas(String filename){
 		ArrayList<Cinema>  c = null;
@@ -67,20 +69,32 @@ public class CinemaManager implements ICinema {
 	}
 
 	@Override
-	public void createCinema(int id, String name, String type) {
+	public void createCinema(String code, String type) {
 		System.out.println("===== Cinema being created =====");
 		try{
-			this.getCinema(id);
+			if (code.length() != 3) {
+				System.out.println("Invalid code supplied");
+				System.out.println("Exiting cinema creation function");
+				System.out.println("===== Cinema creation finished =====");
+				return;
+			}
+			this.getCinema(code);
 			System.out.println("Cinema already created");
 		}
 		catch (IllegalArgumentException ex) {
 			Cinema c = null;
 			if (CinemaType.PLATINUM.equals(type))
-				c = new PlatinumMovieSuit(name,id);
+				c = new PlatinumMovieSuit(code,++lastID);
 			else if (CinemaType.GOLD.equals(type))
-				c = new GoldMovieSuit(name,id);
-			else
-				c = new SliverMovieSuit(name, id);
+				c = new GoldMovieSuit(code,++lastID);
+			else if (CinemaType.SLIVER.equals(type))
+				c = new SliverMovieSuit(code, ++lastID);
+			else {
+				System.out.println("Invalid Cinema type supplied");
+				System.out.println("Exiting cinema creation function");
+				System.out.println("===== Cinema creation finished =====");
+				return;
+			}
 			System.out.println("Cinema has been created");
 			c.printCinema();
 			cinemas.add(c);
@@ -132,5 +146,98 @@ public class CinemaManager implements ICinema {
 		}
 		// Not found
 		throw new IllegalArgumentException("Cinema is not found");
+	}
+	public Cinema getCinema(String code) {
+		if (cinemas== null || cinemas.size() == 0){
+			// exit before any looping is done
+			throw new IllegalArgumentException("No Cinema exist");
+		}
+
+		for (Iterator<Cinema> it = cinemas.iterator(); it.hasNext();) {
+			Cinema c = it.next();
+			if (c.getCinemaCode() == code) {
+				return c;
+			}
+		}
+		// Not found
+		throw new IllegalArgumentException("Cinema is not found");
+	}
+	@Override
+	public String getCinemaCode(int cinemaID) {
+		try{
+			return getCinema(cinemaID).getCode();
+		}
+		catch (IllegalArgumentException ex){
+			throw new IllegalArgumentException("Cinema is not found");
+		}
+	}
+	@Override
+	public void setCinemaCode(int cinemaID, String code) {
+		try{
+			getCinema(cinemaID).setCode(code);
+		}
+		catch (IllegalArgumentException ex){
+			throw new IllegalArgumentException("Cinema is not found");
+		}
+	}
+	@Override
+	public CinemaType getCinemaType(int cinemaID) {
+		
+		try{
+			return getCinema(cinemaID).getCinemaType();
+		}
+		catch (IllegalArgumentException ex){
+			throw new IllegalArgumentException("Cinema is not found");
+		}
+	}
+	@Override
+	public int getCineplexID(int cinemaID) {
+		
+		try{
+			return getCinema(cinemaID).getCineplexID();
+		}
+		catch (IllegalArgumentException ex){
+			throw new IllegalArgumentException("Cinema is not found");
+		}
+	}
+	@Override
+	public int getCineplexID(String code) {
+		
+		try{
+			return getCinema(code).getCineplexID();
+		}
+		catch (IllegalArgumentException ex){
+			throw new IllegalArgumentException("Cinema is not found");
+		}
+	}
+	@Override
+	public void setCineplexID(int cinemaID, int cineplexID) {
+		
+		try{
+			getCinema(cinemaID).setCineplexid(cineplexID);
+		}
+		catch (IllegalArgumentException ex){
+			throw new IllegalArgumentException("Cinema is not found");
+		}
+	}
+	@Override
+	public void printCinemaLayout(int cinemaID) {
+		
+		try{
+			getCinema(cinemaID).printLayout();
+		}
+		catch (IllegalArgumentException ex){
+			throw new IllegalArgumentException("Cinema is not found");
+		}
+	}
+	@Override
+	public void printCinemaLayout(String code) {
+		
+		try{
+			getCinema(code).printLayout();
+		}
+		catch (IllegalArgumentException ex){
+			throw new IllegalArgumentException("Cinema is not found");
+		}
 	}
 }
