@@ -1,5 +1,7 @@
 package agepackage;
-public class Age implements IAge {
+import java.io.Serializable;
+
+public class Age implements Serializable, IAge {
 
 	
 	private int ageNumber;

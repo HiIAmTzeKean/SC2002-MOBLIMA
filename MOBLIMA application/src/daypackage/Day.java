@@ -1,17 +1,20 @@
 package daypackage;
+import java.io.Serializable;
 
-public class Day implements IDay {
+public class Day implements Serializable, IDay {
 
 	private boolean holiday;
 	private DayOfWeek dayOfWeek;
 	private static float multiplier;
 	
 
-	// range 1 - 30
+	// range 1 - 30. DD format
 	private int dayNumber;
-	// range 1 - 12
+	// range 1 - 12. MM format
 	private int monthNumber;
+	// range 2022 - present. YYYY format
 	private int yearNumber;
+	// range 20220101 - present. YYYYMMDD format
 	private String fullDate;
 
 	// "1300" means 1pm
@@ -20,8 +23,16 @@ public class Day implements IDay {
 	public Day(){
 		this.holiday = false;
 		multiplier = 1;
+		this.dayNumber = 01;
+		this.monthNumber = 01;
+		this.yearNumber = 2022;
+		this.fullDate = Integer.toString(2022) + Integer.toString(01) + Integer.toString(01);
+		this.dayOfWeek = DayOfWeek.SAT;
+		time = "1200";
+		
 	}
 	
+
 	public float getDayMultiplier() {
 		if(holiday){
 			if(this.dayOfWeek==DayOfWeek.SUN || this.dayOfWeek==DayOfWeek.SAT){
@@ -40,8 +51,12 @@ public class Day implements IDay {
 			}
 		}
 	}
-
-	public void setMultiplier(float newMulitplier) {
+	
+	/**
+	 * Sets multiplier
+	 * @param newMulitplier
+	 */
+	public static void setMultiplier(float newMulitplier) {
 		multiplier = newMulitplier;
 	}
 
