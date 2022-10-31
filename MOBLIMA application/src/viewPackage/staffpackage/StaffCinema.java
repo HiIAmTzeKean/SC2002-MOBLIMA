@@ -76,11 +76,12 @@ public class StaffCinema extends View {
 
                         try {
                             id = sc.nextInt();
+                            cineplexHandler.deleteCineplex(id);
                         }  catch(InputMismatchException e ){ 
                                 System.out.println(e.toString());
                         } 
                         
-                        cineplexHandler.deleteCineplex(id);
+                        
                         System.out.println("\t\tCineplex Deleted"); 
 				break;
 
