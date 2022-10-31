@@ -72,7 +72,16 @@ public abstract class Cinema  implements Serializable, ICinemaBooking{
 	public void setCineplexid(int cineplexID) {
 		this.Cineplexid = cineplexID;
 	}
-	private int convertSeatRowToInt(String seatRow) {
+	/**
+	 * Given a String, fetch the first character of the String to be used to indicate the row number
+	 * of the seat to be booked
+	 * We assume that error checking has been done before seatRow is passed into Cinema class, where
+	 * seatRow should be String of size 1
+	 * @param seatRow
+	 * @return
+	 * @throws IllegalAccessError
+	 */
+	private int convertSeatRowToInt(String seatRow) throws IllegalAccessError{
 		char comparator = seatRow.charAt(0);
 		int i = 0;
 		boolean found = false; 
@@ -80,23 +89,45 @@ public abstract class Cinema  implements Serializable, ICinemaBooking{
 			found = true;
 		}
 		if (found) return i;
-		else return -1;
+		else throw new IllegalAccessError("Invalid Seat conversion");
 	}
+	
+	
 	public void bookSeat(String seatRow, int seatCol, int customerID) throws IllegalAccessError{
-		if (isBooked(seatRow,seatCol)) {
-			int row = convertSeatRowToInt(seatRow);
+		int row = 0;
+		try {
+			row = convertSeatRowToInt(seatRow);
+		} catch (IllegalAccessError e) {
+			e.printStackTrace();
+			throw new IllegalAccessError("Seat input not valid");
+		}
+		
+		if (!isBooked(seatRow,seatCol)) {
 			seats.get(row).get(seatCol).setBooked(customerID);
 		}
 		else throw new IllegalAccessError("Seat was not booked");
 	}
-    public boolean isBooked(String seatRow, int seatCol){
-		int row = convertSeatRowToInt(seatRow);
+    public boolean isBooked(String seatRow, int seatCol) throws IllegalAccessError{
+		int row = 0;
+		try {
+			row = convertSeatRowToInt(seatRow);
+		} catch (IllegalAccessError e) {
+			e.printStackTrace();
+			throw new IllegalAccessError("Seat input not valid");
+		}
 		if (seats.get(row).get(seatCol).isBooked()) return false;
 		else return true;
 	}
     public void removeBooking(int cinemaID, String seatRow, int seatCol){
+		int row = 0;
+		try {
+			row = convertSeatRowToInt(seatRow);
+		} catch (IllegalAccessError e) {
+			e.printStackTrace();
+			throw new IllegalAccessError("Seat input not valid");
+		}
 		if (isBooked(seatRow,seatCol)) {
-			int row = convertSeatRowToInt(seatRow);
+			row = convertSeatRowToInt(seatRow);
 			seats.get(row).get(seatCol).setUnBooked();
 		}
 		else throw new IllegalAccessError("Seat was not booked");

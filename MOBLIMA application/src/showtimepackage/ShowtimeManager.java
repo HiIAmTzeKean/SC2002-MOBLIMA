@@ -6,9 +6,11 @@ import java.util.Iterator;
 
 import cinemapackage.ICinemaBooking;
 import customerpackage.Customer;
+import daypackage.Day;
 import daypackage.IDay;
 import moviepackage.Movie;
 import moviepackage.MovieStatus;
+import moviepackage.MovieType;
 
 public class ShowtimeManager implements IShowtimeSystem {
 	
@@ -87,10 +89,25 @@ public class ShowtimeManager implements IShowtimeSystem {
 		// Not found
 		throw new IllegalArgumentException("Showtime is not found");
 	}
+
+	public void bookSeatAdmin(int showtimeID, String seatRow, int seatCol, int customerID) throws IllegalArgumentException{
+		try {
+			showtimes.get(getShowtimeIndex(showtimeID)).bookSeat(seatRow, seatCol, customerID);
+		}
+		catch (IllegalArgumentException ex){
+			throw new IllegalArgumentException("Error in booking seat");
+		}
+	}
 	@Override
 	public void bookSeat(int showtimeID, String seatRow, int seatCol, int customerID) throws IllegalArgumentException{
 		try {
-			showtimes.get(getShowtimeIndex(showtimeID)).bookSeat(seatRow, seatCol, customerID);
+			Showtime s = showtimes.get(getShowtimeIndex(showtimeID));
+			if (s.getMovieStatus() != MovieStatus.END_OF_SHOWING) {
+				showtimes.get(getShowtimeIndex(showtimeID)).bookSeat(seatRow, seatCol, customerID);
+			}
+			else {
+				throw new IllegalArgumentException("Error in booking seat");
+			}
 		}
 		catch (IllegalArgumentException ex){
 			throw new IllegalArgumentException("Error in booking seat");
@@ -131,7 +148,7 @@ public class ShowtimeManager implements IShowtimeSystem {
 	@Override
 	public void printSeats(int showtimeID) throws IllegalArgumentException{
 		try {
-			showtimes.get(getShowtimeIndex(showtimeID)).printSeats();
+			showtimes.get(getShowtimeIndex(showtimeID)).printSeat();
 		}
 		catch (IllegalArgumentException ex){
 			throw new IllegalArgumentException("Error in retriving seat");
@@ -239,6 +256,48 @@ public class ShowtimeManager implements IShowtimeSystem {
 		catch (IllegalArgumentException ex){
 			throw new IllegalArgumentException("Error in retriving seat");
 		}
+	}
+	@Override
+	public Day getDay(String dateString) throws IllegalArgumentException {
+		for (Iterator<Showtime> it = showtimes.iterator(); it.hasNext();) {
+			Showtime s = it.next();
+			if (s.getDate() == dateString){
+				return s.getDayObject();
+			}
+		}
+		throw new IllegalArgumentException("No such date in showtimes");
+	}
+
+
+	@Override
+	public void setMovieType(int movieID, MovieType type) throws IllegalArgumentException {
+		for (Iterator<Showtime> it = showtimes.iterator(); it.hasNext();) {
+			Showtime s = it.next();
+			if (s.getMovieID() == movieID){
+				s.getMovieObject().setMovieType(type);;
+			}
+		}
+		throw new IllegalArgumentException("No such MovieID in showtimes");
+	}
+	@Override
+	public void setMovieStatus(int movieID, MovieStatus status) throws IllegalArgumentException {
+		for (Iterator<Showtime> it = showtimes.iterator(); it.hasNext();) {
+			Showtime s = it.next();
+			if (s.getMovieID() == movieID){
+				s.getMovieObject().setMovieStatus(status);
+			}
+		}
+		throw new IllegalArgumentException("No such MovieID in showtimes");
+	}
+	@Override
+	public void setMovieDirector(int movieID, String director) throws IllegalArgumentException {
+		for (Iterator<Showtime> it = showtimes.iterator(); it.hasNext();) {
+			Showtime s = it.next();
+			if (s.getMovieID() == movieID){
+				s.getMovieObject().setMovieDirector(director);
+			}
+		}
+		throw new IllegalArgumentException("No such MovieID in showtimes");
 	}
 }
 
