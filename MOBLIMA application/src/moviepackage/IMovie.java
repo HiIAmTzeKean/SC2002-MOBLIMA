@@ -2,8 +2,9 @@ package moviepackage;
 
 public interface IMovie {
 	int findMovie(int id) throws IllegalArgumentException;
+	int findMoviebyName(String movieTitle) throws IllegalArgumentException;
 	Movie getMoviefromID(int id) throws IllegalArgumentException;
-	void createMovie(int movieID, String movieTitle, MovieStatus movieStatus, 
+	void createMovie(String movieTitle, MovieStatus movieStatus, 
 	String synopsis, String director, String cast, AgeRestriction ageRestriction, MovieType movieType, int duration);
 	void deleteMovie(int movieID) throws IllegalArgumentException;
 	MovieStatus getMovieStatus(int movieID)throws IllegalArgumentException;

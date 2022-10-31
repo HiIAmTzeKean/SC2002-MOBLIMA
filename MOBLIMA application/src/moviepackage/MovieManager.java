@@ -7,6 +7,7 @@ import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.util.ArrayList;
 import java.io.IOException;
+//TODO: Move all function documentation to the interface file
 /**
  * Manager class that implements interface methods to manage movies, sales, and reviews for a cinema.
  */
@@ -103,6 +104,20 @@ public class MovieManager implements ISales, IReviews, IMovie {
 		}
 		throw new IllegalArgumentException("Movie not found");
 	}
+	public int findMoviebyName(String movieName) throws IllegalArgumentException{
+		if(movies.size() == 0 || movies == null){
+			throw new IllegalArgumentException("There are no movies to find");
+		}
+		int search = 0;
+		for(Iterator<Movie> it = movies.iterator(); it.hasNext();){
+			Movie m = it.next();
+			if(m.getMovieTitle() == movieName){
+				return search;
+			}
+			search++;
+		}
+		throw new IllegalArgumentException("Movie not found");
+	}
 	public Movie getMoviefromID(int id) throws IllegalArgumentException{
 		try{
 			Movie toReturn = movies.get(findMovie(id));
@@ -139,44 +154,39 @@ public class MovieManager implements ISales, IReviews, IMovie {
 	@throws IllegalArgumentException in the case of an invalid review or movieID.
 	 **/
 	@Override
-	public void addReview(int movieID, Review review) throws IllegalArgumentException{
+	//TODO: Change to String movieName
+	public void addReview(String movieName, String review, float rating) throws IllegalArgumentException{
 		int target = 0;
 		try{
-			target = findMovie(movieID);
+			target = findMoviebyName(movieName);
 
 		}catch(IllegalArgumentException e){
 			throw new IllegalArgumentException("Movie not found");
 		}
 		//Check if the review text is not empty
-		if(review.getReview() == "" || review.getReview() == " "){
+		if(review == "" || review == " "){
 			throw new IllegalArgumentException("Review must not be empty");
 		}
 		//Check if review rating is within the preset bounds
-		if(review.getRating() <= 0 || review.getRating() >= 5.0){
+		if(rating <= 0 || rating >= 5.0){
 			throw new IllegalArgumentException("Review rating is invalid");
 		}
+		Review newReview = new Review(rating, review);
 		//If no errors, add the review to the array of the movie object
-		movies.get(target).addReview(review);
+		movies.get(target).addReview(newReview);
 	}
 	/**
 	 * Instantiates a movie object if the arguments are valid and appends it to the movies array.
 	 * @throws IllegalArgumentException if movie constructor arguments are invalid.
 	 */
 	@Override
-	public void createMovie(int movieID, String movieTitle, MovieStatus movieStatus, String synopsis, String director, String cast, AgeRestriction ageRestriction, MovieType movieType, int duration)throws IllegalArgumentException {
-		//Check if ID already exists - O(n) complexity can be improved?
-		for(Iterator<Movie> it = movies.iterator(); it.hasNext();){
-			Movie m = it.next();
-			if(m.getID() == movieID){
-				throw new IllegalArgumentException("MovieID already exists");
-			}
-		}
+	public void createMovie(String movieTitle, MovieStatus movieStatus, String synopsis, String director, String cast, AgeRestriction ageRestriction, MovieType movieType, int duration)throws IllegalArgumentException {
 		//Do a check for other invalid entry cases
 		if(movieTitle=="" || synopsis == "" || director == "" || cast == "" || duration == 0){
 			throw new IllegalArgumentException("Insufficient details added for creating movie.");
 		}
 		//Finally, create the movie object and add it to the movie array
-		Movie toAdd = new Movie(movieID, movieTitle,movieStatus,synopsis,director,cast,ageRestriction,movieType,duration);
+		Movie toAdd = new Movie(movieTitle,movieStatus,synopsis,director,cast,ageRestriction,movieType,duration);
 		movies.add(toAdd);
 	}
 	/**
