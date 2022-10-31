@@ -1,27 +1,22 @@
-package viewPackage.customerviewpackage;
+package customerviewpackage;
 
 import java.util.Scanner;
+import moviepackage.IReviews;
 
-//just get and set for review and rating. 
-//Check if reviewpackage needs something else 
 public class CustomerReview {
 	private String review;
-	private int rating;
-	
+	private float rating;
+	//could this use a movie type object, which can be set using getMovieFromID()?
 	public static Scanner scan = new Scanner(System.in);
 	
-	public void setReview() {
+	//change to addReview() by movie name
+	public void setReviewAndRating(int movieID) {
 		System.out.print("Please enter your review: ");
 		review = scan.next();
-	}
-	
-	public void setRating() {
 		System.out.print("Please enter your rating: ");
-		rating = scan.nextInt();
-	}
-	
-	public int getRating() {
-		return rating;
+		rating = scan.nextFloat();
+		IReviews ir; //check this part
+		ir.addReview(movieID, review, rating);
 	}
 	
 	public String getReview() {
