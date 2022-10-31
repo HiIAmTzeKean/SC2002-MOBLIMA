@@ -1,30 +1,44 @@
 package customerpackage;
-import agepackage.*;
-import showtimepackage.*;
-import java.util.Scanner;
-
-//todo: implement booking history
+import agepackage.Age;
 
 public class Customer {
-	public static Scanner scan = new Scanner(System.in);
+
 	private String name;
-	private int age;
-	private long mobile;
+	private int mobile;
 	private String email;
-	
-	public void setCustomerDetails() {
-		System.out.println("Enter the following customer details:- ");
-		System.out.print("Enter name: ");
-		name = scan.next();
-		System.out.print("Enter age: ");
-		age = scan.nextInt();
-		System.out.print("Enter mobile: ");
-		mobile = scan.nextLong();
-		System.out.print("Enter email: ");
-		email = scan.next();
+	private Age age;
+
+	public Customer(String name, int mobile, String email, Age age){
+		this.name = name;
+		this.mobile = mobile;
+		this.email = email;
+		this.age = age;
 	}
-	
-	public int getAge() {
+	public String getName() {
+		return name;
+	}
+	public void setName(String name) {
+		this.name = name;
+	}
+	public int getMobile() {
+		return mobile;
+	}
+	public void setMobile(int mobile) {
+		this.mobile = mobile;
+	}
+	public String getEmail() {
+		return email;
+	}
+	public void setEmail(String email) {
+		this.email = email;
+	}
+	public Age getAge() {
 		return age;
+	}
+	public void setAge(Age age) {
+		this.age = age;
+	}
+	public float getMultiplier(){
+		return age.getAgeMultiplier();
 	}
 }
