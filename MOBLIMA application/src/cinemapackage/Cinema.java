@@ -3,9 +3,6 @@ package cinemapackage;
 import java.io.Serializable;
 import java.util.ArrayList;
 
-import customerpackage.Customer;
-
-
 public abstract class Cinema  implements Serializable, ICinemaBooking{
 	private static final long serialVersionUID = 6266710308272298089L;
 	protected char colList[] = {'A', 'B', 'C', 'D', 'E'};
@@ -27,7 +24,6 @@ public abstract class Cinema  implements Serializable, ICinemaBooking{
 		this.id = id;
 		this.Cineplexid = -1;
 	}
-
 	/**
 	 * Returns an ArrayList of seat objects
 	 * @return
@@ -42,7 +38,15 @@ public abstract class Cinema  implements Serializable, ICinemaBooking{
 	public String getCode() {
 		return code;
 	}
-
+	/**
+	 * Alias for getCode() function
+	 */
+	public String getCinemaCode(){
+		return code;
+	}
+	public void setCinemaCode(String code){
+		this.code = code;
+	}
 	public void setCode(String code) {
 		this.code = code;
 	}

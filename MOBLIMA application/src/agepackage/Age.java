@@ -1,28 +1,43 @@
 package agepackage;
-import customerpackage.Customer;
-public class Age implements IAge {
+import java.io.Serializable;
+
+public class Age implements Serializable, IAge {
 
 	
-	private int age;
+	private int ageNumber;
 	private AgeCategory category;
 	      
-	public float getMultiplier() {
-		age = getAge();
-		if(age>=60){
+	public void setAge(int ageNumber){
+		this.ageNumber = ageNumber;
+		
+		if(this.ageNumber>=60){
 			this.category = AgeCategory.SENIOR;
-			return 0.7;
 		}
-		else if(age<=12){
+		else if(ageNumber<=12){
 			this.category = AgeCategory.CHILD;
-			return 0.5;
 		}
 		else{
 			this.category = AgeCategory.ADULT;
+		}
+		
+	}
+
+	public int getAgeNumber(){
+		return this.ageNumber;
+	}
+
+	public AgeCategory getAgeCategory(){
+		return this.category;
+	}
+	public float getAgeMultiplier() {
+		if(this.category == AgeCategory.SENIOR){
+			return (float) 0.7;
+		}
+		else if(this.category == AgeCategory.CHILD){
+			return (float) 0.5;
+		}
+		else{
 			return 1;
 		}
 	}
-	
-	
-	
-
 }

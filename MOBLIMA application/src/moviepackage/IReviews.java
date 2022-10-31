@@ -1,6 +1,6 @@
 package moviepackage;
+import java.util.ArrayList;
 public interface IReviews {
-	void addReview();
-	void deleteReview();
-	void getReviews();
+	void addReview(String movieName, String review, float rating);
+	ArrayList<Review> getReviews(int movieID);
 }
