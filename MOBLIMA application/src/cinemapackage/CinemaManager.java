@@ -19,7 +19,17 @@ public class CinemaManager implements ICinema {
 	}
 	private CinemaManager(ArrayList<Cinema> cinemas) {
 		CinemaManager.cinemas = cinemas;
-		lastID = cinemas.size();
+		lastID = getLargestID();
+	}
+	private int getLargestID(){
+		int largest=0;
+		for (Iterator<Cinema> it = cinemas.iterator(); it.hasNext();) {
+			int current = it.next().getID();
+			if (current > largest) {
+				largest = current;
+			}
+		}
+		return largest;
 	}
 	private static ArrayList<Cinema> deseraliseCinemas(String filename){
 		ArrayList<Cinema>  c = null;
