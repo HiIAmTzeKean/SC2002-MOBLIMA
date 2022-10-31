@@ -41,7 +41,7 @@ public class Day implements IDay {
 		}
 	}
 
-	public void setMultiplier(float newMulitplier) {
+	public static void setMultiplier(float newMulitplier) {
 		multiplier = newMulitplier;
 	}
 
