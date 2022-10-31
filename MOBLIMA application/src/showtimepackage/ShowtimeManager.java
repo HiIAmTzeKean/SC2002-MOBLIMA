@@ -89,10 +89,25 @@ public class ShowtimeManager implements IShowtimeSystem {
 		// Not found
 		throw new IllegalArgumentException("Showtime is not found");
 	}
+
+	public void bookSeatAdmin(int showtimeID, String seatRow, int seatCol, int customerID) throws IllegalArgumentException{
+		try {
+			showtimes.get(getShowtimeIndex(showtimeID)).bookSeat(seatRow, seatCol, customerID);
+		}
+		catch (IllegalArgumentException ex){
+			throw new IllegalArgumentException("Error in booking seat");
+		}
+	}
 	@Override
 	public void bookSeat(int showtimeID, String seatRow, int seatCol, int customerID) throws IllegalArgumentException{
 		try {
-			showtimes.get(getShowtimeIndex(showtimeID)).bookSeat(seatRow, seatCol, customerID);
+			Showtime s = showtimes.get(getShowtimeIndex(showtimeID));
+			if (s.getMovieStatus() != MovieStatus.END_OF_SHOWING) {
+				showtimes.get(getShowtimeIndex(showtimeID)).bookSeat(seatRow, seatCol, customerID);
+			}
+			else {
+				throw new IllegalArgumentException("Error in booking seat");
+			}
 		}
 		catch (IllegalArgumentException ex){
 			throw new IllegalArgumentException("Error in booking seat");
@@ -133,7 +148,7 @@ public class ShowtimeManager implements IShowtimeSystem {
 	@Override
 	public void printSeats(int showtimeID) throws IllegalArgumentException{
 		try {
-			showtimes.get(getShowtimeIndex(showtimeID)).printSeats();
+			showtimes.get(getShowtimeIndex(showtimeID)).printSeat();
 		}
 		catch (IllegalArgumentException ex){
 			throw new IllegalArgumentException("Error in retriving seat");
