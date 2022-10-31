@@ -1,4 +1,5 @@
 package viewPackage.staffpackage;
+import viewPackage.MOBLIMA;
 import viewPackage.View;
 
 
@@ -46,11 +47,12 @@ public class StaffAuth extends View {
 				System.out.println("Username not found"); 
 				no_of_tries++; 
 				System.out.print("\f"); continue;
+	
 			}
 			
 
 			index = Arrays.asList(usernameDB).indexOf(username);
-			break;
+			break; 
 		}
 		
 		//password scanning and checking 
@@ -64,11 +66,16 @@ public class StaffAuth extends View {
 
 			System.out.print("\f"); 
 			
-			if(password != passwordDB[index]) { 
+			if (password == passwordDB[index]){ 
+				System.out.println("Access Granted");
+				StaffView.start();;
+			}
+			
+			// if(password != passwordDB[index]) { 
 				System.out.println("Wrong password"); 
 			    no_of_tries++; 
-				System.out.print("\f"); continue;
-			}	
+			// 	System.out.print("\f"); continue;
+			// }	
 			
 			System.out.println("Access Granted");
 			StaffView.start();;
@@ -76,7 +83,7 @@ public class StaffAuth extends View {
 		
 		System.out.println("System Locked. Number of tries exceeded.");
 		sc.close(); 
-		// MOBLIMA.start();
+		MOBLIMA.start();
 		
 		// throw new UnsupportedOperationException();
 	}
