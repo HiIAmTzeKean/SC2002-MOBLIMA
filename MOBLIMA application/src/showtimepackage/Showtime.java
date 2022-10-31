@@ -69,6 +69,9 @@ public class Showtime implements IBooking, Serializable{
 	public int getMovieID() {
 		return movie.getID();
 	}
+	public MovieStatus getMovieStatus(){
+		return movie.getMovieStatus();
+	}
 	public void setMovieStatus(MovieStatus status){
 		movie.setMovieStatus(status);
 	}

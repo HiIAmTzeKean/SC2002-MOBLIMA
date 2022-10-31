@@ -4,7 +4,7 @@ import java.io.Serializable;
 import agepackage.Age;
 
 public class Customer implements Serializable{
-
+	private int id;
 	private String name;
 	private int mobile;
 	private String email;
@@ -15,9 +15,13 @@ public class Customer implements Serializable{
 		this.mobile = mobile;
 		this.email = email;
 		this.age = age;
+		this.id = email.hashCode();
 	}
 	public String getName() {
 		return name;
+	}
+	public int getID(){
+		return id;
 	}
 	public void setName(String name) {
 		this.name = name;
