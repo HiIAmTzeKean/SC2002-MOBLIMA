@@ -2,15 +2,16 @@ package cinemapackage;
 
 import java.io.Serializable;
 import java.util.ArrayList;
+import java.util.Iterator;
 
 public abstract class Cinema  implements Serializable, ICinemaBooking{
 	private static final long serialVersionUID = 6266710308272298089L;
 	protected char colList[] = {'A', 'B', 'C', 'D', 'E'};
 	protected ArrayList<ArrayList<Seat>> seats;
-	private CinemaType cinemaType;
-	private String code;
-	private int Cineplexid;
-	private int id;
+	protected CinemaType cinemaType;
+	protected String code;
+	protected int Cineplexid;
+	protected int id;
 
 	/**
 	 * default constructor to create the array for seat objects
@@ -24,6 +25,14 @@ public abstract class Cinema  implements Serializable, ICinemaBooking{
 		this.id = id;
 		this.Cineplexid = -1;
 	}
+	public Cinema(String code,int id, CinemaType type, int Cineplexid, ArrayList<ArrayList<Seat>> seats){
+		this.code = code;
+		this.id = id;
+		this.cinemaType = type;
+		this.Cineplexid = Cineplexid;
+		this.seats = seats;
+	}
+	public abstract Cinema cloneCinema();
 	/**
 	 * Returns an ArrayList of seat objects
 	 * @return
@@ -79,64 +88,71 @@ public abstract class Cinema  implements Serializable, ICinemaBooking{
 	 * seatRow should be String of size 1
 	 * @param seatRow
 	 * @return
-	 * @throws IllegalAccessError
+	 * @throws IllegalArgumentException
 	 */
-	private int convertSeatRowToInt(String seatRow) throws IllegalAccessError{
+	private int convertSeatRowToInt(String seatRow) throws IllegalArgumentException{
 		char comparator = seatRow.charAt(0);
 		int i = 0;
 		boolean found = false; 
-		for (i=0; i<colList.length && comparator!=colList[i]; i++){
-			found = true;
+		for (i=0; i<colList.length; i++){
+			if (comparator==colList[i]) return i;
 		}
-		if (found) return i;
-		else throw new IllegalAccessError("Invalid Seat conversion");
+	
+		
+		System.out.println(seatRow + " Cannot be converted");
+		throw new IllegalArgumentException("Invalid Seat conversion");
 	}
 	
-	
-	public void bookSeat(String seatRow, int seatCol, int customerID) throws IllegalAccessError{
+	public void bookSeat(String seatRow, int seatCol, int customerID) throws IllegalArgumentException{
 		int row = 0;
 		try {
 			row = convertSeatRowToInt(seatRow);
-		} catch (IllegalAccessError e) {
+		} catch (IllegalArgumentException e) {
 			e.printStackTrace();
-			throw new IllegalAccessError("Seat input not valid");
+			throw new IllegalArgumentException("Seat input not valid");
 		}
 		
 		if (!isBooked(seatRow,seatCol)) {
 			seats.get(row).get(seatCol).setBooked(customerID);
 		}
-		else throw new IllegalAccessError("Seat was not booked");
+		else throw new IllegalArgumentException("Seat was not booked");
 	}
-    public boolean isBooked(String seatRow, int seatCol) throws IllegalAccessError{
+    public boolean isBooked(String seatRow, int seatCol) throws IllegalArgumentException{
 		int row = 0;
 		try {
 			row = convertSeatRowToInt(seatRow);
-		} catch (IllegalAccessError e) {
+		} catch (IllegalArgumentException e) {
 			e.printStackTrace();
-			throw new IllegalAccessError("Seat input not valid");
+			throw new IllegalArgumentException("Seat input not valid");
 		}
-		if (seats.get(row).get(seatCol).isBooked()) return false;
-		else return true;
+		try{
+			if (seats.get(row).get(seatCol).isBooked()== false) return false;
+			else return true;
+		}
+		catch(IndexOutOfBoundsException ex){
+			System.out.println(seatRow+seatCol+getCinemaType());
+			throw new IllegalArgumentException("Seat input not valid");
+		}
 	}
     public void removeBooking(int cinemaID, String seatRow, int seatCol){
 		int row = 0;
 		try {
 			row = convertSeatRowToInt(seatRow);
-		} catch (IllegalAccessError e) {
+		} catch (IllegalArgumentException e) {
 			e.printStackTrace();
-			throw new IllegalAccessError("Seat input not valid");
+			throw new IllegalArgumentException("Seat input not valid");
 		}
 		if (isBooked(seatRow,seatCol)) {
 			row = convertSeatRowToInt(seatRow);
 			seats.get(row).get(seatCol).setUnBooked();
 		}
-		else throw new IllegalAccessError("Seat was not booked");
+		else throw new IllegalArgumentException("Seat was not booked");
 	}
     public void printCinemaLayout(){
-		printLayout();
+		this.printLayout();
 	}
 	/**
-	 * Abstract method declared here as we have 3 different subclass of cinema
+	 * Method declared here as we have 3 different subclass of cinema
 	 * which will perform differently due to different seat layout
 	 */
 	public abstract void printLayout();
