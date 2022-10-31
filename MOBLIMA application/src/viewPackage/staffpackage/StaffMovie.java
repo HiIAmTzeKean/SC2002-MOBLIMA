@@ -143,7 +143,9 @@ public class StaffMovie extends View {
                         System.out.println("Enter movie ID :");
                          ID = sc.nextInt();
                         System.out.println("Enter new Type :");
-                        MovieType movieType = MovieType.valueOf(sc.next().toUpperCase());
+                        String movieType = sc.next(); 
+
+                        //MovieType movieType = MovieType.valueOf(sc.next().toUpperCase());
 
                         MovieHandler.setMovieType(ID, movieType); 
                         System.out.println("\t\tNew movie type has been set"); 
