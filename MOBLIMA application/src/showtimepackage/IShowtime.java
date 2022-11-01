@@ -15,6 +15,7 @@ public interface IShowtime {
 	 * via encapsulated calculations
 	 */
 	float getPrice(int showtimeID, Customer customer);
+    float getPrice(int showtimeID, Customer customer, String discountCodeTicket);
 
     void printShowtimeAdmin();
     /**
