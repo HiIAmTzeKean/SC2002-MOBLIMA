@@ -26,6 +26,7 @@ public interface IBooking{
 	 * @param customer Objects which provides the multiplier
 	 */
 	float getPrice(Customer customer);
+	float getPrice(Customer customer, String discountCodeTicket);
 	/**
 	 * Prints the seats of the cinema object composited within showtime
 	 */

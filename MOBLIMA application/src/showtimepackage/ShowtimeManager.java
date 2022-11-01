@@ -66,8 +66,10 @@ public class ShowtimeManager implements IShowtimeSystem {
 	}
 
 	public static void close() {
-		ShowtimeManager.seraliseShowtimes("./MOBLIMA application/data/showtime/showtime.dat",showtimes);
-		ShowtimeManager.showtimeManager = null;
+		if (ShowtimeManager.showtimeManager != null){
+			ShowtimeManager.seraliseShowtimes("./MOBLIMA application/data/showtime/showtime.dat",showtimes);
+			ShowtimeManager.showtimeManager = null;
+		}
 	}
 
 	protected void addShowtimeSystem(Movie movie, ICinemaBooking cinema, IDay day){
@@ -102,7 +104,8 @@ public class ShowtimeManager implements IShowtimeSystem {
 	public void bookSeat(int showtimeID, String seatRow, int seatCol, int customerID) throws IllegalArgumentException{
 		try {
 			Showtime s = showtimes.get(getShowtimeIndex(showtimeID));
-			if (s.getMovieStatus() != MovieStatus.END_OF_SHOWING) {
+			if (s.getMovieStatus() != MovieStatus.END_OF_SHOWING ||
+				s.getMovieStatus() != MovieStatus.COMING_SOON) {
 				showtimes.get(getShowtimeIndex(showtimeID)).bookSeat(seatRow, seatCol, customerID);
 			}
 			else {
@@ -110,6 +113,7 @@ public class ShowtimeManager implements IShowtimeSystem {
 			}
 		}
 		catch (IllegalArgumentException ex){
+			ex.printStackTrace();
 			throw new IllegalArgumentException("Error in booking seat");
 		}
 	}
@@ -134,6 +138,15 @@ public class ShowtimeManager implements IShowtimeSystem {
 		}
 	}
 
+	public float getPrice(int showtimeID, Customer customer, String discountCodeTicket) throws IllegalArgumentException{
+		try {
+			return showtimes.get(getShowtimeIndex(showtimeID)).getPrice(customer,discountCodeTicket);
+		}
+		catch (IllegalArgumentException ex){
+			throw new IllegalArgumentException("Error in retriving seat");
+		}
+	}
+
 	@Override
 	public void printShowtimes() {
 		if (showtimes== null || showtimes.size() == 0){
@@ -141,7 +154,9 @@ public class ShowtimeManager implements IShowtimeSystem {
 			throw new IllegalArgumentException("No Cinema exist");
 		}
 		for (Iterator<Showtime> it = showtimes.iterator(); it.hasNext();) {
-			it.next().printShowtime();
+			Showtime s= it.next();
+			if (s.getMovieStatus() != MovieStatus.END_OF_SHOWING)
+				s.printShowtime();
 		}
 	}
 
