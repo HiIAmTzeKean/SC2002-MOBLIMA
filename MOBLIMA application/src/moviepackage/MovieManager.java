@@ -400,7 +400,7 @@ public class MovieManager implements ISales, IReviews, IMovie {
 		}
 		int limit = 0;
 		ArrayList<Movie> moviecopy = this.getMovies();
-		Collections.sort(moviecopy, Movie.reviewComparator);
+		Collections.sort(moviecopy, Movie.ratingComparator2);
 		if(moviecopy.size() > 5){
 			limit = 4;
 		}
@@ -423,7 +423,7 @@ public class MovieManager implements ISales, IReviews, IMovie {
 		}
 		int limit = 0;
 		ArrayList<Movie> moviecopy = this.getMovies();
-		Collections.sort(moviecopy, Movie.salesComparator);
+		Collections.sort(moviecopy, Movie.salesComparator2);
 		if(moviecopy.size() > 5){
 			limit = 4;
 		}
@@ -433,6 +433,27 @@ public class MovieManager implements ISales, IReviews, IMovie {
 		System.out.println("The Top Five Selling Movies Are:");
 		for(int i = 0; i<limit; i++){
 			System.out.printf("%d : %s (%d)\n", i+1, moviecopy.get(i).getMovieTitle(), moviecopy.get(i).getSales());
+		}
+	}
+	//TODO: Write a function that returns a clone of a movie
+	@Override
+	public Movie getClone(int movieID) throws IllegalArgumentException{
+		try{
+			Movie toClone = movies.get(findMovie(movieID));
+			return toClone.getClone();
+		}
+		catch(IllegalArgumentException e){
+			throw new IllegalArgumentException("Movie not found");
+		}
+	}
+	@Override
+	public Movie getClone(String movieName) throws IllegalArgumentException{
+		try{
+			Movie toClone = findMoviebyName(movieName);
+			return toClone.getClone();
+		}
+		catch(IllegalArgumentException e){
+			throw new IllegalArgumentException("Movie not found");
 		}
 	}
 }

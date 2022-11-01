@@ -95,6 +95,9 @@ public interface IMovie {
 	 * @throws IllegalArgumentException if the requested movie is not found.
 	 */
 	void setMovieType(int movieID, String movieType)throws IllegalArgumentException;
+
+	public Movie getClone(int movieID) throws IllegalArgumentException;
+	public Movie getClone(String movieName) throws IllegalArgumentException;
 	
 	/**
 	 * Prints a list of details for all movies.
