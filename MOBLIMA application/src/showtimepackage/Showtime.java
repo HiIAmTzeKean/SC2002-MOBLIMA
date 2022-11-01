@@ -5,6 +5,7 @@ import java.io.Serializable;
 import cinemapackage.ICinemaBooking;
 import cineplexpackage.CineplexManager;
 import customerpackage.Customer;
+import customerpackage.DiscountCode;
 import daypackage.Day;
 import daypackage.IDay;
 import moviepackage.Movie;
@@ -19,7 +20,9 @@ public class Showtime implements IBooking, Serializable{
 	private int id;
 	
 	Showtime() {
-		Showtime.basePrice = 10;
+		if (Showtime.basePrice == 0){
+			Showtime.basePrice = 10;
+		}
 	}
 	Showtime(Movie movie, ICinemaBooking cinema, IDay day, int id) {
 		this.movie = movie;
@@ -115,7 +118,21 @@ public class Showtime implements IBooking, Serializable{
 		return basePrice * (movieMultiplier + cinemaMultiplier + customerMulitplier);
 	}
 	@Override
+	public float getPrice(Customer customer, String discountCodeTicket) {
+		// get multiplier from Movie
+		float movieMultiplier = (float)movie.getMultiplier();
+		// get multipler from customer
+		float customerMulitplier = customer.getMultiplier();
+		// get multiplier from Cinema
+		float cinemaMultiplier = cinema.getMultiplier();
+		DiscountCode manager = DiscountCode.getInstance();
+		float discountMultiplier = manager.getMultiplier(discountCodeTicket);
+		DiscountCode.close();
+		return basePrice * (movieMultiplier + cinemaMultiplier + customerMulitplier + discountMultiplier);
+	}
+	@Override
 	public void printSeat() {
 		cinema.printCinemaLayout();
 	}
+	
 }

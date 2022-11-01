@@ -75,8 +75,10 @@ public class CineplexManager implements ICineplex {
 	}
 
 	public static void close() {
-		CineplexManager.seraliseCineplexes("./MOBLIMA application/data/cineplex/cineplex.dat",cineplexes);
-		CineplexManager.cineplexManager = null;
+		if (CineplexManager.cineplexManager != null) {
+			CineplexManager.seraliseCineplexes("./MOBLIMA application/data/cineplex/cineplex.dat",cineplexes);
+			CineplexManager.cineplexManager = null;
+		}
 	}
 
 	public int findCineplex(int id){

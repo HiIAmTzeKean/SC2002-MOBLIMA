@@ -104,7 +104,8 @@ public class ShowtimeManager implements IShowtimeSystem {
 	public void bookSeat(int showtimeID, String seatRow, int seatCol, int customerID) throws IllegalArgumentException{
 		try {
 			Showtime s = showtimes.get(getShowtimeIndex(showtimeID));
-			if (s.getMovieStatus() != MovieStatus.END_OF_SHOWING) {
+			if (s.getMovieStatus() != MovieStatus.END_OF_SHOWING ||
+				s.getMovieStatus() != MovieStatus.COMING_SOON) {
 				showtimes.get(getShowtimeIndex(showtimeID)).bookSeat(seatRow, seatCol, customerID);
 			}
 			else {
@@ -131,6 +132,15 @@ public class ShowtimeManager implements IShowtimeSystem {
 	public float getPrice(int showtimeID, Customer customer) throws IllegalArgumentException{
 		try {
 			return showtimes.get(getShowtimeIndex(showtimeID)).getPrice(customer);
+		}
+		catch (IllegalArgumentException ex){
+			throw new IllegalArgumentException("Error in retriving seat");
+		}
+	}
+
+	public float getPrice(int showtimeID, Customer customer, String discountCodeTicket) throws IllegalArgumentException{
+		try {
+			return showtimes.get(getShowtimeIndex(showtimeID)).getPrice(customer,discountCodeTicket);
 		}
 		catch (IllegalArgumentException ex){
 			throw new IllegalArgumentException("Error in retriving seat");

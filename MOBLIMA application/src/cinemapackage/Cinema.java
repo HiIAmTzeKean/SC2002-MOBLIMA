@@ -156,4 +156,5 @@ public abstract class Cinema  implements Serializable, ICinemaBooking{
 	 * which will perform differently due to different seat layout
 	 */
 	public abstract void printLayout();
+	public abstract float getMultiplier();
 }
