@@ -59,7 +59,9 @@ public abstract class Cinema  implements Serializable, ICinemaBooking{
 	public void setCode(String code) {
 		this.code = code;
 	}
-
+	public String getCinemaClass(){
+		return this.cinemaType.toString();
+	}
 	public int getID(){
 		return this.id;
 	}
