@@ -20,11 +20,15 @@ public class Movie implements Serializable{
 	private int duration;
 	private ArrayList<Review> reviews; 
 	private static HashMap<MovieType, Double> multiplier;
+	protected static SortByRating ratingComparator2;
+	protected static SortBySales salesComparator2;
 	static{
 		multiplier = new HashMap<MovieType, Double>();
 		multiplier.put(MovieType._2D,1.10);
 		multiplier.put(MovieType._3D,1.25);
 		multiplier.put(MovieType.BLOCKBUSTER,1.5);
+		ratingComparator2 = new SortByRating();
+		salesComparator2 = new SortBySales();
 	}
 	public Movie(String movieTitle, MovieStatus movieStatus, String synopsis, String director, String cast, AgeRestriction ageRestriction, MovieType movieType, int duration){
 		this.id = instanceCounter++;
@@ -38,6 +42,17 @@ public class Movie implements Serializable{
 		this.duration = duration;
 		this.sales = 0;
 		this.reviews = new ArrayList<Review>();
+	}
+	protected Movie(Movie that){
+		this(
+			that.getMovieTitle(),
+			that.getMovieStatus(),
+			that.getSynopsis(),
+			that.getDirector(),
+			that.getCast(),
+			that.getAgeRestriction(),
+			that.getMovieType(),
+			that.getDuration());
 	}
 	public int getID(){
 		return this.id;
@@ -144,15 +159,8 @@ public class Movie implements Serializable{
 			System.out.printf("%f : %s", re.getRating(), re.getReview());
 		}
 	}
-	
-	public static Comparator<Movie> salesComparator = new Comparator<Movie>(){
-		public int compare(Movie m1, Movie m2){
-			return m1.getSales() - m2.getSales();
-		}
-	};
-	public static Comparator<Movie> reviewComparator = new Comparator<Movie>() {
-		public int compare(Movie m1, Movie m2){
-			return Float.compare(m1.getReviewScores(),m2.getReviewScores());
-		}
-	};
+	public Movie getClone(){
+		Movie toReturn = new Movie(this);
+		return toReturn;
+	}
 }

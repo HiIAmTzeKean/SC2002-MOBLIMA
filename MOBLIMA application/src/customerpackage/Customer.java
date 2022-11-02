@@ -47,4 +47,4 @@ public class Customer implements Serializable{
 	public float getMultiplier(){
 		return age.getAgeMultiplier();
 	}
-
+}

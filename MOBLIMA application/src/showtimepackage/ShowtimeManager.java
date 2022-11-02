@@ -1,6 +1,11 @@
 package showtimepackage;
 
-import java.io.*;
+
+import java.io.FileInputStream;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.io.ObjectInputStream;
+import java.io.ObjectOutputStream;
 import java.util.ArrayList;
 import java.util.Iterator;
 
@@ -57,7 +62,7 @@ public class ShowtimeManager implements IShowtimeSystem {
 	}
 
 	public static ShowtimeManager getInstance(){
-		if (showtimeManager == null){
+		if (ShowtimeManager.showtimeManager == null){
 			ArrayList<Showtime> c = ShowtimeManager.deseraliseShowtimes("./MOBLIMA application/data/showtime/showtime.dat");
 			ShowtimeManager.showtimeManager = new ShowtimeManager(c);
 			return ShowtimeManager.showtimeManager;
@@ -68,14 +73,32 @@ public class ShowtimeManager implements IShowtimeSystem {
 	public static void close() {
 		if (ShowtimeManager.showtimeManager != null){
 			ShowtimeManager.seraliseShowtimes("./MOBLIMA application/data/showtime/showtime.dat",showtimes);
-			ShowtimeManager.showtimeManager = null;
 		}
+		ShowtimeManager.showtimeManager = null;
 	}
 
-	protected void addShowtimeSystem(Movie movie, ICinemaBooking cinema, IDay day){
+	public void addShowtimeSystem(Movie movie, ICinemaBooking cinema, IDay day){
 		ShowtimeManager.showtimes.add(new Showtime(movie,cinema,day,++lastID));
 	}
-
+	public Showtime getShowtimeByID(int showtimeID){
+		for (Iterator<Showtime> it = showtimes.iterator(); it.hasNext();) {
+			Showtime s = it.next();
+			if (s.getID() == showtimeID) {
+				return s;
+			}
+		}
+		throw new IllegalArgumentException("Showtime is not found");
+	}
+	public Showtime getShowtimeByMovieAndDate(String movieName, Day day){
+		for (Iterator<Showtime> it = showtimes.iterator(); it.hasNext();) {
+			Showtime s = it.next();
+			//TODO Update this day.equals
+			if (s.getMovieName().equals(movieName) && s.getDayObject().equals(day)) {
+				return s;
+			}
+		}
+		throw new IllegalArgumentException("Showtime is not found");
+	}
 	public int getShowtimeIndex(int showtimeID) throws IllegalArgumentException {
 		if (showtimes== null || showtimes.size() == 0){
 			// exit before any looping is done
@@ -104,7 +127,8 @@ public class ShowtimeManager implements IShowtimeSystem {
 	public void bookSeat(int showtimeID, String seatRow, int seatCol, int customerID) throws IllegalArgumentException{
 		try {
 			Showtime s = showtimes.get(getShowtimeIndex(showtimeID));
-			if (s.getMovieStatus() != MovieStatus.END_OF_SHOWING) {
+			if (s.getMovieStatus() != MovieStatus.END_OF_SHOWING ||
+				s.getMovieStatus() != MovieStatus.COMING_SOON) {
 				showtimes.get(getShowtimeIndex(showtimeID)).bookSeat(seatRow, seatCol, customerID);
 			}
 			else {
@@ -137,17 +161,45 @@ public class ShowtimeManager implements IShowtimeSystem {
 		}
 	}
 
+	public float getPrice(int showtimeID, Customer customer, String discountCodeTicket) throws IllegalArgumentException{
+		try {
+			return showtimes.get(getShowtimeIndex(showtimeID)).getPrice(customer,discountCodeTicket);
+		}
+		catch (IllegalArgumentException ex){
+			throw new IllegalArgumentException("Error in retriving seat");
+		}
+	}
+
 	@Override
 	public void printShowtimes() {
 		if (showtimes== null || showtimes.size() == 0){
 			// exit before any looping is done
 			throw new IllegalArgumentException("No Cinema exist");
 		}
+		System.out.println("|----------------------------------------------------------- Showtimes ------------------------------------------------------|");
+		System.out.println("|----------------------------------------------------------------------------------------------------------------------------|");
+		System.out.printf("|   %-15s   |       %-30s        |    %-15s     |    %-8s     |    %-5s    |\n",
+						"Movie Status",
+								"Movie Name",
+								"Cinema Class",
+								"Date",
+								"Time");
 		for (Iterator<Showtime> it = showtimes.iterator(); it.hasNext();) {
 			Showtime s= it.next();
-			if (s.getMovieStatus() != MovieStatus.END_OF_SHOWING)
+			if (s.getMovieStatus() != MovieStatus.END_OF_SHOWING && s.getMovieStatus()==MovieStatus.PREVIEW)
 				s.printShowtime();
 		}
+		for (Iterator<Showtime> it = showtimes.iterator(); it.hasNext();) {
+			Showtime s= it.next();
+			if (s.getMovieStatus() != MovieStatus.END_OF_SHOWING && s.getMovieStatus()==MovieStatus.NOW_SHOWING)
+				s.printShowtime();
+		}
+		for (Iterator<Showtime> it = showtimes.iterator(); it.hasNext();) {
+			Showtime s= it.next();
+			if (s.getMovieStatus() != MovieStatus.END_OF_SHOWING && s.getMovieStatus()==MovieStatus.COMING_SOON)
+				s.printShowtime();
+		}
+		System.out.println("|----------------------------------------------------------------------------------------------------------------------------|");
 	}
 
 	@Override

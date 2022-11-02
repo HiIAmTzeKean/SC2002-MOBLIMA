@@ -59,7 +59,9 @@ public abstract class Cinema  implements Serializable, ICinemaBooking{
 	public void setCode(String code) {
 		this.code = code;
 	}
-
+	public String getCinemaClass(){
+		return this.cinemaType.toString();
+	}
 	public int getID(){
 		return this.id;
 	}
@@ -90,20 +92,19 @@ public abstract class Cinema  implements Serializable, ICinemaBooking{
 	 * @return
 	 * @throws IllegalArgumentException
 	 */
-	private int convertSeatRowToInt(String seatRow) throws IllegalArgumentException{
+	protected int convertSeatRowToInt(String seatRow) throws IllegalArgumentException{
 		char comparator = seatRow.charAt(0);
 		int i = 0;
 		boolean found = false; 
 		for (i=0; i<colList.length; i++){
 			if (comparator==colList[i]) return i;
 		}
-	
-		
 		System.out.println(seatRow + " Cannot be converted");
 		throw new IllegalArgumentException("Invalid Seat conversion");
 	}
 	
 	public void bookSeat(String seatRow, int seatCol, int customerID) throws IllegalArgumentException{
+		
 		int row = 0;
 		try {
 			row = convertSeatRowToInt(seatRow);
@@ -113,11 +114,13 @@ public abstract class Cinema  implements Serializable, ICinemaBooking{
 		}
 		
 		if (!isBooked(seatRow,seatCol)) {
+			seatCol = seatCol-1;
 			seats.get(row).get(seatCol).setBooked(customerID);
 		}
 		else throw new IllegalArgumentException("Seat was not booked");
 	}
     public boolean isBooked(String seatRow, int seatCol) throws IllegalArgumentException{
+		seatCol = seatCol-1;
 		int row = 0;
 		try {
 			row = convertSeatRowToInt(seatRow);
@@ -134,7 +137,7 @@ public abstract class Cinema  implements Serializable, ICinemaBooking{
 			throw new IllegalArgumentException("Seat input not valid");
 		}
 	}
-    public void removeBooking(int cinemaID, String seatRow, int seatCol){
+    public void removeBooking(int cinemaID, String seatRow, int seatCol) throws IllegalArgumentException{
 		int row = 0;
 		try {
 			row = convertSeatRowToInt(seatRow);
@@ -143,7 +146,7 @@ public abstract class Cinema  implements Serializable, ICinemaBooking{
 			throw new IllegalArgumentException("Seat input not valid");
 		}
 		if (isBooked(seatRow,seatCol)) {
-			row = convertSeatRowToInt(seatRow);
+			seatCol = seatCol-1;
 			seats.get(row).get(seatCol).setUnBooked();
 		}
 		else throw new IllegalArgumentException("Seat was not booked");
@@ -156,4 +159,5 @@ public abstract class Cinema  implements Serializable, ICinemaBooking{
 	 * which will perform differently due to different seat layout
 	 */
 	public abstract void printLayout();
+	public abstract float getMultiplier();
 }

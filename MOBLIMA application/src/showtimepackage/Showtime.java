@@ -5,6 +5,7 @@ import java.io.Serializable;
 import cinemapackage.ICinemaBooking;
 import cineplexpackage.CineplexManager;
 import customerpackage.Customer;
+import customerpackage.DiscountCode;
 import daypackage.Day;
 import daypackage.IDay;
 import moviepackage.Movie;
@@ -19,9 +20,12 @@ public class Showtime implements IBooking, Serializable{
 	private int id;
 	
 	Showtime() {
-		Showtime.basePrice = 10;
+		if (Showtime.basePrice == 0f){
+			Showtime.basePrice = 5f;
+		}
 	}
 	Showtime(Movie movie, ICinemaBooking cinema, IDay day, int id) {
+		this();
 		this.movie = movie;
 		this.cinema = cinema;
 		this.day = day;
@@ -31,7 +35,12 @@ public class Showtime implements IBooking, Serializable{
 		this.id = id;
 	}
 	public void printShowtime(){
-		System.out.println("Movie is: " + movie.getMovieTitle() + "Cinema Code is: " + cinema.getCinemaCode() + "Day and time is: " + day.getDate() + "\tStatus: " + movie.getMovieStatus());
+		System.out.printf("|   %-15s   |       %-30s        |    %-15s     |    %-8s     |    %-5s    |\n",
+						movie.getMovieStatus().toString(),
+						movie.getMovieTitle(),
+								cinema.getCinemaClass(),
+								day.getDate(),
+								day.getTime());
 	}
 	public void printShowtimeAdmin(){
 		System.out.println("ShowtimeID: "+ id +"\tMovie is: " + movie.getMovieTitle() + "\tCinema Code is: " + cinema.getCinemaCode() + "\tDate: " + day.getDate() + "\tTime: "+day.getTime() + "\tStatus: " + movie.getMovieStatus());
@@ -65,6 +74,9 @@ public class Showtime implements IBooking, Serializable{
 	}
 	public String getCinemaCode(){
 		return cinema.getCinemaCode();
+	}
+	public String getCinemaClass(){
+		return cinema.getCinemaClass();
 	}
 	public int getMovieID() {
 		return movie.getID();
@@ -115,7 +127,21 @@ public class Showtime implements IBooking, Serializable{
 		return basePrice * (movieMultiplier + cinemaMultiplier + customerMulitplier);
 	}
 	@Override
+	public float getPrice(Customer customer, String discountCodeTicket) {
+		// get multiplier from Movie
+		float movieMultiplier = (float)movie.getMultiplier();
+		// get multipler from customer
+		float customerMulitplier = customer.getMultiplier();
+		// get multiplier from Cinema
+		float cinemaMultiplier = cinema.getMultiplier();
+		DiscountCode manager = DiscountCode.getInstance();
+		float discountMultiplier = manager.getMultiplier(discountCodeTicket);
+		DiscountCode.close();
+		return basePrice * (movieMultiplier + cinemaMultiplier + customerMulitplier + discountMultiplier);
+	}
+	@Override
 	public void printSeat() {
 		cinema.printCinemaLayout();
 	}
+	
 }
