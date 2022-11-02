@@ -1,24 +1,22 @@
-package viewPackage.customerviewpackage;
+package viewPackage.customerpackage;
 
 import java.util.Scanner;
 import moviepackage.IReviews;
+import moviepackage.MovieManager;
 
 public class CustomerReview {
 	private String review;
 	private float rating;
-	public static Scanner scan = new Scanner(System.in);
+	private static Scanner scan = new Scanner(System.in);
+	private static IReviews reviewHandler = MovieManager.getInstance(); 
 	
 	public void setReviewAndRating(String movieName) {
 		System.out.print("Please enter your review: ");
 		review = scan.next();
 		System.out.print("Please enter your rating: ");
 		rating = scan.nextFloat();
-		IReviews ir; //check this part
-		ir.addReview(movieName, review, rating);
-	}
-	
-	//check if needs interface for access by IReviews
-	public String getReview() {
-		return review;
+		reviewHandler.addReview(movieName, review, rating);
+		scan.close();
+		MovieManager.close();
 	}
 }
