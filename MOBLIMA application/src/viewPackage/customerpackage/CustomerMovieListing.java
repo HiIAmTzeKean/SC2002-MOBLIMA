@@ -1,16 +1,16 @@
-package viewPackage.customerviewpackage;
+package viewPackage.customerpackage;
 
 import java.util.Scanner;
 import moviepackage.IMovie;
 import moviepackage.ISales;
-/*
-- List the Top 5 ranking by ticket sales OR by overall reviewers’ ratings 
-currently calls functions from ISales, which don't filter out EndOfShowing()
--> make new functions?
- */
-public class CustomerMovieList {
-	public static Scanner scan = new Scanner(System.in);
+import moviepackage.MovieManager;
+
+public class CustomerMovieListing {
 	private String selectedMovieName = null; 
+	private static Scanner scan = new Scanner(System.in);
+	
+	private static IMovie movieDisplayHandler = MovieManager.getInstance(); 
+	private static ISales salesRankHandler = MovieManager.getInstance();
 	
 	public String getSelectedMovieName(){
 		return selectedMovieName;
@@ -32,31 +32,27 @@ public class CustomerMovieList {
 			menuOption = scan.nextInt();
 			switch(menuOption) {
 			case 1:{
-				IMovie displayMoviesObj;
 				System.out.println("List of all movies:");
-				displaymovies.printMovies();
+				movieDisplayHandler.printMovies();
 				System.out.println();
 				break;
 				}
 			case 2:{
-				ISales rankObj;
 				System.out.println("Top 5 movies by ticket sales:");
-				rankObj.getTop5_sales();
+				salesRankHandler.getTop5_sales();
 				System.out.println();
 				break;
 				}
 			case 3:{
-				ISales rankObj;
 				System.out.println("Top 5 movies by reviewer's ratings:");
-				rankObj.getTop5_rating();
+				salesRankHandler.getTop5_rating();
 				System.out.println();
 				break;
 				}
 			case 4:{
-				IMovie getMovieObj;
 				System.out.println("Enter name of movie to see details of: ");
 				String movieName = scan.next();
-				getMovieObj.findMoviebyName(movieName).printMovieComplete(); //check this part
+				movieDisplayHandler.findMoviebyName(movieName).printMovieComplete(); //check this part
 				System.out.println();
 				break;
 				}
@@ -76,5 +72,7 @@ public class CustomerMovieList {
 				}//end default
 			}//end switch case
 		}//end while loop
+		scan.close();
+		MovieManager.close();
 	}//end movieSelection function definition
 }//end class
