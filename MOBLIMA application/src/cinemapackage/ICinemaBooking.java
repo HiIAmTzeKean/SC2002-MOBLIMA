@@ -14,4 +14,5 @@ public interface ICinemaBooking {
     void printCinemaLayout();
     String getCinemaCode();
     int getCineplexID();
+    String getCinemaClass();
 }
