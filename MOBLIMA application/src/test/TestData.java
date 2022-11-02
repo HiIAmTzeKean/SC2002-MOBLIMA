@@ -22,8 +22,9 @@ public class TestData {
 
         int ans = 1;
         while(ans == 1){
+            //int id = s.nextInt();
+            //showtimeManager.getShowtimeByMovieAndDate("Black Adam", new Day());
             showtimeManager.printShowtimes();
-
             ans = s.nextInt();
         }
         MovieManager.close();
@@ -196,14 +197,9 @@ public class TestData {
         d1_t2.setDate(2, 1, 2022);
         d1_t2.setTime("2000");
         
-        IDay d2_t0 = new Day();
-        d2_t0.setDate(2, 1, 2022);
-        IDay d2_t1 = new Day();
-        d2_t1.setDate(2, 1, 2022);
-        d2_t1.setTime("1600");
-        IDay d2_t2 = new Day();
-        d2_t2.setDate(2, 1, 2022);
-        d2_t2.setTime("2000");
+        IDay d2_t0 = new Day(2,1,2022,"1200");
+        IDay d2_t1 = new Day(2, 1, 2022,"1600");
+        IDay d2_t2 = new Day(2, 1, 2022,"2000");
 
         IDay d3_t0 = new Day();
         d3_t0.setDate(31, 12, 2021);
@@ -255,15 +251,15 @@ public class TestData {
                 try{
                     Showtime showtimeObj=man.getShowtimeByID(i);
                     if (showtimeObj.getCinemaClass().toString().equals("PLATINUM")){
-                        int col = (int) ((int) 6*Math.random());
-                        int row = (int) ((int) 3*Math.random());
+                        int col = (int) ((int) 5*Math.random())+1;
+                        int row = (int) ((int) 2*Math.random());
                         man.bookSeat(i, colList[row], col, emailList[col].hashCode());
                         c = new Customer(nameList[col], mobileList[col], emailList[col], ageList[col]); 
                         bookingManager.addBooking(man.getShowtimeByID(i).getCinemaCode()+man.getDate(i)+man.getTime(i), man.getShowtimeByID(i),
                                         man.getPrice(i,c), c, colList[row],col);
                     }
                     else if (showtimeObj.getCinemaClass().equals("GOLD")){
-                        int col = (int) ((int) 9*Math.random());
+                        int col = (int) ((int) 8*Math.random())+1;
                         int row = (int) ((int) 3*Math.random());
                         man.bookSeat(i, colList[row], col, emailList[col].hashCode());
                         c = new Customer(nameList[col], mobileList[col], emailList[col], ageList[col]); 
@@ -271,7 +267,7 @@ public class TestData {
                                         man.getPrice(i,c), c, colList[row],col);
                     }
                     else{
-                        int col = (int) ((int) 9*Math.random());
+                        int col = (int) ((int) 8*Math.random())+1;
                         int row = (int) ((int) 5*Math.random());
                         man.bookSeat(i, colList[row], col, emailList[col].hashCode());
                         c = new Customer(nameList[col], mobileList[col], emailList[col], ageList[col]); 

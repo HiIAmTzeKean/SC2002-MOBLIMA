@@ -93,7 +93,7 @@ public class ShowtimeManager implements IShowtimeSystem {
 		for (Iterator<Showtime> it = showtimes.iterator(); it.hasNext();) {
 			Showtime s = it.next();
 			//TODO Update this day.equals
-			if (s.getMovieName() == movieName && s.getDate()==day.getDate() && s.getTime()==day.getTime()) {
+			if (s.getMovieName().equals(movieName) && s.getDayObject().equals(day)) {
 				return s;
 			}
 		}

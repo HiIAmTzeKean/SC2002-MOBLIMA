@@ -5,7 +5,7 @@ import java.io.IOException;
 
 public class appTest {
     public static void main(String args []){
-        boolean createDat = true;
+        boolean createDat = false;
         if (createDat){
             File file = new File("./MOBLIMA application/data/cinema/cinema.dat");
             file.delete();
@@ -26,7 +26,9 @@ public class appTest {
         }
         else {
             ICinema cm = CinemaManager.getInstance();
-            cm.printCinemas();
+            cm.getCinema(1).printCinemaLayout();
+            cm.getCinema(1).bookSeat("C", 2, 1);
+            cm.getCinema(1).printCinemaLayout();
             CinemaManager.close();
         }
     }
