@@ -1,8 +1,11 @@
 package showtimepackage;
 
 import cinemapackage.ICinemaBooking;
+import daypackage.Day;
 import daypackage.IDay;
 import moviepackage.Movie;
+import moviepackage.MovieStatus;
+import moviepackage.MovieType;
 
 public interface IShowtimeSystem extends IShowtime {
 
@@ -26,4 +29,8 @@ public interface IShowtimeSystem extends IShowtime {
 	 * that MovieID to "End of Showing"
 	 */
 	void movieShowtimeEnd(int movieID);
+	Day getDay(String dateString) throws IllegalArgumentException;
+	void setMovieType(int movieID, MovieType type) throws IllegalArgumentException;
+	void setMovieStatus(int movieID, MovieStatus status) throws IllegalArgumentException;
+	void setMovieDirector(int movieID, String director) throws IllegalArgumentException;
 }

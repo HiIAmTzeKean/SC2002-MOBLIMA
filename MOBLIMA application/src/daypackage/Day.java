@@ -1,13 +1,14 @@
 package daypackage;
 import java.io.Serializable;
 
+import javax.swing.plaf.multi.MultiInternalFrameUI;
+
 public class Day implements Serializable, IDay {
 
 	private boolean holiday;
 	private DayOfWeek dayOfWeek;
 	private static float multiplier;
 	
-
 	// range 1 - 30. DD format
 	private int dayNumber;
 	// range 1 - 12. MM format
@@ -22,21 +23,33 @@ public class Day implements Serializable, IDay {
 	
 	public Day(){
 		this.holiday = false;
-		multiplier = 1;
 		this.dayNumber = 01;
 		this.monthNumber = 01;
 		this.yearNumber = 2022;
-		this.fullDate = Integer.toString(2022) + Integer.toString(01) + Integer.toString(01);
 		this.dayOfWeek = DayOfWeek.SAT;
 		time = "1200";
-		
+		setDate(dayNumber, monthNumber, yearNumber);
+		if (multiplier == 0f) multiplier = 1f;
 	}
-	
-	/*
-	*If showtime is on a weekend, return the multiplier i.e. the multiplier set by staff.
-	*If showtime is on a weekday, return 1 as there is no extra charge.
-	*If showtime is on a holiday, return two times the multiplier i.e. 2*1=2 for weekdays and 2*multiplier.
-	*/
+	public Day(int dayNumber,int monthNumber, int yearNumber, String time){
+		this.holiday = false;
+		this.dayNumber = dayNumber;
+		this.monthNumber = monthNumber;
+		this.yearNumber = yearNumber;
+		this.dayOfWeek = null;
+		this.time = time;
+		setDate(dayNumber, monthNumber, yearNumber);
+		if (multiplier == 0f) multiplier = 1f;
+	}
+	public boolean equals(Day anotherDay){
+		if (anotherDay.dayNumber == dayNumber &&
+			anotherDay.monthNumber == monthNumber &&
+			anotherDay.yearNumber == yearNumber &&
+			anotherDay.time.equals(time))
+			return true;
+		return false;
+	}
+
 	public float getDayMultiplier() {
 		if(holiday){
 			if(this.dayOfWeek==DayOfWeek.SUN || this.dayOfWeek==DayOfWeek.SAT){
@@ -55,7 +68,11 @@ public class Day implements Serializable, IDay {
 			}
 		}
 	}
-
+	
+	/**
+	 * Sets multiplier
+	 * @param newMulitplier
+	 */
 	public static void setMultiplier(float newMulitplier) {
 		multiplier = newMulitplier;
 	}
@@ -79,7 +96,21 @@ public class Day implements Serializable, IDay {
 		this.dayNumber = dayNumber;
 		this.monthNumber = monthNumber;
 		this.yearNumber = yearNumber;
-		this.fullDate = Integer.toString(this.yearNumber) + Integer.toString(this.monthNumber) + Integer.toString(this.dayNumber);
+		String monthString;
+		String dayString;
+		if (monthNumber<10){
+			monthString = "0"+Integer.toString(this.monthNumber);
+		}
+		else{
+			monthString = Integer.toString(this.monthNumber);
+		}
+		if (dayNumber<10){
+			dayString = "0"+Integer.toString(this.dayNumber);
+		}
+		else{
+			dayString = Integer.toString(this.dayNumber);
+		}
+		this.fullDate = Integer.toString(this.yearNumber) + monthString + dayString;
 	}
 
 	public String getDate() {

@@ -19,8 +19,19 @@ public class CineplexManager implements ICineplex {
 
 	private CineplexManager(ArrayList<Cineplex> c) {
 		CineplexManager.cineplexes = c;
-		lastID = cineplexes.size();
-	} 
+		lastID = getLargestID();
+	}
+
+	private int getLargestID(){
+		int largest=0;
+		for (Iterator<Cineplex> it = cineplexes.iterator(); it.hasNext();) {
+			int current = it.next().getID();
+			if (current > largest) {
+				largest = current;
+			}
+		}
+		return largest;
+	}
 
 	private static ArrayList<Cineplex> deseraliseCineplexes(String filename){
 		ArrayList<Cineplex>  c = null;
@@ -64,8 +75,10 @@ public class CineplexManager implements ICineplex {
 	}
 
 	public static void close() {
-		CineplexManager.seraliseCineplexes("./MOBLIMA application/data/cineplex/cineplex.dat",cineplexes);
-		CineplexManager.cineplexManager = null;
+		if (CineplexManager.cineplexManager != null) {
+			CineplexManager.seraliseCineplexes("./MOBLIMA application/data/cineplex/cineplex.dat",cineplexes);
+			CineplexManager.cineplexManager = null;
+		}
 	}
 
 	public int findCineplex(int id){
@@ -100,7 +113,7 @@ public class CineplexManager implements ICineplex {
 			throw new IllegalArgumentException("Cineplex is not found");
 		}
 	}
-
+	
 	@Override
 	public void printCineplexes() {
 		for (Cineplex c:cineplexes){

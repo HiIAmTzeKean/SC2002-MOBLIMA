@@ -1,7 +1,24 @@
 package moviepackage;
+import static org.junit.Assert.assertNotEquals;
 import java.io.File;
 import java.io.IOException;
+import org.junit.Test;
 public class appTest {
+    @Test
+    public void whenModifyingOriginalObject_thenCopyShouldNotChange(){
+        Movie newmovie = new Movie(
+            "Test Movie WOW",
+            MovieStatus.NOW_SHOWING,
+            "SCSE is the greatest school of all time",
+            "Dr.Loke",
+            "Clown Students",
+            AgeRestriction.R21,
+            MovieType.BLOCKBUSTER,
+            169);
+        Movie deepCopy = new Movie(newmovie);
+        deepCopy.addReview(new Review(1,"Nice movie"));
+        assertNotEquals(newmovie.getReviews(),deepCopy.getReviews());
+    }
     public static void main(String[]args){
         boolean createData = false;
         if(createData){
@@ -94,8 +111,34 @@ public class appTest {
         else{
             System.out.println("Reading movies from file");
             MovieManager mm = MovieManager.getInstance();
+            System.out.printf("Number of movies read: %d\n",mm.getMovies().size());
             mm.printMovies();
+            //mm.printMovies();
+            // System.out.println("\nTesting findMovieByName():");
+            // Movie test = mm.findMoviebyName("Strange World");
+            // test.printMovieComplete();
+
+            // System.out.println("\n\nTesting findMoviebyID:");
+            // for(int i = 1; i<=mm.getMovies().size(); i++){
+            //     System.out.printf("%s\n",mm.getMoviefromID(i).getMovieTitle());
+            // }
+
+            //mm.printMovies();
+            // System.out.println("\n\nTesting deleteMovie");
+            mm.createMovie(
+                "Test Movie WOW",
+                MovieStatus.NOW_SHOWING,
+                "SCSE is the greatest school of all time",
+                "Dr.Loke",
+                "Clown Students",
+                AgeRestriction.R21,
+                MovieType.BLOCKBUSTER,
+                169
+            );
+            //mm.deleteMovie(6);
             MovieManager.close();
+           
+
         }
     }
 }

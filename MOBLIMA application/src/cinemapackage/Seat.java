@@ -14,7 +14,12 @@ public class Seat implements Serializable{
 		isBook = false;
 		customerID = -1;
 	}
-
+	public int getX(){
+		return x;
+	}
+	public int getY(){
+		return y;
+	}
 	public boolean isBooked() {
 		return isBook;
 	}

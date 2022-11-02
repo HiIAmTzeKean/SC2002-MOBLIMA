@@ -2,8 +2,11 @@ package showtimepackage;
 
 import customerpackage.Customer;
 
+/**
+ * Implemented by Showtime class
+ * Used for interfacing by other classes with showtime object
+ */
 public interface IBooking{
-
 	/**
 	 * Books seat in showtime object
 	 * @param seatRow
@@ -23,5 +26,9 @@ public interface IBooking{
 	 * @param customer Objects which provides the multiplier
 	 */
 	float getPrice(Customer customer);
-	void printSeats();
+	float getPrice(Customer customer, String discountCodeTicket);
+	/**
+	 * Prints the seats of the cinema object composited within showtime
+	 */
+	void printSeat();
 }

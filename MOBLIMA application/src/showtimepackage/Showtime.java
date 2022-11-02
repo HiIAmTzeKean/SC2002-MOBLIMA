@@ -1,13 +1,18 @@
 package showtimepackage;
 
+import java.io.Serializable;
+
 import cinemapackage.ICinemaBooking;
 import cineplexpackage.CineplexManager;
 import customerpackage.Customer;
+import customerpackage.DiscountCode;
+import daypackage.Day;
 import daypackage.IDay;
 import moviepackage.Movie;
 import moviepackage.MovieStatus;
 
-public class Showtime implements IBooking{
+public class Showtime implements IBooking, Serializable{
+	private static final long serialVersionUID = 6266710308272298089L;
 	private Movie movie;
 	private ICinemaBooking cinema;
 	private static float basePrice;
@@ -15,9 +20,12 @@ public class Showtime implements IBooking{
 	private int id;
 	
 	Showtime() {
-		Showtime.basePrice = 10;
+		if (Showtime.basePrice == 0f){
+			Showtime.basePrice = 5f;
+		}
 	}
 	Showtime(Movie movie, ICinemaBooking cinema, IDay day, int id) {
+		this();
 		this.movie = movie;
 		this.cinema = cinema;
 		this.day = day;
@@ -27,10 +35,15 @@ public class Showtime implements IBooking{
 		this.id = id;
 	}
 	public void printShowtime(){
-		System.out.println("Movie is: " + movie.getMovieTitle() + "Cinema Code is: " + cinema.getCinemaCode() + "Day and time is: " + day.getDate());
+		System.out.printf("|   %-15s   |       %-30s        |    %-15s     |    %-8s     |    %-5s    |\n",
+						movie.getMovieStatus().toString(),
+						movie.getMovieTitle(),
+								cinema.getCinemaClass(),
+								day.getDate(),
+								day.getTime());
 	}
 	public void printShowtimeAdmin(){
-		System.out.println("ShowtimeID: "+ id +"Movie is: " + movie.getMovieTitle() + "Cinema Code is: " + cinema.getCinemaCode() + "Day and time is: " + day.getDate());
+		System.out.println("ShowtimeID: "+ id +"\tMovie is: " + movie.getMovieTitle() + "\tCinema Code is: " + cinema.getCinemaCode() + "\tDate: " + day.getDate() + "\tTime: "+day.getTime() + "\tStatus: " + movie.getMovieStatus());
 	}
 	public String getTime(){
 		return day.getTime();
@@ -40,6 +53,12 @@ public class Showtime implements IBooking{
 	}
 	public int getID() {
 		return id;
+	}
+	public Day getDayObject(){
+		return (Day)day;
+	}
+	public Movie getMovieObject(){
+		return movie;
 	}
 	public void printMovie() {
 		movie.printMovieComplete();
@@ -56,8 +75,14 @@ public class Showtime implements IBooking{
 	public String getCinemaCode(){
 		return cinema.getCinemaCode();
 	}
+	public String getCinemaClass(){
+		return cinema.getCinemaClass();
+	}
 	public int getMovieID() {
 		return movie.getID();
+	}
+	public MovieStatus getMovieStatus(){
+		return movie.getMovieStatus();
 	}
 	public void setMovieStatus(MovieStatus status){
 		movie.setMovieStatus(status);
@@ -102,7 +127,21 @@ public class Showtime implements IBooking{
 		return basePrice * (movieMultiplier + cinemaMultiplier + customerMulitplier);
 	}
 	@Override
-	public void printSeats() {
+	public float getPrice(Customer customer, String discountCodeTicket) {
+		// get multiplier from Movie
+		float movieMultiplier = (float)movie.getMultiplier();
+		// get multipler from customer
+		float customerMulitplier = customer.getMultiplier();
+		// get multiplier from Cinema
+		float cinemaMultiplier = cinema.getMultiplier();
+		DiscountCode manager = DiscountCode.getInstance();
+		float discountMultiplier = manager.getMultiplier(discountCodeTicket);
+		DiscountCode.close();
+		return basePrice * (movieMultiplier + cinemaMultiplier + customerMulitplier + discountMultiplier);
+	}
+	@Override
+	public void printSeat() {
 		cinema.printCinemaLayout();
 	}
+	
 }

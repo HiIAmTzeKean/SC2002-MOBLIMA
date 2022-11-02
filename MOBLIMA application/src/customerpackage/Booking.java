@@ -1,18 +1,29 @@
 package customerpackage;
 
+import java.io.Serializable;
+
 import showtimepackage.Showtime;
 
-public class Booking {
+public class Booking implements Serializable{
     private String transactionID;
     private Showtime showtime;
     private float price;
     private Customer customer;
+    private String seatRow;
+    private int seatCol;
+    private boolean coupleSeating = false;
 
-    Booking(String transactionID, Showtime showtime, float price, Customer customer) {
+    Booking(String transactionID, Showtime showtime, float price, Customer customer, String seatRow, int seatCol) {
         this.transactionID = transactionID;
         this.showtime = showtime;
         this.price = price;
         this.customer = customer;
+        this.seatRow = seatRow;
+        this.seatCol = seatCol;
+    }
+    Booking(String transactionID, Showtime showtime, float price, Customer customer, String seatRow, int seatCol, boolean coupleSeating) {
+        this(transactionID, showtime, price, customer, seatRow, seatCol);
+        this.coupleSeating = coupleSeating;
     }
     public String getTransactionID() {
         return transactionID;
@@ -36,11 +47,11 @@ public class Booking {
         return customer.getEmail();
     }
     public void print() {
-        System.out.println("===== Booking Entry =====");
-        System.out.println("Transaction ID: " + transactionID);
-        System.out.println("Movie Name: " + showtime.getMovieName());
-        System.out.println("Date of movie: " + showtime.getDate());
-        System.out.println("Price: " + price);
-        System.out.println("===== End =====");
+        System.out.printf("|   %-15s   |       %-30s        |    %-15s     |    %-8s     |    %-5.2f    |\n",
+                        transactionID,
+                        showtime.getMovieName(),
+                        showtime.getCinemaClass(),
+                        showtime.getDate(),
+                        price);
     }
 }
