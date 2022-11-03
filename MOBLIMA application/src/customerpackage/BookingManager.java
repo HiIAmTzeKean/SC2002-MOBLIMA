@@ -71,12 +71,22 @@ public class BookingManager {
      * @param customerEmail
      */
     public void printAllTransactionsForCustomer(String customerEmail){
+		System.out.println("|---------------------------------------------------- Transaction History ---------------------------------------------------|");
+		System.out.printf("| Customer email: %-30s                                                                             |\n",customerEmail);
+		System.out.println("|----------------------------------------------------------------------------------------------------------------------------|");
+		System.out.printf("|   %-15s   |       %-30s        |    %-15s     |    %-8s     |    %-5s    |\n",
+					"Transcation ID",
+							"Movie Name",
+							"Cinema Class",
+							"Date",
+							"Price");
         for (Iterator<Booking> it = bookings.iterator(); it.hasNext();) {
             Booking b = it.next();
-            if (b.getCustomerEmail() == customerEmail){
+            if (b.getCustomerEmail().equals(customerEmail)){
                 b.print();
             }
         }
+		System.out.println("|--------------------------------------------------------- END --------------------------------------------------------------|");
     }
     /**
      * Add a new booking entry into manager
@@ -85,8 +95,8 @@ public class BookingManager {
      * @param price
      * @param customer
      */
-    public void addBooking(String transactionID, Showtime showtime, float price, Customer customer){
-        bookings.add(new Booking(transactionID,showtime,price,customer));
+    public void addBooking(String transactionID, Showtime showtime, float price, Customer customer,String seatRow,int seatCol){
+        bookings.add(new Booking(transactionID,showtime,price,customer,seatRow,seatCol));
     }
     /**
      * Delete booking function should only be used once other classes

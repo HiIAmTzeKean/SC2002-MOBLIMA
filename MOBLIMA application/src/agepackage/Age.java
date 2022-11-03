@@ -2,10 +2,12 @@ package agepackage;
 import java.io.Serializable;
 
 public class Age implements Serializable, IAge {
-
-	
 	private int ageNumber;
 	private AgeCategory category;
+	public Age(int ageNumber, AgeCategory category) {
+		this.ageNumber = ageNumber;
+		this.category = category;
+	}
 	      
 	public void setAge(int ageNumber){
 		this.ageNumber = ageNumber;
