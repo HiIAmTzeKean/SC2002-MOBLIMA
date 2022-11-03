@@ -9,7 +9,7 @@ import viewPackage.customerpackage.CustomerView;
 public class View {
 
 	public static void displayMenu() {
-		System.out.println("WELCOME TO MOBLIMA");
+		// System.out.println("WELCOME TO MOBLIMA");
 		System.out.println("--------------------------------------");
 		System.out.println("\t\tMenu\t\t");
 		System.out.println("--------------------------------------");
@@ -19,7 +19,9 @@ public class View {
 		System.out.println("--------------------------------------");
 	}
 
-	public static void start() throws InputMismatchException {
+	public static void start() 
+	// throws InputMismatchException 
+	{
 		// TODO - implement View.start
 		
 		
