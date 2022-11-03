@@ -53,6 +53,7 @@ public class StaffShowtime extends View {
 			
 			switch (choice) { 
 				case  1 : 
+				    	System.out.println("--------------------------------------");
                         System.out.println("\t\tSetting new showtime"); 
                         System.out.println("-------------------------------"); 
 
@@ -95,7 +96,7 @@ public class StaffShowtime extends View {
 									case  6 : day.setDayOfWeek(DayOfWeek.FRI); break; 
 									case  7 : day.setDayOfWeek(DayOfWeek.SAT); break; 
 								}
-							  } else throw new IllegalArgumentException("invalid input");
+							  } else throw new IllegalArgumentException("invalid input : must be from 1-7");
 
 						} catch (InputMismatchException e ){ 
 							System.out.println(e.toString());
@@ -122,7 +123,9 @@ public class StaffShowtime extends View {
 						day.setDate(dayNumber, monthNumber, yearNumber);
 
 				      } catch (InputMismatchException e ){ 
-							System.out.println(e.toString());
+							System.out.println(e.toString()+" enter valid Intergers only");
+					  } catch (IllegalArgumentException e){ 
+						System.out.println(e.toString()+" enter valid Intergers only");
 					  }
 
 					  
@@ -131,12 +134,14 @@ public class StaffShowtime extends View {
 
 					  String time;
 					 
-					  System.out.println("Enter time");
+					  System.out.println("Enter time (24HR FORMAT EG: 2000");
 					  try {
                     	 time  = sc.next(); 
 						 day.setTime(time);
 				      } catch (InputMismatchException e ){ 
 							System.out.println(e.toString());
+					  }catch (IllegalArgumentException e){ 
+						System.out.println(e.toString());
 					  }
 
 					  
@@ -149,20 +154,27 @@ public class StaffShowtime extends View {
 						if (holiday==0 || holiday==1){ 
 							if(holiday==1)
 								day.setHoliday();
-						  } else throw new IllegalArgumentException("invalid input");
+						  } else throw new IllegalArgumentException("invalid input : must be 1 or 0");
 
 				      } catch (InputMismatchException e ){ 
 							System.out.println(e.toString());
+					  } catch (IllegalArgumentException e){ 
+						System.out.println(e.toString());
 					  }
 
 
+
                         
-					  ssHandler.addShowtime(m, CinemaHandler.getCinema(id) , day ); // change to static 
+					  ssHandler.addShowtime(m, CinemaHandler.cloneCinemaByID(id), day ); // change to static 
                 
 				break;
-				case  2 : updateShowtime(); 
+				case  2 : 
+						updateShowtime(); 
+
+					  
 				break;
 				case  3 :  
+						System.out.println("--------------------------------------");
 						System.out.println("\t\tExiting Staff Showtime Menu");
 						System.out.println("-------------------------------------");
 						MovieManager.close();
