@@ -2,6 +2,7 @@ package showtimepackage;
 
 import java.io.Serializable;
 
+import cinemapackage.CinemaType;
 import cinemapackage.ICinemaBooking;
 import cineplexpackage.CineplexManager;
 import customerpackage.Customer;
@@ -10,6 +11,7 @@ import daypackage.Day;
 import daypackage.IDay;
 import moviepackage.Movie;
 import moviepackage.MovieStatus;
+import viewPackage.customerpackage.CustomerNullException;
 
 public class Showtime implements IBooking, Serializable{
 	private static final long serialVersionUID = 6266710308272298089L;
@@ -56,6 +58,12 @@ public class Showtime implements IBooking, Serializable{
 	}
 	public Day getDayObject(){
 		return (Day)day;
+	}
+	public CinemaType getCinemaType(){
+		return cinema.getCinemaType();
+	}
+	public int getCineplexID(){
+		return cinema.getCineplexID();
 	}
 	public Movie getMovieObject(){
 		return movie;
@@ -104,11 +112,28 @@ public class Showtime implements IBooking, Serializable{
 		return movie.getMovieTitle();
 	}
 	@Override
-	public void bookSeat(String seatRow, int seatCol, int customerID) {
+	public void bookSeat(String seatRow, int seatCol, int customerID) throws IllegalArgumentException{
 		System.out.println("===== Seat booking in progress =====");
 
 		if (cinema.isBooked(seatRow, seatCol)){
 			System.out.println("Seat is already booked, please choose another seat");
+			throw new IllegalArgumentException("Seat is already booked");
+		}
+		else{
+			cinema.bookSeat(seatRow, seatCol, customerID);
+			System.out.println("Successfully booked seat");
+		}
+		System.out.println("===== Seat booking finish =====");
+	}
+	public void bookCoupleSeat(String seatRow, int seatCol, int customerID) throws IllegalArgumentException{
+		System.out.println("===== Seat booking in progress =====");
+
+		if (cinema.isBooked(seatRow, seatCol)){
+			System.out.println("Seat is already booked, please choose another seat");
+			throw new IllegalArgumentException("Seat is already booked");
+		}
+		else if (cinema.getCinemaType() != CinemaType.PLATINUM) {
+			throw new IllegalArgumentException("Only Platinum class allow for couple seat booking");
 		}
 		else{
 			cinema.bookSeat(seatRow, seatCol, customerID);
@@ -117,27 +142,51 @@ public class Showtime implements IBooking, Serializable{
 		System.out.println("===== Seat booking finish =====");
 	}
 	@Override
-	public float getPrice(Customer customer) {
-		// get multiplier from Movie
-		float movieMultiplier = (float)movie.getMultiplier();
-		// get multipler from customer
-		float customerMulitplier = customer.getMultiplier();
-		// get multiplier from Cinema
-		float cinemaMultiplier = cinema.getMultiplier();
-		return basePrice * (movieMultiplier + cinemaMultiplier + customerMulitplier);
+	public float getPrice(Customer customer) throws IllegalArgumentException, CustomerNullException {
+		if (customer == null) throw new CustomerNullException();
+		try{
+			float movieMultiplier = (float)movie.getMultiplier();
+			float customerMulitplier = customer.getMultiplier();
+			float cinemaMultiplier = cinema.getMultiplier();
+			return basePrice * (movieMultiplier * cinemaMultiplier * customerMulitplier);
+		}
+		catch (IllegalArgumentException e){
+			e.printStackTrace();
+			throw e;
+		}
 	}
 	@Override
-	public float getPrice(Customer customer, String discountCodeTicket) {
-		// get multiplier from Movie
-		float movieMultiplier = (float)movie.getMultiplier();
-		// get multipler from customer
-		float customerMulitplier = customer.getMultiplier();
-		// get multiplier from Cinema
-		float cinemaMultiplier = cinema.getMultiplier();
-		DiscountCode manager = DiscountCode.getInstance();
-		float discountMultiplier = manager.getMultiplier(discountCodeTicket);
-		DiscountCode.close();
-		return basePrice * (movieMultiplier + cinemaMultiplier + customerMulitplier + discountMultiplier);
+	public float getPrice(Customer customer, String discountCodeTicket) throws IllegalArgumentException, CustomerNullException{
+		try{
+			DiscountCode manager = DiscountCode.getInstance();
+			float discountMultiplier = manager.getMultiplier(discountCodeTicket);
+			DiscountCode.close();
+			return getPrice(customer) * discountMultiplier;
+		}
+		catch (IllegalArgumentException e){
+			e.printStackTrace();
+			throw e;
+		}
+		catch (CustomerNullException ex){
+			throw ex;
+		}
+	}
+	@Override
+	public float getPrice(Customer customer, boolean isCoupleSeat, String discountCodeTicket) throws IllegalArgumentException, CustomerNullException{
+		if (isCoupleSeat) {
+			return getPrice(customer, discountCodeTicket) * 2;
+		}
+		else{
+			return getPrice(customer, discountCodeTicket);
+		}
+		
+	}
+	@Override
+	public float getPrice(Customer customer, boolean isCoupleSeat) throws IllegalArgumentException, CustomerNullException{
+		if (isCoupleSeat)
+			return getPrice(customer) * 2;
+		else
+			return getPrice(customer);
 	}
 	@Override
 	public void printSeat() {

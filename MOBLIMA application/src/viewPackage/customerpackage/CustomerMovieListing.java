@@ -4,7 +4,7 @@ import java.util.Scanner;
 import moviepackage.IMovie;
 import moviepackage.ISales;
 import moviepackage.MovieManager;
-
+//update ranking functions for customer
 public class CustomerMovieListing {
 	private String selectedMovieName = null; 
 	private static Scanner scan = new Scanner(System.in);
@@ -39,20 +39,25 @@ public class CustomerMovieListing {
 				}
 			case 2:{
 				System.out.println("Top 5 movies by ticket sales:");
-				salesRankHandler.getTop5_sales();
+				salesRankHandler.getTop5_sales(); //update for customer
 				System.out.println();
 				break;
 				}
 			case 3:{
 				System.out.println("Top 5 movies by reviewer's ratings:");
-				salesRankHandler.getTop5_rating();
+				salesRankHandler.getTop5_rating(); //update for customer
 				System.out.println();
 				break;
 				}
 			case 4:{
 				System.out.println("Enter name of movie to see details of: ");
 				String movieName = scan.next();
+				try {
 				movieDisplayHandler.findMoviebyName(movieName).printMovieComplete(); //check this part
+				}
+				catch(IllegalArgumentException e){
+					System.out.println("Something went wrong — movie not found.");
+				}
 				System.out.println();
 				break;
 				}

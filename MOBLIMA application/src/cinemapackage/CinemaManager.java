@@ -111,7 +111,6 @@ public class CinemaManager implements ICinema {
 		}
 		System.out.println("===== Cinema creation finished =====");
 	}
-
 	@Override
 	public void deleteCinema(int id, ICineplex cineplexManager) {
 		
@@ -130,8 +129,12 @@ public class CinemaManager implements ICinema {
 		// Not found
 		throw new IllegalArgumentException("Cinema is not found");
 	}
-
-	public ArrayList<Cinema> getCinemas() {
+	/**
+	 * Funcion to be used within package level
+	 * Other classes that are not related to Cinema should not be able to access this method
+	 * @return
+	 */
+	protected ArrayList<Cinema> getCinemas() {
 		return cinemas;
 	}
 
