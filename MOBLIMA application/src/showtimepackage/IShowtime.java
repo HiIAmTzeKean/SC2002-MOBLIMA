@@ -1,9 +1,11 @@
 package showtimepackage;
 
 import customerpackage.Customer;
+import viewPackage.customerpackage.CustomerNullException;
 
 public interface IShowtime {
-    void bookSeat(int showtimeID, String seatRow, int seatCol, int customerID);
+    void bookSeat(int showtimeID, String seatRow, int seatCol, Customer customer)throws IllegalArgumentException, CustomerNullException;
+    void bookCoupleSeat(int showtimeID, String seatRow, int seatCol, Customer customer)throws IllegalArgumentException, CustomerNullException;
 	/**
 	 * Check if the requested seat is booked
 	 * @return
@@ -14,8 +16,10 @@ public interface IShowtime {
 	 * Mulitpliers are obtained from composited objects and final price is obtained
 	 * via encapsulated calculations
 	 */
-	float getPrice(int showtimeID, Customer customer);
-    float getPrice(int showtimeID, Customer customer, String discountCodeTicket);
+	float getPrice(int showtimeID, Customer customer) throws IllegalArgumentException, CustomerNullException;
+    float getPrice(int showtimeID, Customer customer, String discountCodeTicket) throws IllegalArgumentException, CustomerNullException;
+    float getPrice(int showtimeID, Customer customer, boolean isCoupleSeat) throws IllegalArgumentException, CustomerNullException;
+    float getPrice(int showtimeID, Customer customer, boolean isCoupleSeat, String discountCodeTicket) throws IllegalArgumentException, CustomerNullException;
 
     void printShowtimeAdmin();
     /**

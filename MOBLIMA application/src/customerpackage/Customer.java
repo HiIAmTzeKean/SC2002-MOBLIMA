@@ -44,7 +44,8 @@ public class Customer implements Serializable{
 	public void setAge(Age age) {
 		this.age = age;
 	}
-	public float getMultiplier(){
+	public float getMultiplier() throws IllegalArgumentException{
+		if (age == null) throw new IllegalArgumentException("Age not set");
 		return age.getAgeMultiplier();
 	}
 }
