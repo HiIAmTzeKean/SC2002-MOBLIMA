@@ -26,4 +26,6 @@ public interface ISales {
 	 * @throws IllegalArgumentException if movie is not found.
 	 */
 	void getTop5_rating() throws IllegalArgumentException;
+	void getTop5_ratingCustomer() throws IllegalArgumentException;
+	void getTop5_salesCustomer() throws IllegalArgumentException;
 }
