@@ -32,6 +32,9 @@ public class Day implements Serializable, IDay {
 		if (multiplier == 0f) multiplier = 1f;
 	}
 	public Day(int dayNumber,int monthNumber, int yearNumber, String time){
+		if (dayNumber>31 || dayNumber <1 || monthNumber>12 || monthNumber<1) {
+			throw new IllegalArgumentException("Invalid date string supplied");
+		}
 		this.holiday = false;
 		this.dayNumber = dayNumber;
 		this.monthNumber = monthNumber;
@@ -39,6 +42,23 @@ public class Day implements Serializable, IDay {
 		this.dayOfWeek = null;
 		this.time = time;
 		setDate(dayNumber, monthNumber, yearNumber);
+		if (multiplier == 0f) multiplier = 1f;
+	}
+	public Day(String fullDate, String time){
+		if (fullDate.length() != 8) {
+			throw new IllegalArgumentException("Invalid date string supplied");
+		}
+
+		this.holiday = false;
+		this.dayNumber = Integer.valueOf(fullDate.substring(6, 8));
+		this.monthNumber = Integer.valueOf(fullDate.substring(4, 6));
+		this.yearNumber = Integer.valueOf(fullDate.substring(0, 4));
+		if (dayNumber>31 || dayNumber <1 || monthNumber>12 || monthNumber<1) {
+			throw new IllegalArgumentException("Invalid date string supplied");
+		}
+		this.dayOfWeek = null;
+		this.time = time;
+		this.fullDate = fullDate;
 		if (multiplier == 0f) multiplier = 1f;
 	}
 	public boolean equals(Day anotherDay){

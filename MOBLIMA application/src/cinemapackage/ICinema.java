@@ -25,8 +25,9 @@ public interface ICinema {
 	 */
 	void printCinemas();
 	/**
-	 * Finds the requested cinemaID and returns the cinema object
-	 * Used in showtime class
+	 * Finds the requested cinemaID and returns the cinema object. Function should be used with care and only
+	 * by staff object to modify Cinema template
+	 * Used in showtime class.
 	 * @param cinemaID
 	 * @return
 	 */
