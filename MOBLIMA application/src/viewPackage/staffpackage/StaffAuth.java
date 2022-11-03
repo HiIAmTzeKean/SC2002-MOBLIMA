@@ -36,7 +36,7 @@ public class StaffAuth extends View {
 		while (no_of_tries < 3 ) {
 
 			try {
-				System.out.println("Enter Username (trial:)" + (no_of_tries+1));
+				System.out.println("Enter Username\ntrial:" + (no_of_tries+1));
 				username = sc.next(); 
 			} catch ( InputMismatchException  e){ 
 				System.out.println(e.toString());
@@ -67,9 +67,9 @@ public class StaffAuth extends View {
 				System.out.println(e.toString());
 			}
 
-			System.out.print("\f"); 
+			// System.out.print(passwordDB[index]); 
 			
-			if (password == passwordDB[index]){ 
+			if (password.equals(passwordDB[index])){ 
 				System.out.println("Access Granted");
 				StaffView.start();;
 			}
@@ -78,9 +78,6 @@ public class StaffAuth extends View {
 			System.out.println("Wrong password"); 
 			no_of_tries++; 
 			
-			
-			System.out.println("Access Granted");
-			StaffView.start();;
 		} 
 		
 		System.out.println("System Locked. Number of tries exceeded.");
