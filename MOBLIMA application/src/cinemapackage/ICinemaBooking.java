@@ -15,4 +15,5 @@ public interface ICinemaBooking {
     String getCinemaCode();
     int getCineplexID();
     String getCinemaClass();
+    CinemaType getCinemaType();
 }

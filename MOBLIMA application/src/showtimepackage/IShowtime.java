@@ -4,7 +4,8 @@ import customerpackage.Customer;
 import viewPackage.customerpackage.CustomerNullException;
 
 public interface IShowtime {
-    void bookSeat(int showtimeID, String seatRow, int seatCol, int customerID);
+    void bookSeat(int showtimeID, String seatRow, int seatCol, Customer customer)throws IllegalArgumentException, CustomerNullException;
+    void bookCoupleSeat(int showtimeID, String seatRow, int seatCol, Customer customer)throws IllegalArgumentException, CustomerNullException;
 	/**
 	 * Check if the requested seat is booked
 	 * @return
