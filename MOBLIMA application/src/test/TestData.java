@@ -10,12 +10,11 @@ import customerpackage.*;
 import daypackage.*;
 import moviepackage.*;
 import showtimepackage.*;
+import viewPackage.customerpackage.CustomerNullException;
+import viewPackage.customerpackage.CustomerReview;
 public class TestData {
     public static void main(String args []) {
-        createMovie();
-        createCinema();
-        createCineplex();
-        createShowtimes();
+        createAllData();
 
         Scanner s = new Scanner(System.in);
         ShowtimeManager showtimeManager = ShowtimeManager.getInstance();
@@ -23,8 +22,34 @@ public class TestData {
         int ans = 1;
         while(ans == 1){
             //int id = s.nextInt();
-            //showtimeManager.getShowtimeByMovieAndDate("Black Adam", new Day());
-            showtimeManager.printShowtimes();
+            // create some day that customer input
+            // printShowtimesByMovieName(String movieName);
+            // cust selects day and time
+            // new Day(date, time)
+            // showtimeID = showtimeManager.getShowtimeByMovieAndDate("Black Adam", new Day()).getID();
+            // Customer cust = new Customer("name", 12345678, "name@gmail.com", new Age(10))
+            // couple seat check
+            // plat, row C for couple seating
+            // showtimeManager.bookSeat(showtimeID, seatRow, seatCol, customerID);
+            // discount code
+            // showtimeManager.getPrice(showtimeID, cust);
+            // showtimeManager.getPrice(showtimeID, cust, trueCoupleseat);
+            // showtimeManager.getPrice(showtimeID, cust, trueCoupleseat, discountcode);
+            // showtimeManager.getPrice(showtimeID, cust, String discountcode);
+
+            showtimeManager.printShowtimesByMovieName("Black Adam");
+            Day d = new Day("20220101","1200");
+            int showtimeID = showtimeManager.getShowtimeByMovieAndDate("Black Adam", d).getID();
+            Customer cust = new Customer("name", 12345678, "name@gmail.com", new Age(10));
+            try{
+                showtimeManager.getPrice(showtimeID, cust);
+            }
+            catch (IllegalArgumentException | CustomerNullException e){
+
+            }
+            // If i answer yes to price
+            showtimeManager.bookSeat(showtimeID,"A", 1, cust.getID());
+
             ans = s.nextInt();
         }
         MovieManager.close();
@@ -32,6 +57,13 @@ public class TestData {
         CineplexManager.close();
         ShowtimeManager.close();
         DiscountCode.close();
+    }
+    public static void createAllData(){
+        createMovie();
+        createCinema();
+        createCineplex();
+        createShowtimes();
+        createCoupons();
     }
     public static void createMovie(){
         File file = new File("./MOBLIMA application/data/movie/movie.dat");
@@ -166,9 +198,9 @@ public class TestData {
         int mobileList[] = {11111111,22222222, 33333333,
                                 44444444,55555555,66666666,
                                 77777777,88888888,99999999};
-        Age ageList[] = {new Age(10,AgeCategory.CHILD), new Age(20,AgeCategory.ADULT), new Age(30,AgeCategory.ADULT),
-                        new Age(11,AgeCategory.CHILD), new Age(22,AgeCategory.ADULT), new Age(30,AgeCategory.ADULT),
-                        new Age(15,AgeCategory.CHILD), new Age(60,AgeCategory.SENIOR), new Age(50,AgeCategory.SENIOR)
+        Age ageList[] = {new Age(10), new Age(20), new Age(30),
+                        new Age(11), new Age(22), new Age(30),
+                        new Age(15), new Age(60), new Age(50)
                         };
 
         File file = new File("./MOBLIMA application/data/showtime/showtime.dat");
@@ -276,6 +308,10 @@ public class TestData {
                     }  
                 }
                 catch(IllegalAccessError ex){
+                    return;
+                }
+                catch(CustomerNullException ex){
+                    ex.printStackTrace();
                     return;
                 }
             }

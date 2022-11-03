@@ -4,14 +4,12 @@ import java.io.Serializable;
 public class Age implements Serializable, IAge {
 	private int ageNumber;
 	private AgeCategory category;
-	public Age(int ageNumber, AgeCategory category) {
+	public Age(int ageNumber) {
 		this.ageNumber = ageNumber;
-		this.category = category;
+		setAgeCategory();
 	}
 	      
-	public void setAge(int ageNumber){
-		this.ageNumber = ageNumber;
-		
+	private void setAgeCategory(){
 		if(this.ageNumber>=60){
 			this.category = AgeCategory.SENIOR;
 		}
@@ -23,7 +21,10 @@ public class Age implements Serializable, IAge {
 		}
 		
 	}
-
+	public void setAgeNumber(int ageNumber){
+		this.ageNumber=ageNumber;
+		setAgeCategory();
+	}
 	public int getAgeNumber(){
 		return this.ageNumber;
 	}

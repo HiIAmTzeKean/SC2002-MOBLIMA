@@ -62,15 +62,14 @@ public class DiscountCode{
 		}
 		return false;
 	}
-	public float getMultiplier(String code){
+	public float getMultiplier(String code) throws IllegalArgumentException{
 		for (Iterator<DiscountCodeTicket> it = discountCodes.iterator(); it.hasNext();) {
 			DiscountCodeTicket c = it.next();
 			if(c.checkCode(code))
 				return c.getDiscount();
 		}
 		// Not found
-		System.out.println("Discount Code not valid");
-		return 0.0f;	
+		throw new IllegalArgumentException("Invalid discount code provided");	
 	}
 	public void printMulitplier(String code){
 		float discount = getMultiplier(code);
