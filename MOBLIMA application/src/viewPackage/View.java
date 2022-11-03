@@ -1,10 +1,10 @@
 package viewPackage;
 import java.util.InputMismatchException;
+import java.util.NoSuchElementException;
 import java.util.Scanner;
 
 import viewPackage.customerpackage.CustomerView;
 
-// !! has not been tested yet
 
 public class View {
 
@@ -19,37 +19,35 @@ public class View {
 		System.out.println("--------------------------------------");
 	}
 
-	public static void start() {
+	public static void start() throws InputMismatchException {
 		// TODO - implement View.start
 		
 		
 		Scanner sc = new Scanner(System.in);
 		int choice = 0; 
 
-		
+		try { 
+			do { 
+				displayMenu(); 
+				System.out.println("\nEnter choice : ");
 
-		// if ( choice==1 || choice==2 ){ 
-		do { 
-			displayMenu(); 
-			System.out.println("\nEnter choice : ");
-
-			try { 
+			
 				choice = sc.nextInt(); 
-				} catch (InputMismatchException e){ 
-					System.out.println(e.toString());
-			}
 
-			switch(choice) { 
-			case 1: viewPackage.staffpackage.StaffAuth.login(); break; 
-			case 2: CustomerView.start(); break; 
-			case 3: return; 
-			default : System.out.println("Enter valid choice");
-			choice = 0;
+				switch(choice) { 
+				case 1: viewPackage.staffpackage.StaffAuth.login(); break; 
+				case 2: CustomerView.start(); break; 
+				case 3: return; 
+				default : System.out.println("Enter valid choice");
+				choice = 0;
 
-			}
-		} while (choice>=0 && choice <=3);
-		// }
-		// else throw new UnsupportedOperationException("Invalid Value");
+				}
+			} while (choice>=0 && choice <=3);
+		}catch( NoSuchElementException e){
+			System.out.println(e.toString());
+			sc.nextLine();
+			View.start();
+		}
 		
 		sc.close();
 	}
