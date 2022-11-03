@@ -24,7 +24,10 @@ public class StaffAuth extends View {
 
 		// TODO - implement StaffAuth.login
 
-		System.out.println("Please login to the MOBLIMA system");
+		System.out.println("-------------------------------------");
+		System.out.println("Please login to MOBLIMA");
+		System.out.println("-------------------------------------");
+		
 		Scanner sc = new Scanner(System.in);
 		boolean contains; 
 
@@ -70,7 +73,9 @@ public class StaffAuth extends View {
 			// System.out.print(passwordDB[index]); 
 			
 			if (password.equals(passwordDB[index])){ 
+				System.out.println("-------------------------------------");
 				System.out.println("Access Granted");
+				System.out.println("-------------------------------------");
 				StaffView.start();;
 			}
 			
