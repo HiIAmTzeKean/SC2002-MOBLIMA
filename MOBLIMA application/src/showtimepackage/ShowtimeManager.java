@@ -9,7 +9,9 @@ import java.io.ObjectOutputStream;
 import java.util.ArrayList;
 import java.util.Iterator;
 
+import cinemapackage.CinemaType;
 import cinemapackage.ICinemaBooking;
+import customerpackage.BookingManager;
 import customerpackage.Customer;
 import daypackage.Day;
 import daypackage.IDay;
@@ -91,10 +93,10 @@ public class ShowtimeManager implements IShowtimeSystem {
 		}
 		throw new IllegalArgumentException("Showtime is not found");
 	}
-	public Showtime getShowtimeByMovieAndDate(String movieName, Day day){
+	public Showtime getShowtime(String movieName, Day day, int cineplexID, CinemaType cinemaType) throws IllegalArgumentException{
 		for (Iterator<Showtime> it = showtimes.iterator(); it.hasNext();) {
 			Showtime s = it.next();
-			if (s.getMovieName().equals(movieName) && s.getDayObject().equals(day)) {
+			if (s.getMovieName().equals(movieName) && s.getDayObject().equals(day) && s.getCineplexID()==cineplexID && s.getCinemaType() == cinemaType) {
 				return s;
 			}
 		}
@@ -125,12 +127,22 @@ public class ShowtimeManager implements IShowtimeSystem {
 		}
 	}
 	@Override
-	public void bookSeat(int showtimeID, String seatRow, int seatCol, int customerID) throws IllegalArgumentException{
+	public void bookSeat(int showtimeID, String seatRow, int seatCol, Customer customer) throws IllegalArgumentException, CustomerNullException{
 		try {
 			Showtime s = showtimes.get(getShowtimeIndex(showtimeID));
 			if (s.getMovieStatus() != MovieStatus.END_OF_SHOWING ||
 				s.getMovieStatus() != MovieStatus.COMING_SOON) {
-				showtimes.get(getShowtimeIndex(showtimeID)).bookSeat(seatRow, seatCol, customerID);
+				showtimes.get(getShowtimeIndex(showtimeID)).bookSeat(seatRow, seatCol, customer.getID());
+				BookingManager bookingManager = BookingManager.getInstance();
+
+				bookingManager.addBooking(showtimes.get(getShowtimeIndex(showtimeID)).getCinemaCode()+
+											showtimes.get(getShowtimeIndex(showtimeID)).getDate()+
+											showtimes.get(getShowtimeIndex(showtimeID)),
+										showtimes.get(getShowtimeIndex(showtimeID)),
+                                        showtimes.get(getShowtimeIndex(showtimeID)).getPrice(customer),
+										customer,
+										seatRow,
+										seatCol);
 			}
 			else {
 				throw new IllegalArgumentException("Error in booking seat");
@@ -140,8 +152,42 @@ public class ShowtimeManager implements IShowtimeSystem {
 			ex.printStackTrace();
 			throw ex;
 		}
+		catch (CustomerNullException ex){
+			ex.printStackTrace();
+			throw ex;
+		}
 	}
+	@Override
+	public void bookCoupleSeat(int showtimeID, String seatRow, int seatCol, Customer customer) throws IllegalArgumentException, CustomerNullException{
+		try {
+			Showtime s = showtimes.get(getShowtimeIndex(showtimeID));
+			if (s.getMovieStatus() != MovieStatus.END_OF_SHOWING ||
+				s.getMovieStatus() != MovieStatus.COMING_SOON) {
+				showtimes.get(getShowtimeIndex(showtimeID)).bookCoupleSeat(seatRow, seatCol, customer.getID());
+				BookingManager bookingManager = BookingManager.getInstance();
 
+				bookingManager.addBooking(showtimes.get(getShowtimeIndex(showtimeID)).getCinemaCode()+
+											showtimes.get(getShowtimeIndex(showtimeID)).getDate()+
+											showtimes.get(getShowtimeIndex(showtimeID)),
+										showtimes.get(getShowtimeIndex(showtimeID)),
+                                        showtimes.get(getShowtimeIndex(showtimeID)).getPrice(customer),
+										customer,
+										seatRow,
+										seatCol);
+			}
+			else {
+				throw new IllegalArgumentException("Error in booking seat");
+			}
+		}
+		catch (IllegalArgumentException ex){
+			ex.printStackTrace();
+			throw ex;
+		}
+		catch (CustomerNullException ex){
+			ex.printStackTrace();
+			throw ex;
+		}
+	}
 	@Override
 	public boolean isBooked(int showtimeID, String seatRow, int seatCol) throws IllegalArgumentException{
 		try {
@@ -164,7 +210,6 @@ public class ShowtimeManager implements IShowtimeSystem {
 			throw ex;
 		}
 	}
-
 	public float getPrice(int showtimeID, Customer customer, String discountCodeTicket) throws IllegalArgumentException, CustomerNullException{
 		try {
 			return showtimes.get(getShowtimeIndex(showtimeID)).getPrice(customer,discountCodeTicket);
@@ -264,6 +309,43 @@ public class ShowtimeManager implements IShowtimeSystem {
 		for (Iterator<Showtime> it = showtimes.iterator(); it.hasNext();) {
 			Showtime s= it.next();
 			if (s.getMovieStatus() != MovieStatus.END_OF_SHOWING && s.getMovieName().equals(movieName))
+				s.printShowtime();
+		}
+		System.out.println("|----------------------------------------------------------------------------------------------------------------------------|");
+	}
+	public void printShowtimesByMovieNameAndCineplexID(String movieName, int cineplexID) {
+		if (showtimes== null || showtimes.size() == 0){
+			// exit before any looping is done
+			throw new IllegalArgumentException("No showtime exist");
+		}
+
+		// check if the movie has already ended
+		MovieManager MM = MovieManager.getInstance();
+			if (MM.findMoviebyName(movieName).getMovieStatus() == MovieStatus.END_OF_SHOWING){
+			throw new IllegalArgumentException("Movie is no longer showing");
+		}
+
+		// Check if movie exist in the showtime
+		boolean found = false;
+		for (Iterator<Showtime> it = showtimes.iterator(); it.hasNext();) {
+			Showtime s= it.next();
+			if (s.getMovieName().equals(movieName))
+				found = true;
+		}
+		if (!found) throw new IllegalArgumentException("Movie is not avaible in the cinplex");
+		MovieManager.close();
+		System.out.println("|----------------------------------------------------------- Showtimes ------------------------------------------------------|");
+		System.out.println("|----------------------------------------------------------------------------------------------------------------------------|");
+		System.out.printf("|   %-15s   |       %-30s        |    %-15s     |    %-8s     |    %-5s    |\n",
+						"Movie Status",
+								"Movie Name",
+								"Cinema Class",
+								"Date",
+								"Time");
+		System.out.println("|----------------------------------------------------------------------------------------------------------------------------|");
+		for (Iterator<Showtime> it = showtimes.iterator(); it.hasNext();) {
+			Showtime s= it.next();
+			if (s.getMovieStatus() != MovieStatus.END_OF_SHOWING && s.getMovieName().equals(movieName) && s.getCineplexID()==cineplexID)
 				s.printShowtime();
 		}
 		System.out.println("|----------------------------------------------------------------------------------------------------------------------------|");

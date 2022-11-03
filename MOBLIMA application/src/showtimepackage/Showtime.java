@@ -2,6 +2,7 @@ package showtimepackage;
 
 import java.io.Serializable;
 
+import cinemapackage.CinemaType;
 import cinemapackage.ICinemaBooking;
 import cineplexpackage.CineplexManager;
 import customerpackage.Customer;
@@ -58,6 +59,12 @@ public class Showtime implements IBooking, Serializable{
 	public Day getDayObject(){
 		return (Day)day;
 	}
+	public CinemaType getCinemaType(){
+		return cinema.getCinemaType();
+	}
+	public int getCineplexID(){
+		return cinema.getCineplexID();
+	}
 	public Movie getMovieObject(){
 		return movie;
 	}
@@ -105,11 +112,28 @@ public class Showtime implements IBooking, Serializable{
 		return movie.getMovieTitle();
 	}
 	@Override
-	public void bookSeat(String seatRow, int seatCol, int customerID) {
+	public void bookSeat(String seatRow, int seatCol, int customerID) throws IllegalArgumentException{
 		System.out.println("===== Seat booking in progress =====");
 
 		if (cinema.isBooked(seatRow, seatCol)){
 			System.out.println("Seat is already booked, please choose another seat");
+			throw new IllegalArgumentException("Seat is already booked");
+		}
+		else{
+			cinema.bookSeat(seatRow, seatCol, customerID);
+			System.out.println("Successfully booked seat");
+		}
+		System.out.println("===== Seat booking finish =====");
+	}
+	public void bookCoupleSeat(String seatRow, int seatCol, int customerID) throws IllegalArgumentException{
+		System.out.println("===== Seat booking in progress =====");
+
+		if (cinema.isBooked(seatRow, seatCol)){
+			System.out.println("Seat is already booked, please choose another seat");
+			throw new IllegalArgumentException("Seat is already booked");
+		}
+		else if (cinema.getCinemaType() != CinemaType.PLATINUM) {
+			throw new IllegalArgumentException("Only Platinum class allow for couple seat booking");
 		}
 		else{
 			cinema.bookSeat(seatRow, seatCol, customerID);

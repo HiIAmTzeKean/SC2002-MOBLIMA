@@ -68,6 +68,7 @@ public abstract class Cinema  implements Serializable, ICinemaBooking{
 	public void setID(int id){
 		this.id = id;
 	}
+	@Override
 	public CinemaType getCinemaType(){
 		return cinemaType;
 	}
