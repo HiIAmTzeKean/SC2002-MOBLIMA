@@ -9,7 +9,8 @@ import java.util.Scanner;
 public class StaffView extends View {
 
     public static void displayMenu(){ 
-        System.out.println("\t\t\tStaff Main Menu");
+		System.out.println("---------------------------------------------------");
+        System.out.println("\t\tStaff Main Menu");
 		System.out.println("---------------------------------------------------");
 		System.out.println("Choice 1 : Create/Update/Remove Movie");
 		System.out.println("Choice 2 : Create/Update/Remove Cinemas");
@@ -44,18 +45,17 @@ public class StaffView extends View {
 				break;
 				case  4 : StaffSystem.start(); 
 				break;
-				case  5 : StaffAuth.logout();
+				case  5 : return;
 				//break;
-				default : System.out.println("Enter valid choice");
-						  choice = 0;		
+				default : 
+					System.out.println("Enter valid choice");
+					choice = 0;		
 			}
 
 		}while(choice<6 && choice>=0);
         
 		System.out.println("\f");
-        sc.close(); 
 	}
-
 }
     
 
