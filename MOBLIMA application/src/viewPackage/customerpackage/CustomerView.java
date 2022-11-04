@@ -9,6 +9,7 @@ import cineplexpackage.Cineplex;
 //import cinemapackage.ICinema;
 //import cinemapackage.CinemaManager;
 import customerpackage.BookingManager;
+import customerpackage.Customer;
 import moviepackage.IMovie;
 import moviepackage.MovieManager; 
 import moviepackage.Movie; 
@@ -17,6 +18,8 @@ import showtimepackage.ShowtimeManager;
 import showtimepackage.Showtime;
 import cinemapackage.CinemaType;
 import daypackage.Day; 
+import agepackage.IAge;
+import agepackage.Age;
 
 public class CustomerView  extends View{
 	private static Scanner scan = new Scanner(System.in);
@@ -64,14 +67,21 @@ public class CustomerView  extends View{
 	public static void bookMenu() {
 		String selectedCineplexName;
 		Cineplex selectedCineplexObj;
+		int selectedCineplexID;
 		String selectedMovieName;
 		Movie selectedMovieObj;
 		String selectedCinemaTypeName = null;
 		String selectedDate = null;
 		String selectedTime = null;
 		CinemaType selectedCinemaType = null;
-		//IDay selectedDay;
-		Showtime selectedShowtime;
+		Day selectedDay;
+		Showtime selectedShowtime = null;
+		int showtimeID;
+		String seatRow;
+		int seatCol;
+		boolean bookingDone = false;
+		int customerID;
+		boolean leaveBookMenu = false;
 		
 		boolean showtime_selection_contd = true;
 		//loop until a user selects a cineplex and movie combination for which non-zero showtimes exist.
@@ -90,7 +100,7 @@ public class CustomerView  extends View{
 				System.out.println("Cineplex is not found — please try again");
 				continue; //to start of outer do-while loop
 			}
-			int selectedCineplexID = selectedCineplexObj.getID();
+			selectedCineplexID = selectedCineplexObj.getID();
 			
 			/////////////////////////////////////////////////////////////////////////////////////////////////
 			
@@ -136,101 +146,237 @@ public class CustomerView  extends View{
 		/////////////////////////////////////////////////////////////////////////////////////////////////
 		
 		//STEP 4 - Select a showtime from those available for movie and cineplex combination
-
-		
-		System.out.println("Choose a row from the above table and enter these details: ");
-		
-		boolean cinemaTypeScanContd = true;
+		/*
+		 * Loop 
+		 */
 		do {
-			System.out.print("Cinema Class, from 'Platinum', 'Gold', 'Sliver' : "); 
-				//display header is class but attribute is CinemaType
-				//Silver misspelled as Sliver in enum definition - UPDATE if changed
-			selectedCinemaTypeName = scan.next();
-			System.out.println();
-					
-			switch(selectedCinemaTypeName) {
-			case "Platinum": 
-				selectedCinemaType = CinemaType.PLATINUM;
-				cinemaTypeScanContd = false;
-				break;
-			case "Gold": 
-				selectedCinemaType = CinemaType.GOLD;
-				cinemaTypeScanContd = false;
-				break;
-			case "Sliver": 
-				selectedCinemaType = CinemaType.PLATINUM;
-				cinemaTypeScanContd = false;
-				break;
-			default:
-				System.out.println("Erroneous value entered, please try again");
-				break;
-			}
-	}while(cinemaTypeScanContd);//endCinemaScan 		
-				
-	//keep prompting until correct format for date
-	do {
-		System.out.print("Date (length 8): ");
-		selectedDate = scan.next();
-	}while(selectedDate.length() != 8); 
-	System.out.println();
-	//convert string date to required format for Day constructor
-	int dateInt = 0, dayNumber = 0, monthNumber = 0,yearNumber = 0;
-	try {
-		dateInt = Integer.parseInt(selectedDate);
-		// reversing fullDate = Integer.toString(this.yearNumber) + monthString + dayString;
-		dayNumber = dateInt%100;
-		dateInt/=100;
-		monthNumber = dateInt%100;
-		dateInt/=100;
-		yearNumber = dateInt;
-	}//endtry
-	catch (NumberFormatException edate){
-        ex.printStackTrace();
-    }					
-	
-	//implement input check if needed
-	System.out.print("Time: ");
-	selectedTime = scan.next();
-	System.out.println();
-	
-	//CHECK for bugs
-	try {			
-	Day selectedDay(dayNumber, monthNumber, yearNumber, selectedTime);
-	}
-	catch(IllegalArgumentException eday) {
-		System.out.println("Invalid date string supplied");
-	}
-				
-	try {
-		selectedShowtime = showtimeHandler.getShowtime(selectedMovieName, selectedDay, selectedCineplexID, CinemaType cinemaType);
-	}
-	catch(IllegalArgumentException e) {
-		System.out.println("Showtime is not found for details entered");
-	}
+			//#1
+			System.out.println("Choose a row from the above table and enter these details: ");
 			
+			//A) CinemaType
+			boolean cinemaTypeScanContd = true;
+			do {
+				System.out.print("Cinema Class, from 'Platinum', 'Gold', 'Sliver' : "); 
+					//display header is class but attribute is CinemaType
+					//Silver misspelled as Sliver in enum definition - UPDATE if changed
+				selectedCinemaTypeName = scan.next();
+				System.out.println();
+						
+				switch(selectedCinemaTypeName) {
+				case "Platinum": 
+					selectedCinemaType = CinemaType.PLATINUM;
+					cinemaTypeScanContd = false;
+					break;
+				case "Gold": 
+					selectedCinemaType = CinemaType.GOLD;
+					cinemaTypeScanContd = false;
+					break;
+				case "Sliver": 
+					selectedCinemaType = CinemaType.PLATINUM;
+					cinemaTypeScanContd = false;
+					break;
+				default:
+					System.out.println("Erroneous value entered, please try again");
+					break;
+				}
+				}while(cinemaTypeScanContd);//endCinemaScan 		
+				
+			//B) Date - prompt until length 8
+			do {
+				System.out.print("Date (length 8): ");
+				selectedDate = scan.next();
+			}while(selectedDate.length() != 8); 
+			System.out.println();
+			
+			//convert string date to required format for Day constructor
+			int dateInt = 0, dayNumber = 0, monthNumber = 0,yearNumber = 0;
+			try {
+				dateInt = Integer.parseInt(selectedDate);
+			}
+			catch (NumberFormatException edate){
+		        edate.printStackTrace();
+		        continue;
+		    }	
+			
+			// reversing fullDate = Integer.toString(this.yearNumber) + monthString + dayString;
+			dayNumber = dateInt%100;
+			dateInt/=100;
+			monthNumber = dateInt%100;
+			dateInt/=100;
+			yearNumber = dateInt;		
+							
+			//C) Time - implement input check if needed
+			System.out.print("Time: ");
+			selectedTime = scan.next();
+			System.out.println();	
+				
+				//CHECK for bugs
+				try {			
+				selectedDay = new Day(dayNumber, monthNumber, yearNumber, selectedTime);
+				}
+				catch(IllegalArgumentException eday) {
+					System.out.println("Invalid date string supplied");
+					continue; 
+				}
+							
+				try {
+					selectedShowtime = showtimeHandler.getShowtime(selectedMovieName, selectedDay, selectedCineplexID, selectedCinemaType);
+				}
+				catch(IllegalArgumentException e) {
+					System.out.println("Showtime is not found for details entered");
+					System.out.println();
+				}
+		}while(selectedShowtime == null);
 		
 		/////////////////////////////////////////////////////////////////////////////////////////////////
 		
 		//STEP 5 - Seat selection
-		int showtimeID = selectedShowtime.getID();
+		showtimeID = selectedShowtime.getID();
 		try{
 			showtimeHandler.printCinemaLayout(showtimeID);
+			System.out.println();
 		}
-		catch(IllegalArgumentException eshowtime){
+		catch(IllegalArgumentException eshowtime){ //unlikely as check for showtime object has be done already
 			System.out.println("Showtime is not found");
 		}
+		
+		
+		do {//until available seats selected and booked 
+			
+		//INPUT CHECKS for row and column at this end? — range of 'allowed' values depends on layout
+		System.out.println("Based on the layout shown, enter the row and column for the seat you wish to select");
+		System.out.print("Row(letter) :");
+		seatRow = scan.next();
+		System.out.println();
+		System.out.print("Column(number) :");
+		seatCol = scan.nextInt();
+		System.out.println();
 		
 		/////////////////////////////////////////////////////////////////////////////////////////////////
 		
 		//STEP 6 - Get customer details — check for DiscountCode and CoupleSeat
+		Customer c;
+		System.out.println("Please enter your personal details: ");
+		System.out.print("Name :");
+		String name = scan.next();
+		c.setName(name);
+		System.out.println();
+		
+		IAge age;
+		System.out.print("age :");
+		int ageInt = scan.nextInt();
+		age.setAgeNumber(ageInt);
+		c.setAge((Age)age);
+		System.out.println();
+		
+		System.out.print("Mobile :");
+		int mobile = scan.nextInt();
+		c.setMobile(mobile);
+		System.out.println();
+		
+		System.out.print("Email :");
+		String email = scan.next();
+		c.setEmail(email);
+		System.out.println();
+		
+		customerID = c.getID();
+		
+		/*
+		 * Internal variable bookingOption keeps track of the booking being a 
+		 * 1- Standard booking for 1 person
+		 * 2- Couple Seat
+		 * 3- Discount code
+		 * 4- Couple seat + Discount code
+		 */
+		int bookingOption = 1; 
+		
+		boolean isCoupleSeat = false;
+		System.out.println("If you wish to book as couple seat, enter 1. Else, enter any other character: ");
+		String coupleSeatChoice = scan.next();
+		if(coupleSeatChoice.compareTo("1") == 0) {
+			isCoupleSeat = true;
+			bookingOption = 2; 
+		}
+		
+		boolean discountValid = false;
+		String discEntered = "0";
+		do {
+			System.out.println("If you wish to use discount code, enter code. Else, enter 0: ");
+			discEntered = scan.next();
+		}while(discEntered.compareTo("0") != 0 || !discountValid); //exits when user enters 0 or enters a valid discount code
+		if(discountValid) {
+			bookingOption = 3;
+			if(isCoupleSeat) {
+				bookingOption = 4;
+			}
+		}
 		
 		//STEP 7 - Display price (+other details) and confirm from customer
+		float price;
+		try { //CHECK - handle specific exceptions for each call separately?
+			switch(bookingOption) {
+				case 1: 
+					price = showtimeHandler.getPrice(showtimeID, c);
+					break;
+				case 2:
+					price = showtimeHandler.getPrice(showtimeID, c, isCoupleSeat);
+					break;
+				case 3:
+					price = showtimeHandler.getPrice(showtimeID, c, discEntered);
+					break;
+				case 4:
+					price = showtimeHandler.getPrice(showtimeID, c, isCoupleSeat, discEntered);
+					break;
+				default: 
+					System.out.println("Error in getting price.");
+			}
+		}
+		catch(Exception eprice) {
+			System.out.println("Error in getting price.");
+			continue; //to start of bookingDone do-while loop
+		}
+		System.out.printf("The cost of your booking is: %f %n", price);
+		System.out.println("Enter 1 to confirm booking, 0 to change booking option, or -1 to moviegoer main menu");
+		String bookConfirm = scan.next();
+		
+		//CHECK - Need another prompt to 'make payment'?
 		
 		//STEP 8 - bookSeat (internal calls booking in customer package) Call appropriate overloaded function. 
+		//set bookingdone
+		switch(bookConfirm) {
+			case "1":{
+				try { 
+					if(bookingOption == 2 || bookingOption == 4) {
+						showtimeHandler.bookCoupleSeat(showtimeID, seatRow, seatCol, c);
+					}
+					else {
+						showtimeHandler.bookSeat(showtimeID, seatRow, seatCol, c);
+					}
+				}
+				catch(Exception ebook) {//specific exceptions
+					System.out.println("Error in booking seat.");
+					continue; //to start of bookingDone do-while loop
+				}
+				bookingDone = true;
+				System.out.println("Your booking has been made!");
+				break;
+			}
+			case "0":continue;
+			case "-1": 
+				leaveBookMenu = true;
+				break;
+			default: 
+				System.out.println("Erroneous value entered, going back to book options.");
+				break;
+			}
 		
+		}while(!bookingDone || leaveBookMenu);
+		
+		MovieManager.close();
+		ShowtimeManager.close();
 		CineplexManager.close();
 		
-	}//End of Book Menu Function
+}//End of Book Menu Function
 	
 	public static void historyAndReview() {
 		BookingManager hist = BookingManager.getInstance();
