@@ -36,11 +36,10 @@ public class StaffMovie extends View {
         System.out.println("--------------------------------------");
     }
 
-    enum createMovieEnum {
-        TITLE, SYNOPSIS, DIRECTOR, CAST, AGERESTRICTION, STATUS, TYPE, DURATION
-    }
-
     public static void createMovie() {
+        enum createMovieEnum {
+            TITLE, SYNOPSIS, DIRECTOR, CAST, AGERESTRICTION, STATUS, TYPE, DURATION
+        }
         boolean complete = false;
         String movieTitle = null;
         String movieSynopsis  = null;
@@ -55,7 +54,7 @@ public class StaffMovie extends View {
         System.out.println("Creating New Movie"); 
         System.out.println("--------------------------------------");
         createMovieEnum state = createMovieEnum.TITLE;
-        
+
         // clear buffer
         sc = new Scanner(System.in);
 
@@ -203,6 +202,61 @@ public class StaffMovie extends View {
 
     }
 
+    public static void setMovieDirector(){
+        enum setMovieDirectorState {ID,DIRECTOR,SETTING}
+        setMovieDirectorState state = setMovieDirectorState.ID;
+        int ID = 0;
+        String director = null;
+        boolean complete = false;
+
+        System.out.println("--------------------------------------");
+        System.out.println("Set new Movie Director");
+        System.out.println("--------------------------------------");
+        MovieHandler.printMovies();
+
+        while (!complete){
+            switch(state){
+                case ID:
+                try{
+                    System.out.println("[Enter 0 to return]");
+                    System.out.println("Enter movie ID :");
+                    ID = sc.nextInt();
+                    if (ID==0) return;
+                } catch(InputMismatchException e){
+                    System.out.println("Invalid input");
+                    sc.nextLine();
+                    state = setMovieDirectorState.ID;
+                }
+                case DIRECTOR:
+                try {
+                    System.out.println("Enter new movie Director ");
+                    director = sc.next();
+                    if (director.equals("0")){
+                        state = setMovieDirectorState.DIRECTOR;
+                    }
+                } catch (InputMismatchException e) {
+                    System.out.println("Invalid input");
+                    sc.nextLine();
+                    state = setMovieDirectorState.DIRECTOR;
+                }
+                case SETTING:
+                try {
+                    MovieHandler.setMovieDirector(ID, director);
+                    stHandler.setMovieDirector(ID, director);
+                    complete = true;
+                } catch (IllegalArgumentException e) {
+                    // There should not be exception here unless ID not valid
+                    System.out.println("ID is not valid, please retry");
+                    state = setMovieDirectorState.ID;
+                }
+            }
+        }
+         
+        System.out.println("--------------------------------------");
+        System.out.println("\t\tNew movie director has been set");
+        System.out.println("--------------------------------------");
+    }
+
     public static void start() {
         Scanner sc = new Scanner(System.in);
         int choice = 0;
@@ -273,6 +327,7 @@ public class StaffMovie extends View {
         int choice = 0;
         try {
             do {
+                System.out.print("\033\143");
                 System.out.println("--------------------------------------");
                 System.out.println("Update Movie");
                 System.out.println("--------------------------------------");
@@ -332,28 +387,13 @@ public class StaffMovie extends View {
 
                         break;
                     case 3:
-                        System.out.println("--------------------------------------");
-                        System.out.println("Set new Movie Director");
-                        System.out.println("--------------------------------------");
-
-                        MovieHandler.printMovies();
-                        System.out.println("Enter movie ID :");
-                        ID = sc.nextInt();
-                        System.out.println("Enter new movie Director ");
-                        String director = sc.next();
-
-                        MovieHandler.setMovieDirector(ID, director);
-                        stHandler.setMovieDirector(ID, director);
-                        System.out.println("--------------------------------------");
-                        System.out.println("\t\tNew movie director has been set");
-                        System.out.println("--------------------------------------");
+                        setMovieDirector();
                         break;
                     case 4:
                         System.out.println("-------------------------------------");
                         System.out.println("\t\tExiting Staff Movie Update Menu");
                         System.out.println("-------------------------------------");
-                        StaffMovie.start();
-                        break;
+                        return;
                     default:
                         System.out.println("Enter valid choice");
                         choice = 0;
@@ -362,12 +402,10 @@ public class StaffMovie extends View {
             } while (choice < 5 && choice >= 0);
 
         } catch (InputMismatchException e) {
-
             System.out.println(e.toString());
             sc.nextLine();
             updateMovie();
         } catch (IllegalArgumentException e) {
-
             System.out.println(e.toString());
             sc.nextLine();
             updateMovie();
