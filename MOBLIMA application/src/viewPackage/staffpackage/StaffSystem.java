@@ -45,6 +45,7 @@ public class StaffSystem extends View {
 			switch (choice) { 
 
 				case  1 : 
+                        System.out.println("--------------------------------------");
                         System.out.println("Setting new base price"); 
                         System.out.println("-------------------------------"); 
                         float BasePrice;
@@ -58,10 +59,12 @@ public class StaffSystem extends View {
                             System.out.println(e.toString());
                         }
 
-                            
-                            System.out.println("\t\tNew base Price Set! "); 
+                        System.out.println("--------------------------------------");
+                        System.out.println("\t\tNew base Price Set! "); 
+                        System.out.println("--------------------------------------");
 				break;
 				case  2 : 
+                        System.out.println("--------------------------------------");
                         System.out.println("Setting new  mutliplier ");         
                         System.out.println("-------------------------------"); 
                         float Multiplier;
@@ -80,6 +83,7 @@ public class StaffSystem extends View {
                         break;
 				
                 case  3 : 
+                        System.out.println("--------------------------------------");
                         System.out.println("Setting Day as Holiday");         
                         System.out.println("-------------------------------"); 
  
@@ -87,7 +91,7 @@ public class StaffSystem extends View {
                         try {
                             System.out.println("Enter the full date <format>"); 
                             String date = sc.next();
-                            // !! see if works pls 
+                            
                             Day day = ssHandler.getDay(date);
                             day.setHoliday();
 
@@ -96,12 +100,16 @@ public class StaffSystem extends View {
                         } catch(InputMismatchException e){ 
                             System.out.println(e.toString());
                         }
+                            System.out.println("--------------------------------------");
                             System.out.println("\t\tHoliday Set! "); 
+                            System.out.println("--------------------------------------");
                 break;
                 case  4 : 
+                         System.out.println("--------------------------------------");
                          System.out.println("Exiting staff system menu"); 
+                         System.out.println("--------------------------------------");
                          ShowtimeManager.close(); 
-                         StaffAuth.start();
+                         StaffView.start();
 				break;
 				default : System.out.println("Enter valid choice");
 						  choice = 0;		
