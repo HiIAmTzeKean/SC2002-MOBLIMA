@@ -71,4 +71,5 @@ public interface IShowtime {
      * @throws IllegalArgumentException
      */
     String getTime(int showtimeID) throws IllegalArgumentException;
+    Showtime getShowtime(String movieName, Day day, int cineplexID, CinemaType cinemaType) throws IllegalArgumentException
 }
