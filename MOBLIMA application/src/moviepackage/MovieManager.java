@@ -209,7 +209,8 @@ public class MovieManager implements ISales, IReviews, IMovie {
 		int target = 0;
 		try{
 			target = findMovie(movieID);
-			movies.remove(target);
+			Movie toDelete = getMoviefromID(target);
+			toDelete.deleteMovie();
 		}
 		catch(IllegalArgumentException e){
 			throw new IllegalArgumentException("Movie not found");
@@ -436,6 +437,52 @@ public class MovieManager implements ISales, IReviews, IMovie {
 		}
 	}
 	//TODO: Write a function that returns a clone of a movie
+	@Override
+	public void getTop5_ratingCustomer() throws IllegalArgumentException{
+		if(movies.size() == 0 || movies == null){
+			throw new IllegalArgumentException("There are no movies to sort");
+		}
+		int limit = 0;
+		ArrayList<Movie> moviecopy = this.getMovies();
+		Collections.sort(moviecopy, Movie.ratingComparator2);
+		if(moviecopy.size() > 5){
+			limit = 4;
+		}
+		else{
+			limit = moviecopy.size();
+		}
+		System.out.println("The Top Five Selling Movies Are:");
+		for(int i = 0; i<limit; i++){
+			if(moviecopy.get(i).getMovieStatus() != MovieStatus.END_OF_SHOWING){
+				System.out.printf("%d : %s (%d)\n", i+1, moviecopy.get(i).getMovieTitle(), moviecopy.get(i).getSales());
+			}
+		}
+	}
+	@Override
+	/**
+	 * Creates a copy of the movies array, sorts it by the sales parameter, and prints the information for the first n<=5 movies in the array based on array size.
+	 * @throws IllegalArgumentException if the movies array is empty.
+	 */
+	public void getTop5_salesCustomer() throws IllegalArgumentException{
+		if(movies.size() == 0 || movies == null){
+			throw new IllegalArgumentException("There are no movies to sort");
+		}
+		int limit = 0;
+		ArrayList<Movie> moviecopy = this.getMovies();
+		Collections.sort(moviecopy, Movie.salesComparator2);
+		if(moviecopy.size() > 5){
+			limit = 4;
+		}
+		else{
+			limit = moviecopy.size();
+		}
+		System.out.println("The Top Five Selling Movies Are:");
+		for(int i = 0; i<limit; i++){
+			if(moviecopy.get(i).getMovieStatus() != MovieStatus.END_OF_SHOWING){
+				System.out.printf("%d : %s (%d)\n", i+1, moviecopy.get(i).getMovieTitle(), moviecopy.get(i).getSales());
+			}
+		}
+	}
 	@Override
 	public Movie getClone(int movieID) throws IllegalArgumentException{
 		try{

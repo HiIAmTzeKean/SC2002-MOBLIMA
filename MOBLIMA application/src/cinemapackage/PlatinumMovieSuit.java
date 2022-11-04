@@ -58,22 +58,22 @@ public class PlatinumMovieSuit extends Cinema {
         System.out.printf("      1  2     3  4     5  6\n");
         int i = 0;
         for (i=0; i<2; i++) {
-            System.out.printf("%c  - ", colList[i]);
+            System.out.printf("%c  - ", rowList[i]);
             for (int j=0; j<6; j++) {
                 System.out.printf("|%d|",seats.get(i).get(j).isBooked()? 1:0);
                 if (j==1 || j==3) System.out.printf(" - ");
             }
-            System.out.printf(" -  %c\n", colList[i]);
+            System.out.printf(" -  %c\n", rowList[i]);
             System.out.printf("   -  -  -  -  -  -  -  -  -  -\n");
         }
         i=2;
-        System.out.printf("%c  - ", colList[i]);
+        System.out.printf("%c  - ", rowList[i]);
         for (int j=0; j<6; j++) {
             if(j%2 ==0) System.out.printf("| %d",seats.get(i).get(j).isBooked()? 1:0);
             if(j%2 ==1) System.out.printf("%d |",seats.get(i).get(j).isBooked()? 1:0);
             if (j==1 || j==3) System.out.printf(" - ");
         }
-        System.out.printf(" -  %c\n", colList[i]);
+        System.out.printf(" -  %c\n", rowList[i]);
         System.out.printf("   -  -  -  -  -  -  -  -  -  -\n");
 
         System.out.printf("          ________________\n");
@@ -99,42 +99,50 @@ public class PlatinumMovieSuit extends Cinema {
 		int row = 0;
 		try {
 			row = convertSeatRowToInt(seatRow);
-		} catch (IllegalArgumentException e) {
+			if (row==2){
+				// Couple seat booking
+				bookCoupleSeat(seatRow, seatCol, customerID);
+			}
+			else if (!isBooked(seatRow,seatCol)) {
+				seatCol = seatCol-1;
+				seats.get(row).get(seatCol).setBooked(customerID);
+			}
+			else throw new IllegalArgumentException("Seat was not booked");
+		}
+		catch (IllegalArgumentException e) {
 			e.printStackTrace();
-			throw new IllegalArgumentException("Seat row input not valid");
+			throw e;
 		}
-		if (row==2){
-            // Couple seat booking
-            bookCoupleSeat(seatRow, seatCol, customerID);
-        }
-		else if (!isBooked(seatRow,seatCol)) {
-			seatCol = seatCol-1;
-			seats.get(row).get(seatCol).setBooked(customerID);
+		catch (SeatRowException ex){
+			throw new IllegalArgumentException("Invalid seat input");
 		}
-		else throw new IllegalArgumentException("Seat was not booked");
 	}
     @Override
     public void removeBooking(int cinemaID, String seatRow, int seatCol) throws IllegalArgumentException{
 		int row = 0;
 		try {
 			row = convertSeatRowToInt(seatRow);
-		} catch (IllegalArgumentException e) {
-			e.printStackTrace();
-			throw new IllegalArgumentException("Seat row input not valid");
-		}
-		if (isBooked(seatRow,seatCol)) {
-            if (row == 2 ) {
-                // couple seating
-                if (seatCol != 1 || seatCol != 3 || seatCol != 5 || seatRow!="C")
-			        throw new IllegalArgumentException("Invalid column/Row selection");
-                seats.get(row).get(seatCol).setUnBooked();
-                seats.get(row).get(seatCol+1).setUnBooked();
-            }
-            else{
-				seatCol = seatCol-1;
-				seats.get(row).get(seatCol).setUnBooked();
+			if (isBooked(seatRow,seatCol)) {
+				if (row == 2 ) {
+					// couple seating
+					if (seatCol != 1 || seatCol != 3 || seatCol != 5 || seatRow!="C")
+						throw new IllegalArgumentException("Invalid column/Row selection");
+					seats.get(row).get(seatCol).setUnBooked();
+					seats.get(row).get(seatCol+1).setUnBooked();
+				}
+				else{
+					seatCol = seatCol-1;
+					seats.get(row).get(seatCol).setUnBooked();
+				}
 			}
+			else throw new IllegalArgumentException("Seat was not booked");
 		}
-		else throw new IllegalArgumentException("Seat was not booked");
+		catch (IllegalArgumentException e) {
+			e.printStackTrace();
+			throw e;
+		}
+		catch (SeatRowException ex){
+			throw new IllegalArgumentException("Invalid seat input");
+		}
 	}
 }

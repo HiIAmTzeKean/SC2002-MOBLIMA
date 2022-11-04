@@ -7,9 +7,9 @@ public interface ICinemaBooking {
      * @param seatCol
      * @param customerID
      */
-    void bookSeat(String seatRow, int seatCol, int customerID);
-    boolean isBooked(String seatRow, int seatCol);
-    void removeBooking(int cinemaID, String seatRow, int seatCol);
+    void bookSeat(String seatRow, int seatCol, int customerID) throws IllegalArgumentException;
+    boolean isBooked(String seatRow, int seatCol) throws IllegalArgumentException;
+    void removeBooking(int cinemaID, String seatRow, int seatCol) throws IllegalArgumentException;
     float getMultiplier();
     void printCinemaLayout();
     String getCinemaCode();

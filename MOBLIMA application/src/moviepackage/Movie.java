@@ -125,6 +125,9 @@ public class Movie implements Serializable{
 	public void addSales(int toAdd){
 		this.sales+=toAdd;
 	}
+	public void deleteMovie(){
+		this.setMovieStatus(MovieStatus.END_OF_SHOWING);
+	}
 	public void printMovieComplete(){
 		//Printing out the requirements needed in the PDF
 		System.out.println("---------------------");

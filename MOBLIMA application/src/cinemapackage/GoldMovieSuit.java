@@ -59,12 +59,12 @@ public class GoldMovieSuit extends Cinema {
         System.out.printf("      1  2  3     4  5  6     7  8  9\n");
 
         for (int i=0; i<3; i++) {
-            System.out.printf("%c  - ", colList[i]);
+            System.out.printf("%c  - ", rowList[i]);
             for (int j=0; j<9; j++) {
                 System.out.printf("|%d|",seats.get(i).get(j).isBooked()? 1:0);
                 if (j==2 || j==5) System.out.printf(" - ");
             }
-            System.out.printf(" -  %c\n", colList[i]);
+            System.out.printf(" -  %c\n", rowList[i]);
             System.out.printf("   -  -  -  -  -  -  -  -  -  -  -  -  -\n");
         }
 
