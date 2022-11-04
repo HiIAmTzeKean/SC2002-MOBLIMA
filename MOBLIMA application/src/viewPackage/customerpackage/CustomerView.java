@@ -62,6 +62,16 @@ public class CustomerView  extends View{
 	}
 	
 	public static void bookMenu() {
+		String selectedCineplexName;
+		Cineplex selectedCineplexObj;
+		String selectedMovieName;
+		Movie selectedMovieObj;
+		String selectedCinemaTypeName = null;
+		String selectedDate = null;
+		String selectedTime = null;
+		CinemaType selectedCinemaType = null;
+		//IDay selectedDay;
+		Showtime selectedShowtime;
 		
 		boolean showtime_selection_contd = true;
 		//loop until a user selects a cineplex and movie combination for which non-zero showtimes exist.
@@ -71,23 +81,23 @@ public class CustomerView  extends View{
 			cineplexHandler.printCineplexes();
 			System.out.println();
 			System.out.println("Enter the name of the cineplex you have chosen:");
-			String selectedCineplexName = scan.next();
+			selectedCineplexName = scan.next();
 			System.out.println();
-			Cineplex selectedCineplexObj;
 			try {
 				selectedCineplexObj = cineplexHandler.getCineplex(selectedCineplexName); 
 			}
-			catch(IllegalArgumentException e) {
+			catch(IllegalArgumentException ecineplex) {
 				System.out.println("Cineplex is not found — please try again");
 				continue; //to start of outer do-while loop
 			}
 			int selectedCineplexID = selectedCineplexObj.getID();
 			
+			/////////////////////////////////////////////////////////////////////////////////////////////////
+			
 			//STEP 2 - CHOOSE MOVIE
 			CustomerMovieListing movSelectObj = null;
 			movSelectObj.movieSelection(); //runs the movie selection menu
-			String selectedMovieName = movSelectObj.getSelectedMovieName();
-			Movie selectedMovieObj;
+			selectedMovieName = movSelectObj.getSelectedMovieName();
 			try {
 				selectedMovieObj =  movieFindHandler.findMoviebyName(selectedMovieName); 
 			}
@@ -96,79 +106,131 @@ public class CustomerView  extends View{
 				continue; //to start of outer do-while loop
 			}
 			
-			//STEP 3 - Select from showtimes available for chosen cineplex and movie
-			String selectedCinemaTypeName;
-			String selectedDate;
-			String selectedTime;
-			Showtime selectedShowtime; //CHECK 
-			System.out.printf("Following are the showtimes available for movie %s at cineplex %s: ", selectedMovieName, selectedCineplexName);
-			//CHECK WITH METHOD DECLARATION
+			/////////////////////////////////////////////////////////////////////////////////////////////////
+			
+			//STEP 3 - Display showtimes for the movie and cineplex combination (atleast one showtime should exist)
+			
 			try {
-				showtimeHandler.getShowtimeByMovieAndDateAndCineplex(selectedMovieName, selectedCineplexID);
-				System.out.println();
-				System.out.println("Choose a row from the above table and enter these details: ");
-				System.out.print("Cinema Class: "); //display header is class but attribute is CinemaType
-				selectedCinemaTypeName = scan.next();
-				//convert to object of cinema type - interface?
-				//CinemaType selectedCinemaType;selectedCinemaType.setType(selectedCinemaTypeName);
-				CinemaType selectedCinemaType(selectedCinemaTypeName); //MAKE CONSTRUCTOR PUBLIC
+				System.out.printf("Following are the showtimes available for movie %s at cineplex %s: ", selectedMovieName, selectedCineplexName);
+				showtimeHandler.printShowtimesByMovieNameAndCineplexID(selectedMovieName, selectedCineplexID);
 				System.out.println();
 				
-				//date and time are strings as per print showtime method definition 
-				System.out.print("Date: ");
-				selectedDate = scan.next();
-				System.out.println();
-				//convert string date to required format for Day constructor
-				int dateInt = 0, dayNumber = 0, monthNumber = 0,yearNumber = 0;
-				try {
-					dateInt = Integer.parseInt(selectedDate);
-					// reversing fullDate = Integer.toString(this.yearNumber) + monthString + dayString;
-					dayNumber = dateInt%100;
-					dateInt/=100;
-					monthNumber = dateInt%100;
-					dateInt/=100;
-					yearNumber = dateInt;
-				}
-				catch (NumberFormatException ex){
-		            ex.printStackTrace();
-		        }
-				System.out.print("Time: ");
-				selectedTime = scan.next();
-				System.out.println();
+				/*
+				 * If user does not like any of the showtimes available, 
+				 * allow to re-enter and movie and cinplex combination
+				 * and display another set of showtimes
+				 */
 				
-				Day selectedDay = Day(dayNumber,monthNumber, yearNumber, selectedTime);
-				try {
-					selectedShowtime = showtimeHandler.getShowtime(selectedMovieName, selectedDay, selectedCineplexID, CinemaType cinemaType);
+				System.out.println("To pick cineplex and movie again, for another set of showtimes, enter 0. Else enter any other character:");
+				String re_enter = scan.next();
+				if(re_enter.compareTo("0") == 0) {
+					continue; //to start of outer do-while loop
 				}
-				catch(IllegalArgumentException e) {
-					System.out.println("Showtime is not found");
-					continue;//to start of outer do-while loop
-				}
-			}//try end
-			//CHECK IF EXCEPTIONS HANDLED CORRECTLY
-			catch(Exception e) {
+			}
+			catch(IllegalArgumentException e) {
 				System.out.println("No Showtimes exist for the Movie and Cineplex combination — please try again");
 				continue; //to start of outer do-while loop
 			}
 		}while(showtime_selection_contd);
 		
-		//STEP 4 - Seat selection
+		/////////////////////////////////////////////////////////////////////////////////////////////////
+		
+		//STEP 4 - Select a showtime from those available for movie and cineplex combination
+
+		
+		System.out.println("Choose a row from the above table and enter these details: ");
+		
+		boolean cinemaTypeScanContd = true;
+		do {
+			System.out.print("Cinema Class, from 'Platinum', 'Gold', 'Sliver' : "); 
+				//display header is class but attribute is CinemaType
+				//Silver misspelled as Sliver in enum definition - UPDATE if changed
+			selectedCinemaTypeName = scan.next();
+			System.out.println();
+					
+			switch(selectedCinemaTypeName) {
+			case "Platinum": 
+				selectedCinemaType = CinemaType.PLATINUM;
+				cinemaTypeScanContd = false;
+				break;
+			case "Gold": 
+				selectedCinemaType = CinemaType.GOLD;
+				cinemaTypeScanContd = false;
+				break;
+			case "Sliver": 
+				selectedCinemaType = CinemaType.PLATINUM;
+				cinemaTypeScanContd = false;
+				break;
+			default:
+				System.out.println("Erroneous value entered, please try again");
+				break;
+			}
+	}while(cinemaTypeScanContd);//endCinemaScan 		
+				
+	//keep prompting until correct format for date
+	do {
+		System.out.print("Date (length 8): ");
+		selectedDate = scan.next();
+	}while(selectedDate.length() != 8); 
+	System.out.println();
+	//convert string date to required format for Day constructor
+	int dateInt = 0, dayNumber = 0, monthNumber = 0,yearNumber = 0;
+	try {
+		dateInt = Integer.parseInt(selectedDate);
+		// reversing fullDate = Integer.toString(this.yearNumber) + monthString + dayString;
+		dayNumber = dateInt%100;
+		dateInt/=100;
+		monthNumber = dateInt%100;
+		dateInt/=100;
+		yearNumber = dateInt;
+	}//endtry
+	catch (NumberFormatException edate){
+        ex.printStackTrace();
+    }					
+	
+	//implement input check if needed
+	System.out.print("Time: ");
+	selectedTime = scan.next();
+	System.out.println();
+	
+	//CHECK for bugs
+	try {			
+	Day selectedDay(dayNumber, monthNumber, yearNumber, selectedTime);
+	}
+	catch(IllegalArgumentException eday) {
+		System.out.println("Invalid date string supplied");
+	}
+				
+	try {
+		selectedShowtime = showtimeHandler.getShowtime(selectedMovieName, selectedDay, selectedCineplexID, CinemaType cinemaType);
+	}
+	catch(IllegalArgumentException e) {
+		System.out.println("Showtime is not found for details entered");
+	}
+			
+		
+		/////////////////////////////////////////////////////////////////////////////////////////////////
+		
+		//STEP 5 - Seat selection
 		int showtimeID = selectedShowtime.getID();
 		try{
 			showtimeHandler.printCinemaLayout(showtimeID);
 		}
-		catch(IllegalArgumentException ex){
+		catch(IllegalArgumentException eshowtime){
 			System.out.println("Showtime is not found");
 		}
 		
-		//STEP 5 - Get customer details — check for DiscountCode and CoupleSeat
+		/////////////////////////////////////////////////////////////////////////////////////////////////
 		
-		//STEP 6 - Display price (+other details) and confirm from customer
+		//STEP 6 - Get customer details — check for DiscountCode and CoupleSeat
 		
-		//STEP 7 - bookSeat (internal calls booking in customer package) Call appropriate overloaded function. 
+		//STEP 7 - Display price (+other details) and confirm from customer
+		
+		//STEP 8 - bookSeat (internal calls booking in customer package) Call appropriate overloaded function. 
 		
 		CineplexManager.close();
-	}
+		
+	}//End of Book Menu Function
 	
 	public static void historyAndReview() {
 		BookingManager hist = BookingManager.getInstance();
