@@ -411,7 +411,7 @@ public class ShowtimeManager implements IShowtimeSystem {
 	}
 
 	@Override
-	public void addShowtime(Movie movie, ICinemaBooking cinema, IDay day) throws IllegalArgumentException{
+	public void addShowtime(Movie movie, ICinemaBooking cinema, IDay day) throws IllegalArgumentException{ 
 		if (movie.getMovieStatus()==MovieStatus.COMING_SOON || 
 			movie.getMovieStatus()==MovieStatus.NOW_SHOWING ||
 			movie.getMovieStatus()==MovieStatus.PREVIEW){
@@ -472,8 +472,6 @@ public class ShowtimeManager implements IShowtimeSystem {
 		}
 		throw new IllegalArgumentException("No such date in showtimes");
 	}
-
-
 	@Override
 	public void setMovieType(int movieID, MovieType type) throws IllegalArgumentException {
 		for (Iterator<Showtime> it = showtimes.iterator(); it.hasNext();) {
@@ -527,6 +525,14 @@ public class ShowtimeManager implements IShowtimeSystem {
 			}
 		}
 		if (flag == 0) throw new IllegalArgumentException("Showtime with date and timing provided exist");
+	}
+	@Override
+	public void changeShowtimeDay(int showtimeID, Day day) throws IllegalArgumentException {
+		try {
+			getShowtimeByID(showtimeID).changeDay(day);
+		} catch (IllegalArgumentException ex) {
+			throw ex;
+		}
 	}
 }
 

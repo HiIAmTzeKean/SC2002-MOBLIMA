@@ -7,7 +7,7 @@ public class PlatinumMovieSuit extends Cinema {
     public PlatinumMovieSuit(String code, int id) {
         super(code,id);
         super.setCinemaType(CinemaType.PLATINUM);
-        // Create the layout of sliver class
+        // Create the layout of Silver class
         // 2 - 2 - 2 seating
         // Total of 3 roles
         for (int i=0; i<3; i++) {
