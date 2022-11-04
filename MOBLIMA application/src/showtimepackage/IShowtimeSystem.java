@@ -33,4 +33,6 @@ public interface IShowtimeSystem extends IShowtime {
 	void setMovieType(int movieID, MovieType type) throws IllegalArgumentException;
 	void setMovieStatus(int movieID, MovieStatus status) throws IllegalArgumentException;
 	void setMovieDirector(int movieID, String director) throws IllegalArgumentException;
+	void setHoliday(Day day) throws IllegalArgumentException;
+	void unsetHoliday(Day day) throws IllegalArgumentException;
 }

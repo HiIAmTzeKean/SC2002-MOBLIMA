@@ -1,7 +1,7 @@
 package showtimepackage;
 
 import customerpackage.Customer;
-import viewPackage.customerpackage.CustomerNullException;
+import customerpackage.CustomerNullException;
 
 /**
  * Implemented by Showtime class

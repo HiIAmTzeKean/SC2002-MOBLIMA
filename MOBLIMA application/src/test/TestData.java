@@ -10,7 +10,6 @@ import customerpackage.*;
 import daypackage.*;
 import moviepackage.*;
 import showtimepackage.*;
-import viewPackage.customerpackage.CustomerNullException;
 import viewPackage.customerpackage.CustomerReview;
 public class TestData {
     public static void main(String args []) {
@@ -21,35 +20,18 @@ public class TestData {
 
         int ans = 1;
         while(ans == 1){
-            //int id = s.nextInt();
-            // create some day that customer input
-            // printShowtimesByMovieName(String movieName);
-            // cust selects day and time
-            // new Day(date, time)
-            // showtimeID = showtimeManager.getShowtimeByMovieAndDate("Black Adam", new Day()).getID();
-            // Customer cust = new Customer("name", 12345678, "name@gmail.com", new Age(10))
-            // couple seat check
-            // plat, row C for couple seating
-            // showtimeManager.bookSeat(showtimeID, seatRow, seatCol, customerID);
-            // discount code
-            // showtimeManager.getPrice(showtimeID, cust);
-            // showtimeManager.getPrice(showtimeID, cust, trueCoupleseat);
-            // showtimeManager.getPrice(showtimeID, cust, trueCoupleseat, discountcode);
-            // showtimeManager.getPrice(showtimeID, cust, String discountcode);
+            // showtimeManager.printShowtimesByMovieNameAndCineplexID("Black Adam", 1);
+            // Day d = new Day("20220101","1200");
+            // int showtimeID = showtimeManager.getShowtime("Black Adam", d,cineplexID,cinemaType).getID();
+            // Customer cust = new Customer("name", 12345678, "name@gmail.com", new Age(10));
+            // try{
+            //     showtimeManager.getPrice(showtimeID, cust);
+            //     // If i answer yes to price
+            //     showtimeManager.bookSeat(showtimeID,"A", 1, cust);
+            // }
+            // catch (IllegalArgumentException | CustomerNullException e){
 
-            showtimeManager.printShowtimesByMovieName("Black Adam");
-            Day d = new Day("20220101","1200");
-            int showtimeID = showtimeManager.getShowtimeByMovieAndDate("Black Adam", d).getID();
-            Customer cust = new Customer("name", 12345678, "name@gmail.com", new Age(10));
-            try{
-                showtimeManager.getPrice(showtimeID, cust);
-            }
-            catch (IllegalArgumentException | CustomerNullException e){
-
-            }
-            // If i answer yes to price
-            showtimeManager.bookSeat(showtimeID,"A", 1, cust.getID());
-
+            // }
             ans = s.nextInt();
         }
         MovieManager.close();
@@ -285,29 +267,23 @@ public class TestData {
                     if (showtimeObj.getCinemaClass().toString().equals("PLATINUM")){
                         int col = (int) ((int) 5*Math.random())+1;
                         int row = (int) ((int) 2*Math.random());
-                        man.bookSeat(i, colList[row], col, emailList[col].hashCode());
                         c = new Customer(nameList[col], mobileList[col], emailList[col], ageList[col]); 
-                        bookingManager.addBooking(man.getShowtimeByID(i).getCinemaCode()+man.getDate(i)+man.getTime(i), man.getShowtimeByID(i),
-                                        man.getPrice(i,c), c, colList[row],col);
+                        man.bookSeat(i, colList[row], col,c);
                     }
                     else if (showtimeObj.getCinemaClass().equals("GOLD")){
                         int col = (int) ((int) 8*Math.random())+1;
                         int row = (int) ((int) 3*Math.random());
-                        man.bookSeat(i, colList[row], col, emailList[col].hashCode());
                         c = new Customer(nameList[col], mobileList[col], emailList[col], ageList[col]); 
-                        bookingManager.addBooking(man.getShowtimeByID(i).getCinemaCode()+man.getDate(i)+man.getTime(i), man.getShowtimeByID(i),
-                                        man.getPrice(i,c), c, colList[row],col);
+                        man.bookSeat(i, colList[row], col,c);
                     }
                     else{
                         int col = (int) ((int) 8*Math.random())+1;
                         int row = (int) ((int) 5*Math.random());
-                        man.bookSeat(i, colList[row], col, emailList[col].hashCode());
                         c = new Customer(nameList[col], mobileList[col], emailList[col], ageList[col]); 
-                        bookingManager.addBooking(man.getShowtimeByID(i).getCinemaCode()+man.getDate(i)+man.getTime(i), man.getShowtimeByID(i),
-                                        man.getPrice(i,c), c, colList[row],col);
+                        man.bookSeat(i, colList[row], col,c);
                     }  
                 }
-                catch(IllegalAccessError ex){
+                catch(IllegalArgumentException ex){
                     return;
                 }
                 catch(CustomerNullException ex){
