@@ -40,140 +40,167 @@ public class StaffMovie extends View {
         TITLE, SYNOPSIS, DIRECTOR, CAST, AGERESTRICTION, STATUS, TYPE, DURATION
     }
 
-    public void createMovie() {
+    public static void createMovie() {
         boolean complete = false;
-        try{
-            System.out.println("--------------------------------------");
-            System.out.println("Creating New Movie"); 
-            System.out.println("--------------------------------------");
-            createMovieEnum state = createMovieEnum.TITLE;
-            
+        String movieTitle = null;
+        String movieSynopsis  = null;
+        String movieDirector  = null;
+        String movieCast  = null;
+        MovieStatus movieStatus  = null;
+        AgeRestriction movieAgeRestriction  = null;
+        MovieType movieType  = null;
+        int duration  = 0;
+
+        System.out.println("--------------------------------------");
+        System.out.println("Creating New Movie"); 
+        System.out.println("--------------------------------------");
+        createMovieEnum state = createMovieEnum.TITLE;
+        
+        // clear buffer
+        sc = new Scanner(System.in);
+
+        while(!complete){
             switch(state){
-                case TITLE:
-                    try{
-                        System.out.println("[Enter 0 to return]");
-                        String movieTitle = sc.next();
-                        if (movieTitle.equals("0")) return;
-                    }
-                    catch(InputMismatchException e){
-                        sc.nextLine(); 
-                        state = createMovieEnum.TITLE;
-                        break;
-                    }
-                case SYNOPSIS:
-                    try {
-                        System.out.println("[Enter 0 to go back]");
-                        System.out.println("Enter Synopsis: ");
-                        String movieSynopsis = sc.next();
-                        if (movieSynopsis.equals("0")) {
-                            state=createMovieEnum.TITLE;
-                            break;
-                        }
-                    }
-                    catch(InputMismatchException e){
-                        sc.nextLine(); 
-                        state = createMovieEnum.SYNOPSIS;
-                        break;
-                    }
-                case DIRECTOR:
-                    try {
-                        System.out.println("[Enter 0 to go back]");
-                        System.out.println("Enter Director: ");
-                        String movieDirector = sc.next();
-                        if (movieDirector.equals("0")) {
-                            state=createMovieEnum.SYNOPSIS;
-                            break;
-                        }
-                    }
-                    catch(InputMismatchException e){
-                        state = createMovieEnum.DIRECTOR;
-                        break;
-                    }
-                case CAST:
-                    try {
-                        System.out.println("[Enter 0 to go back]");
-                        System.out.println("Enter Cast: ");
-                        String movieCast = sc.next();
-                        if (movieCast.equals("0")) {
-                            state=createMovieEnum.DIRECTOR;
-                            break;
-                        }
-                    }
-                    catch(InputMismatchException e){
-                        sc.nextLine(); 
-                        state = createMovieEnum.CAST;
-                        break;
-                    }
-                case AGERESTRICTION:
-                try {
-                    System.out.println("[Enter 0 to go back]");
-                    System.out.println("Enter Age Restriction: ");
-                    String input = sc.next();
-                    if (input.equals("0")) {
-                        state=createMovieEnum.CAST;
-                        break;
-                    }
-                    AgeRestriction movieAgeRestriction = AgeRestriction.valueOf(input.toUpperCase());
+            case TITLE:
+                try{
+                    System.out.println("[Enter 0 to return]");
+                    System.out.println("Enter the movie title:");
+                    movieTitle = sc.nextLine();
+                    if (movieTitle.equals("0")) return;
                 }
                 catch(InputMismatchException e){
                     sc.nextLine(); 
-                    state = createMovieEnum.AGERESTRICTION;
+                    state = createMovieEnum.TITLE;
                     break;
                 }
-                case STATUS:
+            case SYNOPSIS:
                 try {
                     System.out.println("[Enter 0 to go back]");
-                    System.out.println("Enter Status ");
-                    String input = sc.next();
-                    if (input.equals("0")) {
-                        state=createMovieEnum.AGERESTRICTION;
+                    System.out.println("Enter Synopsis: ");
+                    movieSynopsis = sc.next();
+                    if (movieSynopsis.equals("0")) {
+                        state=createMovieEnum.TITLE;
                         break;
                     }
-                    MovieStatus movieStatus = MovieStatus.valueOf(input.toUpperCase());
                 }
                 catch(InputMismatchException e){
                     sc.nextLine(); 
-                    state = createMovieEnum.STATUS;
+                    state = createMovieEnum.SYNOPSIS;
                     break;
                 }
-                case TYPE:
+            case DIRECTOR:
                 try {
                     System.out.println("[Enter 0 to go back]");
-                    System.out.println("Enter Type ");
-                    String input = sc.next();
-                    if (input.equals("0")) {
-                        state=createMovieEnum.STATUS;
+                    System.out.println("Enter Director: ");
+                    movieDirector = sc.next();
+                    if (movieDirector.equals("0")) {
+                        state=createMovieEnum.SYNOPSIS;
                         break;
                     }
-                    MovieType movieType = MovieType.valueOf(input.toUpperCase());
+                }
+                catch(InputMismatchException e){
+                    state = createMovieEnum.DIRECTOR;
+                    break;
+                }
+            case CAST:
+                try {
+                    System.out.println("[Enter 0 to go back]");
+                    System.out.println("Enter Cast: ");
+                    movieCast = sc.next();
+                    if (movieCast.equals("0")) {
+                        state=createMovieEnum.DIRECTOR;
+                        break;
+                    }
                 }
                 catch(InputMismatchException e){
                     sc.nextLine(); 
-                    state = createMovieEnum.TYPE;
+                    state = createMovieEnum.CAST;
                     break;
                 }
-                case DURATION:
-                try {
-                    System.out.println("[Enter 0 to go back]");
-                    System.out.println("Enter Duration ");
-                    int duration = sc.nextInt();
-                    if (duration==0) {
-                        state=createMovieEnum.TYPE;
-                        break;
-                    }
-                    complete = true;
-                }
-                catch(InputMismatchException e){
-                    sc.nextLine(); 
-                    state = createMovieEnum.DURATION;
+            case AGERESTRICTION:
+            try {
+                System.out.println("[Enter 0 to go back]");
+                System.out.println("Enter Age Restriction: ");
+                String input = sc.next();
+                if (input.equals("0")) {
+                    state=createMovieEnum.CAST;
                     break;
                 }
+                movieAgeRestriction = AgeRestriction.valueOf(input.toUpperCase());
             }
-            MovieHandler.createMovie( movieTitle, movieStatus, movieSynopsis,movieDirector, movieCast, movieAgeRestriction, movieType , duration);
-            System.out.println("--------------------------------------");
-            System.out.println("\t\tNew Movie Created");
-            System.out.println("--------------------------------------");
+            catch (IllegalArgumentException ex){
+                state = createMovieEnum.AGERESTRICTION;
+                System.out.println("Invalid age restriction given");
+                break;
+            }
+            catch(InputMismatchException e){
+                sc.nextLine(); 
+                state = createMovieEnum.AGERESTRICTION;
+                break;
+            }
+            case STATUS:
+            try {
+                System.out.println("[Enter 0 to go back]");
+                System.out.println("Enter Status ");
+                String input = sc.next();
+                if (input.equals("0")) {
+                    state=createMovieEnum.AGERESTRICTION;
+                    break;
+                }
+                movieStatus = MovieStatus.valueOf(input.toUpperCase());
+            }
+            catch (IllegalArgumentException ex){
+                state = createMovieEnum.STATUS;
+                System.out.println("Invalid movie status given");
+                break;
+            }
+            catch(InputMismatchException e){
+                sc.nextLine(); 
+                state = createMovieEnum.STATUS;
+                break;
+            }
+            case TYPE:
+            try {
+                System.out.println("[Enter 0 to go back]");
+                System.out.println("Enter Type ");
+                String input = sc.next();
+                if (input.equals("0")) {
+                    state=createMovieEnum.STATUS;
+                    break;
+                }
+                movieType = MovieType.valueOf(input.toUpperCase());
+            }
+            catch(InputMismatchException e){
+                sc.nextLine(); 
+                state = createMovieEnum.TYPE;
+                break;
+            }
+            case DURATION:
+            try {
+                System.out.println("[Enter 0 to go back]");
+                System.out.println("Enter Duration ");
+                duration = sc.nextInt();
+                if (duration==0) {
+                    state=createMovieEnum.TYPE;
+                    break;
+                }
+                complete = true;
+            }
+            catch(InputMismatchException e){
+                sc.nextLine(); 
+                state = createMovieEnum.DURATION;
+                break;
+            }
+            default:
+                state = createMovieEnum.TITLE;
+                break;
         }
+        }
+        MovieHandler.createMovie(movieTitle, movieStatus, movieSynopsis,movieDirector, movieCast, movieAgeRestriction, movieType , duration);
+        System.out.println("--------------------------------------");
+        System.out.println("\t\tNew Movie Created");
+        System.out.println("--------------------------------------");
+
     }
 
     public static void start() {
@@ -193,44 +220,7 @@ public class StaffMovie extends View {
 
             switch (choice) {
                 case 1:
-                    try {
-                        System.out.println("--------------------------------------");
-                        System.out.println("Creating New Movie");
-                        System.out.println("--------------------------------------");
-
-                        System.out.println("Enter the details of the movie you want to create: ");
-                        System.out.println("Enter Movie Title: ");
-                        String movieTitle = sc.next();
-                        System.out.println("Enter Synopsis: ");
-                        String movieSynopsis = sc.next();
-                        System.out.println("Enter Director: ");
-                        String movieDirector = sc.next();
-                        System.out.println("Enter Cast: ");
-                        String movieCast = sc.next();
-                        System.out.println("Enter Age Restriction: ");
-                        AgeRestriction movieAgeRestriction = AgeRestriction.valueOf(sc.next().toUpperCase());
-                        System.out.println("Enter Status ");
-                        MovieStatus movieStatus = MovieStatus.valueOf(sc.next().toUpperCase());
-                        System.out.println("Enter Type ");
-                        MovieType movieType = MovieType.valueOf(sc.next().toUpperCase());
-                        // ArrayList<Review> reviews = new ArrayList<Review>();
-                        System.out.println("Enter Duration ");
-                        int duration = sc.nextInt();
-
-                        MovieHandler.createMovie(movieTitle, movieStatus, movieSynopsis, movieDirector, movieCast,
-                                movieAgeRestriction, movieType, duration);
-                        System.out.println("--------------------------------------");
-                        System.out.println("\t\t new movie created");
-                        System.out.println("--------------------------------------");
-                    } catch (InputMismatchException e) {
-                        System.out.println(e.toString());
-                        sc.nextLine();
-                        StaffMovie.start();
-                    } catch (IllegalArgumentException e) {
-                        System.out.println(e.toString());
-                        sc.nextLine();
-                        StaffMovie.start();
-                    }
+                    createMovie();
                     break;
                 case 2:
                     System.out.println("--------------------------------------");
@@ -281,7 +271,6 @@ public class StaffMovie extends View {
 
     public static void updateMovie() {
         int choice = 0;
-        Scanner sc = new Scanner(System.in);
         try {
             do {
                 System.out.println("--------------------------------------");
@@ -383,14 +372,10 @@ public class StaffMovie extends View {
             sc.nextLine();
             updateMovie();
         }
-
-        sc.close();
-
     }
 
     public static void showTopMovie() {
         int choice2;
-        Scanner sc = new Scanner(System.in);
 
         System.out.println("Display Top 5 Movie by : ");
         System.out.println("--------------------------------------");
@@ -411,13 +396,13 @@ public class StaffMovie extends View {
                 default:
                     System.out.println("Illegal Input \n t\tBack to Movie Menu");
                     System.out.println("--------------------------------------");
-                    start();
+                    return;
             }
 
         } catch (InputMismatchException e) {
             System.out.println(e.toString());
             sc.nextLine();
-            StaffMovie.start();
+            return;
         }
 
     }
