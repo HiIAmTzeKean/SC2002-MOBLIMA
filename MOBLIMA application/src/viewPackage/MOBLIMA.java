@@ -6,7 +6,7 @@ public class MOBLIMA extends View {
         viewPackage.View.start(); 
     }
 
-    public static void main(){ 
+    public static void main(String args []){ 
         System.out.println("\t\t\tWELCOME TO MOBLIMA "); 
         System.out.println("----------------------------------");
 

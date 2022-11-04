@@ -13,13 +13,13 @@ import cinemapackage.CinemaType;
 import cinemapackage.ICinemaBooking;
 import customerpackage.BookingManager;
 import customerpackage.Customer;
+import customerpackage.CustomerNullException;
 import daypackage.Day;
 import daypackage.IDay;
 import moviepackage.Movie;
 import moviepackage.MovieManager;
 import moviepackage.MovieStatus;
 import moviepackage.MovieType;
-import viewPackage.customerpackage.CustomerNullException;
 
 public class ShowtimeManager implements IShowtimeSystem {
 	
@@ -245,7 +245,7 @@ public class ShowtimeManager implements IShowtimeSystem {
 	}
 
 	@Override
-	public void printShowtimes() {
+	public void printShowtimes() throws IllegalArgumentException{
 		if (showtimes== null || showtimes.size() == 0){
 			// exit before any looping is done
 			throw new IllegalArgumentException("No showtime exist");
@@ -276,7 +276,7 @@ public class ShowtimeManager implements IShowtimeSystem {
 		}
 		System.out.println("|----------------------------------------------------------------------------------------------------------------------------|");
 	}
-	public void printShowtimesByMovieName(String movieName) {
+	public void printShowtimesByMovieName(String movieName) throws IllegalArgumentException{
 		if (showtimes== null || showtimes.size() == 0){
 			// exit before any looping is done
 			throw new IllegalArgumentException("No showtime exist");
@@ -313,7 +313,7 @@ public class ShowtimeManager implements IShowtimeSystem {
 		}
 		System.out.println("|----------------------------------------------------------------------------------------------------------------------------|");
 	}
-	public void printShowtimesByMovieNameAndCineplexID(String movieName, int cineplexID) {
+	public void printShowtimesByMovieNameAndCineplexID(String movieName, int cineplexID) throws IllegalArgumentException{
 		if (showtimes== null || showtimes.size() == 0){
 			// exit before any looping is done
 			throw new IllegalArgumentException("No showtime exist");
@@ -503,6 +503,30 @@ public class ShowtimeManager implements IShowtimeSystem {
 			}
 		}
 		throw new IllegalArgumentException("No such MovieID in showtimes");
+	}
+	@Override
+	public void setHoliday(Day day) throws IllegalArgumentException {
+		int flag = 0;
+		for (Iterator<Showtime> it = showtimes.iterator(); it.hasNext();) {
+			Showtime s = it.next();
+			if (s.getDayObject().equals(day)){
+				s.setHoliday();
+				flag = 1;
+			}
+		}
+		if (flag == 0) throw new IllegalArgumentException("Showtime with date and timing provided exist");
+	}
+	@Override
+	public void unsetHoliday(Day day) throws IllegalArgumentException {
+		int flag = 0;
+		for (Iterator<Showtime> it = showtimes.iterator(); it.hasNext();) {
+			Showtime s = it.next();
+			if (s.getDayObject().equals(day)){
+				s.unsetHoliday();
+				flag = 1;
+			}
+		}
+		if (flag == 0) throw new IllegalArgumentException("Showtime with date and timing provided exist");
 	}
 }
 

@@ -1,4 +1,4 @@
-package viewPackage.customerpackage;
+package customerpackage;
 
 public class CustomerNullException extends Exception {
     public CustomerNullException() {

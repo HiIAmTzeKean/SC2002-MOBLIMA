@@ -1,8 +1,6 @@
 package daypackage;
 import java.io.Serializable;
 
-import javax.swing.plaf.multi.MultiInternalFrameUI;
-
 public class Day implements Serializable, IDay {
 
 	private boolean holiday;
