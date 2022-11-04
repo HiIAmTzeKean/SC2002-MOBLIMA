@@ -137,8 +137,6 @@ public class appTest {
             );
             //mm.deleteMovie(6);
             MovieManager.close();
-           
-
         }
     }
 }
