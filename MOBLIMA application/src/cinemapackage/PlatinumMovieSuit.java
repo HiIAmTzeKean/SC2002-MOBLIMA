@@ -99,42 +99,50 @@ public class PlatinumMovieSuit extends Cinema {
 		int row = 0;
 		try {
 			row = convertSeatRowToInt(seatRow);
-		} catch (IllegalArgumentException e) {
+			if (row==2){
+				// Couple seat booking
+				bookCoupleSeat(seatRow, seatCol, customerID);
+			}
+			else if (!isBooked(seatRow,seatCol)) {
+				seatCol = seatCol-1;
+				seats.get(row).get(seatCol).setBooked(customerID);
+			}
+			else throw new IllegalArgumentException("Seat was not booked");
+		}
+		catch (IllegalArgumentException e) {
 			e.printStackTrace();
-			throw new IllegalArgumentException("Seat row input not valid");
+			throw e;
 		}
-		if (row==2){
-            // Couple seat booking
-            bookCoupleSeat(seatRow, seatCol, customerID);
-        }
-		else if (!isBooked(seatRow,seatCol)) {
-			seatCol = seatCol-1;
-			seats.get(row).get(seatCol).setBooked(customerID);
+		catch (SeatRowException ex){
+			throw new IllegalArgumentException("Invalid seat input");
 		}
-		else throw new IllegalArgumentException("Seat was not booked");
 	}
     @Override
     public void removeBooking(int cinemaID, String seatRow, int seatCol) throws IllegalArgumentException{
 		int row = 0;
 		try {
 			row = convertSeatRowToInt(seatRow);
-		} catch (IllegalArgumentException e) {
-			e.printStackTrace();
-			throw new IllegalArgumentException("Seat row input not valid");
-		}
-		if (isBooked(seatRow,seatCol)) {
-            if (row == 2 ) {
-                // couple seating
-                if (seatCol != 1 || seatCol != 3 || seatCol != 5 || seatRow!="C")
-			        throw new IllegalArgumentException("Invalid column/Row selection");
-                seats.get(row).get(seatCol).setUnBooked();
-                seats.get(row).get(seatCol+1).setUnBooked();
-            }
-            else{
-				seatCol = seatCol-1;
-				seats.get(row).get(seatCol).setUnBooked();
+			if (isBooked(seatRow,seatCol)) {
+				if (row == 2 ) {
+					// couple seating
+					if (seatCol != 1 || seatCol != 3 || seatCol != 5 || seatRow!="C")
+						throw new IllegalArgumentException("Invalid column/Row selection");
+					seats.get(row).get(seatCol).setUnBooked();
+					seats.get(row).get(seatCol+1).setUnBooked();
+				}
+				else{
+					seatCol = seatCol-1;
+					seats.get(row).get(seatCol).setUnBooked();
+				}
 			}
+			else throw new IllegalArgumentException("Seat was not booked");
 		}
-		else throw new IllegalArgumentException("Seat was not booked");
+		catch (IllegalArgumentException e) {
+			e.printStackTrace();
+			throw e;
+		}
+		catch (SeatRowException ex){
+			throw new IllegalArgumentException("Invalid seat input");
+		}
 	}
 }

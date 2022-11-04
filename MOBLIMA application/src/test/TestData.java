@@ -25,13 +25,14 @@ public class TestData {
             // int showtimeID = showtimeManager.getShowtime("Black Adam", d,cineplexID,cinemaType).getID();
             // Customer cust = new Customer("name", 12345678, "name@gmail.com", new Age(10));
             // try{
-            //     showtimeManager.getPrice(showtimeID, cust);
+            //     showtimeManager.getPrice(showtimeID, cut);
             //     // If i answer yes to price
             //     showtimeManager.bookSeat(showtimeID,"A", 1, cust);
             // }
             // catch (IllegalArgumentException | CustomerNullException e){
 
             // }
+            showtimeManager.printShowtimesByMovieNameAndCineplexID("Black Adam", 1);
             ans = s.nextInt();
         }
         MovieManager.close();
