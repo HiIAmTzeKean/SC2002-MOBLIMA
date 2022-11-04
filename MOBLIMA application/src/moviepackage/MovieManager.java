@@ -209,7 +209,8 @@ public class MovieManager implements ISales, IReviews, IMovie {
 		int target = 0;
 		try{
 			target = findMovie(movieID);
-			movies.remove(target);
+			Movie toDelete = getMoviefromID(target);
+			toDelete.deleteMovie();
 		}
 		catch(IllegalArgumentException e){
 			throw new IllegalArgumentException("Movie not found");
