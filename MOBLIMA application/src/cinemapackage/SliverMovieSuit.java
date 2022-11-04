@@ -3,11 +3,11 @@ package cinemapackage;
 import java.util.ArrayList;
 import java.util.Iterator;
 
-public class SliverMovieSuit extends Cinema {
-    public SliverMovieSuit(String code, int id) {
+public class SilverMovieSuit extends Cinema {
+    public SilverMovieSuit(String code, int id) {
         super(code,id);
-        super.setCinemaType(CinemaType.SLIVER);
-        // Create the layout of sliver class
+        super.setCinemaType(CinemaType.Silver);
+        // Create the layout of Silver class
         // 5 - 4 seating
         // Total of 5 roles
         for (int i=0; i<5; i++) {
@@ -17,7 +17,7 @@ public class SliverMovieSuit extends Cinema {
             }
         }
     }
-    public SliverMovieSuit(String code,int id, CinemaType type, int Cineplexid, ArrayList<ArrayList<Seat>> seats){
+    public SilverMovieSuit(String code,int id, CinemaType type, int Cineplexid, ArrayList<ArrayList<Seat>> seats){
 		this.code = code;
 		this.id = id;
 		this.cinemaType = type;
@@ -49,12 +49,12 @@ public class SliverMovieSuit extends Cinema {
 			}
 			row++;
 		}
-		Cinema c = new SliverMovieSuit(this.code,this.id,this.cinemaType,this.Cineplexid,seatcopy);
+		Cinema c = new SilverMovieSuit(this.code,this.id,this.cinemaType,this.Cineplexid,seatcopy);
 		return c;
 	}
     @Override
     public void printLayout(){
-        System.out.printf("======== Layout of %s Sliver Class Cinema ========\n",super.getCinemaCode());
+        System.out.printf("======== Layout of %s Silver Class Cinema ========\n",super.getCinemaCode());
         System.out.printf("      1  2  3  4  5     6  7  8  9\n");
 
         for (int i=0; i<5; i++) {

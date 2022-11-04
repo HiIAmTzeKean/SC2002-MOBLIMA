@@ -19,8 +19,6 @@ public class StaffView extends View {
         System.out.println("---------------------------------------------------");
     } 
 
-
-
     public static void start(){
 		
         Scanner sc = new Scanner(System.in); 
@@ -47,7 +45,7 @@ public class StaffView extends View {
 				case  4 : StaffSystem.start(); 
 				break;
 				case  5 : StaffAuth.logout();
-				break;
+				//break;
 				default : System.out.println("Enter valid choice");
 						  choice = 0;		
 			}
