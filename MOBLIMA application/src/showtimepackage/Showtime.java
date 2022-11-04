@@ -120,6 +120,10 @@ public class Showtime implements IBooking, Serializable{
 	{
 		return movie.getMovieTitle();
 	}
+	public void changeDay(IDay day) throws IllegalArgumentException{
+		if (day==null) throw new IllegalArgumentException("Day object null");
+		this.day = day;
+	}
 	@Override
 	public void bookSeat(String seatRow, int seatCol, int customerID) throws IllegalArgumentException{
 		System.out.println("===== Seat booking in progress =====");
