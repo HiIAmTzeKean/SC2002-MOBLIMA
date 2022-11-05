@@ -256,7 +256,7 @@ public class StaffMovie extends View {
         System.out.println("--------------------------------------");
         System.out.println("Set new Movie Director");
         System.out.println("--------------------------------------");
-        MovieHandler.printMovies();
+        MovieHandler.printMoviesAdmin();
 
         while (!complete){
             switch(state){
@@ -318,7 +318,7 @@ public class StaffMovie extends View {
         System.out.println("Set new Movie type");
         System.out.println("--------------------------------------");
         
-        MovieHandler.printMovies();
+        MovieHandler.printMoviesAdmin();
 
         while (!complete) {
             switch(state){
@@ -394,7 +394,7 @@ public class StaffMovie extends View {
         System.out.println("Deleting Movie");
         System.out.println("--------------------------------------");
 
-        MovieHandler.printMovies();
+        MovieHandler.printMoviesAdmin();
 
         while (!complete){
             try {
@@ -486,7 +486,7 @@ public class StaffMovie extends View {
         System.out.println("Set new Movie Status");
         System.out.println("--------------------------------------");
 
-        MovieHandler.printMovies();
+        MovieHandler.printMoviesAdmin();
 
         while (!complete) {
             switch(state){

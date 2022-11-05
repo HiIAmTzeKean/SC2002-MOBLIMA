@@ -17,7 +17,7 @@ public class TestData {
 
         Scanner s = new Scanner(System.in);
         MovieManager movieManager = MovieManager.getInstance();
-
+        ShowtimeManager showtimeManager = ShowtimeManager.getInstance();
         int ans = 1;
         while(ans == 1){
             // showtimeManager.printShowtimesByMovieNameAndCineplexID("Black Adam", 1);
@@ -32,8 +32,8 @@ public class TestData {
             // catch (IllegalArgumentException | CustomerNullException e){
 
             // }
-            //showtimeManager.printShowtimesByMovieNameAndCineplexID("Black Adam", 1);
-            movieManager.printMovies();
+            showtimeManager.printShowtimes();
+            // movieManager.printMovies();
             ans = s.nextInt();
         }
         MovieManager.close();

@@ -139,9 +139,23 @@ public class CinemaManager implements ICinema {
 
 	@Override
 	public void printCinemas() {
+		System.out.printf("|   %-15s   |       %-30s        |\n",
+						"Cinema Code","Cinema Type");
+		System.out.printf("|--------------------------------------------------------------|\n");
 		for (Cinema cinema: cinemas){
             cinema.printCinema();
         }
+		System.out.printf("|--------------------------------------------------------------|\n");
+	}
+	@Override
+	public void printCinemasAdmin() {
+		System.out.printf("|   %-15s   |       %-15s        |    %-30s     |\n",
+						"CinemaID","Cinema Code","Cinema Type");
+		System.out.printf("|---------------------------------------------------------------------------------------------------------|\n");
+		for (Cinema cinema: cinemas){
+            cinema.printCinemaAdmin();
+        }
+		System.out.printf("|---------------------------------------------------------------------------------------------------------|\n");
 	}
 	@Override
 	public Cinema getCinema(int id) {

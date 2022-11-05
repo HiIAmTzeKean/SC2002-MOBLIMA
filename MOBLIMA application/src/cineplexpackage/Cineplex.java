@@ -85,14 +85,12 @@ public class Cineplex implements Serializable{
 	 * Prints the current state of Cinplex object
 	 */
 	public void printCineplex() {
-		System.out.println("Cineplex Name: " + name );
-		System.out.println("Cineplex Location: "+ location);
+		System.out.printf("|   %-30s   |       %-30s        |\n",
+		name,location);
 	}
 	public void printCineplexAdmin() {
-		System.out.println("Cineplex ID: " + id);
-		System.out.println("Cineplex Name: " + name );
-		System.out.println("Cineplex Location: "+ location);
-		v
+		System.out.printf("|  %-15s  |   %-30s   |       %-30s        |\n",
+		id,name,location);
 	}
 
 	/**

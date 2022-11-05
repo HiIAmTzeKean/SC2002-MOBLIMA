@@ -268,8 +268,8 @@ public class StaffCinema extends View {
         System.out.println("-------------------------------------");
         System.out.println("Deleting  Cinema");
         System.out.println("-------------------------------------");
-        cinemaHandler.printCinemas();
-        System.out.println("-------------------------------------");
+        cinemaHandler.printCinemasAdmin();
+
         while(true){
             try{
                 System.out.println("[Enter 0 to return]");
