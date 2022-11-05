@@ -17,13 +17,13 @@ public class Showtime implements IBooking, Serializable{
 	private static final long serialVersionUID = 6266710308272298089L;
 	private Movie movie;
 	private ICinemaBooking cinema;
-	private static float basePrice;
+	private static float basePrice = 5.0f;
 	private IDay day;
 	private int id;
 	
 	Showtime() {
 		if (Showtime.basePrice == 0f){
-			Showtime.basePrice = 5f;
+			Showtime.basePrice = 5.0f;
 		}
 	}
 	Showtime(Movie movie, ICinemaBooking cinema, IDay day, int id) {
@@ -37,21 +37,23 @@ public class Showtime implements IBooking, Serializable{
 		this.id = id;
 	}
 	public void printShowtime(){
-		System.out.printf("|   %-15s   |       %-30s        |    %-15s     |    %-8s     |    %-5s    |\n",
+		System.out.printf("|   %-15s   |  %-30s  |  %-15s  |   %-8s  |  %-5s |  %-7s |\n",
 						movie.getMovieStatus().toString(),
 						movie.getMovieTitle(),
-								cinema.getCinemaClass(),
-								day.getDate(),
-								day.getTime());
+						cinema.getCinemaClass(),
+						day.getDate(),
+						day.getTime(),
+						day.isHoliday()?"YES":"NO");
 	}
 	public void printShowtimeAdmin(){
-		System.out.printf("|  %-12s|   %-15s   |  %-30s  |  %-15s  |   %-8s  |  %-5s |\n",
+		System.out.printf("|  %-12s|   %-15s   |  %-30s  |  %-15s  |   %-8s  |  %-5s |  %-7s |\n",
 						id,				
 						movie.getMovieStatus().toString(),
 						movie.getMovieTitle(),
 						cinema.getCinemaClass(),
 						day.getDate(),
-						day.getTime());
+						day.getTime(),
+						day.isHoliday()?"YES":"NO");
 	}
 	public String getTime(){
 		return day.getTime();
