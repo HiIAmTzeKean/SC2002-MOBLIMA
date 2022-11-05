@@ -104,4 +104,5 @@ public interface IMovie {
 	 * @throws IllegalArgumentException if there are no movies to print information for.
 	 */
 	void printMovies()throws IllegalArgumentException;
+	void printMovieTitles()throws IllegalArgumentException;
 }

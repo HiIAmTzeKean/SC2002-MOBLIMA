@@ -1,20 +1,14 @@
 package viewPackage.staffpackage;
 import viewPackage.View;
-
 import java.util.InputMismatchException;
-import java.util.Iterator;
 import java.util.Scanner;
-
-import cinemapackage.Cinema;
 import cinemapackage.CinemaManager;
 import cinemapackage.ICinema;
 import daypackage.Day;
 import daypackage.DayOfWeek;
 import daypackage.IDay;
-import moviepackage.IMovie;
 import moviepackage.Movie;
 import moviepackage.MovieManager;
-import showtimepackage.IShowtime;
 import showtimepackage.IShowtimeSystem;
 import showtimepackage.ShowtimeManager;
 
@@ -24,9 +18,6 @@ public class StaffShowtime extends View {
     private static MovieManager MovieHandler = MovieManager.getInstance(); 
     private static ICinema CinemaHandler = CinemaManager.getInstance();
 	private static IShowtimeSystem ssHandler = ShowtimeManager.getInstance(); 
-
-    private 
-
     public static void displayMenu(){ 
        
         System.out.println("Update Showtimes");
@@ -187,7 +178,7 @@ public class StaffShowtime extends View {
 			}
 			
 		}while(choice<4 && choice>=0);
-        
+		sc.close();
     }
 
 	public static void updateShowtime(){
