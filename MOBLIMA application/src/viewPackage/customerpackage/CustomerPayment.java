@@ -3,12 +3,22 @@ import java.util.*;
 
 import agepackage.Age;
 import agepackage.IAge;
+import cinemapackage.CinemaType;
 import customerpackage.Customer;
+import showtimepackage.IShowtime;
+import showtimepackage.ShowtimeManager;
 
 public class CustomerPayment {
 	private static Scanner scan = new Scanner(System.in);
 	private Customer c = null;
-	int customerID = 0;
+	//private int customerID = 0;
+	private CustomerBook cb = null;
+	private int bookingOption = 0;
+	private float price = 0;
+	
+	public Customer getCustomer() {
+		return c;
+	}
 	
 	public void setCustomerDetails() {
 		String name = null;
@@ -38,11 +48,41 @@ public class CustomerPayment {
 		c.setEmail(email);
 		System.out.println();
 		
-		customerID = c.getID();
-	}
+		//customerID = c.getID();
+	}//edd of setCustomerDetails()
 	
-	public int getCustomerID() {
-		return customerID;
-	}
-
+	public float getProjectedBookingPrice(CinemaType cType, String seatRow, int selectedShowtimeID) {
+		cb.setBookingOption(cType, seatRow);
+		bookingOption = cb.getBookingOption();
+		boolean isCoupleSeat = cb.getIsCoupleSeat();
+		String discountEntered = cb.getDiscountEntered();
+		
+		IShowtime showtimeHandler = ShowtimeManager.getInstance();
+		
+		try { //CHECK - handle specific exceptions for each call separately?
+			switch(bookingOption) {
+				case 1: 
+					price = showtimeHandler.getPrice(selectedShowtimeID, c);
+					break;
+				case 2:
+					price = showtimeHandler.getPrice(selectedShowtimeID, c, isCoupleSeat);
+					break;
+				case 3:
+					price = showtimeHandler.getPrice(selectedShowtimeID, c, discountEntered);
+					break;
+				case 4:
+					price = showtimeHandler.getPrice(selectedShowtimeID, c, isCoupleSeat, discountEntered);
+					break;
+				default: 
+					System.out.println("Error in getting price.");
+			}//endswitch
+		}//endtry
+		catch(Exception eprice) {
+			System.out.println("Error in getting price.");
+			return -1; 
+		}
+		
+		return price;
+	}//end getProjectedBookingPrice
+	
 }
