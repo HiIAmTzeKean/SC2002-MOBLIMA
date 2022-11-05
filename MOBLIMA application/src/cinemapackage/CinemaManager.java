@@ -97,8 +97,8 @@ public class CinemaManager implements ICinema {
 				c = new PlatinumMovieSuit(code,++lastID);
 			else if (CinemaType.GOLD.equals(type))
 				c = new GoldMovieSuit(code,++lastID);
-			else if (CinemaType.SLIVER.equals(type))
-				c = new SliverMovieSuit(code, ++lastID);
+			else if (CinemaType.Silver.equals(type))
+				c = new SilverMovieSuit(code, ++lastID);
 			else {
 				System.out.println("Invalid Cinema type supplied");
 				System.out.println("Exiting cinema creation function");

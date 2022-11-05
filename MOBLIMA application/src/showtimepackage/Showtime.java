@@ -6,12 +6,12 @@ import cinemapackage.CinemaType;
 import cinemapackage.ICinemaBooking;
 import cineplexpackage.CineplexManager;
 import customerpackage.Customer;
+import customerpackage.CustomerNullException;
 import customerpackage.DiscountCode;
 import daypackage.Day;
 import daypackage.IDay;
 import moviepackage.Movie;
 import moviepackage.MovieStatus;
-import viewPackage.customerpackage.CustomerNullException;
 
 public class Showtime implements IBooking, Serializable{
 	private static final long serialVersionUID = 6266710308272298089L;
@@ -49,6 +49,15 @@ public class Showtime implements IBooking, Serializable{
 	}
 	public String getTime(){
 		return day.getTime();
+	}
+	public void setHoliday(){
+		day.setHoliday();
+	}
+	public void unsetHoliday(){
+		day.removeHoliday();
+	}
+	public boolean isHoliday(){
+		return day.isHoliday();
 	}
 	public String getDate() {
 		return day.getDate();
@@ -110,6 +119,10 @@ public class Showtime implements IBooking, Serializable{
 	public String getMovieName()
 	{
 		return movie.getMovieTitle();
+	}
+	public void changeDay(IDay day) throws IllegalArgumentException{
+		if (day==null) throw new IllegalArgumentException("Day object null");
+		this.day = day;
 	}
 	@Override
 	public void bookSeat(String seatRow, int seatCol, int customerID) throws IllegalArgumentException{

@@ -1,7 +1,7 @@
 package showtimepackage;
 
 import customerpackage.Customer;
-import viewPackage.customerpackage.CustomerNullException;
+import customerpackage.CustomerNullException;
 
 public interface IShowtime {
     void bookSeat(int showtimeID, String seatRow, int seatCol, Customer customer)throws IllegalArgumentException, CustomerNullException;
@@ -25,7 +25,9 @@ public interface IShowtime {
     /**
      * Prints all showtimes that are still showing
      */
-	void printShowtimes();
+	void printShowtimes() throws IllegalArgumentException;
+    void printShowtimesByMovieName(String movieName) throws IllegalArgumentException;
+    void printShowtimesByMovieNameAndCineplexID(String movieName, int cineplexID) throws IllegalArgumentException;
     /**
      * Prints the seat layout of the showtime
      * @param showtimeID
@@ -69,4 +71,5 @@ public interface IShowtime {
      * @throws IllegalArgumentException
      */
     String getTime(int showtimeID) throws IllegalArgumentException;
+    Showtime getShowtime(String movieName, Day day, int cineplexID, CinemaType cinemaType) throws IllegalArgumentException
 }

@@ -3,7 +3,7 @@ package cinemapackage;
 public enum CinemaType{
 	PLATINUM("Platinum"),
 	GOLD("Gold"),
-	SLIVER("Sliver");
+	Silver("Silver");
 	private String type;
 
 	CinemaType(String type) {

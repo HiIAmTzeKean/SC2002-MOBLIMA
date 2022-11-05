@@ -9,7 +9,7 @@ public interface ICinema {
 	 * Create a new cinema in cinema manager. Performs check if size of code is 3.
 	 * Performs check if type is valid.
 	 * @param code of length 3
-	 * @param type ["Platinum", "Gold", "Sliver"]
+	 * @param type ["Platinum", "Gold", "Silver"]
 	 */
 	void createCinema(String code, String type);
 	/**

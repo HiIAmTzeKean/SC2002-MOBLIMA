@@ -2,11 +2,10 @@ package cinemapackage;
 
 import java.io.Serializable;
 import java.util.ArrayList;
-import java.util.Iterator;
 
 public abstract class Cinema  implements Serializable, ICinemaBooking{
 	private static final long serialVersionUID = 6266710308272298089L;
-	protected char colList[] = {'A', 'B', 'C', 'D', 'E'};
+	protected char rowList[] = {'A', 'B', 'C', 'D', 'E'};
 	protected ArrayList<ArrayList<Seat>> seats;
 	protected CinemaType cinemaType;
 	protected String code;
@@ -93,64 +92,72 @@ public abstract class Cinema  implements Serializable, ICinemaBooking{
 	 * @return
 	 * @throws IllegalArgumentException
 	 */
-	protected int convertSeatRowToInt(String seatRow) throws IllegalArgumentException{
+	protected int convertSeatRowToInt(String seatRow) throws SeatRowException{
 		char comparator = seatRow.charAt(0);
-		int i = 0;
-		boolean found = false; 
-		for (i=0; i<colList.length; i++){
-			if (comparator==colList[i]) return i;
+		for (int i=0; i<rowList.length; i++){
+			if (comparator==rowList[i]) return i;
 		}
 		System.out.println(seatRow + " Cannot be converted");
-		throw new IllegalArgumentException("Invalid Seat conversion");
+		throw new SeatRowException();
 	}
 	
 	public void bookSeat(String seatRow, int seatCol, int customerID) throws IllegalArgumentException{
-		
 		int row = 0;
 		try {
 			row = convertSeatRowToInt(seatRow);
-		} catch (IllegalArgumentException e) {
-			e.printStackTrace();
-			throw new IllegalArgumentException("Seat input not valid");
+			if (!isBooked(seatRow,seatCol)) {
+				seatCol = seatCol-1;
+				seats.get(row).get(seatCol).setBooked(customerID);
+			}
+			else throw new IllegalArgumentException("Seat was not booked");
 		}
-		
-		if (!isBooked(seatRow,seatCol)) {
-			seatCol = seatCol-1;
-			seats.get(row).get(seatCol).setBooked(customerID);
+		catch (IllegalArgumentException ex) {
+			ex.printStackTrace();
+			throw ex;
 		}
-		else throw new IllegalArgumentException("Seat was not booked");
+		catch (SeatRowException ex){
+			ex.printStackTrace();
+			throw new IllegalArgumentException("Seat row input not valid");
+		}
 	}
     public boolean isBooked(String seatRow, int seatCol) throws IllegalArgumentException{
 		seatCol = seatCol-1;
 		int row = 0;
 		try {
 			row = convertSeatRowToInt(seatRow);
-		} catch (IllegalArgumentException e) {
-			e.printStackTrace();
-			throw new IllegalArgumentException("Seat input not valid");
-		}
-		try{
 			if (seats.get(row).get(seatCol).isBooked()== false) return false;
 			else return true;
 		}
+		catch (SeatRowException e) {
+			e.printStackTrace();
+			throw new IllegalArgumentException("Seat row input not valid");
+		}
 		catch(IndexOutOfBoundsException ex){
 			System.out.println(seatRow+seatCol+getCinemaType());
-			throw new IllegalArgumentException("Seat input not valid");
+			throw new IllegalArgumentException("Seat col/row input out of range");
 		}
 	}
     public void removeBooking(int cinemaID, String seatRow, int seatCol) throws IllegalArgumentException{
 		int row = 0;
 		try {
 			row = convertSeatRowToInt(seatRow);
-		} catch (IllegalArgumentException e) {
+			if (isBooked(seatRow,seatCol)) {
+				seatCol = seatCol-1;
+				seats.get(row).get(seatCol).setUnBooked();
+			}
+			else throw new IllegalArgumentException("Seat was not booked");
+		} 
+		catch (IllegalArgumentException e) {
 			e.printStackTrace();
-			throw new IllegalArgumentException("Seat input not valid");
+			throw e;
+		}catch (IndexOutOfBoundsException ex){
+			ex.printStackTrace();
+			throw new IllegalArgumentException("Invalid seat col/row input");
 		}
-		if (isBooked(seatRow,seatCol)) {
-			seatCol = seatCol-1;
-			seats.get(row).get(seatCol).setUnBooked();
+		catch (SeatRowException ex) {
+			ex.printStackTrace();
+			throw new IllegalArgumentException("Invalid seat row input");
 		}
-		else throw new IllegalArgumentException("Seat was not booked");
 	}
     public void printCinemaLayout(){
 		this.printLayout();
