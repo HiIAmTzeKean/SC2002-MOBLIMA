@@ -479,34 +479,31 @@ public class ShowtimeManager implements IShowtimeSystem {
 		throw new IllegalArgumentException("No such date in showtimes");
 	}
 	@Override
-	public void setMovieType(int movieID, MovieType type) throws IllegalArgumentException {
+	public void setMovieType(int movieID, MovieType type) {
 		for (Iterator<Showtime> it = showtimes.iterator(); it.hasNext();) {
 			Showtime s = it.next();
 			if (s.getMovieID() == movieID){
 				s.getMovieObject().setMovieType(type);
 			}
 		}
-		throw new IllegalArgumentException("No such MovieID in showtimes");
 	}
 	@Override
-	public void setMovieStatus(int movieID, MovieStatus status) throws IllegalArgumentException {
+	public void setMovieStatus(int movieID, MovieStatus status) {
 		for (Iterator<Showtime> it = showtimes.iterator(); it.hasNext();) {
 			Showtime s = it.next();
 			if (s.getMovieID() == movieID){
 				s.getMovieObject().setMovieStatus(status);
 			}
 		}
-		throw new IllegalArgumentException("No such MovieID in showtimes");
 	}
 	@Override
-	public void setMovieDirector(int movieID, String director) throws IllegalArgumentException {
+	public void setMovieDirector(int movieID, String director){
 		for (Iterator<Showtime> it = showtimes.iterator(); it.hasNext();) {
 			Showtime s = it.next();
 			if (s.getMovieID() == movieID){
 				s.getMovieObject().setMovieDirector(director);
 			}
 		}
-		throw new IllegalArgumentException("No such MovieID in showtimes");
 	}
 	@Override
 	public void setHoliday(Day day) throws IllegalArgumentException {
