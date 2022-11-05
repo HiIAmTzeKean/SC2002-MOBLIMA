@@ -1,13 +1,11 @@
 package moviepackage;
-import java.util.Comparator;
 import java.util.HashMap;
 import java.util.Iterator;
 import java.io.Serializable;
 import java.util.ArrayList;
 public class Movie implements Serializable{
 	//Used to allocate each movie with a unique ID
-	//TODO: MAKE THIS PRIVATE LATER
-	public static int instanceCounter = 1;
+	private static int instanceCounter = 1;
 	private int id;
 	private String movieTitle;
 	private MovieStatus movieStatus;

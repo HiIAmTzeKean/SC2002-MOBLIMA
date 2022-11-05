@@ -320,7 +320,7 @@ public class MovieManager implements ISales, IReviews, IMovie {
 	 * @param movieType to set value to
 	 * @throws IllegalArgumentException if the movieID is not found, if there are no movies to search or if movieType is invalid.
 	 */
-	public void setMovieType(int movieID, String movieType)throws IllegalArgumentException{
+	public void setMovieType(int movieID, MovieType movieType)throws IllegalArgumentException{
 		int target = 0;
 		try{
 			target = findMovie(movieID);
@@ -328,13 +328,7 @@ public class MovieManager implements ISales, IReviews, IMovie {
 		catch(IllegalArgumentException e){
 			throw new IllegalArgumentException("Movie not found");
 		}
-		try{
-			MovieType mType = MovieType.valueOf(movieType);
-			movies.get(target).setMovieType(mType);
-		}
-		catch(IllegalArgumentException e){
-			throw new IllegalArgumentException("Invalid movie type");
-		}
+		movies.get(target).setMovieType(movieType);
 	}
 	
 	@Override
@@ -410,7 +404,7 @@ public class MovieManager implements ISales, IReviews, IMovie {
 		}
 		System.out.println("The Top Five Selling Movies Are:");
 		for(int i = 0; i<limit; i++){
-			System.out.printf("%d : %s (%d)\n", i+1, moviecopy.get(i).getMovieTitle(), moviecopy.get(i).getSales());
+			System.out.printf("%d : %s (%d)\n", i+1, moviecopy.get(i).getMovieTitle(), moviecopy.get(i).getReviewScores());
 		}
 	}
 	@Override

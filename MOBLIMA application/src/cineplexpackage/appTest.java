@@ -7,7 +7,7 @@ import cinemapackage.*;
 
 public class appTest {
     public static void main(String args []){
-        boolean createDat = false;
+        boolean createDat = true;
         if (createDat){
             File file = new File("./MOBLIMA application/data/cineplex/cineplex.dat");
             file.delete();

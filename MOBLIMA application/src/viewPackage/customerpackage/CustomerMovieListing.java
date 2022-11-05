@@ -39,13 +39,13 @@ public class CustomerMovieListing {
 				}
 			case 2:{
 				System.out.println("Top 5 movies by ticket sales:");
-				salesRankHandler.getTop5_sales(); //update for customer
+				salesRankHandler.getTop5_salesCustomer(); //update for customer
 				System.out.println();
 				break;
 				}
 			case 3:{
 				System.out.println("Top 5 movies by reviewer's ratings:");
-				salesRankHandler.getTop5_rating(); //update for customer
+				salesRankHandler.getTop5_ratingCustomer(); //update for customer
 				System.out.println();
 				break;
 				}
