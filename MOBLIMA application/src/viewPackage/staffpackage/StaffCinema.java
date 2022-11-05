@@ -85,7 +85,7 @@ public class StaffCinema extends View {
                         System.out.println("-------------------------------------");
                         System.out.println("\t\tExiting Staff Cinema Menu");
                         System.out.println("-------------------------------------");
-                        StaffView.start();
+                        return;
 				break;
 				default : System.out.println("Enter valid choice");
 						  choice = 0;		
@@ -105,7 +105,6 @@ public class StaffCinema extends View {
    }
 
    private static void updateCineplex() {
-		
 	Scanner sc = new Scanner(System.in);
     int ch = 0 , ID; 
     String name = new String();
@@ -202,9 +201,8 @@ public class StaffCinema extends View {
                             System.out.println("new location set for cineplex"); 
                             System.out.println("-------------------------------------");
                     break;
-                    case  5 : // back to StaffCinema menu  
-                             start();
-                    break;
+                    case 5: // back to StaffCinema menu  
+                        return;
                     default : System.out.println("Enter valid choice");
                             ch = 0;		
                 }

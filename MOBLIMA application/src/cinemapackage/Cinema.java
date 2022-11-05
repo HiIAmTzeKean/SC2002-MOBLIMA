@@ -2,7 +2,6 @@ package cinemapackage;
 
 import java.io.Serializable;
 import java.util.ArrayList;
-import java.util.Iterator;
 
 public abstract class Cinema  implements Serializable, ICinemaBooking{
 	private static final long serialVersionUID = 6266710308272298089L;
@@ -145,13 +144,13 @@ public abstract class Cinema  implements Serializable, ICinemaBooking{
 			if (isBooked(seatRow,seatCol)) {
 				seatCol = seatCol-1;
 				seats.get(row).get(seatCol).setUnBooked();
-				else throw new IllegalArgumentException("Seat was not booked");
+			}
+			else throw new IllegalArgumentException("Seat was not booked");
 		} 
 		catch (IllegalArgumentException e) {
 			e.printStackTrace();
 			throw e;
-		}
-		catch (IndexOutOfBoundsException ex){
+		}catch (IndexOutOfBoundsException ex){
 			ex.printStackTrace();
 			throw new IllegalArgumentException("Invalid seat col/row input");
 		}
