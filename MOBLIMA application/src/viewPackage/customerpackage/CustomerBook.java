@@ -1,5 +1,6 @@
 package viewPackage.customerpackage;
 import cinemapackage.CinemaType;
+import customerpackage.DiscountCode;
 import java.util.*;
 
 public class CustomerBook {
@@ -31,6 +32,7 @@ public class CustomerBook {
 	}
 	
 	public void setBookingOption(CinemaType cType, String seatRow){
+		DiscountCode dc = DiscountCode.getInstance();
 		
 		//couple seating is only allowed for Platinum Class in Row C
 		if(cType.equals("Platinum") && seatRow.compareTo("C") == 0 ) {
@@ -46,6 +48,9 @@ public class CustomerBook {
 		do {
 			System.out.println("If you wish to use discount code, enter code. Else, enter 0: ");
 			discountEntered = scan.next();
+			if(dc.checkValid(discountEntered)) {
+				discountValid = true;
+			}
 		}while(discountEntered.compareTo("0") != 0 || !discountValid); //exits when user enters 0 or enters a valid discount code
 		
 		if(discountValid) {
