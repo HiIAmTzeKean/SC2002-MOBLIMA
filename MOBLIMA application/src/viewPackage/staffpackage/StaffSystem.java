@@ -3,26 +3,25 @@ package viewPackage.staffpackage;
 import java.util.InputMismatchException;
 import java.util.Scanner;
 
-
 import daypackage.Day;
-// import showtimepackage.IShowtime;
+
 import showtimepackage.IShowtimeSystem;
-// import showtimepackage.Showtime;
 import showtimepackage.ShowtimeManager;
 import viewPackage.View;
 
 public class StaffSystem extends View {
 
     private static IShowtimeSystem ssHandler = ShowtimeManager.getInstance(); 
-    //private static Day day = new Day(); 
+  
 
  
     public static void displayMenu(){ 
+        System.out.println("--------------------------------------");
         System.out.println("Update System Settings");
 		System.out.println("--------------------------------------");
 		System.out.println("choice 1 : Set new BasePrice");
 		System.out.println("choice 2 : Set new  Multiplier");
-        System.out.println("choice 3 : Set new Holiday"); // showime obj calls setHoliday() no args
+        System.out.println("choice 3 : Set new Holiday"); 
 		System.out.println("choice 4 : Go Back");
         System.out.println("--------------------------------------");
 
@@ -44,79 +43,162 @@ public class StaffSystem extends View {
 			
 			switch (choice) { 
 
-				case  1 : 
-                        System.out.println("--------------------------------------");
-                        System.out.println("Setting new base price"); 
-                        System.out.println("-------------------------------"); 
-                        float BasePrice;
-                        try {
-                            System.out.println("Enter the new base price"); 
-                            BasePrice = sc.nextFloat();
-                            ssHandler.setBasePrice(BasePrice);
-                        } catch ( IllegalArgumentException e ){ 
-                            System.out.println(e.toString());
-                        }catch ( InputMismatchException e){ 
-                            System.out.println(e.toString());
-                        }
-
-                        System.out.println("--------------------------------------");
-                        System.out.println("\t\tNew base Price Set! "); 
-                        System.out.println("--------------------------------------");
-				break;
-				case  2 : 
-                        System.out.println("--------------------------------------");
-                        System.out.println("Setting new  mutliplier ");         
-                        System.out.println("-------------------------------"); 
-                        float Multiplier;
-
-                        try {
-                            System.out.println("Enter the new  multiplier"); 
-                            Multiplier = sc.nextFloat();
-                            Day.setMultiplier(Multiplier);
-                        } catch ( IllegalArgumentException e ){ 
-                            System.out.println(e.toString());
-                        }
-
-    
-                            
-                            System.out.println("\t\tNew  multiplier Set! "); 
-                        break;
-				
-                case  3 : 
-                        System.out.println("--------------------------------------");
-                        System.out.println("Setting Day as Holiday");         
-                        System.out.println("-------------------------------"); 
- 
+				case  1 : setBasePrice();
                         
-                        try {
-                            System.out.println("Enter the full date <format>"); 
-                            String date = sc.next();
-                            
-                            Day day = ssHandler.getDay(date);
-                            day.setHoliday();
-
-                        } catch ( IllegalArgumentException e ){ 
-                            System.out.println(e.toString());
-                        } catch(InputMismatchException e){ 
-                            System.out.println(e.toString());
-                        }
-                            System.out.println("--------------------------------------");
-                            System.out.println("\t\tHoliday Set! "); 
-                            System.out.println("--------------------------------------");
+				break;
+				case  2 : setMultiplier();
+                         
+                break;
+                case  3 : setHoliday();
                 break;
                 case  4 : 
                          System.out.println("--------------------------------------");
                          System.out.println("Exiting staff system menu"); 
                          System.out.println("--------------------------------------");
                          ShowtimeManager.close(); 
-                         StaffView.start();
-				break;
+                         return;
 				default : System.out.println("Enter valid choice");
 						  choice = 0;		
 			}
 			
 		}while(choice<4 && choice>=0);
-		
-        sc.close(); 
+    }
+
+    public static void setBasePrice(){ 
+        System.out.println("--------------------------------------");
+        System.out.println("Setting new base price"); 
+        System.out.println("-------------------------------------"); 
+        
+
+        float BasePrice;
+        while(true){
+                try {
+                    System.out.println("Enter the new base price"); 
+                    BasePrice = sc.nextFloat();
+                    break;
+                    
+                } catch ( InputMismatchException e){ 
+                    System.out.println(e.toString());
+                }
+        }
+        // !! baseprice doesnt throw error so no need for exception handling ?
+        // !! confirm and remove pls 
+
+       // try{
+        ssHandler.setBasePrice(BasePrice);
+        // } catch ( IllegalArgumentException e ){ 
+        //         System.out.println(e.toString());
+        // }
+         
+
+        System.out.println("--------------------------------------");
+        System.out.println("\t\tNew base Price Set! "); 
+        System.out.println("--------------------------------------");
+
+    }
+
+    public static void setMultiplier(){ 
+        System.out.println("--------------------------------------");
+        System.out.println("Setting new multiplier"); 
+        System.out.println("--------------------------------------"); 
+        
+
+        float multiplier;
+        while(true){
+                try {
+                    System.out.println("Enter the new multiplier"); 
+                    multiplier = sc.nextFloat();
+                    break;
+                    
+                } catch ( InputMismatchException e){ 
+                    System.out.println(e.toString());
+                }
+        }
+        // !! mutltiplier doesnt throw error so no need for exception handling ?
+        // !! confirm and remove pls 
+
+       // try{
+        Day.setMultiplier(multiplier);
+        // } catch ( IllegalArgumentException e ){ 
+        //         System.out.println(e.toString());
+        // }
+         
+
+        System.out.println("--------------------------------------");
+        System.out.println("\t\tNew multiplier Set! "); 
+        System.out.println("--------------------------------------");
+
+    }
+
+
+    public static void setHoliday(){ 
+
+        System.out.println("--------------------------------------");
+        System.out.println("Setting new day as holiday"); 
+        System.out.println("--------------------------------------"); 
+
+        enum dayEnum {DATE, TIME};
+        dayEnum  state = dayEnum.DATE;
+
+        boolean completed = false; 
+        Day day; 
+
+
+        while(!completed){
+                switch(state){ 
+                    // !! getDayFromDateTime() function >> dunno if implemented i cant find? 
+                    case DATE :  
+                    
+                    try {
+                        System.out.println("[Enter 0 to go back]");
+                        System.out.println("Enter Full Date (format:YYYYMMDD): ");
+                        String date = sc.next();
+                        if (date.equals("0")) return;
+                        state = dayEnum.TIME;
+                    }
+                    catch(InputMismatchException e){
+                        sc.nextLine(); 
+                        state = dayEnum.DATE;
+                        break;
+                    }
+
+                    case TIME :  
+                    
+                    try {
+                        System.out.println("[Enter 0 to go back]");
+                        System.out.println("Enter TIME (24HR E.G. 1300): ");
+                        String date = sc.next();
+                        if (date.equals("0")) { 
+                            state = dayEnum.DATE;
+                            break;
+                        }
+                        completed = true; 
+                    }
+                    catch(InputMismatchException e){
+                        sc.nextLine(); 
+                        state = dayEnum.TIME;
+                        break;
+                    }
+
+
+                    default:
+                    state = dayEnum.DATE;
+                    break;
+                    
+                }
+        }
+        
+       try{
+            ssHandler.setHoliday(day);
+        } catch ( IllegalArgumentException e ){ 
+                System.out.println(e.toString());
+                return; 
+        }
+         
+
+        System.out.println("--------------------------------------");
+        System.out.println("\t\tNew Holiday Set! "); 
+        System.out.println("--------------------------------------");
+
     }
 }
