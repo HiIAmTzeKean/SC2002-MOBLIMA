@@ -8,7 +8,10 @@ import viewPackage.staffpackage.StaffAuth;
 
 public class View {
 	public static Scanner sc = new Scanner(System.in);
-
+	public static void inputMismatchHandler(){
+		sc.nextLine();
+		System.out.println("Illegal input value");
+	}
 	public static void displayMenu() {
 		System.out.println("--------------------------------------");
 		System.out.println("\t\tMenu\t\t");

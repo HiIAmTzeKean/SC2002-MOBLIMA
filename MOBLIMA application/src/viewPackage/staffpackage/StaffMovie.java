@@ -38,7 +38,7 @@ public class StaffMovie extends View {
 
     public static void createMovie() {
         enum createMovieEnum {
-            TITLE, SYNOPSIS, DIRECTOR, CAST, AGERESTRICTION, STATUS, TYPE, DURATION
+            TITLE, SYNOPSIS, DIRECTOR, CAST, AGERESTRICTION, STATUS, TYPE, DURATION, CREATE
         }
         boolean complete = false;
         String movieTitle = null;
@@ -68,6 +68,7 @@ public class StaffMovie extends View {
                     if (movieTitle.equals("0")) return;
                 }
                 catch(InputMismatchException e){
+                    System.out.println("Input not valid!");
                     sc.nextLine(); 
                     state = createMovieEnum.TITLE;
                     break;
@@ -83,6 +84,7 @@ public class StaffMovie extends View {
                     }
                 }
                 catch(InputMismatchException e){
+                    System.out.println("Input not valid!");
                     sc.nextLine(); 
                     state = createMovieEnum.SYNOPSIS;
                     break;
@@ -98,6 +100,7 @@ public class StaffMovie extends View {
                     }
                 }
                 catch(InputMismatchException e){
+                    System.out.println("Input not valid!");
                     state = createMovieEnum.DIRECTOR;
                     break;
                 }
@@ -112,6 +115,7 @@ public class StaffMovie extends View {
                     }
                 }
                 catch(InputMismatchException e){
+                    System.out.println("Input not valid!");
                     sc.nextLine(); 
                     state = createMovieEnum.CAST;
                     break;
@@ -133,6 +137,7 @@ public class StaffMovie extends View {
                 break;
             }
             catch(InputMismatchException e){
+                System.out.println("Input not valid!");
                 sc.nextLine(); 
                 state = createMovieEnum.AGERESTRICTION;
                 break;
@@ -154,6 +159,7 @@ public class StaffMovie extends View {
                 break;
             }
             catch(InputMismatchException e){
+                System.out.println("Input not valid!");
                 sc.nextLine(); 
                 state = createMovieEnum.STATUS;
                 break;
@@ -170,6 +176,7 @@ public class StaffMovie extends View {
                 movieType = MovieType.valueOf(input.toUpperCase());
             }
             catch(InputMismatchException e){
+                System.out.println("Input not valid!");
                 sc.nextLine(); 
                 state = createMovieEnum.TYPE;
                 break;
@@ -183,19 +190,27 @@ public class StaffMovie extends View {
                     state=createMovieEnum.TYPE;
                     break;
                 }
-                complete = true;
             }
             catch(InputMismatchException e){
+                System.out.println("Input not valid!");
                 sc.nextLine(); 
                 state = createMovieEnum.DURATION;
                 break;
             }
+            case CREATE:
+                try {
+                    MovieHandler.createMovie(movieTitle, movieStatus, movieSynopsis,movieDirector, movieCast, movieAgeRestriction, movieType , duration);
+                    complete = true;
+                } catch (IllegalArgumentException e) {
+                    System.out.println("Unable to create new movie!");
+                    System.out.println("Exiting the function now!");
+                    return;
+                }
             default:
                 state = createMovieEnum.TITLE;
                 break;
+            }
         }
-        }
-        MovieHandler.createMovie(movieTitle, movieStatus, movieSynopsis,movieDirector, movieCast, movieAgeRestriction, movieType , duration);
         System.out.println("--------------------------------------");
         System.out.println("\t\tNew Movie Created");
         System.out.println("--------------------------------------");
