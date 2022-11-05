@@ -510,7 +510,7 @@ public class ShowtimeManager implements IShowtimeSystem {
 		int flag = 0;
 		for (Iterator<Showtime> it = showtimes.iterator(); it.hasNext();) {
 			Showtime s = it.next();
-			if (s.getDayObject().equals(day)){
+			if (s.getDayObject().equalsDate(day)){
 				s.setHoliday();
 				flag = 1;
 			}
@@ -522,7 +522,7 @@ public class ShowtimeManager implements IShowtimeSystem {
 		int flag = 0;
 		for (Iterator<Showtime> it = showtimes.iterator(); it.hasNext();) {
 			Showtime s = it.next();
-			if (s.getDayObject().equals(day)){
+			if (s.getDayObject().equalsDate(day)){
 				s.unsetHoliday();
 				flag = 1;
 			}
