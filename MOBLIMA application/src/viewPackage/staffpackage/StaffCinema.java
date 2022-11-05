@@ -22,7 +22,7 @@ public class StaffCinema extends View {
         System.out.println("--------------------------------------");
     }
 
-    public static void createCineplex() {
+    private static void createCineplex() {
         enum createCineplexState {
             NAME, LOCATION, CREATE
         };
@@ -271,6 +271,7 @@ public class StaffCinema extends View {
         System.out.println("-------------------------------------");
         while(true){
             try{
+                System.out.println("[Enter 0 to return]");
                 System.out.println("Enter cinema ID to be deleted");
                 ID = sc.nextInt();
                 if (ID==0) return;
@@ -341,6 +342,7 @@ public class StaffCinema extends View {
                 case CREATE:
                     try {
                         cineplexHandler.setName(ID, name);
+                        complete = true;
                     } catch (IllegalArgumentException e) {
                         System.out.println("Unable to set cineplex name");
                         System.out.println("Exiting function!");
@@ -401,6 +403,7 @@ public class StaffCinema extends View {
                 case CREATE:
                     try {
                         cineplexHandler.setLocation(ID, name);
+                        complete = true;
                     } catch (IllegalArgumentException e) {
                         System.out.println("Unable to set cineplex location");
                         System.out.println("Exiting function!");

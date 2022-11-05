@@ -105,7 +105,6 @@ public class CinemaManager implements ICinema {
 				System.out.println("===== Cinema creation finished =====");
 				return;
 			}
-			System.out.println("Cinema has been created");
 			c.printCinema();
 			cinemas.add(c);
 		}

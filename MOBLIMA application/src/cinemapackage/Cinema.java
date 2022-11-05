@@ -75,7 +75,9 @@ public abstract class Cinema  implements Serializable, ICinemaBooking{
 		this.cinemaType = cinemaType;
 	}
 	public void printCinema(){
-		System.out.println("Cinema ID: " + id + " Cinema code: " + code + " Cinema Type: "+ cinemaType);
+		System.out.println("Cinema ID: "+ id);
+		System.out.println("Cinema code: " + code);
+		System.out.println("Cinema Type: "+ cinemaType);
 	}
 	public int getCineplexID(){
 		return this.Cineplexid;

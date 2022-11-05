@@ -85,7 +85,9 @@ public class Cineplex implements Serializable{
 	 * Prints the current state of Cinplex object
 	 */
 	public void printCineplex() {
-		System.out.println("Cineplex ID: " + id + " Cineplex Name: " + name + " Cineplex Location: "+ location);
+		System.out.println("Cineplex ID: " + id);
+		System.out.println("Cineplex Name: " + name );
+		System.out.println("Cineplex Location: "+ location);
 	}
 
 	/**
