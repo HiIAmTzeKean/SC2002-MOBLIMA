@@ -9,6 +9,7 @@ import java.util.Scanner;
 public class StaffView extends View {
 
     public static void displayMenu(){ 
+		System.out.print("\033[H\033[2J");
 		System.out.println("---------------------------------------------------");
         System.out.println("\t\tStaff Main Menu");
 		System.out.println("---------------------------------------------------");
@@ -33,9 +34,6 @@ public class StaffView extends View {
             } catch(InputMismatchException e ){ 
                 System.out.println(e.toString());
             } 
-			//clearing the console
-			System.out.print("\033[H\033[2J");
-			
 			switch (choice) { 
 				case  1 : StaffMovie.start(); 
 				break;
