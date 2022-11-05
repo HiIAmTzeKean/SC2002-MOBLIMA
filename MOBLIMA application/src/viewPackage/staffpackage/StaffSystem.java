@@ -22,7 +22,8 @@ public class StaffSystem extends View {
 		System.out.println("choice 1 : Set new BasePrice");
 		System.out.println("choice 2 : Set new  Multiplier");
         System.out.println("choice 3 : Set new Holiday"); 
-		System.out.println("choice 4 : Return");
+
+		System.out.println("choice 4 : Go Back");
         System.out.println("--------------------------------------");
 
     }
@@ -139,20 +140,21 @@ public class StaffSystem extends View {
 
         enum dayEnum {DATE, TIME};
         dayEnum  state = dayEnum.DATE;
+        String date, time; 
 
         boolean completed = false; 
-        Day day; 
+        
 
 
         while(!completed){
                 switch(state){ 
-                    // !! getDayFromDateTime() function >> dunno if implemented i cant find? 
+                   
                     case DATE :  
                     
                     try {
                         System.out.println("[Enter 0 to go back]");
                         System.out.println("Enter Full Date (format:YYYYMMDD): ");
-                        String date = sc.next();
+                        date = sc.next();
                         if (date.equals("0")) return;
                         state = dayEnum.TIME;
                     }
@@ -167,7 +169,7 @@ public class StaffSystem extends View {
                     try {
                         System.out.println("[Enter 0 to go back]");
                         System.out.println("Enter TIME (24HR E.G. 1300): ");
-                        String date = sc.next();
+                        time = sc.next();
                         if (date.equals("0")) { 
                             state = dayEnum.DATE;
                             break;
@@ -188,7 +190,10 @@ public class StaffSystem extends View {
                 }
         }
         
+       
+       
        try{
+            Day day = new Day(date,time); 
             ssHandler.setHoliday(day);
         } catch ( IllegalArgumentException e ){ 
                 System.out.println(e.toString());

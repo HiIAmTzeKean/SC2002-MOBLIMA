@@ -53,8 +53,8 @@ public class CustomerView extends View{
 					System.out.println("Incorrect value entered, please try again.");
 					break;
 				}//end default case
-			}//end switch case
-			
+			}
+			//end switch case
 			System.out.println();
 		} while(contd); //end do while loop 
 	}

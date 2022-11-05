@@ -103,6 +103,7 @@ public interface IMovie {
 	 * Prints a list of details for all movies.
 	 * @throws IllegalArgumentException if there are no movies to print information for.
 	 */
-	void printMovies()throws IllegalArgumentException;
-	void printMovieTitles()throws IllegalArgumentException;
+	void printMovies() throws IllegalArgumentException;
+	void printMovieTitles() throws IllegalArgumentException;
+	void printMovieAdmin() throws IllegalArgumentException;
 }

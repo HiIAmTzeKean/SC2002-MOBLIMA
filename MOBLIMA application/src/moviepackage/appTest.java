@@ -125,18 +125,7 @@ public class appTest {
 
             //mm.printMovies();
             // System.out.println("\n\nTesting deleteMovie");
-            mm.createMovie(
-                "Test Movie WOW",
-                MovieStatus.NOW_SHOWING,
-                "SCSE is the greatest school of all time",
-                "Dr.Loke",
-                "Clown Students",
-                AgeRestriction.R21,
-                MovieType.BLOCKBUSTER,
-                169
-            );
-            //mm.deleteMovie(6);
-            MovieManager.close();
+            mm.printMovieAdmin();
         }
     }
 }
