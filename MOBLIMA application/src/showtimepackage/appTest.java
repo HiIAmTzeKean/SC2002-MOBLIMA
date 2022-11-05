@@ -2,7 +2,6 @@ package showtimepackage;
 
 import java.io.File;
 import java.io.IOException;
-
 import agepackage.Age;
 import agepackage.AgeCategory;
 import cinemapackage.Cinema;

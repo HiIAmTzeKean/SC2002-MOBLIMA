@@ -3,7 +3,7 @@ package cinemapackage;
 public enum CinemaType{
 	PLATINUM("Platinum"),
 	GOLD("Gold"),
-	SLIVER("Sliver");
+	Silver("Silver");
 	private String type;
 
 	CinemaType(String type) {
@@ -13,7 +13,7 @@ public enum CinemaType{
 		return type;
 	}
 	public boolean equals(String type) {
-		if (this.type==type)
+		if (this.type.equals(type))
 			return true;
 		return false;
 	}

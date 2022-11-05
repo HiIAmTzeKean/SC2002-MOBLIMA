@@ -17,11 +17,11 @@ public class appTest {
             CinemaManager cm = CinemaManager.getInstance();
             cm.createCinema("WG1","Platinum");
             cm.createCinema("WG2","Gold");
-            cm.createCinema("WG3","Sliver");
+            cm.createCinema("WG3","Silver");
             cm.createCinema("JE1","Platinum");
             cm.createCinema("JE2","Gold");
             cm.createCinema("JE3","Gold");
-            cm.createCinema("JE4","Sliver");
+            cm.createCinema("JE4","Silver");
             CinemaManager.close();
         }
         else {

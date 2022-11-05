@@ -45,7 +45,13 @@ public class Showtime implements IBooking, Serializable{
 								day.getTime());
 	}
 	public void printShowtimeAdmin(){
-		System.out.println("ShowtimeID: "+ id +"\tMovie is: " + movie.getMovieTitle() + "\tCinema Code is: " + cinema.getCinemaCode() + "\tDate: " + day.getDate() + "\tTime: "+day.getTime() + "\tStatus: " + movie.getMovieStatus());
+		System.out.printf("|     -%12s|   %-15s   |       %-30s        |    %-15s     |    %-8s     |    %-5s    |\n",
+						id,				
+						movie.getMovieStatus().toString(),
+						movie.getMovieTitle(),
+						cinema.getCinemaClass(),
+						day.getDate(),
+						day.getTime());
 	}
 	public String getTime(){
 		return day.getTime();
@@ -119,6 +125,10 @@ public class Showtime implements IBooking, Serializable{
 	public String getMovieName()
 	{
 		return movie.getMovieTitle();
+	}
+	public void changeDay(IDay day) throws IllegalArgumentException{
+		if (day==null) throw new IllegalArgumentException("Day object null");
+		this.day = day;
 	}
 	@Override
 	public void bookSeat(String seatRow, int seatCol, int customerID) throws IllegalArgumentException{

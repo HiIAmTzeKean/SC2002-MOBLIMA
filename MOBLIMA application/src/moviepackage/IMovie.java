@@ -62,7 +62,7 @@ public interface IMovie {
 	 * @param status to set the movieStatus to.
 	 * @throws IllegalArgumentException if the movie is not found.
 	*/
-	void setMovieStatus(int movieID, String status)throws IllegalArgumentException;
+	void setMovieStatus(int movieID, MovieStatus status)throws IllegalArgumentException;
 	
 	/**
 	 * Returns the String value of the Director attribute for the movie with the given movieID.
@@ -94,7 +94,7 @@ public interface IMovie {
 	 * @param movieType
 	 * @throws IllegalArgumentException if the requested movie is not found.
 	 */
-	void setMovieType(int movieID, String movieType)throws IllegalArgumentException;
+	void setMovieType(int movieID, MovieType movieType)throws IllegalArgumentException;
 
 	public Movie getClone(int movieID) throws IllegalArgumentException;
 	public Movie getClone(String movieName) throws IllegalArgumentException;
@@ -103,5 +103,7 @@ public interface IMovie {
 	 * Prints a list of details for all movies.
 	 * @throws IllegalArgumentException if there are no movies to print information for.
 	 */
-	void printMovies()throws IllegalArgumentException;
+	void printMovies() throws IllegalArgumentException;
+	void printMovieTitles() throws IllegalArgumentException;
+	void printMovieAdmin() throws IllegalArgumentException;
 }
