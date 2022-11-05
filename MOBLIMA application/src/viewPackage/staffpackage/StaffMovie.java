@@ -18,11 +18,6 @@ import java.util.Scanner;
 import java.util.InputMismatchException;
 
 public class StaffMovie extends View {
-
-    private static IMovie MovieHandler = MovieManager.getInstance();
-    private static ISales SalesHandler = MovieManager.getInstance();
-    private static IShowtimeSystem stHandler = ShowtimeManager.getInstance();
-
     public static void displayMenu() {
         System.out.print("\033\143");
         System.out.println("--------------------------------------");
@@ -37,8 +32,9 @@ public class StaffMovie extends View {
     }
 
     public static void createMovie() {
+        IMovie MovieHandler = MovieManager.getInstance();
         enum createMovieEnum {
-            TITLE, SYNOPSIS, DIRECTOR, CAST, AGERESTRICTION, STATUS, TYPE, DURATION
+            TITLE, SYNOPSIS, DIRECTOR, CAST, AGERESTRICTION, STATUS, TYPE, DURATION, CREATE
         }
         boolean complete = false;
         String movieTitle = null;
@@ -68,6 +64,7 @@ public class StaffMovie extends View {
                     if (movieTitle.equals("0")) return;
                 }
                 catch(InputMismatchException e){
+                    System.out.println("Input not valid!");
                     sc.nextLine(); 
                     state = createMovieEnum.TITLE;
                     break;
@@ -83,6 +80,7 @@ public class StaffMovie extends View {
                     }
                 }
                 catch(InputMismatchException e){
+                    System.out.println("Input not valid!");
                     sc.nextLine(); 
                     state = createMovieEnum.SYNOPSIS;
                     break;
@@ -98,6 +96,7 @@ public class StaffMovie extends View {
                     }
                 }
                 catch(InputMismatchException e){
+                    System.out.println("Input not valid!");
                     state = createMovieEnum.DIRECTOR;
                     break;
                 }
@@ -112,6 +111,7 @@ public class StaffMovie extends View {
                     }
                 }
                 catch(InputMismatchException e){
+                    System.out.println("Input not valid!");
                     sc.nextLine(); 
                     state = createMovieEnum.CAST;
                     break;
@@ -120,12 +120,22 @@ public class StaffMovie extends View {
             try {
                 System.out.println("[Enter 0 to go back]");
                 System.out.println("Enter Age Restriction: ");
-                String input = sc.next();
-                if (input.equals("0")) {
+
+                AgeRestriction[] arr = AgeRestriction.values();
+                for(AgeRestriction ar:arr){ 
+                    System.out.printf("choice %d : %s\n",(ar.ordinal()+1) ,ar.toString()); 
+                }
+                int input = sc.nextInt();
+                if (input == 0) {
                     state=createMovieEnum.CAST;
                     break;
                 }
-                movieAgeRestriction = AgeRestriction.valueOf(input.toUpperCase());
+                if (input > arr.length+1 || input < 0) {
+                    state=createMovieEnum.AGERESTRICTION;
+                    System.out.println("Enter a valid choice");
+                    break;
+                } 
+                movieAgeRestriction = arr[input-1];
             }
             catch (IllegalArgumentException ex){
                 state = createMovieEnum.AGERESTRICTION;
@@ -133,6 +143,7 @@ public class StaffMovie extends View {
                 break;
             }
             catch(InputMismatchException e){
+                System.out.println("Input not valid!");
                 sc.nextLine(); 
                 state = createMovieEnum.AGERESTRICTION;
                 break;
@@ -140,13 +151,24 @@ public class StaffMovie extends View {
             case STATUS:
             try {
                 System.out.println("[Enter 0 to go back]");
-                System.out.println("Enter Status ");
-                String input = sc.next();
-                if (input.equals("0")) {
+                System.out.println("Enter movie status ");
+                MovieStatus[] arr = MovieStatus.values();
+
+                for(MovieStatus ar:arr){ 
+                    System.out.printf("choice %d : %s\n",(ar.ordinal()+1) ,ar.toString()); 
+                }
+                int input = sc.nextInt();
+
+                if (input==0) {
                     state=createMovieEnum.AGERESTRICTION;
                     break;
-                }
-                movieStatus = MovieStatus.valueOf(input.toUpperCase());
+                }if (input > arr.length+1 || input < 0) {
+                    state=createMovieEnum.STATUS;
+                    System.out.println("Enter a valid choice");
+                    break;
+                } 
+
+                movieStatus = arr[input-1]; 
             }
             catch (IllegalArgumentException ex){
                 state = createMovieEnum.STATUS;
@@ -154,6 +176,7 @@ public class StaffMovie extends View {
                 break;
             }
             catch(InputMismatchException e){
+                System.out.println("Input not valid!");
                 sc.nextLine(); 
                 state = createMovieEnum.STATUS;
                 break;
@@ -162,14 +185,25 @@ public class StaffMovie extends View {
             try {
                 System.out.println("[Enter 0 to go back]");
                 System.out.println("Enter Type ");
-                String input = sc.next();
-                if (input.equals("0")) {
+
+                MovieType[] arr = MovieType.values();
+                for(MovieType ar:arr){ 
+                    System.out.printf("choice %d : %s\n",(ar.ordinal()+1) ,ar.toString()); 
+                }
+                int input = sc.nextInt();
+                if (input==0) {
                     state=createMovieEnum.STATUS;
                     break;
                 }
-                movieType = MovieType.valueOf(input.toUpperCase());
+                if (input > arr.length+1 || input < 0) {
+                    state=createMovieEnum.TYPE;
+                    System.out.println("Enter a valid choice");
+                    break;
+                }
+                movieType = arr[input-1]; 
             }
             catch(InputMismatchException e){
+                System.out.println("Input not valid!");
                 sc.nextLine(); 
                 state = createMovieEnum.TYPE;
                 break;
@@ -183,19 +217,27 @@ public class StaffMovie extends View {
                     state=createMovieEnum.TYPE;
                     break;
                 }
-                complete = true;
             }
             catch(InputMismatchException e){
+                System.out.println("Input not valid!");
                 sc.nextLine(); 
                 state = createMovieEnum.DURATION;
                 break;
             }
+            case CREATE:
+                try {
+                    MovieHandler.createMovie(movieTitle, movieStatus, movieSynopsis,movieDirector, movieCast, movieAgeRestriction, movieType , duration);
+                    complete = true;
+                } catch (IllegalArgumentException e) {
+                    System.out.println("Unable to create new movie!");
+                    System.out.println("Exiting the function now!");
+                    return;
+                }
             default:
                 state = createMovieEnum.TITLE;
                 break;
+            }
         }
-        }
-        MovieHandler.createMovie(movieTitle, movieStatus, movieSynopsis,movieDirector, movieCast, movieAgeRestriction, movieType , duration);
         System.out.println("--------------------------------------");
         System.out.println("\t\tNew Movie Created");
         System.out.println("--------------------------------------");
@@ -203,6 +245,8 @@ public class StaffMovie extends View {
     }
 
     public static void setMovieDirector(){
+        IShowtimeSystem stHandler = ShowtimeManager.getInstance();
+        IMovie MovieHandler = MovieManager.getInstance();
         enum setMovieDirectorState {ID,DIRECTOR,SETTING}
         setMovieDirectorState state = setMovieDirectorState.ID;
         int ID = 0;
@@ -212,7 +256,7 @@ public class StaffMovie extends View {
         System.out.println("--------------------------------------");
         System.out.println("Set new Movie Director");
         System.out.println("--------------------------------------");
-        MovieHandler.printMovies();
+        MovieHandler.printMovieAdmin();
 
         while (!complete){
             switch(state){
@@ -226,6 +270,7 @@ public class StaffMovie extends View {
                     System.out.println("Invalid input");
                     sc.nextLine();
                     state = setMovieDirectorState.ID;
+                    break;
                 }
                 case DIRECTOR:
                 try {
@@ -233,11 +278,13 @@ public class StaffMovie extends View {
                     director = sc.next();
                     if (director.equals("0")){
                         state = setMovieDirectorState.DIRECTOR;
+                        break;
                     }
                 } catch (InputMismatchException e) {
                     System.out.println("Invalid input");
                     sc.nextLine();
                     state = setMovieDirectorState.DIRECTOR;
+                    break;
                 }
                 case SETTING:
                 try {
@@ -248,6 +295,7 @@ public class StaffMovie extends View {
                     // There should not be exception here unless ID not valid
                     System.out.println("ID is not valid, please retry");
                     state = setMovieDirectorState.ID;
+                    break;
                 }
             }
         }
@@ -257,10 +305,12 @@ public class StaffMovie extends View {
         System.out.println("--------------------------------------");
     }
      
-    public static void setMovieType() {
+    private static void setMovieType() {
+        IMovie MovieHandler = MovieManager.getInstance();
+        IShowtimeSystem stHandler = ShowtimeManager.getInstance();
         enum setMovieTypeState {ID,TYPE,SETTING};
         int ID = 0;
-        String movieType = null;
+        MovieType movieType = null;
         boolean complete = false;
         setMovieTypeState state =  setMovieTypeState.ID;
         System.out.print("\033\143");
@@ -268,7 +318,7 @@ public class StaffMovie extends View {
         System.out.println("Set new Movie type");
         System.out.println("--------------------------------------");
         
-        MovieHandler.printMovies();
+        MovieHandler.printMovieAdmin();
 
         while (!complete) {
             switch(state){
@@ -282,41 +332,58 @@ public class StaffMovie extends View {
                     System.out.println("Invalid input");
                     sc.nextLine();
                     state = setMovieTypeState.ID;
+                    break;
                 }
                 case TYPE:
                 try{
                     System.out.println("[Enter 0 to return]");
                     System.out.println("Enter new Type :");
-                    movieType = sc.next();
-                    if (movieType.equals("0")) return;
+                    MovieType[] arr = MovieType.values();
+    
+                    for(MovieType ar:arr){ 
+                        System.out.printf("choice %d : %s\n",(ar.ordinal()+1) ,ar.toString()); 
+                    }
+                    int input = sc.nextInt();
+
+                    if (input == 0)  {
+                        state = setMovieTypeState.ID;
+                        break;
+                    }
+                    else if (input > arr.length || input < 1) {
+                        System.out.println("Enter a valid choice");
+                        state = setMovieTypeState.TYPE;
+                        break;
+                    } 
+                    movieType = arr[input-1];
+
                 } catch(InputMismatchException e){
                     System.out.println("Invalid input");
                     sc.nextLine();
                     state = setMovieTypeState.TYPE;
+                    break;
                 }
                 case SETTING:
                     try{
-                        MovieType mt = MovieType.valueOf(sc.next().toUpperCase());
-                        System.out.println(" 1 ");
-    
                         MovieHandler.setMovieType(ID, movieType);
-                        System.out.println(" 2 ");
-                        stHandler.setMovieType(ID, mt);
-                        System.out.println(" 3 ");
+                        stHandler.setMovieType(ID, movieType);
                         complete = true;
                 } catch(IllegalArgumentException e){
                     System.out.println("Invalid movie type input");
                     sc.nextLine();
                     state = setMovieTypeState.TYPE;
+                    waitForEnter(null);
+                    break;
                 }
             }
         }
         System.out.println("--------------------------------------");
         System.out.println("\t\tNew movie type has been set");
         System.out.println("--------------------------------------");
+        waitForEnter(null);
     }
     
-    public static void deleteMovie() {
+    private static void deleteMovie() {
+        IMovie MovieHandler = MovieManager.getInstance();
         int ID = 0;
         boolean complete = false;
         System.out.print("\033\143");
@@ -324,7 +391,7 @@ public class StaffMovie extends View {
         System.out.println("Deleting Movie");
         System.out.println("--------------------------------------");
 
-        MovieHandler.printMovies();
+        MovieHandler.printMovieAdmin();
 
         while (!complete){
             try {
@@ -333,17 +400,22 @@ public class StaffMovie extends View {
                 ID = sc.nextInt();
                 if (ID==0) return;
                 MovieHandler.deleteMovie(ID);
+                complete=true;
             }
             catch (InputMismatchException e) {
                 System.out.println("Input not valid!");
             } catch (IllegalArgumentException e) {
                 System.out.println("No valid Movie ID found");
+                System.out.println("Exiting function!");
+                waitForEnter(null);
+                return;
             }
         }
         
         System.out.println("--------------------------------------");
         System.out.println("\t\t Movie Deleted");
         System.out.println("--------------------------------------");
+        waitForEnter(null);
     }
 
     public static void start() {
@@ -390,7 +462,7 @@ public class StaffMovie extends View {
         sc.close();
     }
     
-    public static void updateMovieMenu(){
+    private static void updateMovieMenu(){
         System.out.print("\033\143");
         System.out.println("--------------------------------------");
         System.out.println("Update Movie");
@@ -403,6 +475,8 @@ public class StaffMovie extends View {
     }
     
     public static void setMovieStatus(){
+        IShowtimeSystem stHandler = ShowtimeManager.getInstance();
+        IMovie MovieHandler = MovieManager.getInstance();
         enum setMovieStatusState {ID,STATUS,SETTING};
         int ID = 0;
         MovieStatus movieStatus = null;
@@ -414,7 +488,7 @@ public class StaffMovie extends View {
         System.out.println("Set new Movie Status");
         System.out.println("--------------------------------------");
 
-        MovieHandler.printMovies();
+        MovieHandler.printMovieAdmin();
 
         while (!complete) {
             switch(state){
@@ -433,8 +507,24 @@ public class StaffMovie extends View {
                     try{
                         System.out.println("[Enter 0 to return]");
                         System.out.println("Enter movie status :");
-                        input = sc.next();
-                        if (input.equals("0")) return;
+
+                        MovieStatus[] arr = MovieStatus.values();
+
+                        for(MovieStatus ar:arr){ 
+                            System.out.printf("choice %d : %s\n",(ar.ordinal()+1) ,ar.toString()); 
+                        }
+                        int input = sc.nextInt();
+
+                        if (input==0) {
+                            state=setMovieStatusState.ID;
+                            break;
+                        }if (input > arr.length+1 || input < 0) {
+                            state=setMovieStatusState.STATUS;
+                            System.out.println("Enter a valid choice");
+                            break;
+                        } 
+
+                        movieStatus = arr[input-1]; 
                         
                     } catch(InputMismatchException e){
                         System.out.println("Invalid input");
@@ -443,7 +533,6 @@ public class StaffMovie extends View {
                     }
                 case SETTING:
                     try{
-                        movieStatus = MovieStatus.valueOf(input.toUpperCase());
                         if (movieStatus == MovieStatus.END_OF_SHOWING) stHandler.movieShowtimeEnd(ID);
                         MovieHandler.setMovieStatus(ID, input);
                         stHandler.setMovieStatus(ID, movieStatus);
@@ -458,6 +547,7 @@ public class StaffMovie extends View {
         System.out.println("--------------------------------------");
         System.out.println("\t\tNew movie status has been set");
         System.out.println("--------------------------------------");
+        waitForEnter(null);
     }
     public static void updateMovie() {
         int choice = 0;
@@ -494,6 +584,7 @@ public class StaffMovie extends View {
     }
 
     public static void showTopMovie() {
+        ISales SalesHandler = MovieManager.getInstance();
         int choice2;
 
         System.out.println("Display Top 5 Movie by : ");

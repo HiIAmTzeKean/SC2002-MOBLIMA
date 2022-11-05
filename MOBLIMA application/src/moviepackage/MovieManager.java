@@ -149,13 +149,51 @@ public class MovieManager implements ISales, IReviews, IMovie {
 	 * Prints the movies stored in the movies array. Used to support class functions to get and set movie attributes.
 	 * Ignores movies that have been marked as "End of Showing"
 	 */
-	public void printMovies(){
+	public void printMovies() throws IllegalArgumentException{
+		if(movies.size() == 0 || movies == null){
+			throw new IllegalArgumentException("There are no movies to find");
+		}
 		for(Iterator<Movie> it = movies.iterator(); it.hasNext();){
 			Movie m = it.next();
 			if(m.getMovieStatus()!=MovieStatus.END_OF_SHOWING){
 				m.printMovieIncomplete();
 			}
 		}
+	}
+	@Override
+	public void printMovieTitles()throws IllegalArgumentException{
+		if(movies.size() == 0 || movies == null){
+			throw new IllegalArgumentException("There are no movies to find");
+		}
+		for(Iterator<Movie> it = movies.iterator(); it.hasNext();){
+			Movie m = it.next();
+			if(m.getMovieStatus()!=MovieStatus.END_OF_SHOWING){
+				System.out.println(m.getMovieTitle());
+			}
+		}	
+	}
+	@Override
+	public void printMovieAdmin(){
+		if(movies.size() == 0 || movies == null){
+			throw new IllegalArgumentException("There are no movies to find");
+		}
+		System.out.println("|-----------------------------------------------------------------------------------------------------------|");
+		System.out.printf("|   %-8s   |       %-30s        |    %-15s     |     %-15s |\n",
+						"Movie ID",
+								"Movie Name",
+								"Status",
+								"Type");
+		System.out.println("|-----------------------------------------------------------------------------------------------------------|");
+		for(Iterator<Movie> it = movies.iterator(); it.hasNext();){
+			Movie m = it.next();
+			String movieIDString = Integer.toString(m.getID());
+			System.out.printf("|   %-8s   |       %-30s        |    %-15s     |   %-15s   |\n",
+							movieIDString,
+							m.getMovieTitle(),
+							m.getMovieStatus().toString(),
+							m.getMovieType().toString());
+		}
+		System.out.println("|-----------------------------------------------------------------------------------------------------------|");			
 	}
 	/** 
 	 * Function that checks if the review object is valid and appends it to the a movie's review array if the movieID is valid.
@@ -206,10 +244,8 @@ public class MovieManager implements ISales, IReviews, IMovie {
 	 */
 	@Override
 	public void deleteMovie(int movieID) throws IllegalArgumentException {
-		int target = 0;
 		try{
-			target = findMovie(movieID);
-			Movie toDelete = getMoviefromID(target);
+			Movie toDelete = getMoviefromID(movieID);
 			toDelete.deleteMovie();
 		}
 		catch(IllegalArgumentException e){
@@ -243,21 +279,15 @@ public class MovieManager implements ISales, IReviews, IMovie {
 	 * @throws IllegalArgumentException if the movieID is not found, if there are no movies to search, or if MovieStatus argument is invalid.
 	 */
 	@Override
-	public void setMovieStatus(int movieID, String status)throws IllegalArgumentException{
-		int target = 0;
+	public void setMovieStatus(int movieID, MovieStatus status)throws IllegalArgumentException{
 		try{
-			target = findMovie(movieID);
+			Movie target = getMoviefromID(movieID);
+			target.setMovieStatus(status);
 		}
 		catch(IllegalArgumentException e){
 			throw new IllegalArgumentException("Movie not found");
 		}
-		try{
-			MovieStatus mStatus = MovieStatus.valueOf(status);
-			movies.get(target).setMovieStatus(mStatus);
-		}
-		catch(IllegalArgumentException e){
-			throw new IllegalArgumentException("Invalid movie status");
-		}
+
 	}
 	@Override
 	/**
@@ -320,7 +350,7 @@ public class MovieManager implements ISales, IReviews, IMovie {
 	 * @param movieType to set value to
 	 * @throws IllegalArgumentException if the movieID is not found, if there are no movies to search or if movieType is invalid.
 	 */
-	public void setMovieType(int movieID, String movieType)throws IllegalArgumentException{
+	public void setMovieType(int movieID, MovieType movieType)throws IllegalArgumentException{
 		int target = 0;
 		try{
 			target = findMovie(movieID);
@@ -328,13 +358,7 @@ public class MovieManager implements ISales, IReviews, IMovie {
 		catch(IllegalArgumentException e){
 			throw new IllegalArgumentException("Movie not found");
 		}
-		try{
-			MovieType mType = MovieType.valueOf(movieType);
-			movies.get(target).setMovieType(mType);
-		}
-		catch(IllegalArgumentException e){
-			throw new IllegalArgumentException("Invalid movie type");
-		}
+		movies.get(target).setMovieType(movieType);
 	}
 	
 	@Override
@@ -408,9 +432,9 @@ public class MovieManager implements ISales, IReviews, IMovie {
 		else{
 			limit = moviecopy.size();
 		}
-		System.out.println("The Top Five Selling Movies Are:");
+		System.out.println("The Best Rated Movies Are:");
 		for(int i = 0; i<limit; i++){
-			System.out.printf("%d : %s (%d)\n", i+1, moviecopy.get(i).getMovieTitle(), moviecopy.get(i).getSales());
+			System.out.printf("%s : (%.1f)\n", moviecopy.get(i).getMovieTitle(), moviecopy.get(i).getReviewScores());
 		}
 	}
 	@Override
@@ -431,9 +455,9 @@ public class MovieManager implements ISales, IReviews, IMovie {
 		else{
 			limit = moviecopy.size();
 		}
-		System.out.println("The Top Five Selling Movies Are:");
+		System.out.println("The Best Selling Movies Are:");
 		for(int i = 0; i<limit; i++){
-			System.out.printf("%d : %s (%d)\n", i+1, moviecopy.get(i).getMovieTitle(), moviecopy.get(i).getSales());
+			System.out.printf("%s (%d)\n", moviecopy.get(i).getMovieTitle(), moviecopy.get(i).getSales());
 		}
 	}
 	//TODO: Write a function that returns a clone of a movie
@@ -451,10 +475,10 @@ public class MovieManager implements ISales, IReviews, IMovie {
 		else{
 			limit = moviecopy.size();
 		}
-		System.out.println("The Top Five Selling Movies Are:");
+		System.out.println("The Best Rated Movies Are:");
 		for(int i = 0; i<limit; i++){
 			if(moviecopy.get(i).getMovieStatus() != MovieStatus.END_OF_SHOWING){
-				System.out.printf("%d : %s (%d)\n", i+1, moviecopy.get(i).getMovieTitle(), moviecopy.get(i).getSales());
+				System.out.printf("%s (%.1f)\n", moviecopy.get(i).getMovieTitle(), moviecopy.get(i).getReviewScores());
 			}
 		}
 	}
@@ -476,7 +500,7 @@ public class MovieManager implements ISales, IReviews, IMovie {
 		else{
 			limit = moviecopy.size();
 		}
-		System.out.println("The Top Five Selling Movies Are:");
+		System.out.println("The Best Selling Movies Are:");
 		for(int i = 0; i<limit; i++){
 			if(moviecopy.get(i).getMovieStatus() != MovieStatus.END_OF_SHOWING){
 				System.out.printf("%d : %s (%d)\n", i+1, moviecopy.get(i).getMovieTitle(), moviecopy.get(i).getSales());

@@ -1,7 +1,9 @@
 package showtimepackage;
-
+import daypackage.Day;
+import cinemapackage.CinemaType;
 import customerpackage.Customer;
 import customerpackage.CustomerNullException;
+import daypackage.Day;
 
 public interface IShowtime {
     void bookSeat(int showtimeID, String seatRow, int seatCol, Customer customer)throws IllegalArgumentException, CustomerNullException;
@@ -71,5 +73,5 @@ public interface IShowtime {
      * @throws IllegalArgumentException
      */
     String getTime(int showtimeID) throws IllegalArgumentException;
-    Showtime getShowtime(String movieName, Day day, int cineplexID, CinemaType cinemaType) throws IllegalArgumentException
+    Showtime getShowtime(String movieName, Day day, int cineplexID, CinemaType cinemaType) throws IllegalArgumentException;
 }

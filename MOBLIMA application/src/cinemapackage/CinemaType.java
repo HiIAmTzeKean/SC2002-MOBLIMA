@@ -13,7 +13,7 @@ public enum CinemaType{
 		return type;
 	}
 	public boolean equals(String type) {
-		if (this.type==type)
+		if (this.type.equals(type))
 			return true;
 		return false;
 	}
