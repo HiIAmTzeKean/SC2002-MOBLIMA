@@ -1,16 +1,26 @@
 package viewPackage;
 
-import java.util.InputMismatchException;
-import java.util.NoSuchElementException;
 import java.util.Scanner;
-
-import viewPackage.customerpackage.CustomerView;
-import viewPackage.staffpackage.StaffAuth;
 import java.io.Console;
 
+/**
+ * Super class for the views. Each view will inherit from view class
+ * and will implement displayMenu and start function
+ * @author Ng Tze Kean
+ * @since 05-11-2022
+ */
 public class View {
+	/**
+	 * Scanner object that is global in each sub-view class
+	 */
 	public static Scanner sc = new Scanner(System.in);
 
+	/**
+	 * Function to prompt user to press enter key before continuing with the program
+	 * Forces an I/O message to interrupt program execution
+	 * @param message message to be printied in the function
+	 * @param args
+	 */
 	public static void waitForEnter(String message, Object... args) {
 		Console c = System.console();
 		if (c != null) {
@@ -21,56 +31,22 @@ public class View {
 			c.readLine();
 		}
 	}
-
+	/**
+	 * Handles an InputMismatchException by clearing the buffer
+	 * then prints a error statement for user
+	 * To be called when there is an InputMismatchException
+	 */
 	public static void inputMismatchHandler() {
 		sc.nextLine();
 		System.out.println("Illegal input value");
 	}
-
-	public static void displayMenu() {
-		System.out.print("\033[H\033[2J");
-		System.out.println("--------------------------------------");
-		System.out.println("\t\tMenu\t\t");
-		System.out.println("--------------------------------------");
-		System.out.println("Choice 1 : Staff");
-		System.out.println("Choice 2 : Customer");
-		System.out.println("choice 3 : exit MOBLIMA");
-		System.out.println("--------------------------------------");
-	}
-
-	public static void start() {
-		sc = new Scanner(System.in);
-		int choice = 0;
-		while (true) {
-			displayMenu();
-			try {
-				System.out.println("Enter choice");
-				choice = sc.nextInt();
-				if (choice>5 || choice<1) {
-					System.out.println("Invalid input!");
-					waitForEnter(null);
-					continue;
-				}
-			} catch (InputMismatchException e) {
-				inputMismatchHandler();
-				waitForEnter(null);
-				continue;
-			}
-			
-			switch (choice) {
-				case 1:
-					StaffAuth.login();
-					break;
-				case 2:
-					CustomerView.start();
-					break;
-				case 3:
-					return;
-				default:
-					System.out.println("Enter valid choice");
-					choice = 0;
-			}
-		}
-	}
-
+	/**
+	 * Menu to be printed for navigation
+	 */
+	public static void displayMenu(){};
+	/**
+	 * First function to be called for the view
+	 * Sets up the logic follow within class through switch cases
+	 */
+	public static void start(){};
 }

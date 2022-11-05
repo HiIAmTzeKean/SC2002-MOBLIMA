@@ -18,24 +18,6 @@ public class TestData {
         Scanner s = new Scanner(System.in);
         MovieManager movieManager = MovieManager.getInstance();
         ShowtimeManager showtimeManager = ShowtimeManager.getInstance();
-        int ans = 1;
-        while(ans == 1){
-            // showtimeManager.printShowtimesByMovieNameAndCineplexID("Black Adam", 1);
-            // Day d = new Day("20220101","1200");
-            // int showtimeID = showtimeManager.getShowtime("Black Adam", d,cineplexID,cinemaType).getID();
-            // Customer cust = new Customer("name", 12345678, "name@gmail.com", new Age(10));
-            // try{
-            //     showtimeManager.getPrice(showtimeID, cut);
-            //     // If i answer yes to price
-            //     showtimeManager.bookSeat(showtimeID,"A", 1, cust);
-            // }
-            // catch (IllegalArgumentException | CustomerNullException e){
-
-            // }
-            showtimeManager.printShowtimes();
-            // movieManager.printMovies();
-            ans = s.nextInt();
-        }
         MovieManager.close();
         CinemaManager.close();
         CineplexManager.close();
@@ -373,7 +355,7 @@ public class TestData {
         man.addShowtimeSystem(movieMan.getMoviefromID(7), cinemaManager.cloneCinemaByID(3), d2_t0);
         man.addShowtimeSystem(movieMan.getMoviefromID(7), cinemaManager.cloneCinemaByID(1), d2_t1);
         man.addShowtimeSystem(movieMan.getMoviefromID(7), cinemaManager.cloneCinemaByID(3), d2_t2);
-        
+        MovieManager mm = MovieManager.getInstance();
         for (int i = 1; i < 28; i ++) {
             for (int j=0; j< 5; j++){
                 try{
@@ -383,18 +365,22 @@ public class TestData {
                         int row = (int) ((int) 2*Math.random());
                         c = new Customer(nameList[col], mobileList[col], emailList[col], ageList[col]); 
                         man.bookSeat(i, colList[row], col,c);
+                        mm.getMoviefromID(showtimeObj.getMovieID()).addSales(1);
+                        // increament movie sale by 1
                     }
                     else if (showtimeObj.getCinemaClass().equals("GOLD")){
                         int col = (int) ((int) 8*Math.random())+1;
                         int row = (int) ((int) 3*Math.random());
                         c = new Customer(nameList[col], mobileList[col], emailList[col], ageList[col]); 
                         man.bookSeat(i, colList[row], col,c);
+                        mm.getMoviefromID(showtimeObj.getMovieID()).addSales(1);
                     }
                     else{
                         int col = (int) ((int) 8*Math.random())+1;
                         int row = (int) ((int) 5*Math.random());
                         c = new Customer(nameList[col], mobileList[col], emailList[col], ageList[col]); 
                         man.bookSeat(i, colList[row], col,c);
+                        mm.getMoviefromID(showtimeObj.getMovieID()).addSales(1);
                     }  
                 }
                 catch(IllegalArgumentException ex){
@@ -406,6 +392,7 @@ public class TestData {
                 }
             }
         }
+        MovieManager.close();
     }
     public static void createCoupons(){
         File file = new File("./MOBLIMA application/data/discountcode/discountcode.dat");
