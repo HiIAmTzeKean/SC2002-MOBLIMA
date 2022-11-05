@@ -13,6 +13,7 @@ import daypackage.IDay;
 import moviepackage.Movie;
 import moviepackage.MovieManager;
 import showtimepackage.IShowtimeSystem;
+import showtimepackage.Showtime;
 import showtimepackage.ShowtimeManager;
 
 public class StaffShowtime extends View {
@@ -23,7 +24,8 @@ public class StaffShowtime extends View {
 		System.out.println("--------------------------------------");
 		System.out.println("choice 1 : Add showtimes");
 		System.out.println("choice 2 : Change showtime timing");
-		System.out.println("choice 3 : Return");
+		System.out.println("choice 3 : List showtimes");
+		System.out.println("choice 4 : Return");
 		System.out.println("-------------------------------------");
 	}
 	
@@ -202,7 +204,7 @@ public class StaffShowtime extends View {
 			try {
                 System.out.println("Enter choice");
                 choice = sc.nextInt();
-                if (choice>3 || choice<1) {
+                if (choice>4 || choice<1) {
                     System.out.println("Invalid input!");
 					waitForEnter(null);
                     continue;
@@ -221,12 +223,19 @@ public class StaffShowtime extends View {
 					updateShowtime();
 					break;
 				case 3:
+					IShowtimeSystem showtimeSys = ShowtimeManager.getInstance();
+					showtimeSys.printShowtimeAdmin();
+					ShowtimeManager.close();
+					waitForEnter(null);
+					break;
+				case 4:
 					System.out.println("--------------------------------------");
 					System.out.println("\t\tExiting Staff Showtime Menu");
 					System.out.println("-------------------------------------");
 					MovieManager.close();
 					ShowtimeManager.close();
 					CinemaManager.close();
+					waitForEnter(null);
 					return;
 				default:
 					System.out.println("Enter valid choice");

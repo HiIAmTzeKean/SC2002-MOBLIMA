@@ -15,7 +15,7 @@ public class StaffView extends View {
 		System.out.println("---------------------------------------------------");
 		System.out.println("Choice 1 : Create/Update/Remove Movie");
 		System.out.println("Choice 2 : Create/Update/Remove Cinemas");
-		System.out.println("Choice 3 : Create Showtimes");
+		System.out.println("Choice 3 : Configure Showtimes");
 		System.out.println("Choice 4 : Configure System Settings");
 		System.out.println("Choice 5 : logout");
         System.out.println("---------------------------------------------------");

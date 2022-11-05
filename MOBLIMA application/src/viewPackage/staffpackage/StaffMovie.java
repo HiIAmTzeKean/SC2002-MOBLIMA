@@ -256,7 +256,7 @@ public class StaffMovie extends View {
         System.out.println("--------------------------------------");
         System.out.println("Set new Movie Director");
         System.out.println("--------------------------------------");
-        MovieHandler.printMoviesAdmin();
+        MovieHandler.printMovieAdmin();
 
         while (!complete){
             switch(state){
@@ -318,7 +318,7 @@ public class StaffMovie extends View {
         System.out.println("Set new Movie type");
         System.out.println("--------------------------------------");
         
-        MovieHandler.printMoviesAdmin();
+        MovieHandler.printMovieAdmin();
 
         while (!complete) {
             switch(state){
@@ -341,7 +341,7 @@ public class StaffMovie extends View {
                     MovieType[] arr = MovieType.values();
     
                     for(MovieType ar:arr){ 
-                        System.out.printf("\nchoice %d : %s\n",(ar.ordinal()+1) ,ar.toString()); 
+                        System.out.printf("choice %d : %s\n",(ar.ordinal()+1) ,ar.toString()); 
                     }
                     int input = sc.nextInt();
 
@@ -349,7 +349,7 @@ public class StaffMovie extends View {
                         state = setMovieTypeState.ID;
                         break;
                     }
-                    else if (input > arr.length+1 || input < 0) {
+                    else if (input > arr.length || input < 1) {
                         System.out.println("Enter a valid choice");
                         state = setMovieTypeState.TYPE;
                         break;
@@ -364,18 +364,14 @@ public class StaffMovie extends View {
                 }
                 case SETTING:
                     try{
-                        MovieType mt = MovieType.valueOf(sc.next().toUpperCase());
-                        System.out.println(" 1 ");
-    
-                        MovieHandler.setMovieType(ID, mt);
-                        System.out.println(" 2 ");
-                        stHandler.setMovieType(ID, mt);
-                        System.out.println(" 3 ");
+                        MovieHandler.setMovieType(ID, movieType);
+                        stHandler.setMovieType(ID, movieType);
                         complete = true;
                 } catch(IllegalArgumentException e){
                     System.out.println("Invalid movie type input");
                     sc.nextLine();
                     state = setMovieTypeState.TYPE;
+                    waitForEnter(null);
                     break;
                 }
             }
@@ -383,6 +379,7 @@ public class StaffMovie extends View {
         System.out.println("--------------------------------------");
         System.out.println("\t\tNew movie type has been set");
         System.out.println("--------------------------------------");
+        waitForEnter(null);
     }
     
     private static void deleteMovie() {
@@ -394,7 +391,7 @@ public class StaffMovie extends View {
         System.out.println("Deleting Movie");
         System.out.println("--------------------------------------");
 
-        MovieHandler.printMoviesAdmin();
+        MovieHandler.printMovieAdmin();
 
         while (!complete){
             try {
@@ -403,17 +400,22 @@ public class StaffMovie extends View {
                 ID = sc.nextInt();
                 if (ID==0) return;
                 MovieHandler.deleteMovie(ID);
+                complete=true;
             }
             catch (InputMismatchException e) {
                 System.out.println("Input not valid!");
             } catch (IllegalArgumentException e) {
                 System.out.println("No valid Movie ID found");
+                System.out.println("Exiting function!");
+                waitForEnter(null);
+                return;
             }
         }
         
         System.out.println("--------------------------------------");
         System.out.println("\t\t Movie Deleted");
         System.out.println("--------------------------------------");
+        waitForEnter(null);
     }
 
     public static void start() {
@@ -486,7 +488,7 @@ public class StaffMovie extends View {
         System.out.println("Set new Movie Status");
         System.out.println("--------------------------------------");
 
-        MovieHandler.printMoviesAdmin();
+        MovieHandler.printMovieAdmin();
 
         while (!complete) {
             switch(state){
@@ -505,8 +507,24 @@ public class StaffMovie extends View {
                     try{
                         System.out.println("[Enter 0 to return]");
                         System.out.println("Enter movie status :");
-                        input = sc.next();
-                        if (input.equals("0")) return;
+
+                        MovieStatus[] arr = MovieStatus.values();
+
+                        for(MovieStatus ar:arr){ 
+                            System.out.printf("choice %d : %s\n",(ar.ordinal()+1) ,ar.toString()); 
+                        }
+                        int input = sc.nextInt();
+
+                        if (input==0) {
+                            state=setMovieStatusState.ID;
+                            break;
+                        }if (input > arr.length+1 || input < 0) {
+                            state=setMovieStatusState.STATUS;
+                            System.out.println("Enter a valid choice");
+                            break;
+                        } 
+
+                        movieStatus = arr[input-1]; 
                         
                     } catch(InputMismatchException e){
                         System.out.println("Invalid input");
@@ -515,7 +533,6 @@ public class StaffMovie extends View {
                     }
                 case SETTING:
                     try{
-                        movieStatus = MovieStatus.valueOf(input.toUpperCase());
                         if (movieStatus == MovieStatus.END_OF_SHOWING) stHandler.movieShowtimeEnd(ID);
                         MovieHandler.setMovieStatus(ID, input);
                         stHandler.setMovieStatus(ID, movieStatus);
@@ -530,6 +547,7 @@ public class StaffMovie extends View {
         System.out.println("--------------------------------------");
         System.out.println("\t\tNew movie status has been set");
         System.out.println("--------------------------------------");
+        waitForEnter(null);
     }
     public static void updateMovie() {
         int choice = 0;
