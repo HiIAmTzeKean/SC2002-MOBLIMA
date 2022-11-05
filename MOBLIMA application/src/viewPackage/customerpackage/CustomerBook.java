@@ -13,12 +13,21 @@ public class CustomerBook {
 
 	private int bookingOption = 1;
 	private boolean isCoupleSeat = false;
-	boolean discountValid = false;
+	private boolean discountValid = false;
+	private String discountEntered = null;
 	
 	private static Scanner scan = new Scanner(System.in); 
 	
 	public int getBookingOption() {
 		return bookingOption;
+	}
+	
+	public boolean getIsCoupleSeat() {
+		return isCoupleSeat;
+	}
+	
+	public String getDiscountEntered() {
+		return discountEntered;
 	}
 	
 	public void setBookingOption(CinemaType cType, String seatRow){
@@ -33,11 +42,11 @@ public class CustomerBook {
 			}
 		}
 		
-		String discEntered = "0";
+		discountEntered = "0";
 		do {
 			System.out.println("If you wish to use discount code, enter code. Else, enter 0: ");
-			discEntered = scan.next();
-		}while(discEntered.compareTo("0") != 0 || !discountValid); //exits when user enters 0 or enters a valid discount code
+			discountEntered = scan.next();
+		}while(discountEntered.compareTo("0") != 0 || !discountValid); //exits when user enters 0 or enters a valid discount code
 		
 		if(discountValid) {
 			bookingOption = 3;
@@ -46,3 +55,4 @@ public class CustomerBook {
 			}//endif
 		}//endif
 	}//end setBookingOption()
+}
