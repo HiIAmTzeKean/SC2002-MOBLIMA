@@ -1,7 +1,16 @@
 package viewPackage;
 
+import java.util.InputMismatchException;
 import java.util.Scanner;
 
+import viewPackage.customerpackage.CustomerView;
+import viewPackage.staffpackage.StaffAuth;
+
+/**
+ * Controller class for MOBLIMA application
+ * @author Ng Tze Kean
+ * @since 05-11-2022
+ */
 public class MOBLIMA extends View {
     public static void main(String args []){ 
         System.out.print("\033[H\033[2J");
@@ -13,6 +22,9 @@ public class MOBLIMA extends View {
         System.out.println("\t\tEXITING MOBLIMA\t\t"); 
         System.out.println("----------------------------------");
     }
+	/**
+	 * Menu to be printed for navigation
+	 */
     public static void displayMenu() {
 		System.out.print("\033[H\033[2J");
 		System.out.println("--------------------------------------");
@@ -23,8 +35,11 @@ public class MOBLIMA extends View {
 		System.out.println("choice 3 : exit MOBLIMA");
 		System.out.println("--------------------------------------");
 	}
-    
-    public static void start() {
+    /**
+	 * First function to be called for the view
+	 * Sets up the logic follow within class through switch cases
+	 */
+	public static void start() {
 		sc = new Scanner(System.in);
 		int choice = 0;
 		while (true) {
