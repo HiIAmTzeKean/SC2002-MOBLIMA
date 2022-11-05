@@ -45,7 +45,7 @@ public class StaffView extends View {
 				break;
 				case  2 : StaffCinema.start(); 
 				break;
-				case  3 : StaffShowtime.start(); 
+				case  3 : StaffShowtime.start();
 				break;
 				case  4 : StaffSystem.start(); 
 				break;
