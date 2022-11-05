@@ -157,6 +157,15 @@ public class MovieManager implements ISales, IReviews, IMovie {
 			}
 		}
 	}
+	@Override
+	public void printMovieTitles(){
+		for(Iterator<Movie> it = movies.iterator(); it.hasNext();){
+			Movie m = it.next();
+			if(m.getMovieStatus()!=MovieStatus.END_OF_SHOWING){
+				System.out.println(m.getMovieTitle());
+			}
+		}	
+	}
 	/** 
 	 * Function that checks if the review object is valid and appends it to the a movie's review array if the movieID is valid.
 	 * @param movieID ID of the movie to add the review to.
@@ -402,9 +411,9 @@ public class MovieManager implements ISales, IReviews, IMovie {
 		else{
 			limit = moviecopy.size();
 		}
-		System.out.println("The Top Five Selling Movies Are:");
+		System.out.println("The Best Rated Movies Are:");
 		for(int i = 0; i<limit; i++){
-			System.out.printf("%d : %s (%d)\n", i+1, moviecopy.get(i).getMovieTitle(), moviecopy.get(i).getReviewScores());
+			System.out.printf("%s : (%.1f)\n", moviecopy.get(i).getMovieTitle(), moviecopy.get(i).getReviewScores());
 		}
 	}
 	@Override
@@ -425,9 +434,9 @@ public class MovieManager implements ISales, IReviews, IMovie {
 		else{
 			limit = moviecopy.size();
 		}
-		System.out.println("The Top Five Selling Movies Are:");
+		System.out.println("The Best Selling Movies Are:");
 		for(int i = 0; i<limit; i++){
-			System.out.printf("%d : %s (%d)\n", i+1, moviecopy.get(i).getMovieTitle(), moviecopy.get(i).getSales());
+			System.out.printf("%s (%d)\n", moviecopy.get(i).getMovieTitle(), moviecopy.get(i).getSales());
 		}
 	}
 	//TODO: Write a function that returns a clone of a movie
@@ -445,10 +454,10 @@ public class MovieManager implements ISales, IReviews, IMovie {
 		else{
 			limit = moviecopy.size();
 		}
-		System.out.println("The Top Five Selling Movies Are:");
+		System.out.println("The Best Rated Movies Are:");
 		for(int i = 0; i<limit; i++){
 			if(moviecopy.get(i).getMovieStatus() != MovieStatus.END_OF_SHOWING){
-				System.out.printf("%d : %s (%d)\n", i+1, moviecopy.get(i).getMovieTitle(), moviecopy.get(i).getSales());
+				System.out.printf("%s (%.1f)\n", moviecopy.get(i).getMovieTitle(), moviecopy.get(i).getReviewScores());
 			}
 		}
 	}
@@ -470,7 +479,7 @@ public class MovieManager implements ISales, IReviews, IMovie {
 		else{
 			limit = moviecopy.size();
 		}
-		System.out.println("The Top Five Selling Movies Are:");
+		System.out.println("The Best Selling Movies Are:");
 		for(int i = 0; i<limit; i++){
 			if(moviecopy.get(i).getMovieStatus() != MovieStatus.END_OF_SHOWING){
 				System.out.printf("%d : %s (%d)\n", i+1, moviecopy.get(i).getMovieTitle(), moviecopy.get(i).getSales());

@@ -1,7 +1,6 @@
 package viewPackage.staffpackage;
 
 import viewPackage.View;
-
 import java.util.InputMismatchException;
 import java.util.Scanner;
 import cinemapackage.CinemaManager;
