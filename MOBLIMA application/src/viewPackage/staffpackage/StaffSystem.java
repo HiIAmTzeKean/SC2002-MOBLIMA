@@ -2,13 +2,16 @@ package viewPackage.staffpackage;
 
 import java.util.InputMismatchException;
 import java.util.Scanner;
-
 import daypackage.Day;
-
 import showtimepackage.IShowtimeSystem;
 import showtimepackage.ShowtimeManager;
 import viewPackage.View;
 
+/**
+ * Provides UI to staff to modify system settings
+ * @author Ng Tze Kean
+* @since 05-11-2022
+ */
 public class StaffSystem extends View {
     public static void displayMenu() {
         System.out.print("\033[H\033[2J");
@@ -58,7 +61,6 @@ public class StaffSystem extends View {
                     System.out.println("--------------------------------------");
                     System.out.println("Exiting staff system menu");
                     System.out.println("--------------------------------------");
-                    ShowtimeManager.close();
                     waitForEnter(null);
                     return;
                 default:
@@ -67,7 +69,11 @@ public class StaffSystem extends View {
             }
         }
     }
-
+    /**
+     * Provides UI to staff for setting base price of the showtime
+     * Prints the current base price and prompts for I/O
+     * @apiNote IShowtimeSystem
+     */
     private static void setBasePrice() {
         IShowtimeSystem ssHandler = ShowtimeManager.getInstance();
         System.out.print("\033[H\033[2J");
@@ -80,6 +86,7 @@ public class StaffSystem extends View {
         while (!complete) {
             try {
                 System.out.println("[Enter 0 to return]");
+                System.out.println("Current base price: " + ssHandler.getBasePrice());
                 System.out.println("Enter the new base price");
                 BasePrice = sc.nextFloat();
                 if (BasePrice == 0f)
@@ -97,8 +104,12 @@ public class StaffSystem extends View {
         waitForEnter(null);
     }
 
+    /**
+     * Provides UI to staff for setting multiplier day
+     * Prints the current multiplier and prompts for I/O
+     * @apiNote Day
+     */
     private static void setMultiplier() {
-        IShowtimeSystem ssHandler = ShowtimeManager.getInstance();
         System.out.print("\033[H\033[2J");
         System.out.println("--------------------------------------");
         System.out.println("Setting new multiplier");
@@ -109,7 +120,8 @@ public class StaffSystem extends View {
         while (!complete) {
             try {
                 System.out.println("[Enter 0 to return]");
-                System.out.println("Enter the new base price");
+                System.out.println("Current day multiplier: " + Day.getMultiplier());
+                System.out.println("Enter the new day multiplier");
                 multiplier = sc.nextFloat();
                 if (multiplier == 0f)
                     return;
@@ -127,6 +139,12 @@ public class StaffSystem extends View {
         System.out.println("--------------------------------------");
         waitForEnter(null);
     }
+    /**
+     * Provides UI to staff for setting a holiday
+     * Prints the current showtime prompts for I/O
+     * Staff will select from the list of days to make the day a holiday
+     * @apiNote IShowtimeSystem
+     */
     private static void unsetHoliday(){
         IShowtimeSystem ssHandler = ShowtimeManager.getInstance();
         enum dayEnum {
@@ -145,6 +163,7 @@ public class StaffSystem extends View {
             switch (state) {
                 case DATE:
                     try {
+                        ssHandler.printShowtimeAdmin();
                         System.out.println("[Enter 0 to go back]");
                         System.out.println("Enter Full Date (format:YYYYMMDD): ");
                         date = sc.next();
@@ -171,11 +190,18 @@ public class StaffSystem extends View {
                     }
             }
         }
+        ssHandler.printShowtimeAdmin();
         System.out.println("--------------------------------------");
         System.out.println("\t\tHoliday removed!");
         System.out.println("--------------------------------------");
         waitForEnter(null);
     }
+    /**
+     * Provides UI to staff for removing a holiday
+     * Prints the current showtime prompts for I/O
+     * Staff will select from the list of days to remove holiday
+     * @apiNote IShowtimeSystem
+     */
     private static void setHoliday() {
         IShowtimeSystem ssHandler = ShowtimeManager.getInstance();
         enum dayEnum {
@@ -194,6 +220,7 @@ public class StaffSystem extends View {
             switch (state) {
                 case DATE:
                     try {
+                        ssHandler.printShowtimeAdmin();
                         System.out.println("[Enter 0 to go back]");
                         System.out.println("Enter Full Date (format:YYYYMMDD): ");
                         date = sc.next();
@@ -220,6 +247,7 @@ public class StaffSystem extends View {
                     }
             }
         }
+        ssHandler.printShowtimeAdmin();
         System.out.println("--------------------------------------");
         System.out.println("\t\tNew Holiday Set! ");
         System.out.println("--------------------------------------");

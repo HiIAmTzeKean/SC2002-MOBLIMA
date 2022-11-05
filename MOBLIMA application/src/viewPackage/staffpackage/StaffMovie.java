@@ -263,7 +263,7 @@ public class StaffMovie extends View {
         int ID = 0;
         String director = null;
         boolean complete = false;
-
+        System.out.print("\033\143");
         System.out.println("--------------------------------------");
         System.out.println("Set new Movie Director");
         System.out.println("--------------------------------------");
@@ -310,7 +310,7 @@ public class StaffMovie extends View {
                 }
             }
         }
-         
+        MovieHandler.printMovieAdmin();
         System.out.println("--------------------------------------");
         System.out.println("\t\tNew movie director has been set");
         System.out.println("--------------------------------------");
@@ -390,6 +390,7 @@ public class StaffMovie extends View {
                 }
             }
         }
+        MovieHandler.printMovieAdmin();
         System.out.println("--------------------------------------");
         System.out.println("\t\tNew movie type has been set");
         System.out.println("--------------------------------------");

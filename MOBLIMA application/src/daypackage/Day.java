@@ -5,7 +5,7 @@ public class Day implements Serializable, IDay {
 
 	private boolean holiday;
 	private DayOfWeek dayOfWeek;
-	private static float multiplier;
+	private static float multiplier=1f;;
 	
 	// range 1 - 30. DD format
 	private int dayNumber;
@@ -101,6 +101,9 @@ public class Day implements Serializable, IDay {
 	 */
 	public static void setMultiplier(float newMulitplier) {
 		multiplier = newMulitplier;
+	}
+	public static float getMultiplier() {
+		return multiplier;
 	}
 
 	public void setHoliday() {

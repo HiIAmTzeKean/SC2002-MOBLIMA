@@ -22,6 +22,9 @@ public class CinemaManager implements ICinema {
 		lastID = getLargestID();
 	}
 	private int getLargestID(){
+		if (cinemas == null){
+			return 0;
+		}
 		int largest=0;
 		for (Iterator<Cinema> it = cinemas.iterator(); it.hasNext();) {
 			int current = it.next().getID();
@@ -102,13 +105,16 @@ public class CinemaManager implements ICinema {
 			else {
 				System.out.println("Invalid Cinema type supplied");
 				System.out.println("Exiting cinema creation function");
-				System.out.println("===== Cinema creation finished =====");
 				return;
 			}
-			c.printCinema();
+			printCinema(c);
 			cinemas.add(c);
 		}
-		System.out.println("===== Cinema creation finished =====");
+	}
+	private void printCinema(Cinema cinema){
+		printCinemaHeader();
+		cinema.printCinema();
+		printCinemaEnder();
 	}
 	@Override
 	public void deleteCinema(int id, ICineplex cineplexManager) {
@@ -141,21 +147,28 @@ public class CinemaManager implements ICinema {
 	public void printCinemas() {
 		System.out.printf("|   %-15s   |       %-30s        |\n",
 						"Cinema Code","Cinema Type");
-		System.out.printf("|--------------------------------------------------------------|\n");
+		System.out.printf("|-------------------------------------------------------------------|\n");
 		for (Cinema cinema: cinemas){
             cinema.printCinema();
         }
-		System.out.printf("|--------------------------------------------------------------|\n");
+		System.out.printf("|-------------------------------------------------------------------|\n");
 	}
-	@Override
-	public void printCinemasAdmin() {
+	private void printCinemaHeader(){
 		System.out.printf("|   %-15s   |       %-15s        |    %-30s     |\n",
 						"CinemaID","Cinema Code","Cinema Type");
 		System.out.printf("|---------------------------------------------------------------------------------------------------------|\n");
+	}
+	private void printCinemaEnder(){
+		System.out.printf("|---------------------------------------------------------------------------------------------------------|\n");
+	}
+	
+	@Override
+	public void printCinemasAdmin() {
+		printCinemaHeader();
 		for (Cinema cinema: cinemas){
             cinema.printCinemaAdmin();
         }
-		System.out.printf("|---------------------------------------------------------------------------------------------------------|\n");
+		printCinemaEnder();
 	}
 	@Override
 	public Cinema getCinema(int id) {
