@@ -1,5 +1,5 @@
 package showtimepackage;
-
+import daypackage.Day;
 import cinemapackage.CinemaType;
 import customerpackage.Customer;
 import customerpackage.CustomerNullException;

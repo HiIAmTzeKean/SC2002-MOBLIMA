@@ -1,5 +1,4 @@
 package viewPackage;
-import java.util.InputMismatchException;
 import java.util.NoSuchElementException;
 import java.util.Scanner;
 
@@ -49,6 +48,7 @@ public class View {
 			sc.nextLine();
 			View.start();
 		}
+		sc.close();
 	}
 
 }
