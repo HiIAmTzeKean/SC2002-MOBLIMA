@@ -1,13 +1,10 @@
 package viewPackage.customerpackage;
 
-import java.util.Scanner;
-import java.util.
+import java.util.*;
 import viewPackage.View;
 import cineplexpackage.ICineplex;
 import cineplexpackage.CineplexManager;
 import cineplexpackage.Cineplex;
-//import cinemapackage.ICinema;
-//import cinemapackage.CinemaManager;
 import customerpackage.BookingManager;
 import customerpackage.Customer;
 import moviepackage.IMovie;
@@ -21,11 +18,8 @@ import daypackage.Day;
 import agepackage.IAge;
 import agepackage.Age;
 
-public class CustomerView  extends View{
-	private static Scanner scan = new Scanner(System.in);
-	private static ICineplex cineplexHandler = CineplexManager.getInstance();
-	private static IMovie movieFindHandler = MovieManager.getInstance(); 
-	private static IShowtime showtimeHandler = ShowtimeManager.getInstance(); 
+public class CustomerView extends View{
+	private static Scanner scan = new Scanner(System.in);	
 	//private static ICinema cinemaHandler = CinemaManager.getInstance(); 
 	
 	public static void start() {
@@ -65,10 +59,13 @@ public class CustomerView  extends View{
 	}
 	
 	public static void bookMenu() {
+		ICineplex cineplexHandler = CineplexManager.getInstance();
+		IMovie movieFindHandler = MovieManager.getInstance(); 
+		IShowtime showtimeHandler = ShowtimeManager.getInstance(); 
 		String selectedCineplexName;
 		Cineplex selectedCineplexObj;
-		int selectedCineplexID;
-		String selectedMovieName;
+		int selectedCineplexID = 0;
+		String selectedMovieName = null;
 		Movie selectedMovieObj;
 		String selectedCinemaTypeName = null;
 		String selectedDate = null;
@@ -105,7 +102,7 @@ public class CustomerView  extends View{
 			/////////////////////////////////////////////////////////////////////////////////////////////////
 			
 			//STEP 2 - CHOOSE MOVIE
-			CustomerMovieListing movSelectObj = null;
+			CustomerMovieListing movSelectObj = new CustomerMovieListing();
 			movSelectObj.movieSelection(); //runs the movie selection menu
 			selectedMovieName = movSelectObj.getSelectedMovieName();
 			try {
@@ -255,14 +252,14 @@ public class CustomerView  extends View{
 		/////////////////////////////////////////////////////////////////////////////////////////////////
 		
 		//STEP 6 - Get customer details — check for DiscountCode and CoupleSeat
-		Customer c;
+		Customer c = null;
 		System.out.println("Please enter your personal details: ");
 		System.out.print("Name :");
 		String name = scan.next();
 		c.setName(name);
 		System.out.println();
 		
-		IAge age;
+		IAge age = null;
 		System.out.print("age :");
 		int ageInt = scan.nextInt();
 		age.setAgeNumber(ageInt);
@@ -312,7 +309,7 @@ public class CustomerView  extends View{
 		}
 		
 		//STEP 7 - Display price (+other details) and confirm from customer
-		float price;
+		float price = 0;
 		try { //CHECK - handle specific exceptions for each call separately?
 			switch(bookingOption) {
 				case 1: 

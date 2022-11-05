@@ -55,6 +55,7 @@ public class StaffView extends View {
 		}while(choice<6 && choice>=0);
         
 		System.out.println("\f");
+		sc.close();
 	}
 }
     

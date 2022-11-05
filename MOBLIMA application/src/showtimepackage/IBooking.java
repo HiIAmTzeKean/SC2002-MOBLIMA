@@ -16,7 +16,7 @@ public interface IBooking {
 	 * @param customerID
 	 */
 	void bookSeat(String seatRow, int seatCol, int customerID)throws IllegalArgumentException;
-	void bookCoupleSeat(String seatRow, int seatCol, int customerID) throws IllegalArgumentException
+	void bookCoupleSeat(String seatRow, int seatCol, int customerID) throws IllegalArgumentException;
 
 	/**
 	 * Check if the requested seat is booked

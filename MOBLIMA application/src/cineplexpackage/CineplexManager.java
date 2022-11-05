@@ -263,7 +263,7 @@ public class CineplexManager implements ICineplex {
 	public Cineplex getCineplex(String name) throws IllegalArgumentException{
 		for (Iterator<Cineplex> it = cineplexes.iterator(); it.hasNext();) {
 			Cineplex c = it.next();
-			if (c.getName() == name) {
+			if (c.getName().equals(name)) {
 				return c;
 			}
 		}

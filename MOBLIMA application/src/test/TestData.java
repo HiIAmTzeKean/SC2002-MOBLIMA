@@ -2,7 +2,7 @@ package test;
 
 import java.io.*;
 import java.util.Scanner;
-
+import java.util.ArrayList;
 import agepackage.*;
 import cinemapackage.*;
 import cineplexpackage.*;
@@ -59,6 +59,79 @@ public class TestData {
         
         MovieManager mm = MovieManager.getInstance();
         //Creating Movies
+        //7 Now Showing
+        mm.createMovie(
+            "Black Panther: Wakanda Forever",
+            MovieStatus.NOW_SHOWING,
+            "Queen Ramonda, Shuri, MBaku, Okoye and the Dora Milaje fight to protect their nation from intervening world powers in the wake of King TChalla's death.",
+            "Ryan Coogler",
+            "Letitia Wright, Tenoch Huerta, Martin Freeman, Lupita Nyong'o, Danai Gurira, Winston Duke",
+            AgeRestriction.PG13,
+            MovieType._3D,
+            150
+        );
+        mm.createMovie(
+            "Ticket to Paradise",
+            MovieStatus.NOW_SHOWING,
+            "From Working Title, Smokehouse Pictures and Red Om Films, Ticket to Paradise is a romantic comedy about the sweet surprise of second chances.",
+            "Ol Parker",
+            "George Clooney, Julia Roberts, Kaitlyn Dever, Billie Lourd, Maxime Bouttier",
+            AgeRestriction.R21,
+            MovieType.BLOCKBUSTER,
+            104
+        );
+        mm.createMovie(
+            "Prey for the Devil",
+            MovieStatus.NOW_SHOWING,
+            "In response to a global rise in demonic possessions, Ann seeks out a place at an exorcism school reopened by the Catholic Church.",
+            "Daniel Stamm",
+            "Jacqueline Byers, Colin Salmon, Virginia Madsen, Ben Cross, Christian Navarro",
+            AgeRestriction.R21,
+            MovieType._3D,
+            93
+        );
+        mm.createMovie(
+            "Silent Parade",
+            MovieStatus.NOW_SHOWING,
+            "Detective Galileo returns to the big screen! The popular mystery series by Keigo Higashino features Masaharu Fukuyama as Professor Manabu Yukawa, a brilliant physicist who helps the police crack unsolved cold cases using his scientific theories and unique methods of deduction",
+            "Hiroshi Nishitani",
+            "Masaharu Fukuyama, Ko Shibasaki, Kazuki Kitamura",
+            AgeRestriction.PG,
+            MovieType.BLOCKBUSTER,
+            130
+        );
+        mm.createMovie(
+            "Minions 2: The Rise of Gru",
+            MovieStatus.NOW_SHOWING,
+            "In the 1970s, Gru (Steve Carell) is growing up in the suburbs. A fanboy of a supervillain supergroup known as the Vicious 6, Gru hatches a plan to become evil enough to join them, with the backup of his followers, the Minions.",
+            "Kyle Balda",
+            "Steve Carell, Taraji P. Henson, Michelle Yeoh, Jean-Claude Van Damme, Lucy Lawless",
+            AgeRestriction.PG,
+            MovieType._2D,
+            87
+        ); 
+         mm.createMovie(
+            "The Legend of Maula Jatt",
+            MovieStatus.NOW_SHOWING,
+            "From times untold where legends are written in soil with blood, a hero is born. Maula Jatt, a fierce prizefighter with a tortured past seeks vengeance against his arch nemesis Noori Natt, the most feared warrior in the land of Punjab.",
+            "Bilal Lashari",
+            "Fawad Khan, Hamza Abbasi, Mahira Khan, Humaima Malick",
+            AgeRestriction.R21,
+            MovieType.BLOCKBUSTER,
+            152
+        ); 
+        mm.createMovie(
+            "Mrs Harris Goes To Paris",
+            MovieStatus.NOW_SHOWING,
+            "MRS. HARRIS GOES TO PARIS is the enchanting tale of a seemingly ordinary British housekeeper whose dream to own a couture Christian Dior gown takes her on an extraordinary adventure to Paris.",
+            "Anthony Fabian",
+            "Lesley Manville, Isabelle Huppert, Jason Isaacs, Anna Chancellor",
+            AgeRestriction.PG13,
+            MovieType._3D,
+            116
+        );
+        
+        //Next 2 Preview
         mm.createMovie(
             "Black Adam",
             MovieStatus.PREVIEW,
@@ -78,29 +151,18 @@ public class TestData {
             MovieType._2D,
             90
         );
-        
+        //3 Coming Soon
         mm.createMovie(
-            "Black Panther: Wakanda Forever",
-            MovieStatus.NOW_SHOWING,
-            "Queen Ramonda, Shuri, MBaku, Okoye and the Dora Milaje fight to protect their nation from intervening world powers in the wake of King TChalla's death.",
-            "Ryan Coogler",
-            "Letitia Wright, Tenoch Huerta, Martin Freeman, Lupita Nyong'o, Danai Gurira, Winston Duke",
-            AgeRestriction.PG13,
-            MovieType._3D,
-            150
-        );
-        
-        mm.createMovie(
-            "Ticket to Paradise",
-            MovieStatus.NOW_SHOWING,
-            "From Working Title, Smokehouse Pictures and Red Om Films, Ticket to Paradise is a romantic comedy about the sweet surprise of second chances.",
-            "Ol Parker",
-            "George Clooney, Julia Roberts, Kaitlyn Dever, Billie Lourd, Maxime Bouttier",
-            AgeRestriction.R21,
+            "Puss in Boots: The Last Wish",
+            MovieStatus.COMING_SOON,
+            "Daring outlaw Puss in Boots discovers that his passion for peril and disregard for safety have taken their toll. Puss has burned through eight of his nine lives, though he lost count along the way. Getting those lives back will send Puss in Boots on his grandest quest yet.",
+            "Joel Crawford",
+            "Antonio Banderas, Salma Hayek, Olivia Colman, Harvey Guillen",
+            AgeRestriction.PG,
             MovieType.BLOCKBUSTER,
-            104
+            140
         );
-        
+        //3 Ended
         mm.createMovie(
             "Amsterdam",
             MovieStatus.COMING_SOON,
@@ -133,6 +195,56 @@ public class TestData {
             MovieType._3D,
             147
         );
+        mm.createMovie("Top Gun Maverick",
+            MovieStatus.END_OF_SHOWING, 
+            "Maverick is drawn into a confrontation with his own deepest fears, culminating in a mission that demands the ultimate sacrifice from those who will be chosen to fly it. ", 
+            "Joseph Kosinski", 
+            "Tom Cruise, Miles Teller, Jennifer Connelly, Jon Hamm,", 
+            AgeRestriction.PG13, 
+            MovieType._2D, 
+            131
+        );
+        mm.createMovie(
+            "Smile",
+            MovieStatus.END_OF_SHOWING,
+            "After witnessing a bizarre, traumatic incident involving a patient, Dr. Rose Cotter (Sosie Bacon) starts experiencing frightening occurrences that she can't explain.",
+            "Parker Finn",
+            "Sosie Bacon, Jessie T. Usher, Kyle Gallner",
+            AgeRestriction.M18,
+            MovieType._2D,
+            115
+        );
+        //Adding Reviews for Black Panther
+        mm.getMoviefromID(1).addReview(new Review(4.0f, "Great movie with great action sequences."));
+        mm.getMoviefromID(1).addReview(new Review(4.5f, "Great sequel to another the first movie. Must watch for all Marvel fans."));
+        //Adding Reviews for Ticket to Paradise
+        mm.getMoviefromID(2).addReview(new Review(2.5f,"Not the best romcom but it was funny at times."));
+        mm.getMoviefromID(2).addReview(new Review(2.0f, "Very boring movie, not worth the watch."));
+        //Adding Reviews for Prey for the Devil 
+        mm.getMoviefromID(3).addReview(new Review(1.0f, "Filled with lazy jump scares and embarrassingly transparent plot twists and metaphors."));
+        mm.getMoviefromID(3).addReview(new Review(1.5f, "It never manages to pull together a narrative cohesive or scary enough to rise above a patchwork of familiar possession horror tropes."));
+        //Adding Reviews for Silent Parade
+        mm.getMoviefromID(4).addReview(new Review(4.0f, "Nice to see the character return to the big screen, lots of action and good directing and acting."));
+        mm.getMoviefromID(4).addReview(new Review(4.5f, "Good mystery movie with lots of twists and action."));
+        //Adding Reviews for Minions 2 : The Rise of Gru
+        mm.getMoviefromID(5).addReview(new Review(3.5f, "A fun treat for the whole family."));
+        mm.getMoviefromID(5).addReview(new Review(4.0f, "Silly, fun, fast, with a great cast and soundtrack."));
+        //Adding Reviews for the Legend of Maula Jatt
+        mm.getMoviefromID(6).addReview(new Review(5.0f, "Bilal Lashari, the director, has given new life to Pakistani cinema with this masterpiece."));
+        mm.getMoviefromID(6).addReview(new Review(5.0f, "Excellent music, fight scenes, and acting by all characters!"));
+        //Adding Reviews for Mrs Harris Goes to Paris
+        mm.getMoviefromID(7).addReview(new Review(4.5f, "This is a warm and witty crowd-pleasing delight from start to finish."));
+        mm.getMoviefromID(7).addReview(new Review(4.0f, "It's a familiar formula but that's part of the charm. "));
+        //Adding Reviews for Jurassic World Dominion
+        mm.getMoviefromID(11).addReview(new Review(2.5f, "It was similar to the others in the series: predictable, but entertaining"));
+        mm.getMoviefromID(12).addReview(new Review(3, "Longer then it really needed to be. But the return of the old cast redeemed the movie over all."));
+        //Adding Reviews for Top Gun Maverick
+        mm.getMoviefromID(14).addReview(new Review(2, "First, Top Gun Maverick has amazing flight scenes and dog fights. Other than that it is mediocre at best."));
+        mm.getMoviefromID(14).addReview(new Review(3, "Nothing new here - just another predictable guy movie where the good guys always win despite overwhelming odds and the bad guys always explode."));
+        //Adding Reviews for Smile
+        mm.getMoviefromID(15).addReview(new Review(4, "Very enjoyable horror movie experience. All in all happy I saw this in theatres and would watch again."));
+        mm.getMoviefromID(15).addReview(new Review(5, "Great scary movie that is believable. It has the perfect blend of paranormal and psychological fear to make it a scary movie. "));
+         
         System.out.println("All movies have been added, closing MovieManager");
         MovieManager.close();
     }
@@ -168,7 +280,8 @@ public class TestData {
         cm.addCinema(1,cinemaManager.getCinema(1));
         cm.addCinema(1,cinemaManager.getCinema(2));
         cm.addCinema(1,cinemaManager.getCinema(3));
-        CinemaManager.close();
+        CineplexManager.close();
+        System.out.println("WRITTEN TO CIMEPLEX FILE");
     }
     public static void createShowtimes(){
         Customer c;
