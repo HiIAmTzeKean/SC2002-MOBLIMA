@@ -22,7 +22,7 @@ public class StaffCinema extends View {
         System.out.println("--------------------------------------");
     }
 
-    public static void createCineplex() {
+    private static void createCineplex() {
         enum createCineplexState {
             NAME, LOCATION, CREATE
         };
@@ -31,7 +31,8 @@ public class StaffCinema extends View {
         String name = null;
         String location = null;
         boolean complete = false;
-        Scanner sc = new Scanner(System.in);
+        sc = new Scanner(System.in);
+        
         System.out.print("\033[H\033[2J");
         System.out.println("-------------------------------------");
         System.out.println("\t\tCreating Cineplex");
@@ -94,7 +95,7 @@ public class StaffCinema extends View {
         System.out.println("-------------------------------------");
         System.out.println("\t\tDeleting  Cineplex");
         System.out.println("-------------------------------------");
-        cineplexHandler.printCineplexes();
+        cineplexHandler.printCineplexesAdmin();
         while (!complete) {
             switch (state) {
                 case 1:
@@ -267,10 +268,11 @@ public class StaffCinema extends View {
         System.out.println("-------------------------------------");
         System.out.println("Deleting  Cinema");
         System.out.println("-------------------------------------");
-        cinemaHandler.printCinemas();
-        System.out.println("-------------------------------------");
+        cinemaHandler.printCinemasAdmin();
+
         while(true){
             try{
+                System.out.println("[Enter 0 to return]");
                 System.out.println("Enter cinema ID to be deleted");
                 ID = sc.nextInt();
                 if (ID==0) return;
@@ -308,7 +310,7 @@ public class StaffCinema extends View {
         System.out.println("-------------------------------------");
         System.out.println("Setting New Name for Cineplex");
         System.out.println("-------------------------------------");
-        cineplexHandler.printCineplexes();
+        cineplexHandler.printCineplexesAdmin();
         System.out.println("-------------------------------------");
 
         while (!complete) {
@@ -341,6 +343,7 @@ public class StaffCinema extends View {
                 case CREATE:
                     try {
                         cineplexHandler.setName(ID, name);
+                        complete = true;
                     } catch (IllegalArgumentException e) {
                         System.out.println("Unable to set cineplex name");
                         System.out.println("Exiting function!");
@@ -368,7 +371,7 @@ public class StaffCinema extends View {
         System.out.println("-------------------------------------");
         System.out.println("Setting New Name for Cineplex");
         System.out.println("-------------------------------------");
-        cineplexHandler.printCineplexes();
+        cineplexHandler.printCineplexesAdmin();
         System.out.println("-------------------------------------");
 
         while (!complete) {
@@ -401,6 +404,7 @@ public class StaffCinema extends View {
                 case CREATE:
                     try {
                         cineplexHandler.setLocation(ID, name);
+                        complete = true;
                     } catch (IllegalArgumentException e) {
                         System.out.println("Unable to set cineplex location");
                         System.out.println("Exiting function!");

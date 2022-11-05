@@ -116,9 +116,24 @@ public class CineplexManager implements ICineplex {
 	
 	@Override
 	public void printCineplexes() {
+		System.out.printf("|--------------------------------------------------------|\n");
+		System.out.printf("|   %-30s   |       %-30s        |\n",
+		"Cineplex Name","Cineplex Location");
+		System.out.printf("|--------------------------------------------------------|\n");
 		for (Cineplex c:cineplexes){
 			c.printCineplex();
 		}
+		System.out.printf("|--------------------------------------------------------|\n");
+	}
+	@Override
+	public void printCineplexesAdmin() {
+		System.out.printf("|------------------------------------------------------------------------------------------------------|\n");
+		System.out.printf("|  %-15s  |   %-30s   |       %-30s        |\n","ID","Cineplex Name","Cineplex Location");
+		System.out.printf("|------------------------------------------------------------------------------------------------------|\n");
+		for (Cineplex c:cineplexes){
+			c.printCineplexAdmin();
+		}
+		System.out.printf("|------------------------------------------------------------------------------------------------------|\n");
 	}
 	
 	@Override
@@ -137,9 +152,12 @@ public class CineplexManager implements ICineplex {
 		try{
 			int target = findCineplex(id);
 			cineplexes.get(target).setName(name);
-			System.out.println("Cineplex new name updated");
-			System.out.println("Cinplex updated information as follows: ");
-			cineplexes.get(target).printCineplex();
+			System.out.println("Cineplex new name updated. View details below");
+			System.out.printf("|------------------------------------------------------------------------------------------------------|\n");
+			System.out.printf("|  %-15s  |   %-30s   |       %-30s        |\n","ID","Cineplex Name","Cineplex Location");
+			System.out.printf("|------------------------------------------------------------------------------------------------------|\n");
+			cineplexes.get(target).printCineplexAdmin();
+			System.out.printf("|------------------------------------------------------------------------------------------------------|\n");
 		}
 		catch (IllegalArgumentException ex) {
 			throw new IllegalArgumentException("Cineplex is not found");
@@ -151,9 +169,12 @@ public class CineplexManager implements ICineplex {
 		try{
 			int target = findCineplex(id);
 			cineplexes.get(target).setLocation(location);
-			System.out.println("Cineplex new location updated");
-			System.out.println("Cinplex updated information as follows: ");
-			cineplexes.get(target).printCineplex();
+			System.out.println("Cineplex new location updated. View details below");
+			System.out.printf("|------------------------------------------------------------------------------------------------------|\n");
+			System.out.printf("|  %-15s  |   %-30s   |       %-30s        |\n","ID","Cineplex Name","Cineplex Location");
+			System.out.printf("|------------------------------------------------------------------------------------------------------|\n");
+			cineplexes.get(target).printCineplexAdmin();
+			System.out.printf("|------------------------------------------------------------------------------------------------------|\n");
 		}
 		catch (IllegalArgumentException ex) {
 			throw new IllegalArgumentException("Cineplex is not found");

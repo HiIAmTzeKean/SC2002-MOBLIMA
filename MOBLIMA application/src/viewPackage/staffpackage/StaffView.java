@@ -22,18 +22,24 @@ public class StaffView extends View {
     } 
 
     public static void start(){
-		
-        Scanner sc = new Scanner(System.in); 
         int choice = 0 ; 
 		
-		 do {	
+		while (true) {	
 			displayMenu();
             try {
-                System.out.println("Enter choice"); 
-                choice = sc.nextInt();
-            } catch(InputMismatchException e ){ 
-                System.out.println(e.toString());
-            } 
+				System.out.println("Enter choice");
+				sc = new Scanner(System.in); 
+				choice = sc.nextInt();
+				if (choice>5 || choice<1) {
+					System.out.println("Invalid input!");
+					waitForEnter(null);
+					continue;
+				}
+			} catch (InputMismatchException e) {
+				inputMismatchHandler();
+				waitForEnter(null);
+				continue;
+			}
 			switch (choice) { 
 				case  1 : StaffMovie.start(); 
 				break;
@@ -50,10 +56,7 @@ public class StaffView extends View {
 					choice = 0;		
 			}
 
-		}while(choice<6 && choice>=0);
-        
-		System.out.println("\f");
-		sc.close();
+		}
 	}
 }
     
