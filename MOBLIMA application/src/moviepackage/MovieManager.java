@@ -244,8 +244,7 @@ public class MovieManager implements ISales, IReviews, IMovie {
 	public void deleteMovie(int movieID) throws IllegalArgumentException {
 		int target = 0;
 		try{
-			target = findMovie(movieID);
-			Movie toDelete = getMoviefromID(target);
+			Movie toDelete = getMoviefromID(movieID);
 			toDelete.deleteMovie();
 		}
 		catch(IllegalArgumentException e){

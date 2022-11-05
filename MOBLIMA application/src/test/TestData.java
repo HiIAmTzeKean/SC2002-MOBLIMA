@@ -18,24 +18,6 @@ public class TestData {
         Scanner s = new Scanner(System.in);
         MovieManager movieManager = MovieManager.getInstance();
         ShowtimeManager showtimeManager = ShowtimeManager.getInstance();
-        int ans = 1;
-        while(ans == 1){
-            // showtimeManager.printShowtimesByMovieNameAndCineplexID("Black Adam", 1);
-            // Day d = new Day("20220101","1200");
-            // int showtimeID = showtimeManager.getShowtime("Black Adam", d,cineplexID,cinemaType).getID();
-            // Customer cust = new Customer("name", 12345678, "name@gmail.com", new Age(10));
-            // try{
-            //     showtimeManager.getPrice(showtimeID, cut);
-            //     // If i answer yes to price
-            //     showtimeManager.bookSeat(showtimeID,"A", 1, cust);
-            // }
-            // catch (IllegalArgumentException | CustomerNullException e){
-
-            // }
-            showtimeManager.printShowtimes();
-            // movieManager.printMovies();
-            ans = s.nextInt();
-        }
         MovieManager.close();
         CinemaManager.close();
         CineplexManager.close();

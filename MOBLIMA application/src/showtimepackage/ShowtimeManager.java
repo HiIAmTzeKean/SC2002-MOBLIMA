@@ -449,9 +449,15 @@ public class ShowtimeManager implements IShowtimeSystem {
 			// exit before any looping is done
 			throw new IllegalArgumentException("No Cinema exist");
 		}
+		System.out.println("|----------------------------------------------------------- Showtimes ------------------------------------------------------|");
+		System.out.println("|----------------------------------------------------------------------------------------------------------------------------|");
+		System.out.printf("|     -%12s|   %-15s   |       %-30s        |    %-15s     |    %-8s     |    %-5s    |\n",
+		"ShowtimeID","Movie Status","Movie Name","Cinema Class","Date","Time");
+								System.out.println("|----------------------------------------------------------------------------------------------------------------------------|");
 		for (Iterator<Showtime> it = showtimes.iterator(); it.hasNext();) {
 			it.next().printShowtimeAdmin();
 		}
+		System.out.println("|----------------------------------------------------------------------------------------------------------------------------|");
 	}
 	@Override
 	public String getDate(int showtimeID) throws IllegalArgumentException{
@@ -477,7 +483,7 @@ public class ShowtimeManager implements IShowtimeSystem {
 		for (Iterator<Showtime> it = showtimes.iterator(); it.hasNext();) {
 			Showtime s = it.next();
 			if (s.getMovieID() == movieID){
-				s.getMovieObject().setMovieType(type);;
+				s.getMovieObject().setMovieType(type);
 			}
 		}
 		throw new IllegalArgumentException("No such MovieID in showtimes");
