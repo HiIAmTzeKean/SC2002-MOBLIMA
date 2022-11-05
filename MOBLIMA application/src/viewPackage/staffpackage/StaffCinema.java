@@ -86,7 +86,6 @@ public class StaffCinema extends View {
                         System.out.println("\t\tExiting Staff Cinema Menu");
                         System.out.println("-------------------------------------");
                         return;
-				break;
 				default : System.out.println("Enter valid choice");
 						  choice = 0;		
 			}

@@ -17,6 +17,7 @@ public class CustomerMovieListing {
 	}
 	
 	public void movieSelection() {
+		Scanner scan = new Scanner(System.in);
 		boolean selected = false, exit = false;
 		int menuOption;
 		while(!selected && !exit) {
@@ -50,20 +51,24 @@ public class CustomerMovieListing {
 				break;
 				}
 			case 4:{
-				System.out.println("Enter name of movie to see details of: ");
-				String movieName = scan.next();
+				System.out.println("Enter name of movie to see details of:");
+				scan.nextLine();
+				String movieName = scan.nextLine();
 				try {
-				movieDisplayHandler.findMoviebyName(movieName).printMovieComplete(); //check this part
+					movieDisplayHandler.findMoviebyName(movieName).printMovieComplete(); //check this part
 				}
 				catch(IllegalArgumentException e){
 					System.out.println("Something went wrong — movie not found.");
+					scan.nextLine();
 				}
 				System.out.println();
 				break;
 				}
 			case 5:{
-				System.out.println("Enter your selected movie name:");
-				selectedMovieName = scan.next();
+				scan.nextLine();
+				System.out.println("Select a movie from the options below.");
+				movieDisplayHandler.printMovieTitles();
+				selectedMovieName = scan.nextLine();
 				selected = true;
 				break;
 				}

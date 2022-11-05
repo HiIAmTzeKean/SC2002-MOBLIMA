@@ -19,7 +19,8 @@ import agepackage.IAge;
 import agepackage.Age;
 
 public class CustomerView extends View{
-	private static Scanner scan = new Scanner(System.in);	
+	private static Scanner scan = new Scanner(System.in);
+	//private static Scanner scan = new Scanner(System.in);	
 	//private static ICinema cinemaHandler = CinemaManager.getInstance(); 
 	
 	public static void start() {
@@ -105,8 +106,10 @@ public class CustomerView extends View{
 			CustomerMovieListing movSelectObj = new CustomerMovieListing();
 			movSelectObj.movieSelection(); //runs the movie selection menu
 			selectedMovieName = movSelectObj.getSelectedMovieName();
+			//System.out.println(selectedMovieName);
 			try {
 				selectedMovieObj =  movieFindHandler.findMoviebyName(selectedMovieName); 
+				selectedMovieObj.printMovieComplete();
 			}
 			catch(IllegalArgumentException e) {
 				System.out.println("Movie is not found — please try again");
@@ -118,10 +121,10 @@ public class CustomerView extends View{
 			//STEP 3 - Display showtimes for the movie and cineplex combination (atleast one showtime should exist)
 			
 			try {
-				System.out.printf("Following are the showtimes available for movie %s at cineplex %s: ", selectedMovieName, selectedCineplexName);
+				
+				System.out.printf("\nFollowing are the showtimes available for movie %s at cineplex %s:\n", selectedMovieName, selectedCineplexName);
 				showtimeHandler.printShowtimesByMovieNameAndCineplexID(selectedMovieName, selectedCineplexID);
 				System.out.println();
-				
 				/*
 				 * If user does not like any of the showtimes available, 
 				 * allow to re-enter and movie and cinplex combination

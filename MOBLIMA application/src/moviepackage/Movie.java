@@ -28,6 +28,19 @@ public class Movie implements Serializable{
 		ratingComparator2 = new SortByRating();
 		salesComparator2 = new SortBySales();
 	}
+	public Movie(String movieTitle, MovieStatus movieStatus, String synopsis, String director, String cast, AgeRestriction ageRestriction, MovieType movieType, int duration, ArrayList reviews){
+		this.id = instanceCounter++;
+		this.movieTitle = movieTitle;
+		this.movieStatus = movieStatus;
+		this.synopsis = synopsis;
+		this.director = director;
+		this.cast = cast;
+		this.ageRestriction = ageRestriction;
+		this.movieType = movieType;
+		this.duration = duration;
+		this.sales = 0;
+		this.reviews = new ArrayList<Review>();
+	}
 	public Movie(String movieTitle, MovieStatus movieStatus, String synopsis, String director, String cast, AgeRestriction ageRestriction, MovieType movieType, int duration){
 		this.id = instanceCounter++;
 		this.movieTitle = movieTitle;
@@ -93,18 +106,22 @@ public class Movie implements Serializable{
 	}
 	public float getReviewScores(){
 		float answer = 0;
+		float sum = 0;
+		int len = this.getReviews().size();
 		if(reviews.size() == 0){
 			return answer;
 		}
 		for(Review review: this.getReviews()){
-			answer+= review.getRating();
+			sum+= review.getRating();
 		}
-		return answer/(float)this.getReviews().size();
+		answer = sum/len;
+		return answer;
 	}
 	public void addReview(Review review){
 		this.reviews.add(review);
 	}
 	public int getSales(){
+		System.out.printf("ID: %d\n",this.id);
 		return this.sales;
 	}
 	public double getMultiplier(){
@@ -142,23 +159,29 @@ public class Movie implements Serializable{
 				break;
 			}
 			Review re = it.next();
-			System.out.printf("%f : %s", re.getRating(), re.getReview());
+			System.out.printf("%.1f : %s", re.getRating(), re.getReview());
 			counter++;
 		}
 	}
 	public void printMovieIncomplete(){
 		System.out.println("---------------------");
-		System.out.printf("ID: %d\n",this.id);
-		System.out.printf("Name: %s\n",this.movieTitle);
+		System.out.printf("Name: %s (%s)\n",this.movieTitle, this.movieStatus.toString());
 		System.out.printf("Director: %s\n",this.director);
 		System.out.printf("Age Rating: %s\n",this.ageRestriction.toString());
 		System.out.printf("Duration: %d minutes\n",this.duration);
 		//Right now this prints all the reviews, are we thinking about setting a cap on this?
 		//Maybe iterate in reverse to look at the most recent reviews? Last 3 reviews? etc.
-		for(Iterator<Review> it = reviews.iterator(); it.hasNext();){
-			Review re = it.next();
-			System.out.printf("%f : %s", re.getRating(), re.getReview());
+		System.out.println("Reviews:");
+		if(this.reviews.size() == 0){
+			System.out.println("There are no reviews yet for this movie.");
 		}
+		else{
+			for(Iterator<Review> it = reviews.iterator(); it.hasNext();){
+				Review re = it.next();
+				System.out.printf("%.1f : %s\n", re.getRating(), re.getReview());
+			}
+		}
+		
 	}
 	public Movie getClone(){
 		Movie toReturn = new Movie(this);

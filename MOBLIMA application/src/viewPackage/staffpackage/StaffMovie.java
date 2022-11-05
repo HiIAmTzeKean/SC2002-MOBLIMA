@@ -299,7 +299,7 @@ public class StaffMovie extends View {
                         MovieType mt = MovieType.valueOf(sc.next().toUpperCase());
                         System.out.println(" 1 ");
     
-                        MovieHandler.setMovieType(ID, movieType);
+                        MovieHandler.setMovieType(ID, mt);
                         System.out.println(" 2 ");
                         stHandler.setMovieType(ID, mt);
                         System.out.println(" 3 ");
