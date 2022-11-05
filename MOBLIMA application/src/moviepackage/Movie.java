@@ -39,7 +39,7 @@ public class Movie implements Serializable{
 		this.movieType = movieType;
 		this.duration = duration;
 		this.sales = 0;
-		this.reviews = new ArrayList<Review>();
+		this.reviews = reviews;
 	}
 	public Movie(String movieTitle, MovieStatus movieStatus, String synopsis, String director, String cast, AgeRestriction ageRestriction, MovieType movieType, int duration){
 		this.id = instanceCounter++;

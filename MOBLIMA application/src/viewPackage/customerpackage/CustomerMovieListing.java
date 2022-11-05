@@ -1,34 +1,35 @@
 package viewPackage.customerpackage;
-
+import viewPackage.View;
 import java.util.Scanner;
 import moviepackage.IMovie;
 import moviepackage.ISales;
 import moviepackage.MovieManager;
 //update ranking functions for customer
-public class CustomerMovieListing {
+public class CustomerMovieListing implements View {
 	private String selectedMovieName = null; 
-	private static Scanner scan = new Scanner(System.in);
-	
-	private static IMovie movieDisplayHandler = MovieManager.getInstance(); 
-	private static ISales salesRankHandler = MovieManager.getInstance();
-	
+	private static Scanner scan = new Scanner(System.in);	
 	public String getSelectedMovieName(){
 		return selectedMovieName;
 	}
+
+	public void printTable(){
+		System.out.println("Enter value from the following options:");
+		System.out.println("1 -> Display list of all movies");
+		System.out.println("2 -> Display Top 5 movies by ticket sales");
+		System.out.println("3 -> Display Top 5 movies by reviewer's ratings");
+		System.out.println("4 -> See details of one movie");
+		System.out.println("5 -> Exit this menu");
+		System.out.println();
+	}
 	
 	public void movieSelection() {
+		IMovie movieDisplayHandler = MovieManager.getInstance(); 
+		ISales salesRankHandler = MovieManager.getInstance();
 		Scanner scan = new Scanner(System.in);
 		boolean selected = false, exit = false;
 		int menuOption;
 		while(!selected && !exit) {
-			System.out.println("Enter value from the following options:");
-			System.out.println("1 -> Display list of all movies");
-			System.out.println("2 -> Display Top 5 movies by ticket sales");
-			System.out.println("3 -> Display Top 5 movies by reviewer's ratings");
-			System.out.println("4 -> See details of one movie");
-			System.out.println("5 -> Select a movie");
-			System.out.println("6 -> Exit this menu");
-			System.out.println();
+			
 			
 			menuOption = scan.nextInt();
 			switch(menuOption) {
@@ -65,14 +66,6 @@ public class CustomerMovieListing {
 				break;
 				}
 			case 5:{
-				scan.nextLine();
-				System.out.println("Select a movie from the options below.");
-				movieDisplayHandler.printMovieTitles();
-				selectedMovieName = scan.nextLine();
-				selected = true;
-				break;
-				}
-			case 6:{
 				exit = true;
 				break;
 				}
