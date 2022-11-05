@@ -355,7 +355,7 @@ public class TestData {
         man.addShowtimeSystem(movieMan.getMoviefromID(7), cinemaManager.cloneCinemaByID(3), d2_t0);
         man.addShowtimeSystem(movieMan.getMoviefromID(7), cinemaManager.cloneCinemaByID(1), d2_t1);
         man.addShowtimeSystem(movieMan.getMoviefromID(7), cinemaManager.cloneCinemaByID(3), d2_t2);
-        
+        MovieManager mm = MovieManager.getInstance();
         for (int i = 1; i < 28; i ++) {
             for (int j=0; j< 5; j++){
                 try{
@@ -365,18 +365,22 @@ public class TestData {
                         int row = (int) ((int) 2*Math.random());
                         c = new Customer(nameList[col], mobileList[col], emailList[col], ageList[col]); 
                         man.bookSeat(i, colList[row], col,c);
+                        mm.getMoviefromID(showtimeObj.getMovieID()).addSales(1);
+                        // increament movie sale by 1
                     }
                     else if (showtimeObj.getCinemaClass().equals("GOLD")){
                         int col = (int) ((int) 8*Math.random())+1;
                         int row = (int) ((int) 3*Math.random());
                         c = new Customer(nameList[col], mobileList[col], emailList[col], ageList[col]); 
                         man.bookSeat(i, colList[row], col,c);
+                        mm.getMoviefromID(showtimeObj.getMovieID()).addSales(1);
                     }
                     else{
                         int col = (int) ((int) 8*Math.random())+1;
                         int row = (int) ((int) 5*Math.random());
                         c = new Customer(nameList[col], mobileList[col], emailList[col], ageList[col]); 
                         man.bookSeat(i, colList[row], col,c);
+                        mm.getMoviefromID(showtimeObj.getMovieID()).addSales(1);
                     }  
                 }
                 catch(IllegalArgumentException ex){
@@ -388,6 +392,7 @@ public class TestData {
                 }
             }
         }
+        MovieManager.close();
     }
     public static void createCoupons(){
         File file = new File("./MOBLIMA application/data/discountcode/discountcode.dat");
