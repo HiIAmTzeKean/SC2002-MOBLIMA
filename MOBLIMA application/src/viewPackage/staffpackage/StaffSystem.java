@@ -22,7 +22,7 @@ public class StaffSystem extends View {
 		System.out.println("choice 1 : Set new BasePrice");
 		System.out.println("choice 2 : Set new  Multiplier");
         System.out.println("choice 3 : Set new Holiday"); 
-		System.out.println("choice 4 : Go Back");
+		System.out.println("choice 4 : Return");
         System.out.println("--------------------------------------");
 
     }
