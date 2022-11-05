@@ -9,8 +9,8 @@ import java.util.InputMismatchException;
 
 
 public class StaffAuth extends View {
-	private static String[] passwordDB = {"password1", "password2","password3","password4","password5","password6","password7","password8","password9","password10"};
-	private static String[] usernameDB = {"username1", "username2","username3","username4","username5","username6","username7","username8","username9","username10"};
+	private static String[] passwordDB = {"p1", "password2","password3","password4","password5","password6","password7","password8","password9","password10"};
+	private static String[] usernameDB = {"u1", "username2","username3","username4","username5","username6","username7","username8","username9","username10"};
 	
 	public static void login() {
 		String password;

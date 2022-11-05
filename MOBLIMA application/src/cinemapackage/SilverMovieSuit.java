@@ -76,14 +76,4 @@ public class SilverMovieSuit extends Cinema {
     public float getMultiplier(){
         return 1.0f;
     }
-    public void bookCoupleSeat(String seatRow, int seatCol, int customerID) throws IllegalArgumentException{
-		if (seatCol != 1 || seatCol != 3 || seatCol != 5 || seatRow!="C")
-			throw new IllegalArgumentException("Invalid column/Row selection");
-		
-		if (!isBooked(seatRow,seatCol) && !isBooked(seatRow,seatCol+1)) {
-			seats.get(2).get(seatCol).setBooked(customerID);
-			seats.get(2).get(seatCol+1).setBooked(customerID);
-		}
-		else throw new IllegalArgumentException("Seat was not booked since there is already a booking by someone else");
-	}
 }
