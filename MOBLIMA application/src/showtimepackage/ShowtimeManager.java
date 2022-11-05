@@ -449,15 +449,15 @@ public class ShowtimeManager implements IShowtimeSystem {
 			// exit before any looping is done
 			throw new IllegalArgumentException("No Cinema exist");
 		}
-		System.out.println("|----------------------------------------------------------- Showtimes ------------------------------------------------------|");
-		System.out.println("|----------------------------------------------------------------------------------------------------------------------------|");
-		System.out.printf("|     -%12s|   %-15s   |       %-30s        |    %-15s     |    %-8s     |    %-5s    |\n",
+		System.out.println("|----------------------------------------------------------- Showtimes ---------------------------------------------|");
+		System.out.println("|-------------------------------------------------------------------------------------------------------------------|");
+		System.out.printf("|  %-12s|   %-15s   |  %-30s  |  %-15s  |   %-8s  |  %-5s |\n",
 		"ShowtimeID","Movie Status","Movie Name","Cinema Class","Date","Time");
 								System.out.println("|----------------------------------------------------------------------------------------------------------------------------|");
 		for (Iterator<Showtime> it = showtimes.iterator(); it.hasNext();) {
 			it.next().printShowtimeAdmin();
 		}
-		System.out.println("|----------------------------------------------------------------------------------------------------------------------------|");
+		System.out.println("|-------------------------------------------------------------------------------------------------------------------|");
 	}
 	@Override
 	public String getDate(int showtimeID) throws IllegalArgumentException{
@@ -510,7 +510,7 @@ public class ShowtimeManager implements IShowtimeSystem {
 		int flag = 0;
 		for (Iterator<Showtime> it = showtimes.iterator(); it.hasNext();) {
 			Showtime s = it.next();
-			if (s.getDayObject().equals(day)){
+			if (s.getDayObject().equalsDate(day)){
 				s.setHoliday();
 				flag = 1;
 			}
@@ -522,7 +522,7 @@ public class ShowtimeManager implements IShowtimeSystem {
 		int flag = 0;
 		for (Iterator<Showtime> it = showtimes.iterator(); it.hasNext();) {
 			Showtime s = it.next();
-			if (s.getDayObject().equals(day)){
+			if (s.getDayObject().equalsDate(day)){
 				s.unsetHoliday();
 				flag = 1;
 			}

@@ -2,23 +2,31 @@ package viewPackage.staffpackage;
 
 import java.util.InputMismatchException;
 import java.util.Scanner;
+
+import cinemapackage.Cinema;
 import cinemapackage.CinemaManager;
 import cinemapackage.ICinema;
 import cineplexpackage.CineplexManager;
 import cineplexpackage.ICineplex;
 import viewPackage.View;
 
+/**
+ * Staff cinema view
+ * Allows modification of cinema and cinplex stored in data file
+ * Staff must be logged in to use this class
+ * @author Ng Tze Kean
+ * @since 05-11-2022
+ */
 public class StaffCinema extends View {
-
     public static void displayMenu() {
         System.out.print("\033[H\033[2J");
         System.out.println("--------------------------------------");
         System.out.println("Cineplex Menu");
         System.out.println("--------------------------------------");
-        System.out.println("choice 1 : create cineplex");
-        System.out.println("choice 2 : delete cineplex");
-        System.out.println("choice 3 : update cineplex and cinemas");
-        System.out.println("choice 4 : Return");
+        System.out.println("Choice 1 : create cineplex");
+        System.out.println("Choice 2 : delete cineplex");
+        System.out.println("Choice 3 : update cineplex and cinemas");
+        System.out.println("Choice 4 : Return");
         System.out.println("--------------------------------------");
     }
 
@@ -178,11 +186,13 @@ public class StaffCinema extends View {
         System.out.println("--------------------------------------");
         System.out.println("Update Cineplex Menu ");
         System.out.println("--------------------------------------");
-        System.out.println("choice 1 : create cinema");
-        System.out.println("choice 2 : remove cinema");
-        System.out.println("choice 3 : Set Cineplex Name");
-        System.out.println("choice 4 : Set Cineplex Location");
-        System.out.println("choice 5 : Go Back to Cineplex Menu");
+        System.out.println("Choice 1 : create cinema");
+        System.out.println("Choice 2 : remove cinema");
+        System.out.println("Choice 3 : Set Cineplex Name");
+        System.out.println("Choice 4 : Set Cineplex Location");
+        System.out.println("Choice 5 : Add Cinema to Cineplex");
+        System.out.println("Choice 6 : Remove Cinema from Cineplex");
+        System.out.println("Choice 7 : Return");
         System.out.println("--------------------------------------");
     }
     private static void createCinema(){
@@ -418,8 +428,152 @@ public class StaffCinema extends View {
         System.out.println("-------------------------------------");
         waitForEnter(null);
     }
+    private static void addCinemaToCineplex(){
+        ICineplex cineplexHandler = CineplexManager.getInstance();
+        ICinema cinemaHandler = CinemaManager.getInstance();
+        enum addCinemaToCineplexState {CINEMA, CINEPLEX, SET}
+        addCinemaToCineplexState state = addCinemaToCineplexState.CINEMA;
+        int cinemaID = 0, cineplexID = 0;
+        boolean complete = false;
+        sc = new Scanner(System.in);
+
+        System.out.print("\033[H\033[2J");
+        System.out.println("-------------------------------------");
+        System.out.println("Adding Cinema to Cinplex");
+        System.out.println("-------------------------------------");
+        while (!complete) {
+            switch (state) {
+                case CINEMA:
+                    try {
+                        cinemaHandler.printCinemasAdmin();
+                        System.out.println("[Enter 0 to return]");
+                        System.out.println("Enter CinemaID to add:");
+                        cinemaID = sc.nextInt();
+                        if (cinemaID==0) {
+                            return;
+                        }
+                        cinemaHandler.getCinema(cinemaID);
+                    } catch (InputMismatchException e) {
+                        inputMismatchHandler();
+                        state = addCinemaToCineplexState.CINEMA;
+                        break;
+                    }
+                    catch (IllegalArgumentException e) {
+                        System.out.println("Cinema ID entered was not valid!");
+                        System.out.println("Try again!");
+                        state = addCinemaToCineplexState.CINEMA;
+                        break;
+                    }
+                case CINEPLEX:
+                    try {
+                        cineplexHandler.printCineplexesAdmin();
+                        System.out.println("[Enter 0 to return]");
+                        System.out.println("Enter Cineplex ID to add to:");
+                        cineplexID = sc.nextInt();
+                        if (cineplexID==0) {
+                            return;
+                        }
+                        cineplexHandler.getCineplex(cineplexID);
+                    } catch (InputMismatchException e) {
+                        inputMismatchHandler();
+                        state = addCinemaToCineplexState.CINEPLEX;
+                        break;
+                    }
+                    catch (IllegalArgumentException e) {
+                        System.out.println("Cineplex ID entered was not valid!");
+                        System.out.println("Try again!");
+                        state = addCinemaToCineplexState.CINEPLEX;
+                        break;
+                    }
+                case SET:
+                    try {
+                        cineplexHandler.addCinema(cineplexID, cinemaHandler.getCinema(cinemaID));
+                    } catch (IllegalArgumentException e) {
+                        System.out.println("Not able to add cinema to cineplex requested");
+                        waitForEnter(null);
+                        return;
+                    }
+            }
+        }
+        System.out.println("-------------------------------------");
+        System.out.println("Cinema added to Cinplex");
+        System.out.println("-------------------------------------");
+        waitForEnter(null);
+    }
+    private static void removeCinemaFromCineplex(){
+        ICineplex cineplexHandler = CineplexManager.getInstance();
+        ICinema cinemaHandler = CinemaManager.getInstance();
+        enum removeCinemaFromCineplexSTATE {CINEMA, CINEPLEX, REMOVE}
+        removeCinemaFromCineplexSTATE state = removeCinemaFromCineplexSTATE.CINEMA;
+        int cinemaID = 0, cineplexID = 0;
+        boolean complete = false;
+        sc = new Scanner(System.in);
+        
+        System.out.print("\033[H\033[2J");
+        System.out.println("-------------------------------------");
+        System.out.println("Removing Cinema to Cinplex");
+        System.out.println("-------------------------------------");
+        while (!complete) {
+            switch (state) {
+                case CINEMA:
+                    try {
+                        cinemaHandler.printCinemasAdmin();
+                        System.out.println("[Enter 0 to return]");
+                        System.out.println("Enter CinemaID to remove:");
+                        cinemaID = sc.nextInt();
+                        if (cinemaID==0) {
+                            return;
+                        }
+                        cinemaHandler.getCinema(cinemaID);
+                    } catch (InputMismatchException e) {
+                        inputMismatchHandler();
+                        state = removeCinemaFromCineplexSTATE.CINEMA;
+                        break;
+                    }
+                    catch (IllegalArgumentException e) {
+                        System.out.println("Cinema ID entered was not valid!");
+                        System.out.println("Try again!");
+                        state = removeCinemaFromCineplexSTATE.CINEMA;
+                        break;
+                    }
+                case CINEPLEX:
+                    try {
+                        cineplexHandler.printCineplexesAdmin();
+                        System.out.println("[Enter 0 to return]");
+                        System.out.println("Enter Cineplex ID to remove to:");
+                        cineplexID = sc.nextInt();
+                        if (cineplexID==0) {
+                            return;
+                        }
+                        cineplexHandler.getCineplex(cineplexID);
+                    } catch (InputMismatchException e) {
+                        inputMismatchHandler();
+                        state = removeCinemaFromCineplexSTATE.CINEPLEX;
+                        break;
+                    }
+                    catch (IllegalArgumentException e) {
+                        System.out.println("Cineplex ID entered was not valid!");
+                        System.out.println("Try again!");
+                        state = removeCinemaFromCineplexSTATE.CINEPLEX;
+                        break;
+                    }
+                case REMOVE:
+                    try {
+                        cineplexHandler.addCinema(cineplexID, cinemaHandler.getCinema(cinemaID));
+                    } catch (IllegalArgumentException e) {
+                        System.out.println("Not able to remove cinema to cineplex requested");
+                        waitForEnter(null);
+                        return;
+                    }
+            }
+        }
+        System.out.println("-------------------------------------");
+        System.out.println("Cinema removed from Cinplex");
+        System.out.println("-------------------------------------");
+        waitForEnter(null);
+    }
     private static void updateCineplex() {
-        Scanner sc = new Scanner(System.in);
+        sc = new Scanner(System.in);
         int ch = 0;
         while (true) {
             updateCinplexMenu();
@@ -452,6 +606,12 @@ public class StaffCinema extends View {
                     setCineplexLocation();
                     break;
                 case 5:
+                    addCinemaToCineplex();
+                    break;
+                case 6:
+                    removeCinemaFromCineplex();
+                    break;
+                case 7:
                     CineplexManager.close();
                     CinemaManager.close();
                     return;
