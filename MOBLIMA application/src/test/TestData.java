@@ -16,7 +16,7 @@ public class TestData {
         createAllData();
 
         Scanner s = new Scanner(System.in);
-        ShowtimeManager showtimeManager = ShowtimeManager.getInstance();
+        MovieManager movieManager = MovieManager.getInstance();
 
         int ans = 1;
         while(ans == 1){
@@ -33,7 +33,7 @@ public class TestData {
 
             // }
             //showtimeManager.printShowtimesByMovieNameAndCineplexID("Black Adam", 1);
-            showtimeManager.printShowtimeAdmin();
+            movieManager.printMovies();
             ans = s.nextInt();
         }
         MovieManager.close();
@@ -244,7 +244,6 @@ public class TestData {
         //Adding Reviews for Smile
         mm.getMoviefromID(15).addReview(new Review(4, "Very enjoyable horror movie experience. All in all happy I saw this in theatres and would watch again."));
         mm.getMoviefromID(15).addReview(new Review(5, "Great scary movie that is believable. It has the perfect blend of paranormal and psychological fear to make it a scary movie. "));
-         
         System.out.println("All movies have been added, closing MovieManager");
         MovieManager.close();
     }
