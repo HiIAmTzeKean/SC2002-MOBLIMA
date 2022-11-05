@@ -5,6 +5,7 @@ import cinemapackage.CinemaType;
 import cineplexpackage.Cineplex;
 import cineplexpackage.CineplexManager;
 import cineplexpackage.ICineplex;
+import cinemapackage.CinemaType;
 import daypackage.Day;
 import moviepackage.IMovie;
 import moviepackage.Movie;
@@ -41,6 +42,10 @@ public class CustomerShowtime {
 	}
 	public int getseatCol() {
 		return seatCol;
+	}
+	
+	public CinemaType getCinemaType() {
+		return selectedCinemaType;
 	}
 	
 	public Showtime getSelectedShowtime() {
@@ -102,23 +107,24 @@ public class CustomerShowtime {
 				System.out.printf("\nFollowing are the showtimes available for movie %s at cineplex %s:\n", selectedMovieName, selectedCineplexName);
 				showtimeHandler.printShowtimesByMovieNameAndCineplexID(selectedMovieName, selectedCineplexID);
 				System.out.println();
-				
-				/*
-				 * If user does not like any of the showtimes available, 
-				 * allow to re-enter and movie and cinplex combination
-				 * and display another set of showtimes
-				 */
-				
-				System.out.println("To pick cineplex and movie again, for another set of showtimes, enter 0. Else enter any other character:");
-				String re_enter = scan.next();
-				if(re_enter.compareTo("0") == 0) {
-					continue; //to start of outer do-while loop
-				}
 			}
 			catch(IllegalArgumentException e) {
 				System.out.println("No Showtimes exist for the Movie and Cineplex combination — please try again");
 				continue; //to start of outer do-while loop
 			}
+			
+			/*
+			 * If user does not like any of the showtimes available, 
+			 * allow to re-enter and movie and cinplex combination
+			 * and display another set of showtimes
+			 */
+			
+			System.out.println("To pick cineplex and movie again, for another set of showtimes, enter 0. Else enter any other character:");
+			String re_enter = scan.next();
+			if(re_enter.compareTo("0") == 0) {
+				continue; //to start of outer do-while loop
+			}
+			
 		}while(showtime_selection_contd);
 		
 		CineplexManager.close();
@@ -154,7 +160,7 @@ public class CustomerShowtime {
 					cinemaTypeScanContd = false;
 					break;
 				case "Silver": 
-					selectedCinemaType = CinemaType.SLIVER; //update to SILVER in CinemaType
+					selectedCinemaType = CinemaType.SILVER; //update to SILVER in CinemaType
 					cinemaTypeScanContd = false;
 					break;
 				default:
