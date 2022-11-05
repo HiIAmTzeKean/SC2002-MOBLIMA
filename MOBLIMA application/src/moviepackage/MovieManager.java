@@ -177,21 +177,23 @@ public class MovieManager implements ISales, IReviews, IMovie {
 		if(movies.size() == 0 || movies == null){
 			throw new IllegalArgumentException("There are no movies to find");
 		}
-		System.out.println("|-------------------------------------------------------------------------------------|");
-		System.out.printf("|   %-8s   |       %-30s        |    %-15s     |\n",
+		System.out.println("|-----------------------------------------------------------------------------------------------------------|");
+		System.out.printf("|   %-8s   |       %-30s        |    %-15s     |     %-15s |\n",
 						"Movie ID",
 								"Movie Name",
-								"Status");
-		System.out.println("|-------------------------------------------------------------------------------------|");
-		
+								"Status",
+								"Type");
+		System.out.println("|-----------------------------------------------------------------------------------------------------------|");
 		for(Iterator<Movie> it = movies.iterator(); it.hasNext();){
 			Movie m = it.next();
 			String movieIDString = Integer.toString(m.getID());
-			System.out.printf("|   %-8s   |       %-30s        |    %-15s     |\n",
+			System.out.printf("|   %-8s   |       %-30s        |    %-15s     |   %-15s   |\n",
 							movieIDString,
 							m.getMovieTitle(),
-							m.getMovieStatus().toString());
-		}			
+							m.getMovieStatus().toString(),
+							m.getMovieType().toString());
+		}
+		System.out.println("|-----------------------------------------------------------------------------------------------------------|");			
 	}
 	/** 
 	 * Function that checks if the review object is valid and appends it to the a movie's review array if the movieID is valid.
@@ -242,7 +244,6 @@ public class MovieManager implements ISales, IReviews, IMovie {
 	 */
 	@Override
 	public void deleteMovie(int movieID) throws IllegalArgumentException {
-		int target = 0;
 		try{
 			Movie toDelete = getMoviefromID(movieID);
 			toDelete.deleteMovie();
@@ -278,21 +279,15 @@ public class MovieManager implements ISales, IReviews, IMovie {
 	 * @throws IllegalArgumentException if the movieID is not found, if there are no movies to search, or if MovieStatus argument is invalid.
 	 */
 	@Override
-	public void setMovieStatus(int movieID, String status)throws IllegalArgumentException{
-		int target = 0;
+	public void setMovieStatus(int movieID, MovieStatus status)throws IllegalArgumentException{
 		try{
-			target = findMovie(movieID);
+			Movie target = getMoviefromID(movieID);
+			target.setMovieStatus(status);
 		}
 		catch(IllegalArgumentException e){
 			throw new IllegalArgumentException("Movie not found");
 		}
-		try{
-			MovieStatus mStatus = MovieStatus.valueOf(status);
-			movies.get(target).setMovieStatus(mStatus);
-		}
-		catch(IllegalArgumentException e){
-			throw new IllegalArgumentException("Invalid movie status");
-		}
+
 	}
 	@Override
 	/**
