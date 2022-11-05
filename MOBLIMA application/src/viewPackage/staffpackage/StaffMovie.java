@@ -256,6 +256,95 @@ public class StaffMovie extends View {
         System.out.println("\t\tNew movie director has been set");
         System.out.println("--------------------------------------");
     }
+     
+    public static void setMovieType() {
+        enum setMovieTypeState {ID,TYPE,SETTING};
+        int ID = 0;
+        String movieType = null;
+        boolean complete = false;
+        setMovieTypeState state =  setMovieTypeState.ID;
+        System.out.print("\033\143");
+        System.out.println("--------------------------------------");
+        System.out.println("Set new Movie type");
+        System.out.println("--------------------------------------");
+        
+        MovieHandler.printMovies();
+
+        while (!complete) {
+            switch(state){
+                case ID:
+                try{
+                    System.out.println("[Enter 0 to return]");
+                    System.out.println("Enter movie ID :");
+                    ID = sc.nextInt();
+                    if (ID==0) return;
+                }catch(InputMismatchException e){
+                    System.out.println("Invalid input");
+                    sc.nextLine();
+                    state = setMovieTypeState.ID;
+                }
+                case TYPE:
+                try{
+                    System.out.println("[Enter 0 to return]");
+                    System.out.println("Enter new Type :");
+                    movieType = sc.next();
+                    if (movieType.equals("0")) return;
+                } catch(InputMismatchException e){
+                    System.out.println("Invalid input");
+                    sc.nextLine();
+                    state = setMovieTypeState.TYPE;
+                }
+                case SETTING:
+                    try{
+                        MovieType mt = MovieType.valueOf(sc.next().toUpperCase());
+                        System.out.println(" 1 ");
+    
+                        MovieHandler.setMovieType(ID, movieType);
+                        System.out.println(" 2 ");
+                        stHandler.setMovieType(ID, mt);
+                        System.out.println(" 3 ");
+                        complete = true;
+                } catch(IllegalArgumentException e){
+                    System.out.println("Invalid movie type input");
+                    sc.nextLine();
+                    state = setMovieTypeState.TYPE;
+                }
+            }
+        }
+        System.out.println("--------------------------------------");
+        System.out.println("\t\tNew movie type has been set");
+        System.out.println("--------------------------------------");
+    }
+    
+    public static void deleteMovie() {
+        int ID = 0;
+        boolean complete = false;
+        System.out.print("\033\143");
+        System.out.println("--------------------------------------");
+        System.out.println("Deleting Movie");
+        System.out.println("--------------------------------------");
+
+        MovieHandler.printMovies();
+
+        while (!complete){
+            try {
+                System.out.println("[Enter 0 to return]");
+                System.out.println("Enter Movie ID to delete:");
+                ID = sc.nextInt();
+                if (ID==0) return;
+                MovieHandler.deleteMovie(ID);
+            }
+            catch (InputMismatchException e) {
+                System.out.println("Input not valid!");
+            } catch (IllegalArgumentException e) {
+                System.out.println("No valid Movie ID found");
+            }
+        }
+        
+        System.out.println("--------------------------------------");
+        System.out.println("\t\t Movie Deleted");
+        System.out.println("--------------------------------------");
+    }
 
     public static void start() {
         Scanner sc = new Scanner(System.in);
@@ -263,13 +352,12 @@ public class StaffMovie extends View {
 
         do {
             displayMenu();
-            System.out.println("Enter choice");
             try {
+                System.out.println("Enter choice");
                 choice = sc.nextInt();
             } catch (InputMismatchException e) {
-                System.out.println(e.toString());
-                sc.nextLine();
-                start();
+                System.out.println("Invalid input!");
+                continue;
             }
 
             switch (choice) {
@@ -277,28 +365,7 @@ public class StaffMovie extends View {
                     createMovie();
                     break;
                 case 2:
-                    System.out.println("--------------------------------------");
-                    System.out.println("Deleting Movie");
-                    System.out.println("--------------------------------------");
-                    try {
-                        MovieHandler.printMovies();
-                        System.out.println("--------------------------------------");
-                        System.out.println("Which movie would you like to delete?\n Enter ID");
-                        int ID = sc.nextInt();
-
-                        MovieHandler.deleteMovie(ID);
-                    } catch (InputMismatchException e) {
-                        System.out.println(e.toString());
-                        sc.nextLine();
-                        StaffMovie.start();
-                    } catch (IllegalArgumentException e) {
-                        System.out.println(e.toString());
-                        sc.nextLine();
-                        StaffMovie.start();
-                    }
-                    System.out.println("--------------------------------------");
-                    System.out.println("\t\t Movie Deleted");
-                    System.out.println("--------------------------------------");
+                    deleteMovie();
                     break;
                 case 3:
                     updateMovie();
@@ -315,101 +382,115 @@ public class StaffMovie extends View {
                     System.out.print("\033\143");
                     return;
                 default:
-                    System.out.println("Enter valid choice");
+                    System.out.println("Enter valid choice!");
                     choice = 0;
             }
         } while (choice < 6 && choice >= 0);
 
         sc.close();
     }
+    
+    public static void updateMovieMenu(){
+        System.out.print("\033\143");
+        System.out.println("--------------------------------------");
+        System.out.println("Update Movie");
+        System.out.println("--------------------------------------");
+        System.out.println("choice 1 : set movie type");
+        System.out.println("choice 2 : set movie status");
+        System.out.println("choice 3 : Set movie director");
+        System.out.println("choice 4 : Go Back to Staff Movie Main Menu");
+        System.out.println("--------------------------------------");
+    }
+    
+    public static void setMovieStatus(){
+        enum setMovieStatusState {ID,STATUS,SETTING};
+        int ID = 0;
+        MovieStatus movieStatus = null;
+        String input = null;
+        boolean complete = false;
+        setMovieStatusState state =  setMovieStatusState.ID;
 
+        System.out.println("--------------------------------------");
+        System.out.println("Set new Movie Status");
+        System.out.println("--------------------------------------");
+
+        MovieHandler.printMovies();
+
+        while (!complete) {
+            switch(state){
+                case ID:
+                    try{
+                        System.out.println("[Enter 0 to return]");
+                        System.out.println("Enter movie ID :");
+                        ID = sc.nextInt();
+                        if (ID==0) return;
+                    }catch(InputMismatchException e){
+                        System.out.println("Invalid input");
+                        sc.nextLine();
+                        state = setMovieStatusState.ID;
+                    }
+                case STATUS:
+                    try{
+                        System.out.println("[Enter 0 to return]");
+                        System.out.println("Enter movie status :");
+                        input = sc.next();
+                        if (input.equals("0")) return;
+                        
+                    } catch(InputMismatchException e){
+                        System.out.println("Invalid input");
+                        sc.nextLine();
+                        state = setMovieStatusState.STATUS;
+                    }
+                case SETTING:
+                    try{
+                        movieStatus = MovieStatus.valueOf(input.toUpperCase());
+                        if (movieStatus == MovieStatus.END_OF_SHOWING) stHandler.movieShowtimeEnd(ID);
+                        MovieHandler.setMovieStatus(ID, input);
+                        stHandler.setMovieStatus(ID, movieStatus);
+                        complete = true;
+                } catch(IllegalArgumentException e){
+                    System.out.println("Invalid movie status input");
+                    sc.nextLine();
+                    state = setMovieStatusState.STATUS;
+                }
+            }
+        }
+        System.out.println("--------------------------------------");
+        System.out.println("\t\tNew movie status has been set");
+        System.out.println("--------------------------------------");
+    }
     public static void updateMovie() {
         int choice = 0;
-        try {
-            do {
-                System.out.print("\033\143");
-                System.out.println("--------------------------------------");
-                System.out.println("Update Movie");
-                System.out.println("--------------------------------------");
-                System.out.println("choice 1 : set movie type");
-                System.out.println("choice 2 : set movie status");
-                System.out.println("choice 3 : Set movie director");
-                System.out.println("choice 4 : Go Back to Staff Movie Main Menu");
-                System.out.println("--------------------------------------");
-
+        do {
+            updateMovieMenu();
+            try {
                 System.out.println("Enter choice");
                 choice = sc.nextInt();
-                int ID;
+            } catch (InputMismatchException e) {
+                System.out.println("Invalid input!");
+                continue;
+            }
 
-                switch (choice) {
-                    case 1:
-                        System.out.println("--------------------------------------");
-                        System.out.println("Set new Movie type");
-                        System.out.println("--------------------------------------");
-
-                        MovieHandler.printMovies();
-                        System.out.println("Enter movie ID :");
-                        ID = sc.nextInt();
-                        System.out.println("Enter new Type :");
-                        String movieType = sc.next();
-
-                        MovieType mt = MovieType.valueOf(sc.next().toUpperCase());
-                        System.out.println(" 1 ");
-
-                        MovieHandler.setMovieType(ID, movieType);
-                        System.out.println(" 2 ");
-                        stHandler.setMovieType(ID, mt);
-                        System.out.println(" 3 ");
-                        System.out.println("--------------------------------------");
-                        System.out.println("\t\tNew movie type has been set");
-                        System.out.println("--------------------------------------");
-                        break;
-                    case 2:
-                        System.out.println("--------------------------------------");
-                        System.out.println("Set new Movie Status");
-                        System.out.println("--------------------------------------");
-
-                        MovieHandler.printMovies();
-
-                        System.out.println("Enter movie ID :");
-                        ID = sc.nextInt();
-                        System.out.println("Enter new movie Status ");
-                        String ms = sc.next();
-                        MovieStatus movieStatus = MovieStatus.valueOf(ms.toUpperCase());
-                        if (movieStatus == MovieStatus.END_OF_SHOWING)
-                            stHandler.movieShowtimeEnd(ID);
-
-                        MovieHandler.setMovieStatus(ID, ms);
-                        stHandler.setMovieStatus(ID, movieStatus);
-                        System.out.println("--------------------------------------");
-                        System.out.println("\t\tNew movie status has been set");
-                        System.out.println("--------------------------------------");
-
-                        break;
-                    case 3:
-                        setMovieDirector();
-                        break;
-                    case 4:
-                        System.out.println("-------------------------------------");
-                        System.out.println("\t\tExiting Staff Movie Update Menu");
-                        System.out.println("-------------------------------------");
-                        return;
-                    default:
-                        System.out.println("Enter valid choice");
-                        choice = 0;
-                }
-
-            } while (choice < 5 && choice >= 0);
-
-        } catch (InputMismatchException e) {
-            System.out.println(e.toString());
-            sc.nextLine();
-            updateMovie();
-        } catch (IllegalArgumentException e) {
-            System.out.println(e.toString());
-            sc.nextLine();
-            updateMovie();
-        }
+            switch (choice) {
+                case 1:
+                    setMovieType();
+                    break;
+                case 2:
+                    setMovieStatus();
+                    break;
+                case 3:
+                    setMovieDirector();
+                    break;
+                case 4:
+                    System.out.println("-------------------------------------");
+                    System.out.println("\t\tExiting Staff Movie Update Menu");
+                    System.out.println("-------------------------------------");
+                    return;
+                default:
+                    System.out.println("Enter valid choice");
+                    choice = 0;
+            }
+        } while (choice < 5 && choice >= 0);
     }
 
     public static void showTopMovie() {
@@ -419,29 +500,33 @@ public class StaffMovie extends View {
         System.out.println("--------------------------------------");
         System.out.println("choice 1 : Sales");
         System.out.println("choice 2 : ratings");
+        System.out.println("choice 3 : exit");
         System.out.println("--------------------------------------");
 
-        try {
-            System.out.println("Enter choice");
-            choice2 = sc.nextInt();
-            switch (choice2) {
-                case 1:
-                    SalesHandler.getTop5_sales();
-                    break;
-                case 2:
-                    SalesHandler.getTop5_rating();
-                    break;
-                default:
-                    System.out.println("Illegal Input \n t\tBack to Movie Menu");
-                    System.out.println("--------------------------------------");
-                    return;
+        while(true){
+            try {
+                System.out.println("Enter choice");
+                choice2 = sc.nextInt();
+                switch (choice2) {
+                    case 1:
+                        SalesHandler.getTop5_sales();
+                        break;
+                    case 2:
+                        SalesHandler.getTop5_rating();
+                        break;
+                    case 3:
+                        return;
+                    default:
+                        System.out.println("Illegal Input \n t\tBack to Movie Menu");
+                        System.out.println("--------------------------------------");
+                        return;
+                }
+
+            } catch (InputMismatchException e) {
+                System.out.println("Invalid input, exiting from ");
+                sc.nextLine();
+                return;
             }
-
-        } catch (InputMismatchException e) {
-            System.out.println(e.toString());
-            sc.nextLine();
-            return;
         }
-
     }
 }
