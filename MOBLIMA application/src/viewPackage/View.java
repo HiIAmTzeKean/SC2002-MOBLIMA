@@ -64,7 +64,7 @@ public class View {
 		} catch (NoSuchElementException e) {
 			System.out.println(e.toString());
 			sc.nextLine();
-			View.start();
+			//View.start();
 		}
 		sc.close();
 	}

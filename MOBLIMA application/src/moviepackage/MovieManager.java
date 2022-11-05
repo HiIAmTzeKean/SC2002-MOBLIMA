@@ -149,7 +149,10 @@ public class MovieManager implements ISales, IReviews, IMovie {
 	 * Prints the movies stored in the movies array. Used to support class functions to get and set movie attributes.
 	 * Ignores movies that have been marked as "End of Showing"
 	 */
-	public void printMovies(){
+	public void printMovies() throws IllegalArgumentException{
+		if(movies.size() == 0 || movies == null){
+			throw new IllegalArgumentException("There are no movies to find");
+		}
 		for(Iterator<Movie> it = movies.iterator(); it.hasNext();){
 			Movie m = it.next();
 			if(m.getMovieStatus()!=MovieStatus.END_OF_SHOWING){
@@ -158,13 +161,37 @@ public class MovieManager implements ISales, IReviews, IMovie {
 		}
 	}
 	@Override
-	public void printMovieTitles(){
+	public void printMovieTitles()throws IllegalArgumentException{
+		if(movies.size() == 0 || movies == null){
+			throw new IllegalArgumentException("There are no movies to find");
+		}
 		for(Iterator<Movie> it = movies.iterator(); it.hasNext();){
 			Movie m = it.next();
 			if(m.getMovieStatus()!=MovieStatus.END_OF_SHOWING){
 				System.out.println(m.getMovieTitle());
 			}
 		}	
+	}
+	@Override
+	public void printMovieAdmin(){
+		if(movies.size() == 0 || movies == null){
+			throw new IllegalArgumentException("There are no movies to find");
+		}
+		System.out.println("|-------------------------------------------------------------------------------------|");
+		System.out.printf("|   %-8s   |       %-30s        |    %-15s     |\n",
+						"Movie ID",
+								"Movie Name",
+								"Status");
+		System.out.println("|-------------------------------------------------------------------------------------|");
+		
+		for(Iterator<Movie> it = movies.iterator(); it.hasNext();){
+			Movie m = it.next();
+			String movieIDString = Integer.toString(m.getID());
+			System.out.printf("|   %-8s   |       %-30s        |    %-15s     |\n",
+							movieIDString,
+							m.getMovieTitle(),
+							m.getMovieStatus().toString());
+		}			
 	}
 	/** 
 	 * Function that checks if the review object is valid and appends it to the a movie's review array if the movieID is valid.
