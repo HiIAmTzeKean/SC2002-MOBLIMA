@@ -58,13 +58,18 @@ public class CustomerView  extends View{
 		IShowtime showtimeHandler = ShowtimeManager.getInstance();
 		
 		int selectedShowtimeID = 0;
+		CinemaType cType = null;
 		String seatRow = null;
 		int seatCol = 0;
 		boolean bookingDone = false;
 		int customerID = 0;
 		boolean leaveBookMenu = false;
-		
-		CustomerShowtime cs;
+		int bookingOption = 0;
+		float price = 0;
+		//CHECK
+		CustomerShowtime cs = null;
+		CustomerPayment cp = null;
+		CustomerBook cb = null;
 		
 		//STEP 1 - Choosing from cineplexes and movies to view all showtimes for the combination
 		cs.displayShowtimes();
@@ -73,129 +78,80 @@ public class CustomerView  extends View{
 		System.out.println("Choose a row from the above table and enter these details: ");
 		cs.selectShowtime();
 		selectedShowtimeID = cs.getSelectedShowtimeID();
-
+		cType = cs.getCinemaType();
+		
 		do {//until available seats selected and booked 
 		
-		//STEP 3 - Seat selection
-		cs.selectSeat();
-		seatRow = cs.getseatRow();
-		seatCol = cs.getseatCol();
-		
-		//STEP 4 - Get customer details — check for DiscountCode and CoupleSeat
-		Customer c = null;
-		System.out.println("Please enter your personal details: ");
-		System.out.print("Name :");
-		String name = scan.next();
-		c.setName(name);
-		System.out.println();
-		
-		IAge age;
-		System.out.print("age :");
-		int ageInt = scan.nextInt();
-		age.setAgeNumber(ageInt);
-		c.setAge((Age)age);
-		System.out.println();
-		
-		System.out.print("Mobile :");
-		int mobile = scan.nextInt();
-		c.setMobile(mobile);
-		System.out.println();
-		
-		System.out.print("Email :");
-		String email = scan.next();
-		c.setEmail(email);
-		System.out.println();
-		
-		customerID = c.getID();
-		
-		/*
-		 * Internal variable bookingOption keeps track of the booking being a 
-		 * 1- Standard booking for 1 person
-		 * 2- Couple Seat
-		 * 3- Discount code
-		 * 4- Couple seat + Discount code
-		 */
-		int bookingOption = 1; 
-		
-		boolean isCoupleSeat = false;
-		System.out.println("If you wish to book as couple seat, enter 1. Else, enter any other character: ");
-		String coupleSeatChoice = scan.next();
-		if(coupleSeatChoice.compareTo("1") == 0) {
-			isCoupleSeat = true;
-			bookingOption = 2; 
-		}
-		
-		boolean discountValid = false;
-		String discEntered = "0";
-		do {
-			System.out.println("If you wish to use discount code, enter code. Else, enter 0: ");
-			discEntered = scan.next();
-		}while(discEntered.compareTo("0") != 0 || !discountValid); //exits when user enters 0 or enters a valid discount code
-		if(discountValid) {
-			bookingOption = 3;
-			if(isCoupleSeat) {
-				bookingOption = 4;
+			//STEP 3 - Seat selection
+			cs.selectSeat();
+			seatRow = cs.getseatRow();
+			seatCol = cs.getseatCol();
+			
+			//STEP 4 - Get customer details — check for DiscountCode and CoupleSeat
+			cp.setCustomerDetails();
+			customerID = cp.getCustomerID();
+			
+			//STEP 5 - select booking option
+			cb.setBookingOption(cType, seatRow);
+			bookingOption = cb.getBookingOption();
+			
+			//STEP 7 - Display price (+other details) and confirm from customer
+			try { //CHECK - handle specific exceptions for each call separately?
+				switch(bookingOption) {
+					case 1: 
+						price = showtimeHandler.getPrice(selectedShowtimeID, c);
+						break;
+					case 2:
+						price = showtimeHandler.getPrice(selectedShowtimeID, c, isCoupleSeat);
+						break;
+					case 3:
+						price = showtimeHandler.getPrice(selectedShowtimeID, c, discEntered);
+						break;
+					case 4:
+						price = showtimeHandler.getPrice(selectedShowtimeID, c, isCoupleSeat, discEntered);
+						break;
+					default: 
+						System.out.println("Error in getting price.");
+				}
 			}
-		}
-		
-		//STEP 7 - Display price (+other details) and confirm from customer
-		float price = 0;
-		try { //CHECK - handle specific exceptions for each call separately?
-			switch(bookingOption) {
-				case 1: 
-					price = showtimeHandler.getPrice(showtimeID, c);
+			catch(Exception eprice) {
+				System.out.println("Error in getting price.");
+				continue; //to start of bookingDone do-while loop
+			}
+			System.out.printf("The cost of your booking is: %f %n", price);
+			System.out.println("Enter 1 to confirm booking, 0 to change booking option, or -1 to moviegoer main menu");
+			String bookConfirm = scan.next();
+			
+			//CHECK - Need another prompt to 'make payment'?
+			
+			//STEP 8 - bookSeat (internal calls booking in customer package) Call appropriate overloaded function. 
+			//set bookingdone
+			switch(bookConfirm) {
+				case "1":{
+					try { 
+						if(bookingOption == 2 || bookingOption == 4) {
+							showtimeHandler.bookCoupleSeat(showtimeID, seatRow, seatCol, c);
+						}
+						else {
+							showtimeHandler.bookSeat(showtimeID, seatRow, seatCol, c);
+						}
+					}
+					catch(Exception ebook) {//specific exceptions
+						System.out.println("Error in booking seat.");
+						continue; //to start of bookingDone do-while loop
+					}
+					bookingDone = true;
+					System.out.println("Your booking has been made!");
 					break;
-				case 2:
-					price = showtimeHandler.getPrice(showtimeID, c, isCoupleSeat);
-					break;
-				case 3:
-					price = showtimeHandler.getPrice(showtimeID, c, discEntered);
-					break;
-				case 4:
-					price = showtimeHandler.getPrice(showtimeID, c, isCoupleSeat, discEntered);
+				}
+				case "0":continue;
+				case "-1": 
+					leaveBookMenu = true;
 					break;
 				default: 
-					System.out.println("Error in getting price.");
-			}
-		}
-		catch(Exception eprice) {
-			System.out.println("Error in getting price.");
-			continue; //to start of bookingDone do-while loop
-		}
-		System.out.printf("The cost of your booking is: %f %n", price);
-		System.out.println("Enter 1 to confirm booking, 0 to change booking option, or -1 to moviegoer main menu");
-		String bookConfirm = scan.next();
-		
-		//CHECK - Need another prompt to 'make payment'?
-		
-		//STEP 8 - bookSeat (internal calls booking in customer package) Call appropriate overloaded function. 
-		//set bookingdone
-		switch(bookConfirm) {
-			case "1":{
-				try { 
-					if(bookingOption == 2 || bookingOption == 4) {
-						showtimeHandler.bookCoupleSeat(showtimeID, seatRow, seatCol, c);
-					}
-					else {
-						showtimeHandler.bookSeat(showtimeID, seatRow, seatCol, c);
-					}
+					System.out.println("Erroneous value entered, going back to book options.");
+					break;
 				}
-				catch(Exception ebook) {//specific exceptions
-					System.out.println("Error in booking seat.");
-					continue; //to start of bookingDone do-while loop
-				}
-				bookingDone = true;
-				System.out.println("Your booking has been made!");
-				break;
-			}
-			case "0":continue;
-			case "-1": 
-				leaveBookMenu = true;
-				break;
-			default: 
-				System.out.println("Erroneous value entered, going back to book options.");
-				break;
-			}
 		
 		}while(!bookingDone || leaveBookMenu);
 		
