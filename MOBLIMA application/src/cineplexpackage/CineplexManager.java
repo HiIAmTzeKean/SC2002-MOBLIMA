@@ -116,8 +116,18 @@ public class CineplexManager implements ICineplex {
 	
 	@Override
 	public void printCineplexes() {
+		System.out.println("=======");
 		for (Cineplex c:cineplexes){
 			c.printCineplex();
+			System.out.println("=======");
+		}
+	}
+	@Override
+	public void printCineplexesAdmin() {
+		System.out.println("=======");
+		for (Cineplex c:cineplexes){
+			c.printCineplexAdmin();
+			System.out.println("=======");
 		}
 	}
 	
@@ -139,7 +149,7 @@ public class CineplexManager implements ICineplex {
 			cineplexes.get(target).setName(name);
 			System.out.println("Cineplex new name updated");
 			System.out.println("Cinplex updated information as follows: ");
-			cineplexes.get(target).printCineplex();
+			cineplexes.get(target).printCineplexAdmin();
 		}
 		catch (IllegalArgumentException ex) {
 			throw new IllegalArgumentException("Cineplex is not found");
@@ -153,7 +163,7 @@ public class CineplexManager implements ICineplex {
 			cineplexes.get(target).setLocation(location);
 			System.out.println("Cineplex new location updated");
 			System.out.println("Cinplex updated information as follows: ");
-			cineplexes.get(target).printCineplex();
+			cineplexes.get(target).printCineplexAdmin();
 		}
 		catch (IllegalArgumentException ex) {
 			throw new IllegalArgumentException("Cineplex is not found");

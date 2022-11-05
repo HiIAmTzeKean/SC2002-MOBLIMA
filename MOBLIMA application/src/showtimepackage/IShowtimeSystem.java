@@ -21,7 +21,7 @@ public interface IShowtimeSystem extends IShowtime {
 	 * Create a new showtime object
 	 * Checks if movie is "Preview" or "Now Showing" before creating entry
 	 */
-	void addShowtime(Movie movie, ICinemaBooking cinema, IDay day);
+	void addShowtime(Movie movie, ICinemaBooking cinema, IDay day) throws IllegalArgumentException;
 	/**
 	 * When a movie status changes to "End of Showing" invoke this method to
 	 * update all movie entires in showtime to stop booking for a showtime.

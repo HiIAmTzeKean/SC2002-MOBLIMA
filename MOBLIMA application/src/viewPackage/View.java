@@ -1,5 +1,6 @@
 package viewPackage;
 
+import java.util.InputMismatchException;
 import java.util.NoSuchElementException;
 import java.util.Scanner;
 
@@ -40,33 +41,36 @@ public class View {
 	public static void start() {
 		sc = new Scanner(System.in);
 		int choice = 0;
-
-		try {
-			do {
-				displayMenu();
-				System.out.println("\nEnter choice : ");
-
+		while (true) {
+			displayMenu();
+			try {
+				System.out.println("Enter choice");
 				choice = sc.nextInt();
-				switch (choice) {
-					case 1:
-						StaffAuth.login();
-						break;
-					case 2:
-						CustomerView.start();
-						break;
-					case 3:
-						return;
-					default:
-						System.out.println("Enter valid choice");
-						choice = 0;
+				if (choice>5 || choice<1) {
+					System.out.println("Invalid input!");
+					waitForEnter(null);
+					continue;
 				}
-			} while (choice >= 0 && choice <= 3);
-		} catch (NoSuchElementException e) {
-			System.out.println(e.toString());
-			sc.nextLine();
-			View.start();
+			} catch (InputMismatchException e) {
+				inputMismatchHandler();
+				waitForEnter(null);
+				continue;
+			}
+			
+			switch (choice) {
+				case 1:
+					StaffAuth.login();
+					break;
+				case 2:
+					CustomerView.start();
+					break;
+				case 3:
+					return;
+				default:
+					System.out.println("Enter valid choice");
+					choice = 0;
+			}
 		}
-		sc.close();
 	}
 
 }

@@ -31,7 +31,8 @@ public class StaffCinema extends View {
         String name = null;
         String location = null;
         boolean complete = false;
-        Scanner sc = new Scanner(System.in);
+        sc = new Scanner(System.in);
+        
         System.out.print("\033[H\033[2J");
         System.out.println("-------------------------------------");
         System.out.println("\t\tCreating Cineplex");
@@ -94,7 +95,7 @@ public class StaffCinema extends View {
         System.out.println("-------------------------------------");
         System.out.println("\t\tDeleting  Cineplex");
         System.out.println("-------------------------------------");
-        cineplexHandler.printCineplexes();
+        cineplexHandler.printCineplexesAdmin();
         while (!complete) {
             switch (state) {
                 case 1:
@@ -309,7 +310,7 @@ public class StaffCinema extends View {
         System.out.println("-------------------------------------");
         System.out.println("Setting New Name for Cineplex");
         System.out.println("-------------------------------------");
-        cineplexHandler.printCineplexes();
+        cineplexHandler.printCineplexesAdmin();
         System.out.println("-------------------------------------");
 
         while (!complete) {
@@ -370,7 +371,7 @@ public class StaffCinema extends View {
         System.out.println("-------------------------------------");
         System.out.println("Setting New Name for Cineplex");
         System.out.println("-------------------------------------");
-        cineplexHandler.printCineplexes();
+        cineplexHandler.printCineplexesAdmin();
         System.out.println("-------------------------------------");
 
         while (!complete) {
