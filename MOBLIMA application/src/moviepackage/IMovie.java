@@ -62,7 +62,7 @@ public interface IMovie {
 	 * @param status to set the movieStatus to.
 	 * @throws IllegalArgumentException if the movie is not found.
 	*/
-	void setMovieStatus(int movieID, String status)throws IllegalArgumentException;
+	void setMovieStatus(int movieID, MovieStatus status)throws IllegalArgumentException;
 	
 	/**
 	 * Returns the String value of the Director attribute for the movie with the given movieID.
