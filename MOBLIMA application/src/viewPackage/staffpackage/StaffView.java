@@ -21,6 +21,10 @@ public class StaffView extends View {
         System.out.println("---------------------------------------------------");
     } 
 
+	/**
+	 * Controls logic for staff view
+	 * @apiNote StaffMovie, StaffCinema, StaffShowtime, StaffSystem
+	 */
     public static void start(){
         int choice = 0 ; 
 		

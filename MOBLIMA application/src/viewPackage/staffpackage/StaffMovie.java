@@ -12,6 +12,13 @@ import moviepackage.ISales;
 import java.util.Scanner;
 import java.util.InputMismatchException;
 
+/**
+ * Staff movie view
+ * Allows modification of movies data file
+ * Staff must be logged in to use this class
+ * @author Ng Tze Kean
+ * @since 05-11-2022
+ */
 public class StaffMovie extends View {
     public static void displayMenu() {
         System.out.print("\033\143");
@@ -22,10 +29,14 @@ public class StaffMovie extends View {
         System.out.println("choice 2 : Delete Movie");
         System.out.println("choice 3 : Update Movie");
         System.out.println("choice 4 : View Top 5 Movies");
-        System.out.println("choice 5 : Go Back to Main Menu");
+        System.out.println("choice 5 : Return");
         System.out.println("--------------------------------------");
     }
-
+    /**
+     * Provides UI to create new movie object which will be stored
+     * on the data file
+     * @apiNote IMovie,createMovieEnum,AgeRestriction,MovieStatus,MovieType
+     */
     private static void createMovie() {
         IMovie MovieHandler = MovieManager.getInstance();
         enum createMovieEnum {
@@ -240,7 +251,10 @@ public class StaffMovie extends View {
         System.out.println("--------------------------------------");
         waitForEnter(null);
     }
-
+    /**
+      * Provides UI for setting movie type
+      * @apiNote IMovie,IShowtimeSystem,setMovieTypeState,MovieType
+      */
     private static void setMovieDirector(){
         IShowtimeSystem stHandler = ShowtimeManager.getInstance();
         IMovie MovieHandler = MovieManager.getInstance();
@@ -301,7 +315,10 @@ public class StaffMovie extends View {
         System.out.println("\t\tNew movie director has been set");
         System.out.println("--------------------------------------");
     }
-     
+     /**
+      * Provides UI for setting movie type
+      * @apiNote IMovie,IShowtimeSystem,setMovieTypeState,MovieType
+      */
     private static void setMovieType() {
         IMovie MovieHandler = MovieManager.getInstance();
         IShowtimeSystem stHandler = ShowtimeManager.getInstance();
@@ -378,7 +395,11 @@ public class StaffMovie extends View {
         System.out.println("--------------------------------------");
         waitForEnter(null);
     }
-    
+    /**
+     * Provides UI to soft delete movie stored in data file
+     * Movie is not deleted but set to End Of Showing
+     * @apiNote IMovie
+     */
     private static void deleteMovie() {
         IMovie MovieHandler = MovieManager.getInstance();
         int ID = 0;
@@ -468,11 +489,16 @@ public class StaffMovie extends View {
         System.out.println("choice 4 : Return");
         System.out.println("--------------------------------------");
     }
-    
+    /**
+     * Provides UI to update the
+     * movie status stored in the data file
+     * @apiNote IShowtimeSystem, IMovie, setMovieStatusState, MovieStatus
+     */
     private static void setMovieStatus(){
         IShowtimeSystem stHandler = ShowtimeManager.getInstance();
         IMovie MovieHandler = MovieManager.getInstance();
         enum setMovieStatusState {ID,STATUS,SETTING};
+
         int ID = 0;
         MovieStatus movieStatus = null;
         boolean complete = false;
@@ -540,6 +566,9 @@ public class StaffMovie extends View {
         System.out.println("--------------------------------------");
         waitForEnter(null);
     }
+    /**
+     * Controller used in start() to provide UI to update movie attributes
+     */
     private static void updateMovie() {
         int choice = 0;
         while(true) {
@@ -579,7 +608,10 @@ public class StaffMovie extends View {
             }
         }
     }
-
+    /**
+     * Controller used in updateMovie() to display movie sales and review
+     * @apiNote ISales
+     */
     private static void showTopMovie() {
         ISales SalesHandler = MovieManager.getInstance();
         int choice2;

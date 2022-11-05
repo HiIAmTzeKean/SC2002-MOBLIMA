@@ -9,13 +9,19 @@ import cinemapackage.CinemaManager;
 import cinemapackage.ICinema;
 import daypackage.Day;
 import daypackage.DayOfWeek;
-import daypackage.IDay;
+import moviepackage.IMovie;
 import moviepackage.Movie;
 import moviepackage.MovieManager;
 import showtimepackage.IShowtimeSystem;
-import showtimepackage.Showtime;
 import showtimepackage.ShowtimeManager;
 
+/**
+ * Staff showtime view
+ * Allows modification of showtime data file
+ * Staff must be logged in to use this class
+ * @author Ng Tze Kean
+ * @since 05-11-2022
+ */
 public class StaffShowtime extends View {
 	public static void displayMenu() {
 		System.out.print("\033[H\033[2J");
@@ -29,8 +35,12 @@ public class StaffShowtime extends View {
 		System.out.println("-------------------------------------");
 	}
 	
+	/**
+	 * Allows the staff to add a showtime to the showtime data file
+	 * @apiNote IMovie,ICinema,IShowtimeSystem
+	 */
 	private static void addShowtime() {
-		MovieManager MovieHandler = MovieManager.getInstance();
+		IMovie MovieHandler = MovieManager.getInstance();
 		ICinema CinemaHandler = CinemaManager.getInstance();
 		IShowtimeSystem ssHandler = ShowtimeManager.getInstance();
 		enum addShowtimeState {MOVIE, CINEMA, DAY, DATE, TIME, HOLIDAY, CREATE};
@@ -52,8 +62,7 @@ public class StaffShowtime extends View {
             switch (state) {
                 case MOVIE:
 					try {
-						MovieHandler.printMovies();
-			
+						MovieHandler.printMovieAdmin();
 						System.out.println("[Enter 0 to return]");
 						System.out.println("Enter Movie ID");
 						ID = sc.nextInt();
@@ -89,7 +98,7 @@ public class StaffShowtime extends View {
 				case DATE:
 					try {
 						System.out.println("[Enter 0 to return]");
-						System.out.println("Enter day of the month ");
+						System.out.println("Enter Day of the month ");
 						dayNumber = sc.nextInt();
 						System.out.println("Enter Month  ");
 						monthNumber = sc.nextInt();
@@ -141,9 +150,14 @@ public class StaffShowtime extends View {
 				case TIME:
 					try {
 						System.out.println("[Enter 0 to return]");
-						System.out.println("Enter time (24HR FORMAT EG: 2000");
+						System.out.println("Enter time (24HR FORMAT EG: 2000)");
 						time = sc.next();
 						if (time.equals("0")){
+							state = addShowtimeState.DAY;
+							break;
+						}
+						else if(time.length()!=4) {
+							System.out.println("Invalid time input!");
 							state = addShowtimeState.DAY;
 							break;
 						}
@@ -180,7 +194,7 @@ public class StaffShowtime extends View {
 					ssHandler.addShowtime(movie, cinema, day);
 					complete=true;
 				} catch (IllegalArgumentException e) {
-					System.out.println("Unable to add showtime");
+					System.out.println("Unable to add showtime as Movie has ended its showing");
 					System.out.println("Exiting function!");
 					waitForEnter(null);
 					return;
@@ -192,17 +206,21 @@ public class StaffShowtime extends View {
 		System.out.println("-------------------------------");
 		waitForEnter(null);
 	}
+	/**
+	 * Allows the staff to update the showtime date and time
+	 * that is stored in the data file
+	 * @apiNote IShowtimeSystem
+	 */
 	private static void updateShowtime() {
-
 		IShowtimeSystem ssHandler = ShowtimeManager.getInstance();
 		enum setDayShowtime { ID, FULLDATE, TIME, CREATE  };
 		
 		boolean complete = false;
-		Scanner sc = new Scanner(System.in);
+		sc = new Scanner(System.in);
 		String FullDate=null, Time=null;
 		Day day = new Day();
 		setDayShowtime state = setDayShowtime.ID; 
-
+		int ID = 0;
 
 		System.out.print("\033[H\033[2J");
 		System.out.println("--------------------------------------");
@@ -230,7 +248,7 @@ public class StaffShowtime extends View {
                 case FULLDATE:
                     try {
                         System.out.println("[Enter 0 to return]");
-                        System.out.println("Enter new Showtime  Date (Format: YYYYMMDD");
+                        System.out.println("Enter new Showtime Date (Format: YYYYMMDD)");
                         FullDate = sc.next();
                         if (FullDate.equals("0")) {
                             state = setDayShowtime.ID;
@@ -238,7 +256,7 @@ public class StaffShowtime extends View {
                         }
                     } catch (InputMismatchException e) {
                         inputMismatchHandler();
-                        state = setDayShowtime.NAME;
+                        state = setDayShowtime.FULLDATE;
                         break;
                     }
 				case TIME:
@@ -252,7 +270,7 @@ public class StaffShowtime extends View {
                         }
                     } catch (InputMismatchException e) {
                         inputMismatchHandler();
-                        state = setDayShowtime.NAME;
+                        state = setDayShowtime.TIME;
                         break;
                     }
                 case CREATE:
@@ -260,9 +278,9 @@ public class StaffShowtime extends View {
 						day = ssHandler.getDay(FullDate);
 					} catch (IllegalArgumentException e) {
 						System.out.println("Unable to get day from given Date");
+						state = setDayShowtime.CREATE;
 						break; 
 					}
-						
                     try {
                         ssHandler.changeShowtimeDay(ID, day);
                         complete = true;
@@ -278,9 +296,12 @@ public class StaffShowtime extends View {
         System.out.println("New Day set for Showtime");
         System.out.println("-------------------------------------");
         waitForEnter(null);
-
 	}
 	
+	/**
+	 * Controls showtime view logic
+	 * @apiNote IShowtimeSystem
+	 */
 	public static void start() {
 		sc = new Scanner(System.in);
 		int choice;
@@ -309,18 +330,18 @@ public class StaffShowtime extends View {
 					updateShowtime();
 					break;
 				case 3:
-					IShowtimeSystem showtimeSys = ShowtimeManager.getInstance();
-					showtimeSys.printShowtimeAdmin();
-					ShowtimeManager.close();
+					try{
+						IShowtimeSystem showtimeSys = ShowtimeManager.getInstance();
+						showtimeSys.printShowtimeAdmin();
+					} catch (IllegalArgumentException e) {
+						System.out.println("No showtimes are available yet");
+					}
 					waitForEnter(null);
 					break;
 				case 4:
 					System.out.println("--------------------------------------");
 					System.out.println("\t\tExiting Staff Showtime Menu");
 					System.out.println("-------------------------------------");
-					MovieManager.close();
-					ShowtimeManager.close();
-					CinemaManager.close();
 					waitForEnter(null);
 					return;
 				default:

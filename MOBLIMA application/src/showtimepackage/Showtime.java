@@ -45,7 +45,7 @@ public class Showtime implements IBooking, Serializable{
 								day.getTime());
 	}
 	public void printShowtimeAdmin(){
-		System.out.printf("|     -%12s|   %-15s   |       %-30s        |    %-15s     |    %-8s     |    %-5s    |\n",
+		System.out.printf("|  %-12s|   %-15s   |  %-30s  |  %-15s  |   %-8s  |  %-5s |\n",
 						id,				
 						movie.getMovieStatus().toString(),
 						movie.getMovieTitle(),
