@@ -24,6 +24,7 @@ public interface ICinema {
 	 * Print all cinema under CinemaManger
 	 */
 	void printCinemas();
+	void printCinemasAdmin();
 	/**
 	 * Finds the requested cinemaID and returns the cinema object. Function should be used with care and only
 	 * by staff object to modify Cinema template
