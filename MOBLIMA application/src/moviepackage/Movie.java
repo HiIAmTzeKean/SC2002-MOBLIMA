@@ -28,7 +28,7 @@ public class Movie implements Serializable{
 		ratingComparator2 = new SortByRating();
 		salesComparator2 = new SortBySales();
 	}
-	public Movie(String movieTitle, MovieStatus movieStatus, String synopsis, String director, String cast, AgeRestriction ageRestriction, MovieType movieType, int duration, ArrayList reviews){
+	public Movie(String movieTitle, MovieStatus movieStatus, String synopsis, String director, String cast, AgeRestriction ageRestriction, MovieType movieType, int duration, ArrayList<Review> reviews){
 		this.id = instanceCounter++;
 		this.movieTitle = movieTitle;
 		this.movieStatus = movieStatus;
