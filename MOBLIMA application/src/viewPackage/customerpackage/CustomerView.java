@@ -62,14 +62,15 @@ public class CustomerView  extends View{
 		String seatRow = null;
 		int seatCol = 0;
 		boolean bookingDone = false;
-		int customerID = 0;
+		//int customerID = 0;
+		Customer c = null;
 		boolean leaveBookMenu = false;
 		int bookingOption = 0;
 		float price = 0;
+		
 		//CHECK
 		CustomerShowtime cs = null;
 		CustomerPayment cp = null;
-		CustomerBook cb = null;
 		
 		//STEP 1 - Choosing from cineplexes and movies to view all showtimes for the combination
 		cs.displayShowtimes();
@@ -89,51 +90,24 @@ public class CustomerView  extends View{
 			
 			//STEP 4 - Get customer details — check for DiscountCode and CoupleSeat
 			cp.setCustomerDetails();
-			customerID = cp.getCustomerID();
+			c = cp.getCustomer();
 			
-			//STEP 5 - select booking option
-			cb.setBookingOption(cType, seatRow);
-			bookingOption = cb.getBookingOption();
-			
-			//STEP 7 - Display price (+other details) and confirm from customer
-			try { //CHECK - handle specific exceptions for each call separately?
-				switch(bookingOption) {
-					case 1: 
-						price = showtimeHandler.getPrice(selectedShowtimeID, c);
-						break;
-					case 2:
-						price = showtimeHandler.getPrice(selectedShowtimeID, c, isCoupleSeat);
-						break;
-					case 3:
-						price = showtimeHandler.getPrice(selectedShowtimeID, c, discEntered);
-						break;
-					case 4:
-						price = showtimeHandler.getPrice(selectedShowtimeID, c, isCoupleSeat, discEntered);
-						break;
-					default: 
-						System.out.println("Error in getting price.");
-				}
-			}
-			catch(Exception eprice) {
-				System.out.println("Error in getting price.");
-				continue; //to start of bookingDone do-while loop
-			}
+			//STEP 5 - select booking option and get projected price
+			price = cp.getProjectedBookingPrice(cType, seatRow, selectedShowtimeID);
 			System.out.printf("The cost of your booking is: %f %n", price);
-			System.out.println("Enter 1 to confirm booking, 0 to change booking option, or -1 to moviegoer main menu");
+			
+			//STEP 6 - Confirm booking seat
+			System.out.println("Enter 1 to confirm booking, 0 to change selected seat, or -1 to moviegoer main menu");
 			String bookConfirm = scan.next();
 			
-			//CHECK - Need another prompt to 'make payment'?
-			
-			//STEP 8 - bookSeat (internal calls booking in customer package) Call appropriate overloaded function. 
-			//set bookingdone
 			switch(bookConfirm) {
 				case "1":{
 					try { 
 						if(bookingOption == 2 || bookingOption == 4) {
-							showtimeHandler.bookCoupleSeat(showtimeID, seatRow, seatCol, c);
+							showtimeHandler.bookCoupleSeat(selectedShowtimeID, seatRow, seatCol, c);
 						}
 						else {
-							showtimeHandler.bookSeat(showtimeID, seatRow, seatCol, c);
+							showtimeHandler.bookSeat(selectedShowtimeID, seatRow, seatCol, c);
 						}
 					}
 					catch(Exception ebook) {//specific exceptions
