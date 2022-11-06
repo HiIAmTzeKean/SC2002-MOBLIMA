@@ -1,11 +1,22 @@
 package customerpackage;
 
-import java.io.*;
+
+import java.io.FileInputStream;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.io.ObjectInputStream;
+import java.io.ObjectOutputStream;
 import java.util.ArrayList;
 import java.util.Iterator;
-
 import showtimepackage.Showtime;
 
+/**
+ * Controller class for bookings
+ * Maintains an array of bookings for Staff or Customer to use
+ * @apiNote Booking
+ * @author Ng Tze Kean
+ * @since 06-11-2022
+ */
 public class BookingManager {
     private static ArrayList<Booking> bookings;
     private static BookingManager bookingManager;
@@ -74,12 +85,13 @@ public class BookingManager {
 		System.out.println("|---------------------------------------------------- Transaction History ---------------------------------------------------|");
 		System.out.printf("| Customer email: %-30s                                                                             |\n",customerEmail);
 		System.out.println("|----------------------------------------------------------------------------------------------------------------------------|");
-		System.out.printf("|   %-15s   |       %-30s        |    %-15s     |    %-8s     |    %-5s    |\n",
+		System.out.printf("|   %-15s   |  %-30s  |  %-15s  | %-8s |  %-5.2f | %-15s |\n",
 					"Transcation ID",
 							"Movie Name",
-							"Cinema Class",
+							"Cinema Type",
 							"Date",
-							"Price");
+							"Price",
+							"Couple Seating");
         for (Iterator<Booking> it = bookings.iterator(); it.hasNext();) {
             Booking b = it.next();
             if (b.getCustomerEmail().equals(customerEmail)){

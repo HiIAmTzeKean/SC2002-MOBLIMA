@@ -2,11 +2,15 @@ package cinemapackage;
 
 import java.util.ArrayList;
 import java.util.Iterator;
-
 import cineplexpackage.ICineplex;
-
 import java.io.*;
 
+/**
+ * Controller for Cinema class
+ * @apiNote ICineplex
+ * @author Ng Tze Kean
+ * @since 06-11-2022
+ */
 public class CinemaManager implements ICinema {
 	private static CinemaManager cinemaManager = null;
 	private static ArrayList<Cinema> cinemas;

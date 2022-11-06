@@ -2,6 +2,13 @@ package customerpackage;
 
 import java.io.Serializable;
 
+/**
+ * DiscountCodeTicket class stores an instance of a valid discount code
+ * to be used in customer view class to check if the code provided in I/O
+ * is valid
+ * @author Ng Tze Kean
+ * @since 06-11-2022
+ */
 public class DiscountCodeTicket implements Serializable {
     private String code;
     private float discount;

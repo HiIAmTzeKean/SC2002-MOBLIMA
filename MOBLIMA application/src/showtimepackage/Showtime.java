@@ -13,6 +13,13 @@ import daypackage.IDay;
 import moviepackage.Movie;
 import moviepackage.MovieStatus;
 
+
+/**
+ * Showtime class that stores a showtime instance
+ * @apiNote IBooking
+ * @author Ng Tze Kean
+ * @since 06-11-2022
+ */
 public class Showtime implements IBooking, Serializable{
 	private static final long serialVersionUID = 6266710308272298089L;
 	private Movie movie;

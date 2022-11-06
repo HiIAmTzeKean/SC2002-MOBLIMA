@@ -3,6 +3,9 @@ import cineplexpackage.ICineplex;
 
 /**
  * Interface for CinemaManger interaction
+ * @apiNote ICineplex
+ * @author Ng Tze Kean
+ * @since 06-11-2022
  */
 public interface ICinema {
 	/**

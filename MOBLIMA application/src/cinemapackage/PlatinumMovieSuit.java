@@ -2,7 +2,12 @@ package cinemapackage;
 
 import java.util.ArrayList;
 import java.util.Iterator;
-
+/**
+ * Subclass of Cinema object.
+ * Specialises in printing layout of cinema and get multiplier mechanism
+ * @author Ng Tze Kean
+ * @since 06-11-2022
+ */
 public class PlatinumMovieSuit extends Cinema {
     public PlatinumMovieSuit(String code, int id) {
         super(code,id);
