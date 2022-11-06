@@ -30,7 +30,7 @@ public class CustomerPayment {
 		
 		System.out.println("\nPlease enter your personal details: ");
 		System.out.print("Name :");
-		name = scan.next();
+		name = scan.nextLine();
 		c.setName(name);
 		System.out.println();
 		
@@ -46,7 +46,7 @@ public class CustomerPayment {
 		System.out.println();
 		
 		System.out.print("Email :");
-		email = scan.next();
+		email = scan.nextLine();
 		c.setEmail(email);
 		System.out.println();
 		
