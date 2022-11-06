@@ -1,13 +1,11 @@
 package viewPackage.customerpackage;
 import java.util.*;
-
-import javax.swing.Icon;
-import javax.swing.plaf.InputMapUIResource;
-
 import daypackage.*;
 import cineplexpackage.*;
 import customerpackage.*;
 import moviepackage.*;
+import showtimepackage.IShowtime;
+import showtimepackage.ShowtimeManager;
 import viewPackage.*;
 
 public class newCustomerView extends View {
@@ -20,7 +18,7 @@ public class newCustomerView extends View {
             try{
                 System.out.println("Enter Choice");
                 choice = sc.nextInt();
-                if(choice<1 || choice>3){
+                if(choice<1 || choice>9){
                     System.out.println("Invalid input!");
                     waitForEnter(null);
                     continue;
@@ -32,21 +30,58 @@ public class newCustomerView extends View {
                 continue;
             }
             switch(choice){
+                //View Movie Details
                 case 1:
-                    bookMenu();
+                    System.out.print("\033[H\033[2J");
+                    viewAvailableMovies();
+                    waitForEnter(null);
                     break;
+                //View Movie Showtimes
                 case 2:
-                    seeBookingHistory();
+                    System.out.print("\033[H\033[2J");
+                    viewMovieDetails();
+                    waitForEnter(null);
                     break;
+                //See Top 5 Movies by Sales
                 case 3:
+                    System.out.print("\033[H\033[2J");
+                    printTop5Sales();
+                    waitForEnter(null);
+                    break;
+                //See Top 5 Movies by Rating
+                case 4:
+                    System.out.print("\033[H\033[2J");
+                    printTop5Rating();
+                    waitForEnter(null);
+                    break;
+                case 5:
+                    System.out.print("\033[H\033[2J");
+                    seeAvailableShowtimes();
+                    waitForEnter(null);
+                    break;
+                case 6:
+                    System.out.print("\033[H\033[2J");
+                    makeNewBooking();
+                    waitForEnter(null);
+                    break;
+                case 7:
+                    System.out.print("\033[H\033[2J");    
+                    seeBookingHistory();
+                    waitForEnter(null);
+                    break;
+                case 8:
+                    System.out.print("\033[H\033[2J");    
+                    viewReviews();
+                    waitForEnter(null);
+                    break;
+                case 9:
                     System.out.println("-------------------------------------");
-                    System.out.println("\t\tExiting Staff Cinema Menu");
+                    System.out.println("\t\tExiting Customer Cinema Menu");
                     System.out.println("-------------------------------------");
                     return;
                 default:
                     System.out.println("Enter valid choice!");
                     choice = 0;
-    
             }
         }   
     }
@@ -55,63 +90,76 @@ public class newCustomerView extends View {
         System.out.println("--------------------------------------");
         System.out.println("Customer Main Menu");
         System.out.println("--------------------------------------");
-        System.out.println("Choice 1 : Browse Movies");
-        System.out.println("Choice 2 : Make a New Booking");
-        System.out.println("Choice 3 : See Booking History and Add Reviews");
-        System.out.println("Choice 4 : Return");
+        System.out.println("Choice 1 : View Available Movies");
+        System.out.println("Choice 2 : View Movie Details");
+        System.out.println("Choice 3 : See Top 5 Movies by Sales");
+        System.out.println("Choice 4 : See Top 5 Movies by Rating");
+        System.out.println("Choice 5 : See Available Showtimes"); 
+        //ShowtimeManager -> PrintShowtimes()
+        System.out.println("Choice 6 : Make a New Booking");
+        //CustomerBook -> Select Cineplex -> Select Movie -> printShowtimebyMovieNameandCineplexID(str moviename, int cineplexid) throws IAE
+        //Couple Booking or Normal Booking?
+        //Couple -> check if it is a platinum type first
+        //Normal -> Rest
+        //Discount Code Ticket -> customerpackage->discountcode.java -> get an instance of this class
+        //Object check valid (str code) -> if valid, continue to getprice
+        //Ask for customer details -> instantiate customer object
+        //Print price -> getPrice() -> IAG when showtimeID is not valid -> check why there was a lapse
+        //CustomerNullException -> if customer object is null
+        //Confirm booking? Yes / No
+        //Confirmed -> bookSeat()
+        //bookCoupleSeat() if platinum && coupleseat chosen
+        System.out.println("Choice 7 : See Booking History");
+        //Instantiate booking manager object -> getInstance()
+        //Print all transactions for customer(String customerEmail)
+        System.out.println("Choice 8 : View Reviews");
+        //call customerreview class to do options
+        //from moviemanager
+        //print all movies that are not end of showing
+        //get the movieid and string
+        System.out.println("Choice 9 : Return");
         System.out.println("--------------------------------------");
     }
-    public static void bookMenu(){
-        Scanner sc = new Scanner(System.in);
-        enum bookMenuState{
-            SELECTCINEPLEX, BROWSEMOVIE
-        };
-        bookMenuState state = bookMenuState.SELECTCINEPLEX;
-        ICineplex cineplexHander = CineplexManager.getInstance();
-        String cineplexChoice = null;
-        Cineplex selectedCineplexObj = null;
-        String movieChoice = null;
-        boolean complete = false;
-        System.out.print("\033[H\033[2J");
-        System.out.println("-------------------------------------");
-        while(!complete){
-            switch(state){
-                case SELECTCINEPLEX:
-                    try{
-                        System.out.println("[Enter 0 to return]");
-                        cineplexHander.printCineplexes();
-                        System.out.println("Choose a Cineplex from the Above Options:");
-                        cineplexChoice = sc.nextLine();
-                        if(cineplexChoice.equals("0")){
-                            return;
-                        }
-                        selectedCineplexObj = cineplexHander.getCineplex(cineplexChoice);
-                        state = bookMenuState.SELECTMOVIE;
-                    }
-                    catch(InputMismatchException e){
-                        inputMismatchHandler();
-                        state = bookMenuState.SELECTCINEPLEX;
-                        break;
-                    }
-                    catch(IllegalArgumentException e){
-                        System.out.println(e);
-                    }
-                break;
-                case BROWSEMOVIE:
-                    try{
-                        System.out.println("[Enter 0 to return]"); 
-                        CustomerMovieListing movieListing = new CustomerMovieListing();
-                        movieListing.movieSelection();
-                        
-
-                    }
-                    catch(InputMismatchException e){
-                        inputMismatchHandler();
-                        state = bookMenuState.SELECTMOVIE;
-                    }
-                
-            }
-        }
-
+    //
+    private static void viewAvailableMovies(){
+        CustomerMovieListing.printMovies();
     }
+    private static void viewMovieDetails(){
+        CustomerMovieListing.printMovie();
+    }
+    private static void printTop5Sales(){
+        ISales salesHandler = MovieManager.getInstance();
+        salesHandler.getTop5_salesCustomer();
+    }
+    private static void printTop5Rating(){
+        ISales ratingHandler = MovieManager.getInstance();
+        ratingHandler.getTop5_ratingCustomer();
+    }
+    private static void seeAvailableShowtimes(){
+        IShowtime showtimeHandler = ShowtimeManager.getInstance();
+        showtimeHandler.printShowtimes();
+    }
+    private static void viewReviews(){
+        //Specify the movie name?
+        Scanner reviewScanner = new Scanner(System.in);
+        IReviews reviewHandler = MovieManager.getInstance();
+        try{
+            System.out.println("Enter the name of the movie you want to get reviews for");
+            String toFind = sc.nextLine();
+            reviewHandler.printReviews(toFind);
+        }
+        catch(IllegalArgumentException e){
+            System.out.println(e);
+        }
+    }
+    private static void makeNewBooking() {
+        //To be defined
+        //CustomerBook.start();
+    }
+    private static void seeBookingHistory(){
+    }
+    
+    
+    
+
 }

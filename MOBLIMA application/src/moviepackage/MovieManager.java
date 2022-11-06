@@ -153,12 +153,24 @@ public class MovieManager implements ISales, IReviews, IMovie {
 		if(movies.size() == 0 || movies == null){
 			throw new IllegalArgumentException("There are no movies to find");
 		}
+		System.out.println("|------------------------------------------------------------------------------------------------------|");
+		System.out.printf("|       %-30s        |    %-15s     |  %-8s  |  %-15s |\n",
+								"Movie Name",
+								"Status",
+								"Duration",
+								"Type");
+		System.out.println("|------------------------------------------------------------------------------------------------------|");
 		for(Iterator<Movie> it = movies.iterator(); it.hasNext();){
 			Movie m = it.next();
 			if(m.getMovieStatus()!=MovieStatus.END_OF_SHOWING){
-				m.printMovieIncomplete();
+				System.out.printf("|       %-30s        |    %-15s     |  %-8s  |  %-15s |\n",
+							m.getMovieTitle(),
+							m.getMovieStatus().toString(),
+							Integer.toString(m.getDuration()),
+							m.getMovieType().toString());
 			}
 		}
+		System.out.println("|------------------------------------------------------------------------------------------------------|");
 	}
 	@Override
 	public void printMovieTitles()throws IllegalArgumentException{
@@ -173,27 +185,30 @@ public class MovieManager implements ISales, IReviews, IMovie {
 		}	
 	}
 	@Override
-	public void printMovieAdmin(){
+	public void printMoviesAdmin(){
 		if(movies.size() == 0 || movies == null){
 			throw new IllegalArgumentException("There are no movies to find");
 		}
-		System.out.println("|-----------------------------------------------------------------------------------------------------------|");
-		System.out.printf("|   %-8s   |       %-30s        |    %-15s     |     %-15s |\n",
+		System.out.println("|----------------------------------------------------------------------------------------------------------------------------------------------------|");
+		System.out.printf("|   %-8s   |       %-30s        |    %-30s     |     %-15s | %-15s | %5s |\n",
 						"Movie ID",
 								"Movie Name",
+								"Director",
 								"Status",
-								"Type");
-		System.out.println("|-----------------------------------------------------------------------------------------------------------|");
+								"Type",
+								"Sales");
+		System.out.println("|----------------------------------------------------------------------------------------------------------------------------------------------------|");
 		for(Iterator<Movie> it = movies.iterator(); it.hasNext();){
 			Movie m = it.next();
-			String movieIDString = Integer.toString(m.getID());
-			System.out.printf("|   %-8s   |       %-30s        |    %-15s     |   %-15s   |\n",
-							movieIDString,
+			System.out.printf("|   %-8s   |       %-30s        |    %-30s     |     %-15s | %-15s | %5s |\n",
+			    			Integer.toString(m.getID()),
 							m.getMovieTitle(),
+							m.getDirector(),
 							m.getMovieStatus().toString(),
-							m.getMovieType().toString());
+							m.getMovieType().toString(),
+							Integer.toString(m.getSales()));
 		}
-		System.out.println("|-----------------------------------------------------------------------------------------------------------|");			
+		System.out.println("|----------------------------------------------------------------------------------------------------------------------------------------------------|");			
 	}
 	/** 
 	 * Function that checks if the review object is valid and appends it to the a movie's review array if the movieID is valid.
@@ -271,7 +286,6 @@ public class MovieManager implements ISales, IReviews, IMovie {
 			throw new IllegalArgumentException("Movie not found");
 		}
 	}
-	//TODO: Discuss - use string or use MovieStatus?
 	/**
 	 * Sets the MovieStatus for the movie with the corresponding movieID.
 	 * @param movieID to set MovieStatus for
@@ -424,18 +438,38 @@ public class MovieManager implements ISales, IReviews, IMovie {
 			throw new IllegalArgumentException("There are no movies to sort");
 		}
 		int limit = 0;
+		int counter = 0;
 		ArrayList<Movie> moviecopy = this.getMovies();
 		Collections.sort(moviecopy, Movie.ratingComparator2);
 		if(moviecopy.size() > 5){
-			limit = 4;
+			limit = 5;
 		}
 		else{
 			limit = moviecopy.size();
 		}
-		System.out.println("The Best Rated Movies Are:");
-		for(int i = 0; i<limit; i++){
-			System.out.printf("%s : (%.1f)\n", moviecopy.get(i).getMovieTitle(), moviecopy.get(i).getReviewScores());
+		System.out.println("|--------------------------------------------------------------------------------------------------------------------|");
+		System.out.printf("|       %-30s        |    %-10s     |  %-15s  |  %-10s | %-14s |\n",
+								"Movie Name",
+								"Age Rating",
+								"Movie Type",
+								"Duration",
+								"Average Rating");
+		System.out.println("|--------------------------------------------------------------------------------------------------------------------|");
+		for(Iterator<Movie> it = moviecopy.iterator(); it.hasNext();){
+			if(counter == limit-1) break;
+			//System.out.println(counter);
+			Movie m = it.next();
+			String movieDuration = Integer.toString(m.getDuration());
+			System.out.printf("|       %-30s        |    %-10s     |  %-15s  |  %-10s | %-14s |\n",
+							m.getMovieTitle(),
+							m.getAgeRestriction().toString(),
+							m.getMovieType().toString(),
+							movieDuration,
+							Float.toString(m.getReviewScores()));
+			counter++;
+			
 		}
+		System.out.println("|--------------------------------------------------------------------------------------------------------------------|");	
 	}
 	@Override
 	/**
@@ -447,40 +481,78 @@ public class MovieManager implements ISales, IReviews, IMovie {
 			throw new IllegalArgumentException("There are no movies to sort");
 		}
 		int limit = 0;
+		int counter = 0;
 		ArrayList<Movie> moviecopy = this.getMovies();
 		Collections.sort(moviecopy, Movie.salesComparator2);
 		if(moviecopy.size() > 5){
-			limit = 4;
+			limit = 5;
 		}
 		else{
 			limit = moviecopy.size();
 		}
-		System.out.println("The Best Selling Movies Are:");
-		for(int i = 0; i<limit; i++){
-			System.out.printf("%s (%d)\n", moviecopy.get(i).getMovieTitle(), moviecopy.get(i).getSales());
+		System.out.println("|--------------------------------------------------------------------------------------------------------------------|");
+		System.out.printf("|       %-30s        |    %-10s     |  %-15s  |  %-10s | %-14s |\n",
+								"Movie Name",
+								"Age Rating",
+								"Movie Type",
+								"Duration",
+								"Sales");
+		System.out.println("|--------------------------------------------------------------------------------------------------------------------|");
+		for(Iterator<Movie> it = moviecopy.iterator(); it.hasNext();){
+			if(counter == limit-1) break;
+			//System.out.println(counter);
+			Movie m = it.next();
+			System.out.printf("|       %-30s        |    %-10s     |  %-15s  |  %-10s | %-14s |\n",
+							m.getMovieTitle(),
+							m.getAgeRestriction().toString(),
+							m.getMovieType().toString(),
+							Integer.toString(m.getDuration()),
+							Integer.toString(m.getSales()));
+			counter++;
+	
 		}
+		System.out.println("|--------------------------------------------------------------------------------------------------------------------|");	
 	}
-	//TODO: Write a function that returns a clone of a movie
+	//TODO: add table that prints name of movie, age rating, movie type, duration, average rating	
 	@Override
 	public void getTop5_ratingCustomer() throws IllegalArgumentException{
 		if(movies.size() == 0 || movies == null){
 			throw new IllegalArgumentException("There are no movies to sort");
 		}
 		int limit = 0;
+		int counter = 0;
 		ArrayList<Movie> moviecopy = this.getMovies();
 		Collections.sort(moviecopy, Movie.ratingComparator2);
 		if(moviecopy.size() > 5){
-			limit = 4;
+			limit = 5;
 		}
 		else{
 			limit = moviecopy.size();
 		}
-		System.out.println("The Best Rated Movies Are:");
-		for(int i = 0; i<limit; i++){
-			if(moviecopy.get(i).getMovieStatus() != MovieStatus.END_OF_SHOWING){
-				System.out.printf("%s (%.1f)\n", moviecopy.get(i).getMovieTitle(), moviecopy.get(i).getReviewScores());
+		System.out.println("|--------------------------------------------------------------------------------------------------------------------|");
+		System.out.printf("|       %-30s        |    %-10s     |  %-15s  |  %-10s | %-14s |\n",
+								"Movie Name",
+								"Age Rating",
+								"Movie Type",
+								"Duration",
+								"Average Rating");
+		System.out.println("|--------------------------------------------------------------------------------------------------------------------|");
+		for(Iterator<Movie> it = moviecopy.iterator(); it.hasNext();){
+			if(counter == limit-1) break;	
+				//System.out.println(counter);
+			Movie m = it.next();
+			if(m.getMovieStatus()!=MovieStatus.END_OF_SHOWING){
+				String movieDuration = Integer.toString(m.getDuration());
+				System.out.printf("|       %-30s        |    %-10s     |  %-15s  |  %-10s | %-14s |\n",
+								m.getMovieTitle(),
+								m.getAgeRestriction().toString(),
+								m.getMovieType().toString(),
+								movieDuration,
+								Float.toString(m.getReviewScores()));
+				counter++;
 			}
 		}
+		System.out.println("|--------------------------------------------------------------------------------------------------------------------|");
 	}
 	@Override
 	/**
@@ -492,20 +564,38 @@ public class MovieManager implements ISales, IReviews, IMovie {
 			throw new IllegalArgumentException("There are no movies to sort");
 		}
 		int limit = 0;
+		int counter = 0;
 		ArrayList<Movie> moviecopy = this.getMovies();
 		Collections.sort(moviecopy, Movie.salesComparator2);
-		if(moviecopy.size() > 5){
-			limit = 4;
+		if(moviecopy.size() >= 5){
+			limit = 5;
 		}
 		else{
 			limit = moviecopy.size();
 		}
-		System.out.println("The Best Selling Movies Are:");
-		for(int i = 0; i<limit; i++){
-			if(moviecopy.get(i).getMovieStatus() != MovieStatus.END_OF_SHOWING){
-				System.out.printf("%d : %s (%d)\n", i+1, moviecopy.get(i).getMovieTitle(), moviecopy.get(i).getSales());
+		System.out.println("|--------------------------------------------------------------------------------------------------------------------|");
+		System.out.printf("|       %-30s        |    %-10s     |  %-15s  |  %-10s | %-14s |\n",
+								"Movie Name",
+								"Age Rating",
+								"Movie Type",
+								"Duration",
+								"Sales");
+		System.out.println("|--------------------------------------------------------------------------------------------------------------------|");
+		for(Iterator<Movie> it = moviecopy.iterator(); it.hasNext();){
+			if(counter == limit-1) break;
+				//System.out.println(counter);
+			Movie m = it.next();
+			if(m.getMovieStatus()!=MovieStatus.END_OF_SHOWING){
+				System.out.printf("|       %-30s        |    %-10s     |  %-15s  |  %-10s | %-14s |\n",
+								m.getMovieTitle(),
+								m.getAgeRestriction().toString(),
+								m.getMovieType().toString(),
+								Integer.toString(m.getDuration()),
+								Integer.toString(m.getSales()));
+				counter++;
 			}
 		}
+		System.out.println("|--------------------------------------------------------------------------------------------------------------------|");	
 	}
 	@Override
 	public Movie getClone(int movieID) throws IllegalArgumentException{
@@ -527,4 +617,20 @@ public class MovieManager implements ISales, IReviews, IMovie {
 			throw new IllegalArgumentException("Movie not found");
 		}
 	}
-}
+
+	@Override
+	public void printReviews(String movieName) throws IllegalArgumentException{
+		if(movies.size() == 0 || movies == null){
+			throw new IllegalArgumentException("There are no movies to find");
+		}
+		try{
+			Movie toPrint = findMoviebyName(movieName);
+			for(Review r: toPrint.getReviews()){
+				System.out.println(r);
+			}
+		}
+		catch(IllegalArgumentException e){
+			throw new IllegalArgumentException("Movie not found");
+		}
+	}
+}	
