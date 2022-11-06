@@ -23,9 +23,9 @@ public class StaffCinema extends View {
         System.out.println("--------------------------------------");
         System.out.println("Cineplex Menu");
         System.out.println("--------------------------------------");
-        System.out.println("Choice 1 : create cineplex");
-        System.out.println("Choice 2 : delete cineplex");
-        System.out.println("Choice 3 : update cineplex and cinemas");
+        System.out.println("Choice 1 : Create Cineplex");
+        System.out.println("Choice 2 : Delete Cineplex");
+        System.out.println("Choice 3 : Update Cineplex and Cinemas");
         System.out.println("Choice 4 : Return");
         System.out.println("--------------------------------------");
     }
@@ -43,7 +43,7 @@ public class StaffCinema extends View {
         
         System.out.print("\033[H\033[2J");
         System.out.println("-------------------------------------");
-        System.out.println("\t\tCreating Cineplex");
+        System.out.println("\tCreating Cineplex");
         System.out.println("-------------------------------------");
 
         while (!complete) {
@@ -51,7 +51,7 @@ public class StaffCinema extends View {
                 case NAME:
                     try {
                         System.out.println("[Enter 0 to return]");
-                        System.out.println("Enter cineplex name to be created");
+                        System.out.println("Enter Cineplex Name");
                         name = sc.nextLine();
                         if (name.equals("0"))
                             return;
@@ -63,7 +63,7 @@ public class StaffCinema extends View {
                 case LOCATION:
                     try {
                         System.out.println("[Enter 0 to return]");
-                        System.out.println("Enter cineplex location to be created");
+                        System.out.println("Enter Cineplex Location");
                         location = sc.nextLine();
                         if (location.equals("0")){
                             state = createCineplexState.NAME;
@@ -87,7 +87,7 @@ public class StaffCinema extends View {
             }
         }
         System.out.println("-------------------------------------");
-        System.out.println("\t\tCreation complete");
+        System.out.println("\tNew Cineplex Created");
         System.out.println("-------------------------------------");
         waitForEnter(null);
     }
@@ -101,7 +101,7 @@ public class StaffCinema extends View {
 
         System.out.print("\033[H\033[2J");
         System.out.println("-------------------------------------");
-        System.out.println("\t\tDeleting  Cineplex");
+        System.out.println("\tDeleting  Cineplex");
         System.out.println("-------------------------------------");
         cineplexHandler.printCineplexesAdmin();
         while (!complete) {
@@ -109,7 +109,7 @@ public class StaffCinema extends View {
                 case 1:
                     try {
                         System.out.println("[Enter 0 to return]");
-                        System.out.println("Enter cineplex ID to be deleted");
+                        System.out.println("Enter Cineplex ID");
                         id = sc.nextInt();
                         if (id == 0)
                             return;
@@ -131,7 +131,7 @@ public class StaffCinema extends View {
             }
         }
         System.out.println("-------------------------------------");
-        System.out.println("\t\tDeleted  Cineplex");
+        System.out.println("\tDeleted  Cineplex");
         System.out.println("-------------------------------------");
         waitForEnter(null);
     }
@@ -168,7 +168,7 @@ public class StaffCinema extends View {
                     break;
                 case 4:
                     System.out.println("-------------------------------------");
-                    System.out.println("\t\tExiting Staff Cinema Menu");
+                    System.out.println("\tExiting Staff Cinema Menu");
                     System.out.println("-------------------------------------");
                     return;
                 default:
@@ -181,10 +181,10 @@ public class StaffCinema extends View {
     private static void updateCinplexMenu() {
         System.out.print("\033[H\033[2J");
         System.out.println("--------------------------------------");
-        System.out.println("Update Cineplex Menu ");
+        System.out.println("        Update Cineplex Menu ");
         System.out.println("--------------------------------------");
-        System.out.println("Choice 1 : create cinema");
-        System.out.println("Choice 2 : remove cinema");
+        System.out.println("Choice 1 : Create Cinema");
+        System.out.println("Choice 2 : Delete Cinema");
         System.out.println("Choice 3 : Set Cineplex Name");
         System.out.println("Choice 4 : Set Cineplex Location");
         System.out.println("Choice 5 : Add Cinema to Cineplex");
@@ -205,7 +205,7 @@ public class StaffCinema extends View {
 
         System.out.print("\033[H\033[2J");
         System.out.println("-------------------------------------");
-        System.out.println("Creating Cinema");
+        System.out.println("\tCreating Cinema");
         System.out.println("-------------------------------------");
 
         while (!complete) {
@@ -264,7 +264,7 @@ public class StaffCinema extends View {
             }
         }
         System.out.println("-------------------------------------");
-        System.out.println("Created Cinema");
+        System.out.println("\tNew Cinema Created");
         System.out.println("-------------------------------------");
         waitForEnter(null);
     }
@@ -274,7 +274,7 @@ public class StaffCinema extends View {
         int ID = 0;
         Scanner sc = new Scanner(System.in);
         System.out.println("-------------------------------------");
-        System.out.println("Deleting  Cinema");
+        System.out.println("\tDeleting  Cinema");
         System.out.println("-------------------------------------");
         cinemaHandler.printCinemasAdmin();
 
@@ -300,7 +300,7 @@ public class StaffCinema extends View {
             return;
         }
         System.out.println("-------------------------------------");
-        System.out.println("Cinema Deleted");
+        System.out.println("\tCinema Deleted");
         System.out.println("-------------------------------------");
         waitForEnter(null);
     }
@@ -316,7 +316,7 @@ public class StaffCinema extends View {
         setCineplexState state = setCineplexState.ID;
 
         System.out.println("-------------------------------------");
-        System.out.println("Setting New Name for Cineplex");
+        System.out.println("   Setting New Cineplex Name");
         System.out.println("-------------------------------------");
         cineplexHandler.printCineplexesAdmin();
         System.out.println("-------------------------------------");
@@ -361,7 +361,7 @@ public class StaffCinema extends View {
             }
         }
         System.out.println("-------------------------------------");
-        System.out.println("New name set for cineplex");
+        System.out.println("       New Cineplex Name Set");
         System.out.println("-------------------------------------");
         waitForEnter(null);
     }
@@ -377,7 +377,7 @@ public class StaffCinema extends View {
         setCineplexLocation state = setCineplexLocation.ID;
 
         System.out.println("-------------------------------------");
-        System.out.println("Setting New Name for Cineplex");
+        System.out.println("  Setting New Cineplex Location ");
         System.out.println("-------------------------------------");
         cineplexHandler.printCineplexesAdmin();
         System.out.println("-------------------------------------");
@@ -422,7 +422,7 @@ public class StaffCinema extends View {
             }
         }
         System.out.println("-------------------------------------");
-        System.out.println("new location set for cineplex");
+        System.out.println("     New Cineplex Location Set");
         System.out.println("-------------------------------------");
         waitForEnter(null);
     }
@@ -437,7 +437,7 @@ public class StaffCinema extends View {
 
         System.out.print("\033[H\033[2J");
         System.out.println("-------------------------------------");
-        System.out.println("Adding Cinema to Cinplex");
+        System.out.println("     Adding Cinema to Cinplex");
         System.out.println("-------------------------------------");
         while (!complete) {
             switch (state) {
@@ -496,7 +496,7 @@ public class StaffCinema extends View {
         }
         
         System.out.println("-------------------------------------");
-        System.out.println("Cinema added to Cinplex");
+        System.out.println("      Cinema added to Cinplex");
         System.out.println("-------------------------------------");
         waitForEnter(null);
     }
@@ -511,7 +511,7 @@ public class StaffCinema extends View {
         
         System.out.print("\033[H\033[2J");
         System.out.println("-------------------------------------");
-        System.out.println("Removing Cinema to Cinplex");
+        System.out.println("    Removing Cinema to Cinplex");
         System.out.println("-------------------------------------");
         while (!complete) {
             switch (state) {
@@ -569,7 +569,7 @@ public class StaffCinema extends View {
             }
         }
         System.out.println("-------------------------------------");
-        System.out.println("Cinema removed from Cinplex");
+        System.out.println("    Cinema removed from Cinplex");
         System.out.println("-------------------------------------");
         waitForEnter(null);
     }
