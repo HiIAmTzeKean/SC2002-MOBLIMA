@@ -1,7 +1,6 @@
 package viewPackage.customerpackage;
-
 import java.util.*;
-import viewPackage.View;
+
 import cineplexpackage.ICineplex;
 import cineplexpackage.CineplexManager;
 import cineplexpackage.Cineplex;
@@ -12,6 +11,7 @@ import moviepackage.MovieManager;
 import moviepackage.Movie; 
 import showtimepackage.IShowtime;
 import showtimepackage.ShowtimeManager;
+import viewPackage.View;
 import showtimepackage.Showtime;
 import cinemapackage.CinemaType;
 import daypackage.Day; 
