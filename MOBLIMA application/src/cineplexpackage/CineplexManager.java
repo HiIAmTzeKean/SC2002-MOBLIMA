@@ -120,14 +120,14 @@ public class CineplexManager implements ICineplex {
 	
 	@Override
 	public void printCineplexes() {
-		System.out.printf("|--------------------------------------------------------|\n");
+		System.out.printf("|----------------------------------------------------------------------------------|\n");
 		System.out.printf("|   %-30s   |       %-30s        |\n",
 		"Cineplex Name","Cineplex Location");
-		System.out.printf("|--------------------------------------------------------|\n");
+		System.out.printf("|----------------------------------------------------------------------------------|\n");
 		for (Cineplex c:cineplexes){
 			c.printCineplex();
 		}
-		System.out.printf("|--------------------------------------------------------|\n");
+		System.out.printf("|----------------------------------------------------------------------------------|\n");
 	}
 	@Override
 	public void printCineplexesAdmin() {

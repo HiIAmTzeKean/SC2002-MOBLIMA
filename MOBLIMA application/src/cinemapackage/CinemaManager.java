@@ -221,9 +221,17 @@ public class CinemaManager implements ICinema {
 	}
 	@Override
 	public CinemaType getCinemaType(int cinemaID) {
-		
 		try{
 			return getCinema(cinemaID).getCinemaType();
+		}
+		catch (IllegalArgumentException ex){
+			throw new IllegalArgumentException("Cinema is not found");
+		}
+	}
+	@Override
+	public void setCinemaType(int cinemaID,CinemaType type) throws IllegalArgumentException{
+		try{
+			getCinema(cinemaID).setCinemaType(type);
 		}
 		catch (IllegalArgumentException ex){
 			throw new IllegalArgumentException("Cinema is not found");

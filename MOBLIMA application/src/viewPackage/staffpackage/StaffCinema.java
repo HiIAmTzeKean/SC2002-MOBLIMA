@@ -5,6 +5,7 @@ import java.util.Scanner;
 
 import cinemapackage.Cinema;
 import cinemapackage.CinemaManager;
+import cinemapackage.CinemaType;
 import cinemapackage.ICinema;
 import cineplexpackage.CineplexManager;
 import cineplexpackage.ICineplex;
@@ -185,11 +186,13 @@ public class StaffCinema extends View {
         System.out.println("--------------------------------------");
         System.out.println("Choice 1 : Create Cinema");
         System.out.println("Choice 2 : Delete Cinema");
-        System.out.println("Choice 3 : Set Cineplex Name");
-        System.out.println("Choice 4 : Set Cineplex Location");
-        System.out.println("Choice 5 : Add Cinema to Cineplex");
-        System.out.println("Choice 6 : Remove Cinema from Cineplex");
-        System.out.println("Choice 7 : Return");
+        System.out.println("Choice 3 : Update Cinema Code");
+        System.out.println("Choice 4 : Update Cinema Type");
+        System.out.println("Choice 5 : Set Cineplex Name");
+        System.out.println("Choice 6 : Set Cineplex Location");
+        System.out.println("Choice 7 : Add Cinema to Cineplex");
+        System.out.println("Choice 8 : Remove Cinema from Cineplex");
+        System.out.println("Choice 9 : Return");
         System.out.println("--------------------------------------");
     }
     private static void createCinema(){
@@ -581,6 +584,152 @@ public class StaffCinema extends View {
         System.out.println("-------------------------------------");
         waitForEnter(null);
     }
+    
+    private static void updateCinemaCode(){
+        enum updateCinema {ID, CODE, SET};
+        ICinema cinemaHandler = CinemaManager.getInstance();
+        int ID = 0;
+        String code = null;
+        boolean complete = false;
+        updateCinema state = updateCinema.ID;
+        Scanner sc = new Scanner(System.in);
+        System.out.println("-------------------------------------");
+        System.out.println("\tUpdate Cinema Code");
+        System.out.println("-------------------------------------");
+        
+        cinemaHandler.printCinemasAdmin();
+        while(!complete){
+            switch(state){
+                case ID:
+                try{
+                    System.out.println("[Enter 0 to return]");
+                    System.out.println("Enter cinema ID to be modify:");
+                    ID = sc.nextInt();
+                    if (ID==0) return;
+                    cinemaHandler.getCinema(ID);
+                } catch (InputMismatchException e) {
+                    System.out.println("Invalid input!");
+                    state = updateCinema.ID;
+                    continue;
+                } catch(IllegalArgumentException e){
+                    System.out.println("Unable to find request cinemaID!\n");
+                    state = updateCinema.ID;
+                    continue;
+                }
+                case CODE:
+                try{
+                    System.out.println("[Enter 0 to return]");
+                    System.out.println("Enter new cinema code [3 letters]:");
+                    code = sc.next();
+                    if (code.equals("0")) {
+                        state = updateCinema.ID;
+                        break;
+                    }
+                    else if (code.length() != 3){
+                        System.out.println("Length not 3!");
+                        state = updateCinema.CODE;
+                        break;
+                    }
+                } catch (InputMismatchException e) {
+                    System.out.println("Invalid input!");
+                    state = updateCinema.CODE;
+                    continue;
+                }
+                case SET:
+                    try{
+                        cinemaHandler.setCinemaCode(ID, code);
+                        complete = true;
+                    } catch(IllegalArgumentException e){
+                        System.out.println("Unable to find request cinemaID!\n");
+                        System.out.println("Exiting function!");
+                        waitForEnter(null);
+                        return;
+                    }
+            }
+            
+        }
+        cinemaHandler.printCinemasAdmin();
+        System.out.println("-------------------------------------");
+        System.out.println("\tCinema Updated");
+        System.out.println("-------------------------------------");
+        waitForEnter(null);
+    }
+    private static void updateCinemaType(){
+        enum updateCinemaType {ID, TYPE, SET};
+        ICinema cinemaHandler = CinemaManager.getInstance();
+        int ID = 0;
+        String input = null;
+        boolean complete = false;
+        CinemaType type = null;
+        updateCinemaType state = updateCinemaType.ID;
+        Scanner sc = new Scanner(System.in);
+        System.out.println("-------------------------------------");
+        System.out.println("\tUpdate Cinema Code");
+        System.out.println("-------------------------------------");
+        
+        cinemaHandler.printCinemasAdmin();
+        while(!complete){
+            switch(state){
+                case ID:
+                try{
+                    System.out.println("[Enter 0 to return]");
+                    System.out.println("Enter cinema ID to be modify");
+                    ID = sc.nextInt();
+                    if (ID==0) return;
+                    cinemaHandler.getCinema(ID);
+                } catch (InputMismatchException e) {
+                    System.out.println("Invalid input!");
+                    state = updateCinemaType.ID;
+                    break;
+                } catch(IllegalArgumentException e){
+                    System.out.println("Unable to find request cinemaID!\n");
+                    state = updateCinemaType.ID;
+                    break;
+                }
+                case TYPE:
+                try{
+                    System.out.println("[Enter 0 to return]");
+                    System.out.println("Enter type to update to [Platinum, Gold, Silver]");
+                    input = sc.next();
+                    if (input.equals("0")) {
+                        state = updateCinemaType.ID;
+                        break;
+                    }
+                    else if (!input.equals("Platinum") && !input.equals("Gold") && !input.equals("Silver")) {
+                        System.out.println("Invalid cinema type");
+                        System.out.println("Try again");
+                        state = updateCinemaType.TYPE;
+                        break;
+                    }
+                    type = CinemaType.valueOf(input.toUpperCase());
+                } catch (InputMismatchException e) {
+                    System.out.println("Invalid input!");
+                    state = updateCinemaType.TYPE;
+                    continue;
+                } catch(IllegalArgumentException e){
+                    System.out.println("Unable to convert input to cinema type!");
+                    state = updateCinemaType.TYPE;
+                    continue;
+                }
+                case SET:
+                    try{
+                        cinemaHandler.setCinemaType(ID, type);
+                        complete = true;
+                    } catch(IllegalArgumentException e){
+                        System.out.println("Unable to find request cinemaID!\n");
+                        System.out.println("Exiting function!");
+                        waitForEnter(null);
+                        return;
+                    }
+            }
+            
+        }
+        cinemaHandler.printCinemasAdmin();
+        System.out.println("-------------------------------------");
+        System.out.println("\tCinema Updated");
+        System.out.println("-------------------------------------");
+        waitForEnter(null);
+    }
     private static void updateCineplex() {
         sc = new Scanner(System.in);
         int ch = 0;
@@ -590,7 +739,7 @@ public class StaffCinema extends View {
             try {
                 System.out.println("Enter choice");
                 ch = sc.nextInt();
-                if (ch>7 || ch<1) {
+                if (ch>9 || ch<1) {
                     System.out.println("Invalid input!");
                     waitForEnter(null);
                     continue;
@@ -609,18 +758,24 @@ public class StaffCinema extends View {
                     deleteCinema();
                     break;
                 case 3:
-                    setCineplexName();
+                    updateCinemaCode();
                     break;
                 case 4:
-                    setCineplexLocation();
+                    updateCinemaType();
                     break;
                 case 5:
-                    addCinemaToCineplex();
+                    setCineplexName();
                     break;
                 case 6:
-                    removeCinemaFromCineplex();
+                    setCineplexLocation();
                     break;
                 case 7:
+                    addCinemaToCineplex();
+                    break;
+                case 8:
+                    removeCinemaFromCineplex();
+                    break;
+                case 9:
                     CineplexManager.close();
                     CinemaManager.close();
                     return;
