@@ -3,3 +3,7 @@
 u1
 p1
 4
+
+// in class etc
+// input = 1
+// error = "error"

@@ -3,9 +3,13 @@ package cineplexpackage;
 import java.io.*;
 import java.util.ArrayList;
 import java.util.Iterator;
-
 import cinemapackage.Cinema;
-
+/**
+ * Controller for Cineplex class
+ * @apiNote ICineplex
+ * @author Ng Tze Kean
+ * @since 06-11-2022
+ */
 public class CineplexManager implements ICineplex {
 
 	private static ArrayList<Cineplex> cineplexes;
@@ -194,7 +198,6 @@ public class CineplexManager implements ICineplex {
 
 	@Override
 	public void addCinema(int id, Cinema cinema) throws IllegalArgumentException{
-		System.out.printf("===== Adding Cinema to Cinplex =====\n");
 		int target = 0;
 		try{
 			target = findCineplex(id);
@@ -211,19 +214,21 @@ public class CineplexManager implements ICineplex {
 				return;
 			}
 		}
-		
 		cineplexes.get(target).addCinema(cinema);
 		cinema.setCineplexid(cineplexes.get(target).getID());
 		cinema.setCineplexid(id);
-		System.out.println("Cineplex updated with new Cinema");
 		System.out.println("The list of Cinemas under Cinema " + cineplexes.get(target).getName() + " is:");
-		cineplexes.get(target).printCineplexCinemas();
-		System.out.printf("===== Adding Cinema to Cinplex finished =====\n");
+		printCineplex(target);
 	}
-	
+	private void printCineplex(int indexPosition){
+		System.out.printf("|------------------------------------------------------------------------------------------------------|\n");
+		System.out.printf("|  %-15s  |   %-30s   |       %-30s        |\n","ID","Cineplex Name","Cineplex Location");
+		System.out.printf("|------------------------------------------------------------------------------------------------------|\n");
+		cineplexes.get(indexPosition).printCineplexCinemas();
+		System.out.printf("|------------------------------------------------------------------------------------------------------|\n");
+	}
 	@Override
 	public void removeCinema(int id, Cinema cinema) throws IllegalArgumentException {
-		System.out.printf("===== Removing Cinema from Cinplex =====\n");
 		int target = 0;
 		try{
 			target = findCineplex(id);
@@ -238,10 +243,8 @@ public class CineplexManager implements ICineplex {
 		}
 		cineplexes.get(target).removeCinema(cinema);
 		cinema.setCineplexid(-1);
-		System.out.println("Cineplex has been updated");
 		System.out.println("The list of Cinemas under Cinema " + cineplexes.get(target).getName() + " is:");
-		cineplexes.get(target).printCineplexCinemas();
-		System.out.printf("===== Removing Cinema from Cinplex finished =====\n");
+		printCineplex(target);
 	}
 
 	@Override

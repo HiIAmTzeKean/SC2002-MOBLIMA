@@ -10,8 +10,7 @@ import showtimepackage.IShowtime;
 import showtimepackage.ShowtimeManager;
 import showtimepackage.Showtime;
 
-public class CustomerBook {
-	
+public class CustomerBook {	
 	public static void bookMenu(){
 		int selectedCineplexID = 0;
 		int selectedShowtimeID = 0;
@@ -216,3 +215,4 @@ public class CustomerBook {
          }//end while
      }//end bookMenu()
 }
+

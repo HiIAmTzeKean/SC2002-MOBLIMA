@@ -227,6 +227,7 @@ public class TestData {
         mm.getMoviefromID(15).addReview(new Review(4, "Very enjoyable horror movie experience. All in all happy I saw this in theatres and would watch again."));
         mm.getMoviefromID(15).addReview(new Review(5, "Great scary movie that is believable. It has the perfect blend of paranormal and psychological fear to make it a scary movie. "));
         System.out.println("All movies have been added, closing MovieManager");
+        //Add Random Amount of Sales
         MovieManager.close();
     }
     public static void createCinema(){
@@ -324,31 +325,21 @@ public class TestData {
         d3_t2.setDayOfWeek(DayOfWeek.FRI);
 
         // Preview movies
-        man.addShowtimeSystem(movieMan.getMoviefromID(1), cinemaManager.cloneCinemaByID(1), d0_t0);
-        man.addShowtimeSystem(movieMan.getMoviefromID(1), cinemaManager.cloneCinemaByID(2), d0_t1);
-        man.addShowtimeSystem(movieMan.getMoviefromID(1), cinemaManager.cloneCinemaByID(3), d0_t1);
-        man.addShowtimeSystem(movieMan.getMoviefromID(1), cinemaManager.cloneCinemaByID(1), d0_t2);
-        man.addShowtimeSystem(movieMan.getMoviefromID(1), cinemaManager.cloneCinemaByID(1), d1_t0);
-        man.addShowtimeSystem(movieMan.getMoviefromID(1), cinemaManager.cloneCinemaByID(2), d1_t0);
-        man.addShowtimeSystem(movieMan.getMoviefromID(1), cinemaManager.cloneCinemaByID(3), d1_t0);
-        man.addShowtimeSystem(movieMan.getMoviefromID(1), cinemaManager.cloneCinemaByID(1), d1_t1);
-        man.addShowtimeSystem(movieMan.getMoviefromID(1), cinemaManager.cloneCinemaByID(2), d1_t1);
-        man.addShowtimeSystem(movieMan.getMoviefromID(1), cinemaManager.cloneCinemaByID(3), d1_t1);
-        man.addShowtimeSystem(movieMan.getMoviefromID(1), cinemaManager.cloneCinemaByID(3), d1_t2);
+        man.addShowtimeSystem(movieMan.getMoviefromID(8), cinemaManager.cloneCinemaByID(1), d0_t0);
+        man.addShowtimeSystem(movieMan.getMoviefromID(8), cinemaManager.cloneCinemaByID(1), d0_t1);
+        man.addShowtimeSystem(movieMan.getMoviefromID(9), cinemaManager.cloneCinemaByID(2), d0_t1);
         // Now showing movies
-        man.addShowtimeSystem(movieMan.getMoviefromID(3), cinemaManager.cloneCinemaByID(3), d0_t0);
-        man.addShowtimeSystem(movieMan.getMoviefromID(3), cinemaManager.cloneCinemaByID(1), d0_t1);
-        man.addShowtimeSystem(movieMan.getMoviefromID(3), cinemaManager.cloneCinemaByID(3), d0_t1);
-        man.addShowtimeSystem(movieMan.getMoviefromID(3), cinemaManager.cloneCinemaByID(1), d0_t2);
-        man.addShowtimeSystem(movieMan.getMoviefromID(3), cinemaManager.cloneCinemaByID(2), d1_t0);
-        man.addShowtimeSystem(movieMan.getMoviefromID(3), cinemaManager.cloneCinemaByID(3), d1_t0);
-        man.addShowtimeSystem(movieMan.getMoviefromID(3), cinemaManager.cloneCinemaByID(2), d1_t1);
-        man.addShowtimeSystem(movieMan.getMoviefromID(3), cinemaManager.cloneCinemaByID(3), d1_t2);
+        man.addShowtimeSystem(movieMan.getMoviefromID(1), cinemaManager.cloneCinemaByID(3), new Day("20220103", "1600"));
+        man.addShowtimeSystem(movieMan.getMoviefromID(2), cinemaManager.cloneCinemaByID(2), new Day("20220103", "1600"));
+        man.addShowtimeSystem(movieMan.getMoviefromID(3), cinemaManager.cloneCinemaByID(3), new Day("20220103", "1600"));
+        man.addShowtimeSystem(movieMan.getMoviefromID(4), cinemaManager.cloneCinemaByID(3), new Day("20220103", "2000"));
+        man.addShowtimeSystem(movieMan.getMoviefromID(5), cinemaManager.cloneCinemaByID(2), new Day("20220103", "2000"));
+        man.addShowtimeSystem(movieMan.getMoviefromID(6), cinemaManager.cloneCinemaByID(3), new Day("20220103", "2000"));
         // comming soon
-        man.addShowtimeSystem(movieMan.getMoviefromID(5), cinemaManager.cloneCinemaByID(1), d2_t0);
-        man.addShowtimeSystem(movieMan.getMoviefromID(5), cinemaManager.cloneCinemaByID(1), d2_t1);
-        man.addShowtimeSystem(movieMan.getMoviefromID(5), cinemaManager.cloneCinemaByID(2), d2_t1);
-        man.addShowtimeSystem(movieMan.getMoviefromID(5), cinemaManager.cloneCinemaByID(3), d2_t2);
+        man.addShowtimeSystem(movieMan.getMoviefromID(10), cinemaManager.cloneCinemaByID(1), new Day("20220311", "1600"));
+        man.addShowtimeSystem(movieMan.getMoviefromID(11), cinemaManager.cloneCinemaByID(3), new Day("20220310", "2000"));
+        man.addShowtimeSystem(movieMan.getMoviefromID(11), cinemaManager.cloneCinemaByID(1), new Day("20220312", "1600"));
+        man.addShowtimeSystem(movieMan.getMoviefromID(10), cinemaManager.cloneCinemaByID(3), new Day("20220312", "2000"));
         // End showtime
         man.addShowtimeSystem(movieMan.getMoviefromID(7), cinemaManager.cloneCinemaByID(1), d2_t0);
         man.addShowtimeSystem(movieMan.getMoviefromID(7), cinemaManager.cloneCinemaByID(2), d2_t0);
@@ -356,7 +347,44 @@ public class TestData {
         man.addShowtimeSystem(movieMan.getMoviefromID(7), cinemaManager.cloneCinemaByID(1), d2_t1);
         man.addShowtimeSystem(movieMan.getMoviefromID(7), cinemaManager.cloneCinemaByID(3), d2_t2);
         MovieManager mm = MovieManager.getInstance();
-        for (int i = 1; i < 28; i ++) {
+        for (int i = 1; i < 18; i ++) {
+            if (i>=14){
+                for (int j=0; j<20; j++){
+                    try{
+                        Showtime showtimeObj=man.getShowtimeByID(i);
+                        if (showtimeObj.getCinemaClass().toString().equals("PLATINUM")){
+                            int col = (int) ((int) 5*Math.random())+1;
+                            int row = (int) ((int) 2*Math.random());
+                            c = new Customer(nameList[col], mobileList[col], emailList[col], ageList[col]); 
+                            man.bookSeat(i, colList[row], col,c);
+                            mm.getMoviefromID(showtimeObj.getMovieID()).addSales(1);
+                            // increament movie sale by 1
+                        }
+                        else if (showtimeObj.getCinemaClass().equals("GOLD")){
+                            int col = (int) ((int) 8*Math.random())+1;
+                            int row = (int) ((int) 3*Math.random());
+                            c = new Customer(nameList[col], mobileList[col], emailList[col], ageList[col]); 
+                            man.bookSeat(i, colList[row], col,c);
+                            mm.getMoviefromID(showtimeObj.getMovieID()).addSales(1);
+                        }
+                        else{
+                            int col = (int) ((int) 8*Math.random())+1;
+                            int row = (int) ((int) 5*Math.random());
+                            c = new Customer(nameList[col], mobileList[col], emailList[col], ageList[col]); 
+                            man.bookSeat(i, colList[row], col,c);
+                            mm.getMoviefromID(showtimeObj.getMovieID()).addSales(1);
+                        }  
+                    }
+                    catch(IllegalArgumentException ex){
+                        continue;
+                    }
+                    catch(CustomerNullException ex){
+                        ex.printStackTrace();
+                        continue;
+                    }
+                }
+                continue;
+            }
             for (int j=0; j< 5; j++){
                 try{
                     Showtime showtimeObj=man.getShowtimeByID(i);
@@ -384,11 +412,11 @@ public class TestData {
                     }  
                 }
                 catch(IllegalArgumentException ex){
-                    return;
+                    continue;
                 }
                 catch(CustomerNullException ex){
                     ex.printStackTrace();
-                    return;
+                    continue;
                 }
             }
         }

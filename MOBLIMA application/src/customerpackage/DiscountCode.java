@@ -1,9 +1,14 @@
 package customerpackage;
 
 import java.io.*;
-import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Iterator;
+
+/**
+ * Controller class for DiscountCodeTicket
+ * @author Ng Tze Kean
+ * @since 06-11-2022
+ */
 public class DiscountCode{
     private static ArrayList<DiscountCodeTicket> discountCodes;
     private static DiscountCode discountCode;
@@ -54,6 +59,29 @@ public class DiscountCode{
 	}
 	public void addDiscountCodeTicket(String code, float discount){
 		discountCodes.add(new DiscountCodeTicket(code, discount));
+	}
+	public void removeDiscountCode(String code)  throws IllegalArgumentException{
+		int target = 0;
+		boolean found = false;
+		for (Iterator<DiscountCodeTicket> it = discountCodes.iterator(); it.hasNext();) {
+			if(it.next().checkCode(code)){
+				found = true;
+				break;
+			}
+			target++;
+		}
+		if (found) discountCodes.remove(target);
+		else throw new IllegalArgumentException("Invalid discount code provided");
+	}
+	public void printDiscountCode(){
+		System.out.printf("|-----------------------------|\n");
+		System.out.printf("| %-14s | %-2s |\n", "Discount Code", "Multiplier");
+		System.out.printf("|-----------------------------|\n");
+		for (Iterator<DiscountCodeTicket> it = discountCodes.iterator(); it.hasNext();) {
+			DiscountCodeTicket c = it.next();
+			System.out.printf("| %-14s | %-2s |\n", c.getCode(), c.getDiscount());
+		}
+		System.out.printf("|-----------------------------|\n");
 	}
 	public boolean checkValid(String code){
 		for (Iterator<DiscountCodeTicket> it = discountCodes.iterator(); it.hasNext();) {

@@ -9,6 +9,10 @@ import customerpackage.DiscountCode;
 import showtimepackage.IShowtime;
 import showtimepackage.ShowtimeManager;
 
+
+	//public static void confirmPayment(){
+		//TODO: Confirmation of Payment (yes/no)
+	//}	
 public class CustomerPayment {
 	private static Scanner scan = new Scanner(System.in);
 	private Customer c = null;
@@ -121,3 +125,4 @@ public class CustomerPayment {
 		return price;
 	}//end getProjectedBookingPrice
 }
+

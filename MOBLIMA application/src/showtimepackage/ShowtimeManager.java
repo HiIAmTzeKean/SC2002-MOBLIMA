@@ -1,6 +1,5 @@
 package showtimepackage;
 
-
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
 import java.io.IOException;
@@ -8,7 +7,6 @@ import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.util.ArrayList;
 import java.util.Iterator;
-
 import cinemapackage.CinemaType;
 import cinemapackage.ICinemaBooking;
 import customerpackage.BookingManager;
@@ -21,8 +19,13 @@ import moviepackage.MovieManager;
 import moviepackage.MovieStatus;
 import moviepackage.MovieType;
 
+/**
+ * Controller for Showtime object
+ * @apiNote IShowtimeSystem
+ * @author Ng Tze Kean
+ * @since 06-11-2022
+ */
 public class ShowtimeManager implements IShowtimeSystem {
-	
 	private static ArrayList<Showtime> showtimes;
 	private static ShowtimeManager showtimeManager;
 	private static int lastID;
@@ -252,12 +255,8 @@ public class ShowtimeManager implements IShowtimeSystem {
 		}
 		System.out.println("|----------------------------------------------------------- Showtimes ------------------------------------------------------|");
 		System.out.println("|----------------------------------------------------------------------------------------------------------------------------|");
-		System.out.printf("|   %-15s   |       %-30s        |    %-15s     |    %-8s     |    %-5s    |\n",
-						"Movie Status",
-								"Movie Name",
-								"Cinema Class",
-								"Date",
-								"Time");
+		System.out.printf("|   %-15s   |  %-30s  |  %-15s  |   %-8s  |  %-5s |  %-7s |\n",
+						"Movie Status","Movie Name","Cinema Type","Date","Time","Holiday");
 		System.out.println("|----------------------------------------------------------------------------------------------------------------------------|");
 		for (Iterator<Showtime> it = showtimes.iterator(); it.hasNext();) {
 			Showtime s= it.next();
@@ -299,12 +298,8 @@ public class ShowtimeManager implements IShowtimeSystem {
 		MovieManager.close();
 		System.out.println("|----------------------------------------------------------- Showtimes ------------------------------------------------------|");
 		System.out.println("|----------------------------------------------------------------------------------------------------------------------------|");
-		System.out.printf("|   %-15s   |       %-30s        |    %-15s     |    %-8s     |    %-5s    |\n",
-						"Movie Status",
-								"Movie Name",
-								"Cinema Class",
-								"Date",
-								"Time");
+		System.out.printf("|   %-15s   |  %-30s  |  %-15s  |   %-8s  |  %-5s |  %-7s |\n",
+						"Movie Status","Movie Name","Cinema Type","Date","Time","Holiday");
 		System.out.println("|----------------------------------------------------------------------------------------------------------------------------|");
 		for (Iterator<Showtime> it = showtimes.iterator(); it.hasNext();) {
 			Showtime s= it.next();
@@ -336,12 +331,8 @@ public class ShowtimeManager implements IShowtimeSystem {
 		MovieManager.close();
 		System.out.println("|----------------------------------------------------------- Showtimes ------------------------------------------------------|");
 		System.out.println("|----------------------------------------------------------------------------------------------------------------------------|");
-		System.out.printf("|   %-15s   |       %-30s        |    %-15s     |    %-8s     |    %-5s    |\n",
-						"Movie Status",
-								"Movie Name",
-								"Cinema Class",
-								"Date",
-								"Time");
+		System.out.printf("|   %-15s   |  %-30s  |  %-15s  |   %-8s  |  %-5s |  %-7s |\n",
+						"Movie Status","Movie Name","Cinema Type","Date","Time","Holiday");
 		System.out.println("|----------------------------------------------------------------------------------------------------------------------------|");
 		for (Iterator<Showtime> it = showtimes.iterator(); it.hasNext();) {
 			Showtime s= it.next();
@@ -349,6 +340,22 @@ public class ShowtimeManager implements IShowtimeSystem {
 				s.printShowtime();
 		}
 		System.out.println("|----------------------------------------------------------------------------------------------------------------------------|");
+	}
+	@Override
+	public void printShowtimeAdmin() {
+		if (showtimes== null || showtimes.size() == 0){
+			// exit before any looping is done
+			throw new IllegalArgumentException("No Cinema exist");
+		}
+		System.out.println("|----------------------------------------------------------- Showtimes ---------------------------------------------|");
+		System.out.println("|-------------------------------------------------------------------------------------------------------------------|");
+		System.out.printf("|  %-12s|   %-15s   |  %-30s  |  %-15s  |   %-8s  |  %-5s |  %-7s |\n",
+		"ShowtimeID","Movie Status","Movie Name","Cinema Type","Date","Time","Holiday");
+								System.out.println("|----------------------------------------------------------------------------------------------------------------------------|");
+		for (Iterator<Showtime> it = showtimes.iterator(); it.hasNext();) {
+			it.next().printShowtimeAdmin();
+		}
+		System.out.println("|-------------------------------------------------------------------------------------------------------------------|");
 	}
 	@Override
 	public void printSeats(int showtimeID) throws IllegalArgumentException{
@@ -444,22 +451,6 @@ public class ShowtimeManager implements IShowtimeSystem {
 		}
 	}
 	@Override
-	public void printShowtimeAdmin() {
-		if (showtimes== null || showtimes.size() == 0){
-			// exit before any looping is done
-			throw new IllegalArgumentException("No Cinema exist");
-		}
-		System.out.println("|----------------------------------------------------------- Showtimes ---------------------------------------------|");
-		System.out.println("|-------------------------------------------------------------------------------------------------------------------|");
-		System.out.printf("|  %-12s|   %-15s   |  %-30s  |  %-15s  |   %-8s  |  %-5s |\n",
-		"ShowtimeID","Movie Status","Movie Name","Cinema Class","Date","Time");
-								System.out.println("|----------------------------------------------------------------------------------------------------------------------------|");
-		for (Iterator<Showtime> it = showtimes.iterator(); it.hasNext();) {
-			it.next().printShowtimeAdmin();
-		}
-		System.out.println("|-------------------------------------------------------------------------------------------------------------------|");
-	}
-	@Override
 	public String getDate(int showtimeID) throws IllegalArgumentException{
 		try {
 			return showtimes.get(getShowtimeIndex(showtimeID)).getDate();
@@ -472,7 +463,7 @@ public class ShowtimeManager implements IShowtimeSystem {
 	public Day getDay(String dateString) throws IllegalArgumentException {
 		for (Iterator<Showtime> it = showtimes.iterator(); it.hasNext();) {
 			Showtime s = it.next();
-			if (s.getDate() == dateString){
+			if (s.getDate().equals(dateString)){
 				return s.getDayObject();
 			}
 		}

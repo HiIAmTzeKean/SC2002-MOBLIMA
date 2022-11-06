@@ -3,6 +3,11 @@ import java.io.Serializable;
 
 import agepackage.Age;
 
+/**
+ * Customer object that stores an instance of customer
+ * @author Ng Tze Kean
+ * @since 06-11-2022
+ */
 public class Customer implements Serializable{
 	private int id;
 	private String name;

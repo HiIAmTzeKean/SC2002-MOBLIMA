@@ -1,12 +1,17 @@
 package daypackage;
+
 import java.io.Serializable;
-
+/**
+ * Day object class. Day object is serialisable and is composited in
+ * Showtime object
+ * @apiNote IDay
+ * @author Ng Tze Kean
+ * @since 06-11-2022
+ */
 public class Day implements Serializable, IDay {
-
 	private boolean holiday;
 	private DayOfWeek dayOfWeek;
-	private static float multiplier;
-	
+	private static float multiplier=1f;;
 	// range 1 - 30. DD format
 	private int dayNumber;
 	// range 1 - 12. MM format
@@ -15,10 +20,9 @@ public class Day implements Serializable, IDay {
 	private int yearNumber;
 	// range 20220101 - present. YYYYMMDD format
 	private String fullDate;
-
 	// "1300" means 1pm
 	private String time;
-	
+
 	public Day(){
 		this.holiday = false;
 		this.dayNumber = 01;
@@ -101,6 +105,9 @@ public class Day implements Serializable, IDay {
 	 */
 	public static void setMultiplier(float newMulitplier) {
 		multiplier = newMulitplier;
+	}
+	public static float getMultiplier() {
+		return multiplier;
 	}
 
 	public void setHoliday() {

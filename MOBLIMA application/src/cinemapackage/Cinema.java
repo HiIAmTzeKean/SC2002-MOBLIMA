@@ -3,6 +3,11 @@ package cinemapackage;
 import java.io.Serializable;
 import java.util.ArrayList;
 
+/**
+ * Cinema object that stores an instance of Cinema details
+ * @author Ng Tze Kean
+ * @since 06-11-2022
+ */
 public abstract class Cinema  implements Serializable, ICinemaBooking{
 	private static final long serialVersionUID = 6266710308272298089L;
 	protected char rowList[] = {'A', 'B', 'C', 'D', 'E'};

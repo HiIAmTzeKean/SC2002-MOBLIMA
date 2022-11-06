@@ -29,7 +29,8 @@ public class StaffMovie extends View {
         System.out.println("choice 2 : Delete Movie");
         System.out.println("choice 3 : Update Movie");
         System.out.println("choice 4 : View Top 5 Movies");
-        System.out.println("choice 5 : Return");
+        System.out.println("choice 5 : Print all Movies");
+        System.out.println("choice 6 : Return");
         System.out.println("--------------------------------------");
     }
     /**
@@ -263,11 +264,11 @@ public class StaffMovie extends View {
         int ID = 0;
         String director = null;
         boolean complete = false;
-
+        System.out.print("\033\143");
         System.out.println("--------------------------------------");
         System.out.println("Set new Movie Director");
         System.out.println("--------------------------------------");
-        MovieHandler.printMovieAdmin();
+        MovieHandler.printMoviesAdmin();
 
         while (!complete){
             switch(state){
@@ -310,7 +311,7 @@ public class StaffMovie extends View {
                 }
             }
         }
-         
+        MovieHandler.printMoviesAdmin();
         System.out.println("--------------------------------------");
         System.out.println("\t\tNew movie director has been set");
         System.out.println("--------------------------------------");
@@ -332,7 +333,7 @@ public class StaffMovie extends View {
         System.out.println("Set new Movie type");
         System.out.println("--------------------------------------");
         
-        MovieHandler.printMovieAdmin();
+        MovieHandler.printMoviesAdmin();
 
         while (!complete) {
             switch(state){
@@ -390,6 +391,7 @@ public class StaffMovie extends View {
                 }
             }
         }
+        MovieHandler.printMoviesAdmin();
         System.out.println("--------------------------------------");
         System.out.println("\t\tNew movie type has been set");
         System.out.println("--------------------------------------");
@@ -409,7 +411,7 @@ public class StaffMovie extends View {
         System.out.println("Deleting Movie");
         System.out.println("--------------------------------------");
 
-        MovieHandler.printMovieAdmin();
+        MovieHandler.printMoviesAdmin();
 
         while (!complete){
             try {
@@ -445,8 +447,14 @@ public class StaffMovie extends View {
             try {
                 System.out.println("Enter choice");
                 choice = sc.nextInt();
+                if (choice>6 || choice<1) {
+                    System.out.println("Invalid input!");
+                    waitForEnter(null);
+                    continue;
+                }
             } catch (InputMismatchException e) {
-                System.out.println("Invalid input!");
+                inputMismatchHandler();
+                waitForEnter(null);
                 continue;
             }
 
@@ -464,11 +472,14 @@ public class StaffMovie extends View {
                     showTopMovie();
                     break;
                 case 5:
+                    IMovie MovieHandler = MovieManager.getInstance();
+                    MovieHandler.printMoviesAdmin();
+                    waitForEnter(null);
+                    break;
+                case 6:
                     System.out.println("-------------------------------------");
                     System.out.println("\t\tExiting Staff Movie Menu");
                     System.out.println("-------------------------------------");
-                    MovieManager.close();
-                    ShowtimeManager.close();
                     waitForEnter(null);
                     return;
                 default:
@@ -508,7 +519,7 @@ public class StaffMovie extends View {
         System.out.println("--------------------------------------");
         System.out.println("Set new Movie Status");
         System.out.println("--------------------------------------");
-        MovieHandler.printMovieAdmin();
+        MovieHandler.printMoviesAdmin();
         while (!complete) {
             switch(state){
                 case ID:
@@ -614,38 +625,49 @@ public class StaffMovie extends View {
      */
     private static void showTopMovie() {
         ISales SalesHandler = MovieManager.getInstance();
-        int choice2;
-
-        System.out.println("Display Top 5 Movie by : ");
-        System.out.println("--------------------------------------");
-        System.out.println("choice 1 : Sales");
-        System.out.println("choice 2 : ratings");
-        System.out.println("choice 3 : exit");
-        System.out.println("--------------------------------------");
-
+        int choice;
         while(true){
+            System.out.print("\033\143");
+            System.out.println("--------------------------------------");
+            System.out.println("Display Top 5 Movie by : ");
+            System.out.println("--------------------------------------");
+            System.out.println("choice 1 : Sales");
+            System.out.println("choice 2 : ratings");
+            System.out.println("choice 3 : exit");
+            System.out.println("--------------------------------------");
+
             try {
                 System.out.println("Enter choice");
-                choice2 = sc.nextInt();
-                switch (choice2) {
-                    case 1:
-                        SalesHandler.getTop5_sales();
-                        break;
-                    case 2:
-                        SalesHandler.getTop5_rating();
-                        break;
-                    case 3:
-                        return;
-                    default:
-                        System.out.println("Illegal Input \n t\tBack to Movie Menu");
-                        System.out.println("--------------------------------------");
-                        return;
+                choice = sc.nextInt();
+                if (choice>3 || choice<1) {
+                    System.out.println("Invalid input!");
+                    waitForEnter(null);
+                    continue;
                 }
-
             } catch (InputMismatchException e) {
-                System.out.println("Invalid input, exiting from ");
-                sc.nextLine();
-                return;
+                inputMismatchHandler();
+                waitForEnter(null);
+                continue;
+            }
+            switch (choice) {
+                case 1:
+                    SalesHandler.getTop5_sales();
+                    waitForEnter(null);
+                    break;
+                case 2:
+                    SalesHandler.getTop5_rating();
+                    waitForEnter(null);
+                    break;
+                case 3:
+                    System.out.println("--------------------------------------");
+                    System.out.println("Exiting movie ranking");
+                    System.out.println("--------------------------------------");
+                    waitForEnter(null);
+                    return;
+                default:
+                    System.out.println("Illegal Input \n t\tBack to Movie Menu");
+                    System.out.println("--------------------------------------");
+                    return;
             }
         }
     }

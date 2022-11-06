@@ -1,12 +1,21 @@
-package viewPackage.customerpackage;
+//THIS CLASS WILL BE ENTIRELY REPLACED BY NEWCUSTOMER VIEW, MOST OF THE CODE HERE HAS BEEN
+//REFORMATTED AND ADDED TO CUSTOMERBOOK
 
+package viewPackage.customerpackage;
 import java.util.*;
+
+import cineplexpackage.ICineplex;
+import cineplexpackage.CineplexManager;
+import cineplexpackage.Cineplex;
+
 import viewPackage.View;
+
 import customerpackage.BookingManager;
 import customerpackage.Customer;
 import moviepackage.IMovie;
 import showtimepackage.IShowtime;
 import showtimepackage.ShowtimeManager;
+import viewPackage.View;
 import showtimepackage.Showtime;
 import cinemapackage.CinemaType;
 import daypackage.Day; 

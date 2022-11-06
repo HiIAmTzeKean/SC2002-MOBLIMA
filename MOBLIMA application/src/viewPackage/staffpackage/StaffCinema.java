@@ -137,7 +137,7 @@ public class StaffCinema extends View {
     }
 
     public static void start() {
-        Scanner sc = new Scanner(System.in);
+        sc = new Scanner(System.in);
 
         int choice = 0;
         while (true) {
@@ -167,8 +167,6 @@ public class StaffCinema extends View {
                     updateCineplex();
                     break;
                 case 4:
-                    CinemaManager.close();
-                    CineplexManager.close();
                     System.out.println("-------------------------------------");
                     System.out.println("\t\tExiting Staff Cinema Menu");
                     System.out.println("-------------------------------------");
@@ -177,7 +175,6 @@ public class StaffCinema extends View {
                     System.out.println("Enter valid choice");
                     choice = 0;
             }
-
         }
     }
 
@@ -204,8 +201,9 @@ public class StaffCinema extends View {
         String name = null;
         String type = null;
         boolean complete = false;
-        Scanner sc = new Scanner(System.in);
+        sc = new Scanner(System.in);
 
+        System.out.print("\033[H\033[2J");
         System.out.println("-------------------------------------");
         System.out.println("Creating Cinema");
         System.out.println("-------------------------------------");
@@ -242,7 +240,7 @@ public class StaffCinema extends View {
                             state = createCinemaState.CODE;
                             break;
                         }
-                        else if (!type.equals("Gold") || !type.equals("Gold")|| !type.equals("Gold")) {
+                        else if (!type.equals("Platinum") && !type.equals("Gold") && !type.equals("Silver")) {
                                 System.out.println("Invalid cinema type");
                                 System.out.println("Try again");
                                 state = createCinemaState.TYPE;
@@ -488,6 +486,7 @@ public class StaffCinema extends View {
                 case SET:
                     try {
                         cineplexHandler.addCinema(cineplexID, cinemaHandler.getCinema(cinemaID));
+                        complete=true;
                     } catch (IllegalArgumentException e) {
                         System.out.println("Not able to add cinema to cineplex requested");
                         waitForEnter(null);
@@ -495,6 +494,7 @@ public class StaffCinema extends View {
                     }
             }
         }
+        
         System.out.println("-------------------------------------");
         System.out.println("Cinema added to Cinplex");
         System.out.println("-------------------------------------");
@@ -560,6 +560,7 @@ public class StaffCinema extends View {
                 case REMOVE:
                     try {
                         cineplexHandler.addCinema(cineplexID, cinemaHandler.getCinema(cinemaID));
+                        complete=true;
                     } catch (IllegalArgumentException e) {
                         System.out.println("Not able to remove cinema to cineplex requested");
                         waitForEnter(null);
@@ -581,7 +582,7 @@ public class StaffCinema extends View {
             try {
                 System.out.println("Enter choice");
                 ch = sc.nextInt();
-                if (ch>5 || ch<1) {
+                if (ch>7 || ch<1) {
                     System.out.println("Invalid input!");
                     waitForEnter(null);
                     continue;
