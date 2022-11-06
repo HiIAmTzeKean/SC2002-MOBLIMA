@@ -1,9 +1,14 @@
 package customerpackage;
 
 import java.io.*;
-import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Iterator;
+
+/**
+ * Controller class for DiscountCodeTicket
+ * @author Ng Tze Kean
+ * @since 06-11-2022
+ */
 public class DiscountCode{
     private static ArrayList<DiscountCodeTicket> discountCodes;
     private static DiscountCode discountCode;

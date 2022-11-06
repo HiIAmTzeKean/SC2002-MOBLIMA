@@ -1,8 +1,12 @@
 package cinemapackage;
 import java.io.Serializable;
 
+/**
+ * Seat object that stores an instance of Seat details
+ * @author Ng Tze Kean
+ * @since 06-11-2022
+ */
 public class Seat implements Serializable{
-
 	private boolean isBook;
 	private int x;
 	private int y;

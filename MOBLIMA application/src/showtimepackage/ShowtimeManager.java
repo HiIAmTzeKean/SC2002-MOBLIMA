@@ -1,6 +1,5 @@
 package showtimepackage;
 
-
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
 import java.io.IOException;
@@ -8,7 +7,6 @@ import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.util.ArrayList;
 import java.util.Iterator;
-
 import cinemapackage.CinemaType;
 import cinemapackage.ICinemaBooking;
 import customerpackage.BookingManager;
@@ -21,8 +19,13 @@ import moviepackage.MovieManager;
 import moviepackage.MovieStatus;
 import moviepackage.MovieType;
 
+/**
+ * Controller for Showtime object
+ * @apiNote IShowtimeSystem
+ * @author Ng Tze Kean
+ * @since 06-11-2022
+ */
 public class ShowtimeManager implements IShowtimeSystem {
-	
 	private static ArrayList<Showtime> showtimes;
 	private static ShowtimeManager showtimeManager;
 	private static int lastID;

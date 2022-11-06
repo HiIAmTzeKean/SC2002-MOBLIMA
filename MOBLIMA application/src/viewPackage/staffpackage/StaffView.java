@@ -1,11 +1,15 @@
 package viewPackage.staffpackage;
 
+import viewPackage.View;
+
 import java.util.InputMismatchException;
 import java.util.Scanner;
 
-import viewPackage.View;
-
-
+/**
+ * Controller to handle rerouting of staff view UI
+ * @author Ng Tze Kean
+ * @since 05-11-2022
+ */
 public class StaffView extends View {
 
     public static void displayMenu(){ 
