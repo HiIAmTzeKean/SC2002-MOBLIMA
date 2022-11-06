@@ -218,14 +218,14 @@ public class CineplexManager implements ICineplex {
 		cinema.setCineplexid(cineplexes.get(target).getID());
 		cinema.setCineplexid(id);
 		System.out.println("The list of Cinemas under Cinema " + cineplexes.get(target).getName() + " is:");
-		printCineplex(target);
+		printCinemas(target);
 	}
-	private void printCineplex(int indexPosition){
-		System.out.printf("|------------------------------------------------------------------------------------------------------|\n");
-		System.out.printf("|  %-15s  |   %-30s   |       %-30s        |\n","ID","Cineplex Name","Cineplex Location");
-		System.out.printf("|------------------------------------------------------------------------------------------------------|\n");
-		cineplexes.get(indexPosition).printCineplexCinemas();
-		System.out.printf("|------------------------------------------------------------------------------------------------------|\n");
+	private void printCinemas(int cineplexIndexPosition){
+		System.out.printf("|--------------------------------------------------------------------------------------------|\n");
+		System.out.printf("|   %-15s   |       %-15s        |    %-30s     |\n","ID","Cinema Code","Cinema Type");
+		System.out.printf("|--------------------------------------------------------------------------------------------|\n");
+		cineplexes.get(cineplexIndexPosition).printCineplexCinemasAdmin();
+		System.out.printf("|--------------------------------------------------------------------------------------------|\n");
 	}
 	@Override
 	public void removeCinema(int id, Cinema cinema) throws IllegalArgumentException {
@@ -244,7 +244,7 @@ public class CineplexManager implements ICineplex {
 		cineplexes.get(target).removeCinema(cinema);
 		cinema.setCineplexid(-1);
 		System.out.println("The list of Cinemas under Cinema " + cineplexes.get(target).getName() + " is:");
-		printCineplex(target);
+		printCinemas(target);
 	}
 
 	@Override

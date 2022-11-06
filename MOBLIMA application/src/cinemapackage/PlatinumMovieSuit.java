@@ -60,12 +60,12 @@ public class PlatinumMovieSuit extends Cinema {
     @Override
     public void printLayout(){
         System.out.printf("======== Layout of %s Platinum Class Cinema ========\n",super.getCinemaCode());
-        System.out.printf("      1  2     3  4     5  6\n");
+        System.out.printf("       1    2       3    4       5    6\n");
         int i = 0;
         for (i=0; i<2; i++) {
             System.out.printf("%c  - ", rowList[i]);
             for (int j=0; j<6; j++) {
-                System.out.printf("|%d|",seats.get(i).get(j).isBooked()? 1:0);
+                seats.get(i).get(j).print();
                 if (j==1 || j==3) System.out.printf(" - ");
             }
             System.out.printf(" -  %c\n", rowList[i]);
@@ -74,17 +74,19 @@ public class PlatinumMovieSuit extends Cinema {
         i=2;
         System.out.printf("%c  - ", rowList[i]);
         for (int j=0; j<6; j++) {
-            if(j%2 ==0) System.out.printf("| %d",seats.get(i).get(j).isBooked()? 1:0);
-            if(j%2 ==1) System.out.printf("%d |",seats.get(i).get(j).isBooked()? 1:0);
+            if(j%2 ==0) System.out.printf("| %d  ",seats.get(i).get(j).isBooked()? 1:0);
+            if(j%2 ==1) System.out.printf("  %d |",seats.get(i).get(j).isBooked()? 1:0);
             if (j==1 || j==3) System.out.printf(" - ");
         }
         System.out.printf(" -  %c\n", rowList[i]);
-        System.out.printf("   -  -  -  -  -  -  -  -  -  -\n");
+        System.out.printf("   -  -  -  -  -  -  -  -  -  -   -   -   -\n");
 
         System.out.printf("          ________________\n");
         System.out.printf("          |    SCREEN    |\n");
         System.out.printf("\n");
+		printLegend();
     }
+	
     public float getMultiplier(){
         return 2.0f;
     }

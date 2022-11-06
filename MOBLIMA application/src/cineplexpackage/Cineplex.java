@@ -26,9 +26,6 @@ public class Cineplex implements Serializable{
 
 	public void addCinema(Cinema cinema){
 		cinemas.add(cinema);
-		System.out.println("===== Target is =====");
-		System.out.println("Cinema ID: " + cinema.getID() + " Cinema Type: " + cinema.getCinemaType());
-		System.out.println("Cinema has been added");
 	}
 
 	public void removeCinema(Cinema cinema) {
@@ -84,6 +81,11 @@ public class Cineplex implements Serializable{
 	public void printCineplexCinemas() {
 		for (Cinema c: cinemas){
 			c.printCinema();
+		}
+	}
+	public void printCineplexCinemasAdmin() {
+		for (Cinema c: cinemas){
+			c.printCinemaAdmin();
 		}
 	}
 	/**
