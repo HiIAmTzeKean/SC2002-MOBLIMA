@@ -2,6 +2,8 @@ package viewPackage.staffpackage;
 
 import java.util.InputMismatchException;
 import java.util.Scanner;
+
+import customerpackage.DiscountCode;
 import daypackage.Day;
 import showtimepackage.IShowtimeSystem;
 import showtimepackage.ShowtimeManager;
@@ -22,8 +24,109 @@ public class StaffSystem extends View {
         System.out.println("Choice 2 : Set new base multiplier for weekday/weekend pricing");
         System.out.println("Choice 3 : Set new Holiday");
         System.out.println("Choice 4 : Remove Holiday");
-        System.out.println("Choice 5 : Return");
+        System.out.println("Choice 5 : Add Discount code");
+        System.out.println("Choice 6 : Remove Discount code");
+        System.out.println("Choice 7 : Return");
         System.out.println("--------------------------------------");
+    }
+    public static void addDiscountCode(){
+        DiscountCode DC = DiscountCode.getInstance();
+        enum setDiscoundEnum {
+            CODE, DISCOUNT, CREATE
+        };
+        setDiscoundEnum state = setDiscoundEnum.CODE;
+        String code = null;
+        float discount = 0f;
+        boolean completed = false;
+
+        System.out.print("\033[H\033[2J");
+        System.out.println("--------------------------------------");
+        System.out.println("Setting discount code");
+        System.out.println("--------------------------------------");
+        DC.printDiscountCode();
+        while (!completed) {
+            switch (state) {
+                case CODE:
+                    try {
+                        System.out.println("[Enter 0 to go back]");
+                        System.out.println("Enter Discount code: ");
+                        code = sc.next();
+                        if (code.equals("0"))
+                            return;
+                    } catch (InputMismatchException e) {
+                        inputMismatchHandler();
+                        state = setDiscoundEnum.CODE;
+                        break;
+                    }
+                case DISCOUNT:
+                    try {
+                        System.out.println("[Enter 0 to go back]");
+                        System.out.println("Enter discount amount (multiplier): ");
+                        discount = sc.nextFloat();
+                        if (discount == 0f){
+                            state = setDiscoundEnum.CODE;
+                            break;
+                        }
+                    } catch (InputMismatchException e) {
+                        inputMismatchHandler();
+                        state = setDiscoundEnum.DISCOUNT;
+                        break;
+                    }
+                case CREATE:
+                    DC.addDiscountCodeTicket(code, discount);
+                    completed = true;
+            }
+        }
+        DC.printDiscountCode();
+        System.out.println("--------------------------------------");
+        System.out.println("\t\tDiscount code created!");
+        System.out.println("--------------------------------------");
+        waitForEnter(null);
+    }
+    public static void removeDiscountCode(){
+        DiscountCode DC = DiscountCode.getInstance();
+        enum removeDiscoundEnum {
+            CODE, CREATE
+        };
+        removeDiscoundEnum state = removeDiscoundEnum.CODE;
+        String code = null;
+        boolean completed = false;
+
+        System.out.print("\033[H\033[2J");
+        System.out.println("--------------------------------------");
+        System.out.println("Removing discount code");
+        System.out.println("--------------------------------------");
+        DC.printDiscountCode();
+        while (!completed) {
+            switch (state) {
+                case CODE:
+                    try {
+                        System.out.println("[Enter 0 to go back]");
+                        System.out.println("Enter Discount code: ");
+                        code = sc.next();
+                        if (code.equals("0"))
+                            return;
+                    } catch (InputMismatchException e) {
+                        inputMismatchHandler();
+                        state = removeDiscoundEnum.CODE;
+                        break;
+                    }
+                case CREATE:
+                    try {
+                        DC.removeDiscountCode(code);
+                        completed = true;
+                    } catch (IllegalArgumentException e) {
+                        System.out.println("Invalid code supplied!\nTry again!");
+                        state = removeDiscoundEnum.CODE;
+                        break;
+                    }
+            }
+        }
+        DC.printDiscountCode();
+        System.out.println("--------------------------------------");
+        System.out.println("\t\tDiscount code removed!");
+        System.out.println("--------------------------------------");
+        waitForEnter(null);
     }
     public static void start() {
         sc = new Scanner(System.in);
@@ -34,7 +137,7 @@ public class StaffSystem extends View {
             try {
                 System.out.println("Enter choice");
                 choice = sc.nextInt();
-                if (choice > 5 || choice < 1) {
+                if (choice > 7 || choice < 1) {
                     System.out.println("Invalid input!");
                     waitForEnter(null);
                     continue;
@@ -58,6 +161,12 @@ public class StaffSystem extends View {
                     unsetHoliday();
                     break;
                 case 5:
+                    addDiscountCode();
+                    break;
+                case 6:
+                    removeDiscountCode();
+                    break;
+                case 7:
                     System.out.println("--------------------------------------");
                     System.out.println("Exiting staff system menu");
                     System.out.println("--------------------------------------");
