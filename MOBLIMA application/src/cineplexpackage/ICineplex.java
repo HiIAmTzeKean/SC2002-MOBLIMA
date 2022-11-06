@@ -65,6 +65,7 @@ public interface ICineplex {
 	 */
 	void printCineplexes();
 	void printCineplexesAdmin();
+	void printCinemasUnderCineplex(int cineplexID);
 	/**
 	 * Finds cineplex object by CineplexID specified
 	 * If not found raise IllegalArgumentException

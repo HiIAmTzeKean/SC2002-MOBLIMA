@@ -430,7 +430,7 @@ public class StaffCinema extends View {
         ICineplex cineplexHandler = CineplexManager.getInstance();
         ICinema cinemaHandler = CinemaManager.getInstance();
         enum addCinemaToCineplexState {CINEMA, CINEPLEX, SET}
-        addCinemaToCineplexState state = addCinemaToCineplexState.CINEMA;
+        addCinemaToCineplexState state = addCinemaToCineplexState.CINEPLEX;
         int cinemaID = 0, cineplexID = 0;
         boolean complete = false;
         sc = new Scanner(System.in);
@@ -441,27 +441,6 @@ public class StaffCinema extends View {
         System.out.println("-------------------------------------");
         while (!complete) {
             switch (state) {
-                case CINEMA:
-                    try {
-                        cinemaHandler.printCinemasAdmin();
-                        System.out.println("[Enter 0 to return]");
-                        System.out.println("Enter CinemaID to add:");
-                        cinemaID = sc.nextInt();
-                        if (cinemaID==0) {
-                            return;
-                        }
-                        cinemaHandler.getCinema(cinemaID);
-                    } catch (InputMismatchException e) {
-                        inputMismatchHandler();
-                        state = addCinemaToCineplexState.CINEMA;
-                        break;
-                    }
-                    catch (IllegalArgumentException e) {
-                        System.out.println("Cinema ID entered was not valid!");
-                        System.out.println("Try again!");
-                        state = addCinemaToCineplexState.CINEMA;
-                        break;
-                    }
                 case CINEPLEX:
                     try {
                         cineplexHandler.printCineplexesAdmin();
@@ -483,14 +462,40 @@ public class StaffCinema extends View {
                         state = addCinemaToCineplexState.CINEPLEX;
                         break;
                     }
+                case CINEMA:
+                    try {
+                        System.out.println("List of Cinemas under selected Cineplex below:");
+                        cineplexHandler.printCinemasUnderCineplex(cineplexID);
+                        System.out.println("Select which cinema you want to add below:");
+                        cinemaHandler.printCinemasAdmin();
+                        System.out.println("[Enter 0 to return]");
+                        System.out.println("Enter CinemaID to add:");
+                        cinemaID = sc.nextInt();
+                        if (cinemaID==0) {
+                            return;
+                        }
+                        cinemaHandler.getCinema(cinemaID);
+                    } catch (InputMismatchException e) {
+                        inputMismatchHandler();
+                        state = addCinemaToCineplexState.CINEMA;
+                        break;
+                    }
+                    catch (IllegalArgumentException e) {
+                        System.out.println("Cinema ID entered was not valid!");
+                        System.out.println("Try again!");
+                        state = addCinemaToCineplexState.CINEMA;
+                        break;
+                    }
+                
                 case SET:
                     try {
                         cineplexHandler.addCinema(cineplexID, cinemaHandler.getCinema(cinemaID));
                         complete=true;
                     } catch (IllegalArgumentException e) {
                         System.out.println("Not able to add cinema to cineplex requested");
+                        state = addCinemaToCineplexState.CINEMA;
                         waitForEnter(null);
-                        return;
+                        break;
                     }
             }
         }
@@ -504,43 +509,22 @@ public class StaffCinema extends View {
         ICineplex cineplexHandler = CineplexManager.getInstance();
         ICinema cinemaHandler = CinemaManager.getInstance();
         enum removeCinemaFromCineplexSTATE {CINEMA, CINEPLEX, REMOVE}
-        removeCinemaFromCineplexSTATE state = removeCinemaFromCineplexSTATE.CINEMA;
+        removeCinemaFromCineplexSTATE state = removeCinemaFromCineplexSTATE.CINEPLEX;
         int cinemaID = 0, cineplexID = 0;
         boolean complete = false;
         sc = new Scanner(System.in);
         
         System.out.print("\033[H\033[2J");
         System.out.println("-------------------------------------");
-        System.out.println("    Removing Cinema to Cinplex");
+        System.out.println("    Removing Cinema from Cinplex");
         System.out.println("-------------------------------------");
         while (!complete) {
             switch (state) {
-                case CINEMA:
-                    try {
-                        cinemaHandler.printCinemasAdmin();
-                        System.out.println("[Enter 0 to return]");
-                        System.out.println("Enter CinemaID to remove:");
-                        cinemaID = sc.nextInt();
-                        if (cinemaID==0) {
-                            return;
-                        }
-                        cinemaHandler.getCinema(cinemaID);
-                    } catch (InputMismatchException e) {
-                        inputMismatchHandler();
-                        state = removeCinemaFromCineplexSTATE.CINEMA;
-                        break;
-                    }
-                    catch (IllegalArgumentException e) {
-                        System.out.println("Cinema ID entered was not valid!");
-                        System.out.println("Try again!");
-                        state = removeCinemaFromCineplexSTATE.CINEMA;
-                        break;
-                    }
                 case CINEPLEX:
                     try {
                         cineplexHandler.printCineplexesAdmin();
                         System.out.println("[Enter 0 to return]");
-                        System.out.println("Enter Cineplex ID to remove to:");
+                        System.out.println("Enter Cineplex ID to remove cinema from:");
                         cineplexID = sc.nextInt();
                         if (cineplexID==0) {
                             return;
@@ -557,14 +541,38 @@ public class StaffCinema extends View {
                         state = removeCinemaFromCineplexSTATE.CINEPLEX;
                         break;
                     }
+                case CINEMA:
+                    try {
+                        cineplexHandler.printCinemasUnderCineplex(cineplexID);
+                        System.out.println("[Enter 0 to return]");
+                        System.out.println("Enter CinemaID to remove:");
+                        cinemaID = sc.nextInt();
+                        if (cinemaID==0) {
+                            state = removeCinemaFromCineplexSTATE.CINEPLEX;
+                            break;
+                        }
+                        cinemaHandler.getCinema(cinemaID);
+                    } catch (InputMismatchException e) {
+                        inputMismatchHandler();
+                        state = removeCinemaFromCineplexSTATE.CINEMA;
+                        break;
+                    }
+                    catch (IllegalArgumentException e) {
+                        System.out.println("Cinema ID entered was not valid!");
+                        System.out.println("Try again!");
+                        state = removeCinemaFromCineplexSTATE.CINEMA;
+                        break;
+                    }
                 case REMOVE:
                     try {
-                        cineplexHandler.addCinema(cineplexID, cinemaHandler.getCinema(cinemaID));
+                        cineplexHandler.removeCinema(cineplexID, cinemaHandler.getCinema(cinemaID));
                         complete=true;
                     } catch (IllegalArgumentException e) {
-                        System.out.println("Not able to remove cinema to cineplex requested");
+                        System.out.println("Not able to remove cinema to cineplex requested!");
+                        System.out.println("Cinema is not under Cineplex!\nTry again.");
+                        state = removeCinemaFromCineplexSTATE.CINEMA;
                         waitForEnter(null);
-                        return;
+                        break;
                     }
             }
         }

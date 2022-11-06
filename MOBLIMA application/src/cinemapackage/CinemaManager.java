@@ -121,15 +121,10 @@ public class CinemaManager implements ICinema {
 	}
 	@Override
 	public void deleteCinema(int id, ICineplex cineplexManager) {
-		
-		System.out.println("===== Cinema being deleted =====");
 		for (Iterator<Cinema> it = cinemas.iterator(); it.hasNext();) {
 			Cinema c = it.next();
 			if (c.getID() == id) {
-				System.out.println("Target is:");
-				c.printCinema();
 				cineplexManager.removeCinema(c);
-				System.out.println("===== Cinema has been deleted =====");
 				it.remove();
 				return;
 			}

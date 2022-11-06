@@ -33,9 +33,6 @@ public class Cineplex implements Serializable{
 		for (Iterator<Cinema> it = cinemas.iterator(); it.hasNext();) {
 			if (it.next().getID() == cinema.getID()) {
 				cinemas.remove(target);
-				System.out.println("Target in cinplex is:");
-				System.out.println("Cinema ID: " + cinema.getID() + " Cinema Type: " + cinema.getCinemaType());
-				System.out.println("===== Cinema is deleted =====");
 				return;
 			}
 			target++;
