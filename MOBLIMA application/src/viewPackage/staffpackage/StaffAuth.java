@@ -1,9 +1,9 @@
 package viewPackage.staffpackage;
+import java.util.Scanner;
+
 import viewPackage.MOBLIMA;
 import viewPackage.View;
 
-
-import java.util.Scanner;
 import java.util.Arrays;
 import java.util.InputMismatchException;
 

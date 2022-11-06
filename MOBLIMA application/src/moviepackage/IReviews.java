@@ -12,10 +12,17 @@ public interface IReviews {
 	 */
 	void addReview(String movieName, String review, float rating) throws IllegalArgumentException;
 	/**
-	 * Returns the review array
-	 * @param movieID
-	 * @return
+	 * Returns the review array for the requested movieID
+	 * @param movieID to get the review array for
+	 * @return review attribute of requested movie object
 	 * @throws IllegalArgumentException if movie is not found.
 	 */
 	ArrayList<Review> getReviews(int movieID) throws IllegalArgumentException;
+
+	/**
+	 * Prints the text representation of the reviews for a requested movie
+	 * @param movieName to print the reviews for
+	 * @throws IllegalArgumentException if the movie is not found or if the reviews array is empty
+	 */
+	void printReviews(String movieName) throws IllegalArgumentException;
 }

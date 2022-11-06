@@ -1,6 +1,7 @@
 package viewPackage;
-
 import java.util.Scanner;
+import viewPackage.customerpackage.CustomerView;
+import viewPackage.staffpackage.StaffAuth;
 import java.io.Console;
 
 /**

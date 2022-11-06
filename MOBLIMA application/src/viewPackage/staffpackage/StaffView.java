@@ -1,9 +1,9 @@
 package viewPackage.staffpackage;
 
-import viewPackage.View;
-
 import java.util.InputMismatchException;
 import java.util.Scanner;
+
+import viewPackage.View;
 
 
 public class StaffView extends View {

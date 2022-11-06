@@ -121,7 +121,7 @@ public class Movie implements Serializable{
 		this.reviews.add(review);
 	}
 	public int getSales(){
-		System.out.printf("ID: %d\n",this.id);
+		//System.out.printf("ID: %d\n",this.id);
 		return this.sales;
 	}
 	public double getMultiplier(){

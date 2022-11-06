@@ -227,6 +227,7 @@ public class TestData {
         mm.getMoviefromID(15).addReview(new Review(4, "Very enjoyable horror movie experience. All in all happy I saw this in theatres and would watch again."));
         mm.getMoviefromID(15).addReview(new Review(5, "Great scary movie that is believable. It has the perfect blend of paranormal and psychological fear to make it a scary movie. "));
         System.out.println("All movies have been added, closing MovieManager");
+        //Add Random Amount of Sales
         MovieManager.close();
     }
     public static void createCinema(){
