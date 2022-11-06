@@ -1,13 +1,18 @@
 package viewPackage.staffpackage;
+import java.util.Scanner;
+
 import viewPackage.MOBLIMA;
 import viewPackage.View;
 
-
-import java.util.Scanner;
 import java.util.Arrays;
 import java.util.InputMismatchException;
 
-
+/**
+ * Staff authentication view
+ * Prompts the staff to login and matches I/O with approved username and password
+ * @author Ng Tze Kean
+ * @since 05-11-2022
+ */
 public class StaffAuth extends View {
 	private static String[] passwordDB = {"p1", "password2","password3","password4","password5","password6","password7","password8","password9","password10"};
 	private static String[] usernameDB = {"u1", "username2","username3","username4","username5","username6","username7","username8","username9","username10"};
@@ -25,7 +30,6 @@ public class StaffAuth extends View {
 		int no_of_tries = 0 ;
 		int index = -1 ;
 
-		// Tze kean code
 		while (no_of_tries < 3 ) {
 			System.out.println("You only have 3 trials before getting locked out");
 			System.out.println("Current trial: " + (no_of_tries+1));

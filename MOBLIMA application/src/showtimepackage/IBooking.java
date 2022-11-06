@@ -6,6 +6,8 @@ import customerpackage.CustomerNullException;
 /**
  * Implemented by Showtime class
  * Used for interfacing by other classes with showtime object
+ * @author Ng Tze Kean
+ * @since 06-11-2022
  */
 public interface IBooking {
 	/**

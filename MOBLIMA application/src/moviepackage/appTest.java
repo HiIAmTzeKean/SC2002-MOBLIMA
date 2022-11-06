@@ -112,8 +112,9 @@ public class appTest {
             System.out.println("Reading movies from file");
             MovieManager mm = MovieManager.getInstance();
             System.out.printf("Number of movies read: %d\n",mm.getMovies().size());
-            mm.printMovies();
             //mm.printMovies();
+            System.out.println();
+            //mm.printMoviesAdmin();
             // System.out.println("\nTesting findMovieByName():");
             // Movie test = mm.findMoviebyName("Strange World");
             // test.printMovieComplete();
@@ -125,7 +126,8 @@ public class appTest {
 
             //mm.printMovies();
             // System.out.println("\n\nTesting deleteMovie");
-            mm.printMovieAdmin();
+            //mm.getTop5_ratingCustomer();
+            //mm.printMovieAdmin();
         }
     }
 }

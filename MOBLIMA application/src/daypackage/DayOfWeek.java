@@ -1,5 +1,10 @@
 package daypackage;
 
+/**
+ * Enum DayOfWeek used by Day class
+ * @author Ng Tze Kean
+ * @since 06-11-2022
+ */
 public enum DayOfWeek {
 	MON("Monday"),
 	TUE("Tuesday"),

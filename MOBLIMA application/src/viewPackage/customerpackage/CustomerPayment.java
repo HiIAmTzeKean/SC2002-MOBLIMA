@@ -2,9 +2,8 @@ package viewPackage.customerpackage;
 
 public class CustomerPayment {
 
-	public void getCustomerDetails() {
-		// TODO - implement CustomerPayment.getCustomerDetails
-		throw new UnsupportedOperationException();
-	}
+	public static void confirmPayment(){
+		//TODO: Confirmation of Payment (yes/no)
+	}	
 
 }

@@ -1,13 +1,19 @@
 package daypackage;
-
+/**
+ * Interface that is implemented by Day object
+ * @apiNote IDay
+ * @author Ng Tze Kean
+ * @since 06-11-2022
+ */
 public interface IDay {
-
 	/**
-	 * @return the multiplier set by staff for weekends
+	 * @return float multiplier of Day class
 	 */
 	float getDayMultiplier();
 	/**
-	 * @return true is showtime is on a holiday else false
+	 * Checks if holiday variable is true
+	 * If set, then the day is a holiday
+	 * @return boolean
 	 */
 	boolean isHoliday();
 	/**
@@ -15,7 +21,7 @@ public interface IDay {
 	 */
 	void setHoliday();
 	/**
-	 * Sets holiday variable 
+	 * Unset holiday variable 
 	 */
 	void removeHoliday();
 	/**
@@ -26,25 +32,29 @@ public interface IDay {
 	 */
 	void setDate(int dayNumber, int monthNumber, int yearNumber);
 	/**
-	 * @return the date of the showtime
+	 * Returns the date of Day object in YYYYMMDD format
+	 * @return String
 	 */
 	String getDate();
 	/**
-	 * Sets day of the week for a showtime
-	 * @param day
+	 * Sets the day of the week. [Mon, Tues ... Sun]
+	 * @param DayOfWeek enum
 	 */
 	void setDayOfWeek(DayOfWeek day);
 	/**
-	 * @return day of the week for a showtime
+	 * Returns the day of the week. [Mon, Tues ... Sun]
+	 * @return enum DayOfWeek
 	 */
 	DayOfWeek getDayOfWeek();
 	/**
-	 * Sets time of the showtime
+	 * Sets time of the Day object
+	 * Paramter time passed in to be in 24H format 1359H
 	 * @param time
 	 */
 	void setTime(String time);
 	/**
-	 * @return time of the showtime
+	 * Returns the time stored in Day object
+	 * @return String
 	 */
 	String getTime();
 

@@ -5,7 +5,11 @@ import viewPackage.View;
 import java.util.InputMismatchException;
 import java.util.Scanner;
 
-
+/**
+ * Controller to handle rerouting of staff view UI
+ * @author Ng Tze Kean
+ * @since 05-11-2022
+ */
 public class StaffView extends View {
 
     public static void displayMenu(){ 
@@ -17,10 +21,14 @@ public class StaffView extends View {
 		System.out.println("Choice 2 : Create/Update/Remove Cinemas");
 		System.out.println("Choice 3 : Configure Showtimes");
 		System.out.println("Choice 4 : Configure System Settings");
-		System.out.println("Choice 5 : logout");
+		System.out.println("Choice 5 : Logout");
         System.out.println("---------------------------------------------------");
     } 
 
+	/**
+	 * Controls logic for staff view
+	 * @apiNote StaffMovie, StaffCinema, StaffShowtime, StaffSystem
+	 */
     public static void start(){
         int choice = 0 ; 
 		
@@ -45,7 +53,7 @@ public class StaffView extends View {
 				break;
 				case  2 : StaffCinema.start(); 
 				break;
-				case  3 : StaffShowtime.start(); 
+				case  3 : StaffShowtime.start();
 				break;
 				case  4 : StaffSystem.start(); 
 				break;
