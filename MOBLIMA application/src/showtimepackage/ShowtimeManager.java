@@ -463,7 +463,7 @@ public class ShowtimeManager implements IShowtimeSystem {
 	public Day getDay(String dateString) throws IllegalArgumentException {
 		for (Iterator<Showtime> it = showtimes.iterator(); it.hasNext();) {
 			Showtime s = it.next();
-			if (s.getDate() == dateString){
+			if (s.getDate().equals(dateString)){
 				return s.getDayObject();
 			}
 		}

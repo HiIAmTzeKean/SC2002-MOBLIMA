@@ -207,8 +207,9 @@ public class StaffSystem extends View {
             }
         }
         ssHandler.setBasePrice(BasePrice);
+        System.out.println("New base price is: " + ssHandler.getBasePrice());
         System.out.println("--------------------------------------");
-        System.out.println("\t\tNew base Price Set! ");
+        System.out.println("\tNew base Price Set! ");
         System.out.println("--------------------------------------");
         waitForEnter(null);
     }
@@ -242,7 +243,7 @@ public class StaffSystem extends View {
         }
 
         Day.setMultiplier(multiplier);
-
+        System.out.println("New base price is: " + Day.getMultiplier());
         System.out.println("--------------------------------------");
         System.out.println("\t\tNew multiplier Set! ");
         System.out.println("--------------------------------------");
