@@ -5,15 +5,17 @@ import agepackage.Age;
 import agepackage.IAge;
 import cinemapackage.CinemaType;
 import customerpackage.Customer;
+import customerpackage.DiscountCode;
 import showtimepackage.IShowtime;
 import showtimepackage.ShowtimeManager;
 
 public class CustomerPayment {
 	private static Scanner scan = new Scanner(System.in);
 	private Customer c = null;
-	//private int customerID = 0;
 	private CustomerBook cb = null;
 	private int bookingOption = 0;
+	private boolean isCoupleSeat = false;
+	private String discountEntered = null;
 	private float price = 0;
 	
 	public Customer getCustomer() {
@@ -51,13 +53,48 @@ public class CustomerPayment {
 		//customerID = c.getID();
 	}//edd of setCustomerDetails()
 	
-	public float getProjectedBookingPrice(CinemaType cType, String seatRow, int selectedShowtimeID) {
-		cb.setBookingOption(cType, seatRow);
-		bookingOption = cb.getBookingOption();
-		boolean isCoupleSeat = cb.getIsCoupleSeat();
-		String discountEntered = cb.getDiscountEntered();
+	/////////////////////////////////////////////////////////////////////////////////////////////////
+	
+	/*
+	 * internally modify the variables booking option, isCoupleSeat, discountEntered. 
+	 * Used by getProjectedBookingPrice
+	 */
+	public void setBookingOption(CinemaType cType, String seatRow){
+		DiscountCode dc = DiscountCode.getInstance();
+		boolean discountValid = false;
 		
+		//couple seating is only allowed for Platinum Class in Row C
+		if(cType.equals("Platinum") && seatRow.compareTo("C") == 0 ) {
+			System.out.println("If you wish to book as couple seat, enter 1. Else, enter any other character: ");
+			String coupleSeatChoice = scan.next();
+			if(coupleSeatChoice.compareTo("1") == 0) {
+				isCoupleSeat = true;
+				bookingOption = 2; 
+			}
+		}
+		
+		discountEntered = "0";
+		do {
+			System.out.println("If you wish to use discount code, enter code. Else, enter 0: ");
+			discountEntered = scan.next();
+			if(dc.checkValid(discountEntered)) {
+				discountValid = true;
+			}
+		}while(discountEntered.compareTo("0") != 0 || !discountValid); //exits when user enters 0 or enters a valid discount code
+		
+		if(discountValid) {
+			bookingOption = 3;
+			if(isCoupleSeat) {
+				bookingOption = 4;
+			}//endif
+		}//endif
+	}//end setBookingOption()
+	
+	/////////////////////////////////////////////////////////////////////////////////////////////////
+	
+	public float getProjectedBookingPrice(CinemaType cType, String seatRow, int selectedShowtimeID) {
 		IShowtime showtimeHandler = ShowtimeManager.getInstance();
+		setBookingOption(cType, seatRow);
 		
 		try { //CHECK - handle specific exceptions for each call separately?
 			switch(bookingOption) {
@@ -81,8 +118,6 @@ public class CustomerPayment {
 			System.out.println("Error in getting price.");
 			return -1; 
 		}
-		
 		return price;
 	}//end getProjectedBookingPrice
-	
 }
