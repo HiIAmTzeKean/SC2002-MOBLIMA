@@ -167,8 +167,6 @@ public class StaffCinema extends View {
                     updateCineplex();
                     break;
                 case 4:
-                    CinemaManager.close();
-                    CineplexManager.close();
                     System.out.println("-------------------------------------");
                     System.out.println("\t\tExiting Staff Cinema Menu");
                     System.out.println("-------------------------------------");

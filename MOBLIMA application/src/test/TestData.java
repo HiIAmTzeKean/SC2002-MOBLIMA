@@ -348,6 +348,43 @@ public class TestData {
         man.addShowtimeSystem(movieMan.getMoviefromID(7), cinemaManager.cloneCinemaByID(3), d2_t2);
         MovieManager mm = MovieManager.getInstance();
         for (int i = 1; i < 18; i ++) {
+            if (i>=14){
+                for (int j=0; j<20; j++){
+                    try{
+                        Showtime showtimeObj=man.getShowtimeByID(i);
+                        if (showtimeObj.getCinemaClass().toString().equals("PLATINUM")){
+                            int col = (int) ((int) 5*Math.random())+1;
+                            int row = (int) ((int) 2*Math.random());
+                            c = new Customer(nameList[col], mobileList[col], emailList[col], ageList[col]); 
+                            man.bookSeat(i, colList[row], col,c);
+                            mm.getMoviefromID(showtimeObj.getMovieID()).addSales(1);
+                            // increament movie sale by 1
+                        }
+                        else if (showtimeObj.getCinemaClass().equals("GOLD")){
+                            int col = (int) ((int) 8*Math.random())+1;
+                            int row = (int) ((int) 3*Math.random());
+                            c = new Customer(nameList[col], mobileList[col], emailList[col], ageList[col]); 
+                            man.bookSeat(i, colList[row], col,c);
+                            mm.getMoviefromID(showtimeObj.getMovieID()).addSales(1);
+                        }
+                        else{
+                            int col = (int) ((int) 8*Math.random())+1;
+                            int row = (int) ((int) 5*Math.random());
+                            c = new Customer(nameList[col], mobileList[col], emailList[col], ageList[col]); 
+                            man.bookSeat(i, colList[row], col,c);
+                            mm.getMoviefromID(showtimeObj.getMovieID()).addSales(1);
+                        }  
+                    }
+                    catch(IllegalArgumentException ex){
+                        continue;
+                    }
+                    catch(CustomerNullException ex){
+                        ex.printStackTrace();
+                        continue;
+                    }
+                }
+                continue;
+            }
             for (int j=0; j< 5; j++){
                 try{
                     Showtime showtimeObj=man.getShowtimeByID(i);
@@ -375,11 +412,11 @@ public class TestData {
                     }  
                 }
                 catch(IllegalArgumentException ex){
-                    return;
+                    continue;
                 }
                 catch(CustomerNullException ex){
                     ex.printStackTrace();
-                    return;
+                    continue;
                 }
             }
         }
