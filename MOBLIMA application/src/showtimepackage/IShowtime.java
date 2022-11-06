@@ -3,8 +3,12 @@ import daypackage.Day;
 import cinemapackage.CinemaType;
 import customerpackage.Customer;
 import customerpackage.CustomerNullException;
-import daypackage.Day;
 
+/**
+ * Superclass interface for showtime handling
+ * @author Ng Tze Kean
+ * @since 05-11-2022
+ */
 public interface IShowtime {
     void bookSeat(int showtimeID, String seatRow, int seatCol, Customer customer)throws IllegalArgumentException, CustomerNullException;
     void bookCoupleSeat(int showtimeID, String seatRow, int seatCol, Customer customer)throws IllegalArgumentException, CustomerNullException;
@@ -22,7 +26,10 @@ public interface IShowtime {
     float getPrice(int showtimeID, Customer customer, String discountCodeTicket) throws IllegalArgumentException, CustomerNullException;
     float getPrice(int showtimeID, Customer customer, boolean isCoupleSeat) throws IllegalArgumentException, CustomerNullException;
     float getPrice(int showtimeID, Customer customer, boolean isCoupleSeat, String discountCodeTicket) throws IllegalArgumentException, CustomerNullException;
-
+    /**
+     * Prints the showtimes in admin view
+     * ID, Showtime, 
+     */
     void printShowtimeAdmin();
     /**
      * Prints all showtimes that are still showing
@@ -73,5 +80,14 @@ public interface IShowtime {
      * @throws IllegalArgumentException
      */
     String getTime(int showtimeID) throws IllegalArgumentException;
+    /**
+     * Returns showtime object with the provided paramters to make modification to object stored in data file
+     * @param movieName
+     * @param day
+     * @param cineplexID
+     * @param cinemaType
+     * @return Showtime
+     * @throws IllegalArgumentException
+     */
     Showtime getShowtime(String movieName, Day day, int cineplexID, CinemaType cinemaType) throws IllegalArgumentException;
 }
