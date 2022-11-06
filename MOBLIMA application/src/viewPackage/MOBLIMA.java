@@ -3,6 +3,11 @@ package viewPackage;
 import java.util.InputMismatchException;
 import java.util.Scanner;
 
+import cinemapackage.CinemaManager;
+import customerpackage.BookingManager;
+import customerpackage.DiscountCode;
+import moviepackage.MovieManager;
+import showtimepackage.ShowtimeManager;
 import viewPackage.customerpackage.CustomerView;
 import viewPackage.staffpackage.StaffAuth;
 
@@ -17,7 +22,11 @@ public class MOBLIMA extends View {
         System.out.println("----------------------------------");
         System.out.println("\t\tWELCOME TO MOBLIMA\t\t"); 
         System.out.println("----------------------------------");
-        start(); 
+
+		startAllManagers();
+        start();
+		//closeAllManagers();
+
         System.out.println("----------------------------------");
         System.out.println("\t\tEXITING MOBLIMA\t\t"); 
         System.out.println("----------------------------------");
@@ -25,6 +34,20 @@ public class MOBLIMA extends View {
 	/**
 	 * Menu to be printed for navigation
 	 */
+	private static void startAllManagers(){
+		BookingManager.getInstance();
+		DiscountCode.getInstance();
+		MovieManager.getInstance();
+		CinemaManager.getInstance();
+		ShowtimeManager.getInstance();
+	}
+	private static void closeAllManagers(){
+		BookingManager.close();
+		DiscountCode.close();
+		MovieManager.close();
+		CinemaManager.close();
+		ShowtimeManager.close();
+	}
     public static void displayMenu() {
 		System.out.print("\033[H\033[2J");
 		System.out.println("--------------------------------------");

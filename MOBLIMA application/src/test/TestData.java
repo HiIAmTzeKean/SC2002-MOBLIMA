@@ -325,31 +325,21 @@ public class TestData {
         d3_t2.setDayOfWeek(DayOfWeek.FRI);
 
         // Preview movies
-        man.addShowtimeSystem(movieMan.getMoviefromID(1), cinemaManager.cloneCinemaByID(1), d0_t0);
-        man.addShowtimeSystem(movieMan.getMoviefromID(1), cinemaManager.cloneCinemaByID(2), d0_t1);
-        man.addShowtimeSystem(movieMan.getMoviefromID(1), cinemaManager.cloneCinemaByID(3), d0_t1);
-        man.addShowtimeSystem(movieMan.getMoviefromID(1), cinemaManager.cloneCinemaByID(1), d0_t2);
-        man.addShowtimeSystem(movieMan.getMoviefromID(1), cinemaManager.cloneCinemaByID(1), d1_t0);
-        man.addShowtimeSystem(movieMan.getMoviefromID(1), cinemaManager.cloneCinemaByID(2), d1_t0);
-        man.addShowtimeSystem(movieMan.getMoviefromID(1), cinemaManager.cloneCinemaByID(3), d1_t0);
-        man.addShowtimeSystem(movieMan.getMoviefromID(1), cinemaManager.cloneCinemaByID(1), d1_t1);
-        man.addShowtimeSystem(movieMan.getMoviefromID(1), cinemaManager.cloneCinemaByID(2), d1_t1);
-        man.addShowtimeSystem(movieMan.getMoviefromID(1), cinemaManager.cloneCinemaByID(3), d1_t1);
-        man.addShowtimeSystem(movieMan.getMoviefromID(1), cinemaManager.cloneCinemaByID(3), d1_t2);
+        man.addShowtimeSystem(movieMan.getMoviefromID(8), cinemaManager.cloneCinemaByID(1), d0_t0);
+        man.addShowtimeSystem(movieMan.getMoviefromID(8), cinemaManager.cloneCinemaByID(1), d0_t1);
+        man.addShowtimeSystem(movieMan.getMoviefromID(9), cinemaManager.cloneCinemaByID(2), d0_t1);
         // Now showing movies
-        man.addShowtimeSystem(movieMan.getMoviefromID(3), cinemaManager.cloneCinemaByID(3), d0_t0);
-        man.addShowtimeSystem(movieMan.getMoviefromID(3), cinemaManager.cloneCinemaByID(1), d0_t1);
-        man.addShowtimeSystem(movieMan.getMoviefromID(3), cinemaManager.cloneCinemaByID(3), d0_t1);
-        man.addShowtimeSystem(movieMan.getMoviefromID(3), cinemaManager.cloneCinemaByID(1), d0_t2);
-        man.addShowtimeSystem(movieMan.getMoviefromID(3), cinemaManager.cloneCinemaByID(2), d1_t0);
-        man.addShowtimeSystem(movieMan.getMoviefromID(3), cinemaManager.cloneCinemaByID(3), d1_t0);
-        man.addShowtimeSystem(movieMan.getMoviefromID(3), cinemaManager.cloneCinemaByID(2), d1_t1);
-        man.addShowtimeSystem(movieMan.getMoviefromID(3), cinemaManager.cloneCinemaByID(3), d1_t2);
+        man.addShowtimeSystem(movieMan.getMoviefromID(1), cinemaManager.cloneCinemaByID(3), new Day("20220103", "1600"));
+        man.addShowtimeSystem(movieMan.getMoviefromID(2), cinemaManager.cloneCinemaByID(2), new Day("20220103", "1600"));
+        man.addShowtimeSystem(movieMan.getMoviefromID(3), cinemaManager.cloneCinemaByID(3), new Day("20220103", "1600"));
+        man.addShowtimeSystem(movieMan.getMoviefromID(4), cinemaManager.cloneCinemaByID(3), new Day("20220103", "2000"));
+        man.addShowtimeSystem(movieMan.getMoviefromID(5), cinemaManager.cloneCinemaByID(2), new Day("20220103", "2000"));
+        man.addShowtimeSystem(movieMan.getMoviefromID(6), cinemaManager.cloneCinemaByID(3), new Day("20220103", "2000"));
         // comming soon
-        man.addShowtimeSystem(movieMan.getMoviefromID(5), cinemaManager.cloneCinemaByID(1), d2_t0);
-        man.addShowtimeSystem(movieMan.getMoviefromID(5), cinemaManager.cloneCinemaByID(1), d2_t1);
-        man.addShowtimeSystem(movieMan.getMoviefromID(5), cinemaManager.cloneCinemaByID(2), d2_t1);
-        man.addShowtimeSystem(movieMan.getMoviefromID(5), cinemaManager.cloneCinemaByID(3), d2_t2);
+        man.addShowtimeSystem(movieMan.getMoviefromID(10), cinemaManager.cloneCinemaByID(1), new Day("20220311", "1600"));
+        man.addShowtimeSystem(movieMan.getMoviefromID(11), cinemaManager.cloneCinemaByID(3), new Day("20220310", "2000"));
+        man.addShowtimeSystem(movieMan.getMoviefromID(11), cinemaManager.cloneCinemaByID(1), new Day("20220312", "1600"));
+        man.addShowtimeSystem(movieMan.getMoviefromID(10), cinemaManager.cloneCinemaByID(3), new Day("20220312", "2000"));
         // End showtime
         man.addShowtimeSystem(movieMan.getMoviefromID(7), cinemaManager.cloneCinemaByID(1), d2_t0);
         man.addShowtimeSystem(movieMan.getMoviefromID(7), cinemaManager.cloneCinemaByID(2), d2_t0);
@@ -357,7 +347,7 @@ public class TestData {
         man.addShowtimeSystem(movieMan.getMoviefromID(7), cinemaManager.cloneCinemaByID(1), d2_t1);
         man.addShowtimeSystem(movieMan.getMoviefromID(7), cinemaManager.cloneCinemaByID(3), d2_t2);
         MovieManager mm = MovieManager.getInstance();
-        for (int i = 1; i < 28; i ++) {
+        for (int i = 1; i < 18; i ++) {
             for (int j=0; j< 5; j++){
                 try{
                     Showtime showtimeObj=man.getShowtimeByID(i);
