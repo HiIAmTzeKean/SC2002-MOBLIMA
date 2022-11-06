@@ -22,17 +22,20 @@ public class StaffAuth extends View {
 		String username;
 
 		System.out.print("\033\143");
-		System.out.println("-------------------------------------");
-		System.out.println("Please login to MOBLIMA");
-		System.out.println("-------------------------------------");
+		System.out.println("---------------------------------------------------");
+		System.out.println("\t    Please login to MOBLIMA");
+		System.out.println("---------------------------------------------------");
 
 		boolean login = false;
 		int no_of_tries = 0 ;
 		int index = -1 ;
 
 		while (no_of_tries < 3 ) {
+			System.out.println("---------------------------------------------------");
 			System.out.println("You only have 3 trials before getting locked out");
+			System.out.println("---------------------------------------------------");
 			System.out.println("Current trial: " + (no_of_tries+1));
+			System.out.println("---------------------------------------------------");
 
 			try {
 				System.out.println("Enter Username:");
@@ -59,10 +62,11 @@ public class StaffAuth extends View {
 
 			index = Arrays.asList(usernameDB).indexOf(username);
 			if (password.equals(passwordDB[index])){ 
-				System.out.println("-------------------------------------");
-				System.out.println("Access Granted");
-				System.out.println("-------------------------------------");
+				System.out.println("---------------------------------------------------");
+				System.out.println("\t\tAccess Granted");
+				System.out.println("---------------------------------------------------");
 				login = true;
+				waitForEnter(null);
 				break;
 			}
 			System.out.println("Wrong Username/Password combination");
@@ -73,6 +77,8 @@ public class StaffAuth extends View {
 			System.out.print("\033\143");
 			StaffView.start();
 		} 
+		
 		else System.out.println("System Locked. Number of tries exceeded.");
+		waitForEnter(null);
 	}
 }

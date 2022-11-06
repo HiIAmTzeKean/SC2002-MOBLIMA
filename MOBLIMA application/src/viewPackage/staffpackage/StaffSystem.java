@@ -17,17 +17,17 @@ import viewPackage.View;
 public class StaffSystem extends View {
     public static void displayMenu() {
         System.out.print("\033[H\033[2J");
-        System.out.println("--------------------------------------");
-        System.out.println("Update System Settings");
-        System.out.println("--------------------------------------");
-        System.out.println("Choice 1 : Set new BasePrice");
-        System.out.println("Choice 2 : Set new base multiplier for weekday/weekend pricing");
-        System.out.println("Choice 3 : Set new Holiday");
+        System.out.println("------------------------------------------------------------------");
+        System.out.println("                      Update System Settings");
+        System.out.println("------------------------------------------------------------------");
+        System.out.println("Choice 1 : Set New BasePrice");
+        System.out.println("Choice 2 : Set New Base Multiplier for Weekday/Weekend Price");
+        System.out.println("Choice 3 : Set New Holiday");
         System.out.println("Choice 4 : Remove Holiday");
-        System.out.println("Choice 5 : Add Discount code");
-        System.out.println("Choice 6 : Remove Discount code");
+        System.out.println("Choice 5 : Add Discount Code");
+        System.out.println("Choice 6 : Remove Discount Code");
         System.out.println("Choice 7 : Return");
-        System.out.println("--------------------------------------");
+        System.out.println("------------------------------------------------------------------");
     }
     public static void addDiscountCode(){
         DiscountCode DC = DiscountCode.getInstance();
@@ -41,7 +41,7 @@ public class StaffSystem extends View {
 
         System.out.print("\033[H\033[2J");
         System.out.println("--------------------------------------");
-        System.out.println("Setting discount code");
+        System.out.println("       Adding Discount Code");
         System.out.println("--------------------------------------");
         DC.printDiscountCode();
         while (!completed) {
@@ -79,7 +79,7 @@ public class StaffSystem extends View {
         }
         DC.printDiscountCode();
         System.out.println("--------------------------------------");
-        System.out.println("\t\tDiscount code created!");
+        System.out.println("      Discount Code Added!");
         System.out.println("--------------------------------------");
         waitForEnter(null);
     }
@@ -94,7 +94,7 @@ public class StaffSystem extends View {
 
         System.out.print("\033[H\033[2J");
         System.out.println("--------------------------------------");
-        System.out.println("Removing discount code");
+        System.out.println("      Removing Discount Code");
         System.out.println("--------------------------------------");
         DC.printDiscountCode();
         while (!completed) {
@@ -124,7 +124,7 @@ public class StaffSystem extends View {
         }
         DC.printDiscountCode();
         System.out.println("--------------------------------------");
-        System.out.println("\t\tDiscount code removed!");
+        System.out.println("        Discount Code Removed!");
         System.out.println("--------------------------------------");
         waitForEnter(null);
     }
@@ -168,7 +168,7 @@ public class StaffSystem extends View {
                     break;
                 case 7:
                     System.out.println("--------------------------------------");
-                    System.out.println("Exiting staff system menu");
+                    System.out.println("      Exiting Staff System Menu");
                     System.out.println("--------------------------------------");
                     waitForEnter(null);
                     return;
@@ -187,7 +187,7 @@ public class StaffSystem extends View {
         IShowtimeSystem ssHandler = ShowtimeManager.getInstance();
         System.out.print("\033[H\033[2J");
         System.out.println("--------------------------------------");
-        System.out.println("Setting new base price");
+        System.out.println("       Setting New Base Price");
         System.out.println("-------------------------------------");
         float BasePrice = 0;
         boolean complete = false;
@@ -195,8 +195,8 @@ public class StaffSystem extends View {
         while (!complete) {
             try {
                 System.out.println("[Enter 0 to return]");
-                System.out.println("Current base price: " + ssHandler.getBasePrice());
-                System.out.println("Enter the new base price");
+                System.out.println("Current Base Price: " + ssHandler.getBasePrice());
+                System.out.println("Enter New Base Price");
                 BasePrice = sc.nextFloat();
                 if (BasePrice == 0f)
                     return;
@@ -207,9 +207,9 @@ public class StaffSystem extends View {
             }
         }
         ssHandler.setBasePrice(BasePrice);
-        System.out.println("New base price is: " + ssHandler.getBasePrice());
+        System.out.println("New Base Price: " + ssHandler.getBasePrice());
         System.out.println("--------------------------------------");
-        System.out.println("\tNew base Price Set! ");
+        System.out.println("         New Base Price Set! ");
         System.out.println("--------------------------------------");
         waitForEnter(null);
     }
@@ -222,7 +222,7 @@ public class StaffSystem extends View {
     private static void setMultiplier() {
         System.out.print("\033[H\033[2J");
         System.out.println("--------------------------------------");
-        System.out.println("Setting new multiplier");
+        System.out.println("        Setting New Multiplier");
         System.out.println("--------------------------------------");
         float multiplier = 0;
         boolean complete = false;
@@ -230,8 +230,8 @@ public class StaffSystem extends View {
         while (!complete) {
             try {
                 System.out.println("[Enter 0 to return]");
-                System.out.println("Current day multiplier: " + Day.getMultiplier());
-                System.out.println("Enter the new day multiplier");
+                System.out.println("Current Day Multiplier: " + Day.getMultiplier());
+                System.out.println("Enter New Day Multiplier");
                 multiplier = sc.nextFloat();
                 if (multiplier == 0f)
                     return;
@@ -243,9 +243,9 @@ public class StaffSystem extends View {
         }
 
         Day.setMultiplier(multiplier);
-        System.out.println("New base price is: " + Day.getMultiplier());
+        System.out.println("New Day Multiplier is: " + Day.getMultiplier());
         System.out.println("--------------------------------------");
-        System.out.println("\t\tNew multiplier Set! ");
+        System.out.println("         New Multiplier Set! ");
         System.out.println("--------------------------------------");
         waitForEnter(null);
     }
@@ -266,7 +266,7 @@ public class StaffSystem extends View {
 
         System.out.print("\033[H\033[2J");
         System.out.println("--------------------------------------");
-        System.out.println("Remove holiday");
+        System.out.println("          Remove holiday");
         System.out.println("--------------------------------------");
 
         while (!completed) {
@@ -295,6 +295,8 @@ public class StaffSystem extends View {
                         break;
                     } catch (IllegalArgumentException e) {
                         System.out.println("No showtime with date exist");
+                        System.out.println("Exiting the function now!");
+                        waitForEnter(null);
                         state = dayEnum.DATE;
                         return;
                     }
@@ -302,7 +304,7 @@ public class StaffSystem extends View {
         }
         ssHandler.printShowtimeAdmin();
         System.out.println("--------------------------------------");
-        System.out.println("\t\tHoliday removed!");
+        System.out.println("           Holiday removed!");
         System.out.println("--------------------------------------");
         waitForEnter(null);
     }
@@ -323,7 +325,7 @@ public class StaffSystem extends View {
 
         System.out.print("\033[H\033[2J");
         System.out.println("--------------------------------------");
-        System.out.println("Setting new day as holiday");
+        System.out.println("     Setting New Day as Holiday");
         System.out.println("--------------------------------------");
 
         while (!completed) {
@@ -352,6 +354,8 @@ public class StaffSystem extends View {
                         break;
                     } catch (IllegalArgumentException e) {
                         System.out.println("No showtime with date exist");
+                        System.out.println("Exiting the function now!");
+                        waitForEnter(null);
                         state = dayEnum.DATE;
                         return;
                     }
@@ -359,7 +363,7 @@ public class StaffSystem extends View {
         }
         ssHandler.printShowtimeAdmin();
         System.out.println("--------------------------------------");
-        System.out.println("\t\tNew Holiday Set! ");
+        System.out.println("           New Holiday Set! ");
         System.out.println("--------------------------------------");
         waitForEnter(null);
     }
