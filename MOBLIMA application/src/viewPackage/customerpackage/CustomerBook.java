@@ -128,16 +128,22 @@ public class CustomerBook {
                 		 break;
                 	 }
                  case CUSTOMERDETAILS:
-	                System.out.println("[Enter 0 to return]"); 
-	            	 return_choice = scan.next();
-	            	 if(return_choice.compareTo("0")==0) {
-	            		 state = bookMenuState.SELECTSEAT; //go-back a step
-	            		 break;
-	            	 }
-	            	 try {
-	            		cp.setCustomerDetails();
-	         			c = cp.getCustomer();
-	            	 }
+                	System.out.println("\nPlease enter your personal details: ");
+                	System.out.println("Name :");
+  					System.out.println("[Enter 0 to Return]");
+  					try{
+  						String name = scan.nextLine();
+  						if(name.compareTo("0")==0){
+  							state = bookMenuState.SELECTSEAT; //go-back a step
+  	                		 		break;
+  						}
+  						cp.setCustomerDetails(name);
+	         				c = cp.getCustomer();
+  						if(c == null) { //function returns null customer
+                			 		state = bookMenuState.CUSTOMERDETAILS; 
+                    		 			break;
+                    		 			}
+  					}
 	            	 catch(Exception ecust) {
 	            		 System.out.println("Error entering customer details, please try again"); 
 	            		 state = bookMenuState.CUSTOMERDETAILS; 
