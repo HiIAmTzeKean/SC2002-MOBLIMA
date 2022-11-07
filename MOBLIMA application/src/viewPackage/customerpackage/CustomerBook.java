@@ -95,6 +95,7 @@ public class CustomerBook {
 					state = bookMenuState.DISPLAYSHOWTIMES; //go-back a step
  	                		 break;
  					}
+				cs.setCinemaTypeName(cinemaTypeName);
  				selectedShowtime = cs.getSelectedShowtime();
  				if(selectedShowtime == null) { //function returns null object when showtime not found
 					state = bookMenuState.SELECTSHOWTIME;
