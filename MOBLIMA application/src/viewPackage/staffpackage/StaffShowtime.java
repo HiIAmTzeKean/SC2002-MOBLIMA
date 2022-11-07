@@ -62,7 +62,7 @@ public class StaffShowtime extends View {
             switch (state) {
                 case MOVIE:
 					try {
-						MovieHandler.printMovieAdmin();
+						MovieHandler.printMoviesAdmin();
 						System.out.println("[Enter 0 to return]");
 						System.out.println("Enter Movie ID");
 						ID = sc.nextInt();
@@ -228,7 +228,6 @@ public class StaffShowtime extends View {
 		System.out.println("--------------------------------------");
 
 		ssHandler.printShowtimeAdmin();
-		System.out.println("-------------------------------------");
 
 		while (!complete) {
             switch (state) {
@@ -265,7 +264,7 @@ public class StaffShowtime extends View {
                         System.out.println("Enter New Showtime Time");
                         Time = sc.next();
                         if (Time.equals("0")) {
-                            state = setDayShowtime.ID;
+                            state = setDayShowtime.FULLDATE;
                             break;
                         }
                     } catch (InputMismatchException e) {
@@ -275,10 +274,10 @@ public class StaffShowtime extends View {
                     }
                 case CREATE:
 					try {
-						day = ssHandler.getDay(FullDate);
+						day = new Day(FullDate, Time);
 					} catch (IllegalArgumentException e) {
-						System.out.println("Unable to get day from given Date");
-						state = setDayShowtime.CREATE;
+						System.out.println("Invalid date/time");
+						state = setDayShowtime.FULLDATE;
 						break; 
 					}
                     try {
@@ -292,6 +291,7 @@ public class StaffShowtime extends View {
                     }
             }
         }
+		ssHandler.printShowtimeAdmin();
 		System.out.println("-------------------------------------");
         System.out.println("New Day set for Showtime");
         System.out.println("-------------------------------------");

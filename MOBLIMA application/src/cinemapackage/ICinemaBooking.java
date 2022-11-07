@@ -1,5 +1,10 @@
 package cinemapackage;
 
+/**
+ * Interface to be implemented by Cinema class
+ * @author Ng Tze Kean
+ * @since 06-11-2022
+ */
 public interface ICinemaBooking {
     /**
      * Book a seat with given row and col. Additional information such as customerID is also stored 

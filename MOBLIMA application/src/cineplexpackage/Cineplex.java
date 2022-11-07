@@ -5,6 +5,11 @@ import java.util.Iterator;
 
 import cinemapackage.Cinema;
 
+/**
+ * Cineplex object that stores an instance of cineplex details
+ * @author Ng Tze Kean
+ * @since 06-11-2022
+ */
 public class Cineplex implements Serializable{
 
 	private String location;

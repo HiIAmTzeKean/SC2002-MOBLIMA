@@ -3,9 +3,13 @@ package cineplexpackage;
 import java.io.*;
 import java.util.ArrayList;
 import java.util.Iterator;
-
 import cinemapackage.Cinema;
-
+/**
+ * Controller for Cineplex class
+ * @apiNote ICineplex
+ * @author Ng Tze Kean
+ * @since 06-11-2022
+ */
 public class CineplexManager implements ICineplex {
 
 	private static ArrayList<Cineplex> cineplexes;
