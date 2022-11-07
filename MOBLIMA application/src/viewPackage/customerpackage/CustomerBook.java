@@ -86,24 +86,26 @@ public class CustomerBook {
                 	 //else if displayOk is true -> goes to next step
                 	 //Do not clear console between display showtimes and select showtime
                  case SELECTSHOWTIME:
-                	 System.out.println("[Enter 0 to return]"); 
-                	 return_choice = scan.next();
-                	 if(return_choice.compareTo("0")==0) {
-                		 state = bookMenuState.DISPLAYSHOWTIMES; //go-back a step
-                		 break;
-                	 }
-                	 System.out.println("\nChoose a row from the above table and enter these details: ");
-                	 try {
-                		 selectedShowtime = cs.getSelectedShowtime();
-                		 if(selectedShowtime == null) { //function returns null object when showtime not found
-                			 state = bookMenuState.SELECTSHOWTIME; 
-                    		 break;
-                		 }
-                		 else {
-                			 selectedShowtimeID = cs.getSelectedShowtimeID();
-                			 cType = cs.getCinemaType(); 
-                		 }
-                	 }
+			     System.out.println("Select a row from showtimes display and enter details to select it.");
+			     System.out.print("Enter Cinema Class, from 'Platinum', 'Gold', 'Sliver'");
+			     System.out.println("[Enter 0 to Return]");
+			     try{
+ 				String cinemaTypeName = scan.nextLine();
+ 				if(cinemaTypeName.compareTo("0")==0){
+					state = bookMenuState.DISPLAYSHOWTIMES; //go-back a step
+ 	                		 break;
+ 					}
+ 				selectedShowtime = cs.getSelectedShowtime();
+ 				if(selectedShowtime == null) { //function returns null object when showtime not found
+					state = bookMenuState.SELECTSHOWTIME;
+					System.out.println("Error in selecting the showtime, please retry.");
+					break;
+                   		 }
+ 				else {
+					selectedShowtimeID = cs.getSelectedShowtimeID();
+					cType = cs.getCinemaType(); 
+ 					}
+ 				}
                 	 catch(Exception eselectshow) {
                 		 state = bookMenuState.SELECTSHOWTIME; 
                 		 break;
