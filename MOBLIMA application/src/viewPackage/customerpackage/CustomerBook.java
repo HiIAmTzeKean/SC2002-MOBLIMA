@@ -130,36 +130,44 @@ public class CustomerBook {
                  case CUSTOMERDETAILS:
                 	System.out.println("\nPlease enter your personal details: ");
                 	System.out.println("Name :");
-  					System.out.println("[Enter 0 to Return]");
-  					try{
-  						String name = scan.nextLine();
-  						if(name.compareTo("0")==0){
-  							state = bookMenuState.SELECTSEAT; //go-back a step
-  	                		 		break;
-  						}
-  						cp.setCustomerDetails(name);
-	         				c = cp.getCustomer();
-  						if(c == null) { //function returns null customer
-                			 		state = bookMenuState.CUSTOMERDETAILS; 
-                    		 			break;
-                    		 			}
+  			System.out.println("[Enter 0 to Return]");
+  			try{
+  				String name = scan.nextLine();
+  				if(name.compareTo("0")==0){
+  					state = bookMenuState.SELECTSEAT; //go-back a step
+  	                		 break;
   					}
+  				cp.setCustomerDetails(name);
+	         		c = cp.getCustomer();
+  				if(c == null) { //function returns null customer
+                			 state = bookMenuState.CUSTOMERDETAILS; 
+                    		 	break;
+                    		 	}
+  				}
 	            	 catch(Exception ecust) {
 	            		 System.out.println("Error entering customer details, please try again"); 
 	            		 state = bookMenuState.CUSTOMERDETAILS; 
 	            		 break;
 	            	 }
                  case DISPLAYPRICE:
-                	 System.out.println("[Enter 0 to return]"); 
-	            	 return_choice = scan.next();
-	            	 if(return_choice.compareTo("0")==0) {
-	            		 state = bookMenuState.CUSTOMERDETAILS; //go-back a step
-	            		 break;
-	            	 }
-	            	 try {
-	            		 price = cp.getProjectedBookingPrice(cType, seatRow, selectedShowtimeID);
-	         			System.out.printf("The cost of your booking is: %f %n", price);
-	            	 }
+                 	case DISPLAYPRICE:
+                 	System.out.println("Enter 1 if you wish to see projected price for your selection"); //since function takes no input from user
+   			System.out.println("[Enter 0 to Return]");
+   			try{
+   				String seeprice = scan.next();
+   				if(seeprice.compareTo("0")==0){
+   					state = bookMenuState.CUSTOMERDETAILS; //go-back a step
+   	                		 break;
+   					}
+   				else if(seeprice.compareTo("1")==0) {
+   					price = cp.getProjectedBookingPrice(cType, seatRow, selectedShowtimeID);
+   					}
+   				if(price == -1) { //error value returned by function
+                 			 state = bookMenuState.CUSTOMERDETAILS; 
+                     		 	break;
+                     		 }
+   				System.out.printf("The cost of your booking is: %f %n", price);
+   				}
 	            	 catch(Exception eprice) {
 	            		 System.out.println("Error in displaying, please try again"); 
 	            		 state = bookMenuState.DISPLAYPRICE; 
