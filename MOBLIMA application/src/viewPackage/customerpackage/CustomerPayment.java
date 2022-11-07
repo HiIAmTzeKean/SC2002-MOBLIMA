@@ -113,6 +113,8 @@ public class CustomerPayment {
 					break;
 				default: 
 					System.out.println("Error in getting price.");
+					price = -1;
+					break;
 			}//endswitch
 		}//endtry
 		catch(Exception eprice) {
