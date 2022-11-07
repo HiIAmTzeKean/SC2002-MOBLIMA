@@ -26,15 +26,12 @@ public class CustomerPayment {
 		return c;
 	}
 	
-	public void setCustomerDetails() {
-		String name = null;
+	public void setCustomerDetails(String name) {
+		name = null;
 		IAge age = null;
 		int mobile = 0;
 		String email = null;
 		
-		System.out.println("\nPlease enter your personal details: ");
-		System.out.print("Name :");
-		name = scan.nextLine();
 		c.setName(name);
 		System.out.println();
 		
