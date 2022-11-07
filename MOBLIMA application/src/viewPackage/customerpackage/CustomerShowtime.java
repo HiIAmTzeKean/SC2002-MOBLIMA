@@ -55,6 +55,9 @@ public class CustomerShowtime {
 		return showtimeID;
 	}
 	
+	public void setCinemaTypeName(String ctname) {
+		selectedCinemaTypeName = ctname;
+	}
 	
 	//returns cineplexID or -1 in case of an error
 	public int chooseCineplex() {
