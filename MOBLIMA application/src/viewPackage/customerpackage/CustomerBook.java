@@ -214,5 +214,17 @@ public class CustomerBook {
              }//end switch
          }//end while
      }//end bookMenu()
+	
+		
+	/////////////////////////////////////////////////////////////////////////////////////////////////
+	
+	public static void history() {
+		Scanner scan = new Scanner(System.in);
+		BookingManager hist = BookingManager.getInstance();
+		System.out.println("Enter your email to see booking history");
+		String email = scan.next();
+		hist.printAllTransactionsForCustomer(email);
+		System.out.println();
+	}
 }
 
