@@ -55,8 +55,27 @@ public class CustomerShowtime {
 		return showtimeID;
 	}
 	
+	public void printCineplexes(){
+		ICineplex cineplexHandler = CineplexManager.getInstance();
+		cineplexHandler.printCineplexes();
+	}
 	
 	//returns cineplexID or -1 in case of an error
+	
+	public int chooseCineplexfromString(String cineplexName){
+		ICineplex cineplexHandler = CineplexManager.getInstance();
+		try {
+			selectedCineplexObj = cineplexHandler.getCineplex(cineplexName); 
+		}
+		catch(IllegalArgumentException e) {
+			selectedCineplexID = 0; //reset value
+			return -1;
+		}
+		
+		selectedCineplexID = selectedCineplexObj.getID();
+		return selectedCineplexID;	
+	}
+	
 	public int chooseCineplex() {
 		ICineplex cineplexHandler = CineplexManager.getInstance();
 		System.out.println("The Cineplexes are:");

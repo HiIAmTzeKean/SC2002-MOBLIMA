@@ -101,7 +101,7 @@ public class StaffCinema extends View {
 
         System.out.print("\033[H\033[2J");
         System.out.println("-------------------------------------");
-        System.out.println("\t\tDeleting  Cineplex");
+        System.out.println("\t\tDeleting Cineplex");
         System.out.println("-------------------------------------");
         cineplexHandler.printCineplexesAdmin();
         while (!complete) {
