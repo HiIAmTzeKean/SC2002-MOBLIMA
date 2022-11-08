@@ -16,7 +16,7 @@ public class Age implements Serializable, IAge {
 		setAgeCategory();
 	}
 	      
-	private void setAgeCategory(){
+	public void setAgeCategory(){
 		if(this.ageNumber>=60){
 			this.category = AgeCategory.SENIOR;
 		}
