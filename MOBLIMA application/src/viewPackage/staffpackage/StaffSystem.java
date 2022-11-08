@@ -11,8 +11,9 @@ import viewPackage.View;
 
 /**
  * Provides UI to staff to modify system settings
+ * 
  * @author Ng Tze Kean
-* @since 05-11-2022
+ * @since 05-11-2022
  */
 public class StaffSystem extends View {
     public static void displayMenu() {
@@ -29,11 +30,13 @@ public class StaffSystem extends View {
         System.out.println("Choice 7 : Return");
         System.out.println("------------------------------------------------------------------");
     }
-    public static void addDiscountCode(){
+
+    public static void addDiscountCode() {
         DiscountCode DC = DiscountCode.getInstance();
         enum setDiscoundEnum {
             CODE, DISCOUNT, CREATE
-        };
+        }
+        ;
         setDiscoundEnum state = setDiscoundEnum.CODE;
         String code = null;
         float discount = 0f;
@@ -63,7 +66,7 @@ public class StaffSystem extends View {
                         System.out.println("[Enter 0 to go back]");
                         System.out.println("Enter discount amount (multiplier): ");
                         discount = sc.nextFloat();
-                        if (discount == 0f){
+                        if (discount == 0f) {
                             state = setDiscoundEnum.CODE;
                             break;
                         }
@@ -83,11 +86,13 @@ public class StaffSystem extends View {
         System.out.println("--------------------------------------");
         waitForEnter(null);
     }
-    public static void removeDiscountCode(){
+
+    public static void removeDiscountCode() {
         DiscountCode DC = DiscountCode.getInstance();
         enum removeDiscoundEnum {
             CODE, CREATE
-        };
+        }
+        ;
         removeDiscoundEnum state = removeDiscoundEnum.CODE;
         String code = null;
         boolean completed = false;
@@ -128,6 +133,7 @@ public class StaffSystem extends View {
         System.out.println("--------------------------------------");
         waitForEnter(null);
     }
+
     public static void start() {
         sc = new Scanner(System.in);
         int choice = 0;
@@ -178,9 +184,11 @@ public class StaffSystem extends View {
             }
         }
     }
+
     /**
      * Provides UI to staff for setting base price of the showtime
      * Prints the current base price and prompts for I/O
+     * 
      * @apiNote IShowtimeSystem
      */
     private static void setBasePrice() {
@@ -217,6 +225,7 @@ public class StaffSystem extends View {
     /**
      * Provides UI to staff for setting multiplier day
      * Prints the current multiplier and prompts for I/O
+     * 
      * @apiNote Day
      */
     private static void setMultiplier() {
@@ -249,19 +258,22 @@ public class StaffSystem extends View {
         System.out.println("--------------------------------------");
         waitForEnter(null);
     }
+
     /**
      * Provides UI to staff for setting a holiday
      * Prints the current showtime prompts for I/O
      * Staff will select from the list of days to make the day a holiday
+     * 
      * @apiNote IShowtimeSystem
      */
-    private static void unsetHoliday(){
+    private static void unsetHoliday() {
         IShowtimeSystem ssHandler = ShowtimeManager.getInstance();
         enum dayEnum {
             DATE, SET
-        };
+        }
+        ;
         dayEnum state = dayEnum.DATE;
-        String date = null, time = null;
+        String date = null;
         boolean completed = false;
 
         System.out.print("\033[H\033[2J");
@@ -308,19 +320,22 @@ public class StaffSystem extends View {
         System.out.println("--------------------------------------");
         waitForEnter(null);
     }
+
     /**
      * Provides UI to staff for removing a holiday
      * Prints the current showtime prompts for I/O
      * Staff will select from the list of days to remove holiday
+     * 
      * @apiNote IShowtimeSystem
      */
     private static void setHoliday() {
         IShowtimeSystem ssHandler = ShowtimeManager.getInstance();
         enum dayEnum {
             DATE, SET
-        };
+        }
+        ;
         dayEnum state = dayEnum.DATE;
-        String date = null, time = null;
+        String date = null;
         boolean completed = false;
 
         System.out.print("\033[H\033[2J");

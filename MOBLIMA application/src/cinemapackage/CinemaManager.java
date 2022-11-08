@@ -27,9 +27,10 @@ public class CinemaManager implements ICinema {
 		CinemaManager.cinemas = cinemas;
 		lastID = getLargestID();
 	}
-	
+
 	/**
-	 * Helper function to obtain the largest ID in list for maintaining a unique ID for
+	 * Helper function to obtain the largest ID in list for maintaining a unique ID
+	 * for
 	 * each cinema
 	 * 
 	 * @return int largest ID in the list
@@ -156,7 +157,7 @@ public class CinemaManager implements ICinema {
 		System.out.printf(
 				"|--------------------------------------------------------------------------------------------|\n");
 	}
-	
+
 	@Override
 	public void deleteCinema(int id, ICineplex cineplexManager) {
 		for (Iterator<Cinema> it = cinemas.iterator(); it.hasNext();) {
@@ -170,7 +171,7 @@ public class CinemaManager implements ICinema {
 		// Not found
 		throw new IllegalArgumentException("Cinema is not found");
 	}
-	
+
 	@Override
 	public void createCinema(String code, String type) {
 		try {
@@ -199,6 +200,7 @@ public class CinemaManager implements ICinema {
 			cinemas.add(c);
 		}
 	}
+
 	@Override
 	public void printCinemas() {
 		System.out.printf("|-------------------------------------------------------------------|\n");
