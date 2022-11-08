@@ -1,7 +1,17 @@
 package agepackage;
 
+/**
+ * Superclass interface for age handling
+ * @author Gambhir Dhruv
+ * @since 08-11-2022
+ */
 public interface IAge {
-
+	/**
+	* Sets age category according to ageNumber
+	* SENIOR if ageNumber>=60, CHILD if ageNumber<=13, ADULT for rest
+	* @return
+	*/
+	void setAgeCategory();
 	/**
 	 * Setter for age number. Calls the private method setAgeCategory to update
 	 * the category
@@ -23,5 +33,4 @@ public interface IAge {
 	 * @return Multiplier depending on AgeCategory
 	 */
 	float getAgeMultiplier();
-
 }
