@@ -1,12 +1,12 @@
 package viewPackage;
+
 import java.util.Scanner;
-import viewPackage.customerpackage.CustomerView;
-import viewPackage.staffpackage.StaffAuth;
 import java.io.Console;
 
 /**
  * Super class for the views. Each view will inherit from view class
  * and will implement displayMenu and start function
+ * 
  * @author Ng Tze Kean
  * @since 05-11-2022
  */
@@ -19,6 +19,7 @@ public class View {
 	/**
 	 * Function to prompt user to press enter key before continuing with the program
 	 * Forces an I/O message to interrupt program execution
+	 * 
 	 * @param message message to be printied in the function
 	 * @param args
 	 */
@@ -32,6 +33,7 @@ public class View {
 			c.readLine();
 		}
 	}
+
 	/**
 	 * Handles an InputMismatchException by clearing the buffer
 	 * then prints a error statement for user
@@ -41,13 +43,17 @@ public class View {
 		sc.nextLine();
 		System.out.println("Illegal input value");
 	}
+
 	/**
 	 * Menu to be printed for navigation
 	 */
-	public static void displayMenu(){};
+	public static void displayMenu() {
+	};
+
 	/**
 	 * First function to be called for the view
 	 * Sets up the logic follow within class through switch cases
 	 */
-	public static void start(){};
+	public static void start() {
+	};
 }

@@ -7,12 +7,6 @@ package agepackage;
  */
 public interface IAge {
 	/**
-	* Sets age category according to ageNumber
-	* SENIOR if ageNumber>=60, CHILD if ageNumber<=13, ADULT for rest
-	* @return
-	*/
-	void setAgeCategory();
-	/**
 	 * Setter for age number. Calls the private method setAgeCategory to update
 	 * the category
 	 * @param ageNumber
