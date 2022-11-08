@@ -7,10 +7,11 @@ package agepackage;
  */
 public interface IAge {
 	/**
-	*Sets age category according to ageNumber
-	*SENIOR if ageNumber>=60, CHILD if ageNumber<=13, ADULT for rest
+	* Sets age category according to ageNumber
+	* SENIOR if ageNumber>=60, CHILD if ageNumber<=13, ADULT for rest
+	* @return
 	*/
-	setAgeCategory()
+	void setAgeCategory();
 	/**
 	 * Sets the age number
 	 * Calls setAgeCatergory()
