@@ -35,7 +35,7 @@ public class StaffView extends View {
 		while (true) {	
 			displayMenu();
             try {
-				System.out.println("Enter choice");
+				System.out.println("Enter Choice");
 				sc = new Scanner(System.in); 
 				choice = sc.nextInt();
 				if (choice>5 || choice<1) {

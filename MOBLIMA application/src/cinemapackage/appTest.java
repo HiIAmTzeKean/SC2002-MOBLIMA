@@ -26,9 +26,7 @@ public class appTest {
         }
         else {
             ICinema cm = CinemaManager.getInstance();
-            cm.getCinema(1).printCinemaLayout();
-            cm.getCinema(1).bookSeat("C", 2, 1);
-            cm.getCinema(1).printCinemaLayout();
+            cm.printCinemasAdmin();
             CinemaManager.close();
         }
     }

@@ -71,7 +71,7 @@ public class Booking implements Serializable{
         return customer.getEmail();
     }
     public void print() {
-        System.out.printf("|   %-15s   |  %-30s  |  %-15s  | %-8s |  %-5.2f | %-15s |\n",
+        System.out.printf("|   %-15s   |  %-40s  |  %-15s  | %-8s |  %-5.2f | %-15s |\n",
                         transactionID,
                         showtime.getMovieName(),
                         showtime.getCinemaClass(),

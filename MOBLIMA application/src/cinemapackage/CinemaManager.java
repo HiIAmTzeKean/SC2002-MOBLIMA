@@ -87,7 +87,6 @@ public class CinemaManager implements ICinema {
 
 	@Override
 	public void createCinema(String code, String type) {
-		System.out.println("===== Cinema being created =====");
 		try{
 			if (code.length() != 3) {
 				System.out.println("Invalid code supplied");
@@ -117,20 +116,15 @@ public class CinemaManager implements ICinema {
 	}
 	private void printCinema(Cinema cinema){
 		printCinemaHeader();
-		cinema.printCinema();
+		cinema.printCinemaAdmin();
 		printCinemaEnder();
 	}
 	@Override
 	public void deleteCinema(int id, ICineplex cineplexManager) {
-		
-		System.out.println("===== Cinema being deleted =====");
 		for (Iterator<Cinema> it = cinemas.iterator(); it.hasNext();) {
 			Cinema c = it.next();
 			if (c.getID() == id) {
-				System.out.println("Target is:");
-				c.printCinema();
 				cineplexManager.removeCinema(c);
-				System.out.println("===== Cinema has been deleted =====");
 				it.remove();
 				return;
 			}
@@ -149,6 +143,7 @@ public class CinemaManager implements ICinema {
 
 	@Override
 	public void printCinemas() {
+		System.out.printf("|-------------------------------------------------------------------|\n");
 		System.out.printf("|   %-15s   |       %-30s        |\n",
 						"Cinema Code","Cinema Type");
 		System.out.printf("|-------------------------------------------------------------------|\n");
@@ -158,12 +153,13 @@ public class CinemaManager implements ICinema {
 		System.out.printf("|-------------------------------------------------------------------|\n");
 	}
 	private void printCinemaHeader(){
+		System.out.printf("|--------------------------------------------------------------------------------------------|\n");
 		System.out.printf("|   %-15s   |       %-15s        |    %-30s     |\n",
 						"CinemaID","Cinema Code","Cinema Type");
-		System.out.printf("|---------------------------------------------------------------------------------------------------------|\n");
+		System.out.printf("|--------------------------------------------------------------------------------------------|\n");
 	}
 	private void printCinemaEnder(){
-		System.out.printf("|---------------------------------------------------------------------------------------------------------|\n");
+		System.out.printf("|--------------------------------------------------------------------------------------------|\n");
 	}
 	
 	@Override
@@ -225,9 +221,17 @@ public class CinemaManager implements ICinema {
 	}
 	@Override
 	public CinemaType getCinemaType(int cinemaID) {
-		
 		try{
 			return getCinema(cinemaID).getCinemaType();
+		}
+		catch (IllegalArgumentException ex){
+			throw new IllegalArgumentException("Cinema is not found");
+		}
+	}
+	@Override
+	public void setCinemaType(int cinemaID,CinemaType type) throws IllegalArgumentException{
+		try{
+			getCinema(cinemaID).setCinemaType(type);
 		}
 		catch (IllegalArgumentException ex){
 			throw new IllegalArgumentException("Cinema is not found");

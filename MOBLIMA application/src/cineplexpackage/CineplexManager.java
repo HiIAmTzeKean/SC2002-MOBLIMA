@@ -120,14 +120,14 @@ public class CineplexManager implements ICineplex {
 	
 	@Override
 	public void printCineplexes() {
-		System.out.printf("|--------------------------------------------------------|\n");
+		System.out.printf("|----------------------------------------------------------------------------------|\n");
 		System.out.printf("|   %-30s   |       %-30s        |\n",
 		"Cineplex Name","Cineplex Location");
-		System.out.printf("|--------------------------------------------------------|\n");
+		System.out.printf("|----------------------------------------------------------------------------------|\n");
 		for (Cineplex c:cineplexes){
 			c.printCineplex();
 		}
-		System.out.printf("|--------------------------------------------------------|\n");
+		System.out.printf("|----------------------------------------------------------------------------------|\n");
 	}
 	@Override
 	public void printCineplexesAdmin() {
@@ -210,22 +210,29 @@ public class CineplexManager implements ICineplex {
 		for (Iterator<Cinema> it = cinemas.iterator(); it.hasNext();) {
 			if (it.next().getID() == cinema.getID()) {
 				System.out.printf("Cinema is not added as it already exist in Cineplex\n");
-				System.out.printf("===== Adding Cinema to Cinplex finished =====\n");
-				return;
+				throw new IllegalArgumentException("Cinema is not added as it already exist in Cineplex");
 			}
 		}
 		cineplexes.get(target).addCinema(cinema);
 		cinema.setCineplexid(cineplexes.get(target).getID());
 		cinema.setCineplexid(id);
 		System.out.println("The list of Cinemas under Cinema " + cineplexes.get(target).getName() + " is:");
-		printCineplex(target);
+		printCinemas(target);
 	}
-	private void printCineplex(int indexPosition){
-		System.out.printf("|------------------------------------------------------------------------------------------------------|\n");
-		System.out.printf("|  %-15s  |   %-30s   |       %-30s        |\n","ID","Cineplex Name","Cineplex Location");
-		System.out.printf("|------------------------------------------------------------------------------------------------------|\n");
-		cineplexes.get(indexPosition).printCineplexCinemas();
-		System.out.printf("|------------------------------------------------------------------------------------------------------|\n");
+	private void printCinemas(int cineplexIndexPosition){
+		System.out.printf("|--------------------------------------------------------------------------------------------|\n");
+		System.out.printf("|   %-15s   |       %-15s        |    %-30s     |\n","ID","Cinema Code","Cinema Type");
+		System.out.printf("|--------------------------------------------------------------------------------------------|\n");
+		cineplexes.get(cineplexIndexPosition).printCineplexCinemasAdmin();
+		System.out.printf("|--------------------------------------------------------------------------------------------|\n");
+	}
+	
+	public void printCinemasUnderCineplex(int cineplexID){
+		try {
+			printCinemas(findCineplex(cineplexID));
+		} catch (IllegalArgumentException e) {
+			throw e;
+		}
 	}
 	@Override
 	public void removeCinema(int id, Cinema cinema) throws IllegalArgumentException {
@@ -244,12 +251,11 @@ public class CineplexManager implements ICineplex {
 		cineplexes.get(target).removeCinema(cinema);
 		cinema.setCineplexid(-1);
 		System.out.println("The list of Cinemas under Cinema " + cineplexes.get(target).getName() + " is:");
-		printCineplex(target);
+		printCinemas(target);
 	}
 
 	@Override
 	public void removeCinema(Cinema cinema) throws IllegalArgumentException{
-		System.out.printf("===== Removing Cinema from Cinplex =====\n");
 		if (cinema.getCineplexID()!=-1) {
 			// There exist some cineplex that we need to modify
 			int id = cinema.getCineplexID();
@@ -269,7 +275,6 @@ public class CineplexManager implements ICineplex {
 		System.out.println("Cinema to be remove not found in any Cineplex");
 		// Not found
 		// Do not need to throw error since cinema might not exist
-		System.out.printf("===== Removing Cinema from Cinplex finished =====\n");
 	}
 
 	@Override

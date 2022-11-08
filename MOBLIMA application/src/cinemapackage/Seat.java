@@ -43,5 +43,8 @@ public class Seat implements Serializable{
 	public void setCustomer(int customerID) {
 		this.customerID = customerID;
 	}
+	public void print(){
+		System.out.printf("| %d |", isBook?1:0);
+	}
 
 }

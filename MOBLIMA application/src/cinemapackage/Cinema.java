@@ -177,6 +177,15 @@ public abstract class Cinema  implements Serializable, ICinemaBooking{
 	 * Method declared here as we have 3 different subclass of cinema
 	 * which will perform differently due to different seat layout
 	 */
+	public void printLegend(){
+		System.out.println("-----------------------------------");
+		System.out.println("             Legend");
+		System.out.println("-----------------------------------");
+		System.out.printf("Normal seat booking: | X |\n");
+		System.out.printf("Elite seat booking:  |-X-|\n");
+		System.out.printf("Couple seat booking: | X    X |\n");
+		System.out.println("-----------------------------------");
+	}
 	public abstract void printLayout();
 	public abstract float getMultiplier();
 }

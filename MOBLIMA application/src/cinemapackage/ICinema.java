@@ -24,21 +24,41 @@ public interface ICinema {
 	 */
 	void deleteCinema(int cinemaID, ICineplex cineplexManager) throws IllegalArgumentException;
 	/**
-	 * Print all cinema under CinemaManger
+	 * Prints all cinema under CinemaManger.
+	 * Format printed is {Code,Type}
 	 */
 	void printCinemas();
+	/**
+	 * Prints all cinema under CinemaManger in admin view.
+	 * Format printed is {Id,Code,Type}
+	 */
 	void printCinemasAdmin();
 	/**
 	 * Finds the requested cinemaID and returns the cinema object. Function should be used with care and only
 	 * by staff object to modify Cinema template
 	 * Used in showtime class.
 	 * @param cinemaID
-	 * @return
+	 * @return Cinema
+	 * @throws IllegalArgumentException if cinemaID not found
 	 */
 	Cinema getCinema(int cinemaID) throws IllegalArgumentException;
+	/**
+	 * Finds requested cinemaID in and returns the cinema code of target
+	 * @param cinemaID
+	 * @return String of cinema code
+	 * @throws IllegalArgumentException if cinemaID not found
+	 */
 	String getCinemaCode(int cinemaID) throws IllegalArgumentException;
+	/**
+	 * Sets cinema code of target cinema. Finds the ID of the cinema in array
+	 * and updates the Cinema code.
+	 * @param cinemaID
+	 * @return String of cinema code
+	 * @throws IllegalArgumentException if cinemaID not found
+	 */
 	void setCinemaCode(int cinemaID, String code) throws IllegalArgumentException;
 	CinemaType getCinemaType(int cinemaID) throws IllegalArgumentException;
+	void setCinemaType(int cinemaID,CinemaType type) throws IllegalArgumentException;
 	int getCineplexID(int cinemaID) throws IllegalArgumentException;
 	int getCineplexID(String cinemaCode) throws IllegalArgumentException;
 	void setCineplexID(int cinemaID, int cineplexID) throws IllegalArgumentException;

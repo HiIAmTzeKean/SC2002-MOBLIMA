@@ -13,21 +13,24 @@ public interface IAge {
 	*/
 	void setAgeCategory();
 	/**
-	 * Sets the age number
-	 * Calls setAgeCatergory()
+	 * Setter for age number. Calls the private method setAgeCategory to update
+	 * the category
 	 * @param ageNumber
 	 */
 	void setAgeNumber(int ageNumber);
 	/**
+	 * Getter to obtain age number
 	 * @return age number
 	 */
 	int getAgeNumber();
 	/**
-	 * @return age category {SENIOR, ADULT, CHILD}
+	 * Getter to obtain the enum set in Age class.
+	 * @return AgeCategory enum
 	 */
 	AgeCategory getAgeCategory();
 	/**
-	 * @return Multiplier according to discout. 0.7 for seniors, 0.5 for children and 1 for adult
+	 * Function to be used for calculation of the final price of the movie ticket booking
+	 * @return Multiplier depending on AgeCategory
 	 */
 	float getAgeMultiplier();
 }

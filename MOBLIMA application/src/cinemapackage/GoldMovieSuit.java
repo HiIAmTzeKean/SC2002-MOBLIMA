@@ -19,8 +19,15 @@ public class GoldMovieSuit extends Cinema {
         // Total of 3 roles
         for (int i=0; i<3; i++) {
             seats.add(new ArrayList<Seat>());
-            for (int j=0; j<9; j++) {
-                seats.get(i).add(new Seat(j,i));
+            if (i==0){
+                for (int j=0; j<9; j++) {
+                    seats.get(i).add(new EliteSeat(j,i));
+                }
+            }
+            else{
+                for (int j=0; j<9; j++) {
+                    seats.get(i).add(new Seat(j,i));
+                }
             }
         }
     }
@@ -62,21 +69,22 @@ public class GoldMovieSuit extends Cinema {
     @Override
     public void printLayout(){
         System.out.printf("======== Layout of %s Gold Class Cinema ========\n",super.getCinemaCode());
-        System.out.printf("      1  2  3     4  5  6     7  8  9\n");
+        System.out.printf("       1    2    3       4    5    6       7    8    9\n");
 
         for (int i=0; i<3; i++) {
             System.out.printf("%c  - ", rowList[i]);
             for (int j=0; j<9; j++) {
-                System.out.printf("|%d|",seats.get(i).get(j).isBooked()? 1:0);
+                seats.get(i).get(j).print();
                 if (j==2 || j==5) System.out.printf(" - ");
             }
             System.out.printf(" -  %c\n", rowList[i]);
-            System.out.printf("   -  -  -  -  -  -  -  -  -  -  -  -  -\n");
+            System.out.printf("   -   -    -    -   -   -    -    -   -   -    -    -   -\n");
         }
 
         System.out.printf("             ________________\n");
         System.out.printf("             |    SCREEN    |\n");
         System.out.printf("\n");
+        printLegend();
     }
     public float getMultiplier(){
         return 1.5f;

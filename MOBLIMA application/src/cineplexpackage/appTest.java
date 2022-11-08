@@ -38,7 +38,8 @@ public class appTest {
             // Here we can see the power of DIP
             // using an interface type object to perform a function that it states it has
             // some class will implement this function, but we dont need to know who
-            cinemaHandler.deleteCinema(1,cineplexManager);
+            //cinemaHandler.deleteCinema(1,cineplexManager);
+            cineplexManager.printCineplexesAdmin();
         }
     }
 }
