@@ -24,37 +24,29 @@ public class CustomerMovieListing extends View {
 				System.out.println("Invalid input!");
 				continue;
 			}
-			switch(choice){
-				case 1:
-					printMovies();
-				case 2:
-
-					
-			}
 		}
 		while(choice < 6 && choice > 0);
 	}
-	public static void menu(){
-
-	}
-
-	public static void printMovies(){
+	public static void viewAvailableMovies(){
 		IMovie MovieHandler = MovieManager.getInstance();
 		MovieHandler.printMovies();
 	}
-	public static void printMovie(){
+	public static void viewMovieDetails(){
 		Scanner sc = new Scanner(System.in);
 		try{
 			IMovie MovieHandler = MovieManager.getInstance();
-			MovieHandler.printMovies();
+			MovieHandler.printMovieTitles();
 			System.out.println("Enter name of movie to see details of:");
-			//scan.nextLine();
 			String movieName = sc.nextLine();
 			MovieHandler.findMoviebyName(movieName).printMovieComplete();
 		}
 		catch(IllegalArgumentException e){
 			System.out.println(e);
 		}	
+	}
+	public static void printMovieTitles(){
+		IMovie movieDisplayHander = MovieManager.getInstance();
+		movieDisplayHander.printMovieTitles();
 	}
 	public void movieSelection() {
 		IMovie movieDisplayHandler = MovieManager.getInstance(); 
