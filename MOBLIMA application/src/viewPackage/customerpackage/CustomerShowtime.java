@@ -144,7 +144,7 @@ public class CustomerShowtime {
 				cinemaTypeScanContd = false;
 				break;
 			case "Silver": 
-				selectedCinemaType = CinemaType.Silver;
+				selectedCinemaType = CinemaType.SILVER;
 				cinemaTypeScanContd = false;
 				break;
 			default:

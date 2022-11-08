@@ -25,7 +25,12 @@ public class CineplexManager implements ICineplex {
 		CineplexManager.cineplexes = c;
 		lastID = getLargestID();
 	}
-
+	/**
+	 * Helper function to obtain the largest ID in list for maintaining a unique ID for
+	 * each cinema
+	 * 
+	 * @return int largest ID in the list
+	 */
 	private int getLargestID(){
 		int largest=0;
 		for (Iterator<Cineplex> it = cineplexes.iterator(); it.hasNext();) {
