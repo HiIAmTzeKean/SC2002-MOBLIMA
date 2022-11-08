@@ -1,7 +1,11 @@
 package agepackage;
 
+/**
+ * Superclass interface for age handling
+ * @author Gambhir Dhruv
+ * @since 08-11-2022
+ */
 public interface IAge {
-
 	/**
 	 * Sets the age number
 	 * @param ageNumber
