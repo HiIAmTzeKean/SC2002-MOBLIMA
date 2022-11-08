@@ -1,6 +1,13 @@
 package agepackage;
 import java.io.Serializable;
 
+/**
+ * Age class that stores the age of customer
+ * @apiNote IAge
+ * @author Gambhir Dhruv
+ * @since 08-11-2022
+ */
+
 public class Age implements Serializable, IAge {
 	private int ageNumber;
 	private AgeCategory category;
