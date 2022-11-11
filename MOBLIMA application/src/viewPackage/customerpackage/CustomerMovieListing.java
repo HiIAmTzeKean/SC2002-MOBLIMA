@@ -27,6 +27,10 @@ public class CustomerMovieListing extends View {
 		}
 		while(choice < 6 && choice > 0);
 	}
+	public static Boolean isValidMovieName(String movieName){
+		IMovie MovieHandler = MovieManager.getInstance();
+		return(MovieHandler.isValidMovieName(movieName));
+	}
 	public static void viewAvailableMovies(){
 		IMovie MovieHandler = MovieManager.getInstance();
 		MovieHandler.printMovies();

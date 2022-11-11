@@ -85,7 +85,7 @@ public class DiscountCode{
 	}
 	public boolean checkValid(String code){
 		for (Iterator<DiscountCodeTicket> it = discountCodes.iterator(); it.hasNext();) {
-			if(it.next().getCode() == code)
+			if(it.next().getCode().compareTo(code)==0)
 				return true;
 		}
 		return false;

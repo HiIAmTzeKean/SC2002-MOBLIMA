@@ -108,4 +108,5 @@ public interface IMovie {
 	void printMovieTitles() throws IllegalArgumentException;
 
 	void printMoviesAdmin() throws IllegalArgumentException;
+	Boolean isValidMovieName(String MovieName) throws IllegalArgumentException;
 }

@@ -1,6 +1,7 @@
 package moviepackage;
 import java.util.Collections;
 import java.util.Iterator;
+import org.junit.runners.model.InvalidTestClassError;
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
 import java.io.ObjectInputStream;
@@ -201,7 +202,7 @@ public class MovieManager implements ISales, IReviews, IMovie {
 		System.out.println("|---------------------------------------------|");	
 		for(Iterator<Movie> it = movies.iterator(); it.hasNext();){
 			Movie m = it.next();
-			if(m.getMovieStatus()!=MovieStatus.END_OF_SHOWING){
+			if(m.getMovieStatus()==MovieStatus.NOW_SHOWING){
 				System.out.printf("|       %-30s        |\n",m.getMovieTitle());
 			}	
 		}
@@ -490,14 +491,17 @@ public class MovieManager implements ISales, IReviews, IMovie {
 			//System.out.println(counter);
 			Movie m = it.next();
 			String movieDuration = Integer.toString(m.getDuration());
+			String reviewScore = Float.toString(m.getReviewScores());
+			if(reviewScore.compareTo("0.0") == 0){
+				reviewScore = "NA";
+			}
 			System.out.printf("|       %-30s        |    %-10s     |  %-15s  |  %-10s | %-14s |\n",
 							m.getMovieTitle(),
 							m.getAgeRestriction().toString(),
 							m.getMovieType().toString(),
 							movieDuration,
-							Float.toString(m.getReviewScores()));
-			counter++;
-			
+							reviewScore);
+			counter++;	
 		}
 		System.out.println("|--------------------------------------------------------------------------------------------------------------------|");	
 	}
@@ -679,6 +683,11 @@ public class MovieManager implements ISales, IReviews, IMovie {
             System.out.print("\033[H\033[2J");    
 			System.out.printf("Reviews for %s\n", movieName);
 			System.out.println("-----------------------------------------------------------------");
+			if(toPrint.getReviews().size()<=1){
+				System.out.println("**Number of Ratings not More than One**");
+				System.out.println("N/A");
+				return;
+			}
 			for(Review r: toPrint.getReviews()){
 				System.out.printf("Rating : %.1f\n", r.getRating());
 				String reviewString = wrapString(r.getReview(),"\n",40);
@@ -711,4 +720,24 @@ public class MovieManager implements ISales, IReviews, IMovie {
 		}
 		return result;
 	}
-}	
+	@Override
+	public Boolean isValidMovieName(String MovieName) throws IllegalArgumentException{
+		if(movies.size() == 0 || movies == null){
+			throw new IllegalArgumentException("There are no movies to find");
+		}
+		Boolean answer = false;
+		for(Movie m: movies){
+			if(m.getMovieTitle().compareTo(MovieName) == 0){
+				if(m.getMovieStatus()==MovieStatus.END_OF_SHOWING){
+					throw new IllegalArgumentException("Requested Movie is No Longer Showing.");
+				}
+				else{
+					answer = true;
+					return answer;
+				}
+			}
+		}	
+		//throw new IllegalArgumentException("Movie not found");}
+		return false;
+	}
+}
