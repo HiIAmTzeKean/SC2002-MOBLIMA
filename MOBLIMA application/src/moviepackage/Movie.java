@@ -3,6 +3,13 @@ import java.util.HashMap;
 import java.util.Iterator;
 import java.io.Serializable;
 import java.util.ArrayList;
+/**
+ *  Class of Movie. 
+ *  Contains Common Details, such as MovieTitle, Synopsis, Director and Cast for customer use.
+ *  Contains Staff Details, such as a unique identifier, sales tracking, and multiplier for pricing.
+ *  @author Chaitanya Jadhav
+ *  @version 1.0
+ */
 public class Movie implements Serializable{
 	private static int instanceCounter = 1;
 	private int id;
@@ -32,15 +39,15 @@ public class Movie implements Serializable{
 	/**
 	 * Constructs a Movie object based on the parameters.
 	 * Used during serialization when reviews are also specified in object data.
-	 * @param movieTitle
-	 * @param movieStatus
-	 * @param synopsis
-	 * @param director
-	 * @param cast
-	 * @param ageRestriction
-	 * @param movieType
-	 * @param duration
-	 * @param reviews
+	 * @param movieTitle Movie Title
+	 * @param movieStatus Status of Movie
+	 * @param synopsis Synopsis of Movie
+	 * @param director Director of Movie
+	 * @param cast Movie Cast
+	 * @param ageRestriction Age Restriction of Movie from Enumeration
+	 * @param movieType Type of Movie from Enumberation
+	 * @param duration Duration of Movie
+	 * @param reviews Array of Reviews for Each Object
 	 */
 	public Movie(String movieTitle, MovieStatus movieStatus, String synopsis, String director, String cast, AgeRestriction ageRestriction, MovieType movieType, int duration, ArrayList<Review> reviews){
 		this.id = instanceCounter++;
@@ -58,14 +65,14 @@ public class Movie implements Serializable{
 	/**
 	 * Constructor for movie object.
 	 * Used in staff view when the reviews array is initialized as an empty ArrayList.
-	 * @param movieTitle
-	 * @param movieStatus
-	 * @param synopsis
-	 * @param director
-	 * @param cast
-	 * @param ageRestriction
-	 * @param movieType
-	 * @param duration
+	 * @param movieTitle Movie Title
+	 * @param movieStatus Status of Movie
+	 * @param synopsis Synopsis of Movie
+	 * @param director Director of Movie
+	 * @param cast Movie Cast
+	 * @param ageRestriction Age Restriction of Movie from Enumeration
+	 * @param movieType Type of Movie from Enumberation
+	 * @param duration Duration of Movie
 	 */
 	public Movie(String movieTitle, MovieStatus movieStatus, String synopsis, String director, String cast, AgeRestriction ageRestriction, MovieType movieType, int duration){
 		this.id = instanceCounter++;
@@ -82,7 +89,6 @@ public class Movie implements Serializable{
 	}
 	/**
 	 * Protected constructor for a Movie that is only used to create a deep copy of the specified object.
-	 * //TODO: Where is this used? 
 	 * @param that movie object to make a deep copy of.
 	 */
 	protected Movie(Movie that){
@@ -196,7 +202,7 @@ public class Movie implements Serializable{
 		float answer = 0;
 		float sum = 0;
 		int len = this.getReviews().size();
-		if(reviews.size() == 0){
+		if(reviews.size() <= 1){
 			return answer;
 		}
 		for(Review review: this.getReviews()){
@@ -280,18 +286,25 @@ public class Movie implements Serializable{
 		String castString = wrapString(this.cast, "\n", 30);
 		System.out.printf("Cast: %s\n",castString);
 		System.out.println("---------------------------------------");
-		System.out.printf("Average Review Score: %.1f\n",this.getReviewScores());
-		System.out.println("---------------------------------------");
-		// System.out.printf("Past Reviews:\n");
-		// int counter = 1;
-		// for(Iterator<Review> it = reviews.iterator(); it.hasNext();){
-		// 	if(counter<=3){
-		// 		break;
-		// 	}
-		// 	Review re = it.next();
-		// 	System.out.printf("%.1f : %s", re.getRating(), re.getReview());
-		// 	counter++;
-		// }
+		if(reviews.size()<=1){
+			System.out.println("**Number of Ratings not More than One**");
+			System.out.println("Average Review Score: N/A");
+			System.out.println("Past Reviews: N/A");
+		}
+		else{
+			System.out.printf("Average Review Score: %.1f\n",this.getReviewScores());
+			System.out.println("---------------------------------------");
+			System.out.printf("Past Reviews:\n");
+			int counter = 1;
+			for(Iterator<Review> it = reviews.iterator(); it.hasNext();){
+				if(counter<=3){
+					break;
+				}
+				Review re = it.next();
+				System.out.printf("%.1f : %s", re.getRating(), re.getReview());
+				counter++;
+			}
+		}
 	}
 	public void printMovieIncomplete(){
 		System.out.println("---------------------");

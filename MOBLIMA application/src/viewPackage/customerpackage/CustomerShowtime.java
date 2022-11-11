@@ -6,6 +6,7 @@ import cineplexpackage.Cineplex;
 import cineplexpackage.CineplexManager;
 import cineplexpackage.ICineplex;
 import cinemapackage.CinemaType;
+import cinemapackage.SeatRowException;
 import daypackage.Day;
 import moviepackage.IMovie;
 import moviepackage.Movie;

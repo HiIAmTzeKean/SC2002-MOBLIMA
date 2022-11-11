@@ -2,33 +2,46 @@ package viewPackage.customerpackage;
 
 import java.util.Scanner;
 import moviepackage.IReviews;
+import moviepackage.IMovie;
+import moviepackage.Movie;
 import moviepackage.MovieManager;
+import moviepackage.Review;
 
 public class CustomerReview {
 	private String review;
 	private float rating;
 	private static Scanner scan = new Scanner(System.in);
 	private static IReviews reviewHandler = MovieManager.getInstance(); 
+	private static IMovie movieHandler = MovieManager.getInstance();
 	
-	public void setReviewAndRating(String movieName) {
-		boolean contd = true;
-		do {
-		System.out.print("Please enter your review: ");
-		review = scan.next();
-		System.out.print("Please enter your rating: ");
-		rating = scan.nextFloat();
-		try {
-			reviewHandler.addReview(movieName, review, rating);
-			contd = false;
+	public static void createReview(){
+		try{
+			movieHandler.printMovieTitles();
+			System.out.println("Enter the Name of the Movie you Wish to Review.");
+			String toFind = scan.nextLine();
+			Movie toReview = movieHandler.findMoviebyName(toFind);
+			System.out.printf("Enter a Rating For %s [0-5.0]\n",toReview.getMovieTitle());
+			float rating = scan.nextFloat();
+			scan.nextLine();
+			System.out.printf("Enter a Short Review for %s\n",toReview.getMovieTitle());
+			String review = scan.nextLine();
+			Review reviewToAdd = new Review(rating, review);
+			toReview.addReview(reviewToAdd);
 		}
 		catch(IllegalArgumentException e){
-			System.out.println("Erroneous value entered. Please take note of following requirements: ");
-			System.out.println("a) Review cannot be empty");
-			System.out.println("b) Rating must be between 0 and 5 (both exclusive)");
-			System.out.println();
+			System.out.println("An Error Occured. Please Try Again.");
 		}
-		} while(contd);
-		scan.close();
-		MovieManager.close();
+	}
+
+	public static void viewReviews(){
+        try{
+			movieHandler.printMovieTitles();
+            System.out.println("Enter the Name of the Movie you Wish to Get Reviews for.");
+            String toFind = scan.nextLine();
+            reviewHandler.printReviews(toFind);
+        }
+        catch(IllegalArgumentException e){
+            System.out.println("Requested Movie Was Not Found.");
+        }
 	}
 }

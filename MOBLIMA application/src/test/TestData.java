@@ -203,12 +203,10 @@ public class TestData {
         mm.getMoviefromID(1).addReview(new Review(4.5f, "Great sequel to another the first movie. Must watch for all Marvel fans."));
         //Adding Reviews for Ticket to Paradise
         mm.getMoviefromID(2).addReview(new Review(2.5f,"Not the best romcom but it was funny at times."));
-        mm.getMoviefromID(2).addReview(new Review(2.0f, "Very boring movie, not worth the watch."));
         //Adding Reviews for Prey for the Devil 
         mm.getMoviefromID(3).addReview(new Review(1.0f, "Filled with lazy jump scares and embarrassingly transparent plot twists and metaphors."));
         mm.getMoviefromID(3).addReview(new Review(1.5f, "It never manages to pull together a narrative cohesive or scary enough to rise above a patchwork of familiar possession horror tropes."));
         //Adding Reviews for Silent Parade
-        mm.getMoviefromID(4).addReview(new Review(4.0f, "Nice to see the character return to the big screen, lots of action and good directing and acting."));
         mm.getMoviefromID(4).addReview(new Review(4.5f, "Good mystery movie with lots of twists and action."));
         //Adding Reviews for Minions 2 : The Rise of Gru
         mm.getMoviefromID(5).addReview(new Review(3.5f, "A fun treat for the whole family."));

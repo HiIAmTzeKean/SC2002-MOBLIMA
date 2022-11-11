@@ -6,6 +6,7 @@ import agepackage.Age;
 import cinemapackage.CinemaType;
 import customerpackage.BookingManager;
 import customerpackage.Customer;
+import customerpackage.CustomerNullException;
 import daypackage.Day;
 import showtimepackage.IShowtime;
 import showtimepackage.ShowtimeManager;
@@ -171,9 +172,16 @@ public class CustomerBook extends View {
 					}
 				case GETSHOWTIME:
 					try{
+						System.out.println();
 						customerShowtime = cs.getShowtime(movieName, customerDay, cineplexName, cinemaType);
-						System.out.print("\033[H\033[2J");	
+						System.out.print("\033[H\033[2J");	                                                             
+						System.out.println("|-----------------------------------------------------------Selected Showtime ---------------------------------|");
+						System.out.println("|--------------------------------------------------------------------------------------------------------------|");
+						System.out.printf("|   %-15s   |  %-30s  |  %-15s  |   %-8s  |  %-5s |  %-7s |\n",
+										"Movie Status","Movie Name","Cinema Type","Date","Time","Holiday");
+						System.out.println("|--------------------------------------------------------------------------------------------------------------|");
 						customerShowtime.printShowtime();
+						System.out.println("|--------------------------------------------------------------------------------------------------------------|");
 						System.out.println("[Enter 0 to Return]");
 						System.out.println("[Enter 1 to Confirm Showtime and Proceed with Seat Booking]");
 						String showtimeChoice = sc.next();
@@ -200,6 +208,7 @@ public class CustomerBook extends View {
 					}
 				case SELECTSEAT:
 					try{
+						System.out.print("\033[H\033[2J");	
 						System.out.println("Layout for Selected Showtime:");
 						customerShowtime.printLayout();
 						System.out.println("Enter the Row and Column of the Seat you Wish to Book");
@@ -237,7 +246,6 @@ public class CustomerBook extends View {
 					catch(InputMismatchException e){
 						inputMismatchHandler();
 					}
-					
 				case CUSTOMERDETAILS:
 					System.out.print("\033[H\033[2J");	
 					System.out.println("Please Enter your Personal Details for Booking");
@@ -263,15 +271,19 @@ public class CustomerBook extends View {
 						Age customerAge = new Age(customerAgeInteger);
 						customerObject = new Customer(customerName, customerMobile, customerEmail, customerAge, customerIsStudent);
 					}
-					catch(InputMismatchException e){
+					catch(IllegalArgumentException e){
 						System.out.println("Invalid Customer Details Entered. Please try again.");
+						waitForEnter(null);
 						state = bookMenuState.CUSTOMERDETAILS;
 						break;
+					}
+					catch(InputMismatchException e){
+						inputMismatchHandler();
 					}
 				case CONFIRMCUSTOMERDETAILS:
 					try {
 						System.out.print("\033[H\033[2J");	
-						System.out.println("You Have Entered the Following Details");
+						System.out.println("You Have Entered the Following Details:");
 						if(customerIsStudent){
 							System.out.println("-Student Account-");
 						}
@@ -279,10 +291,10 @@ public class CustomerBook extends View {
 							System.out.println("-Regular Account-");
 						}
 						System.out.printf("Name : %s\n",customerObject.getName());
-						System.out.printf(" Mobile No. : %d\n",customerObject.getMobile());
+						System.out.printf("Mobile No. : %d\n",customerObject.getMobile());
 						System.out.printf("Email : %s\n",customerObject.getEmail());
 						System.out.printf("Age: %d\n", customerObject.getAge().getAgeNumber());
-						System.out.println("[To Confirm Your Details, Enter 1]");
+						System.out.println("[Enter 1 to Confirm Your Details]");
 						System.out.println("[Enter 0 to Change Your Details]");
 						String customerDetailsChoice = sc.next();
 						if(customerDetailsChoice.compareTo("0")==0){
@@ -316,11 +328,13 @@ public class CustomerBook extends View {
 							System.out.printf("Your Final Price with Discount is %.2f\n",cp.getBookingPrice(customerObject, cinemaType, customerRow, customerColumn, customerShowtime, customerCoupleSeat, customerDiscountCode));
 						}
 						else if(discountCodeIndication.compareTo("N") == 0){
+							customerDiscountCode = "";
 							customerBookingPrice = cp.getBookingPrice(customerObject, cinemaType, customerRow, customerColumn, customerShowtime, customerCoupleSeat, customerDiscountCode);
 							System.out.printf("Your Final Price is %.2f\n",cp.getBookingPrice(customerObject, cinemaType, customerRow, customerColumn, customerShowtime, customerCoupleSeat, customerDiscountCode));	
 						}
 						System.out.println("[Enter 0 to Return to Seat Selection]");
 						System.out.println("[Enter 1 to Proceed to Payment]");
+						System.out.println("[Enter 2 to Change Discount Code]");
 						String displayPriceChoice = sc.next();
 						if(displayPriceChoice.compareTo("0") == 0){
 							state = bookMenuState.SELECTSEAT;
@@ -330,21 +344,30 @@ public class CustomerBook extends View {
 							state = bookMenuState.PAYMENT;
 							break;
 						}
+						else if(displayPriceChoice.compareTo("2") == 0){
+							state = bookMenuState.DISPLAYPRICE;
+							break;
+						}
 					}
 					catch(InputMismatchException e){
 						inputMismatchHandler();
 					}
 				case PAYMENT:
 					try{
-						System.out.println("Would you like to confirm payment? Currently supported methods are:");
+						System.out.print("\033[H\033[2J");			
+						System.out.println("Would You Like to Confirm Payment?");
+						System.out.println("[Enter 2 to Cancel Payment and Return to Main Menu]");
 						System.out.println("[Enter 1 to Confirm Payment]");
 						System.out.println("[Enter 0 to Return]");
 						String paymentChoice = sc.next();
 						if(paymentChoice.compareTo("0") == 0){
 							state = bookMenuState.SELECTMOVIE;
+							System.out.println("Cancelling Payment.");
+							System.out.println("Please Select Another Movie at the Same Cineplex");
+
 							break;
 						}
-						else if(paymentChoice.compareTo("1") == 1){
+						else if(paymentChoice.compareTo("1") == 0){
 							IShowtime bookingHandler = ShowtimeManager.getInstance();
 							if(customerCoupleSeat){
 								bookingHandler.bookCoupleSeat(customerShowtime.getID(),customerRow,customerColumn,customerObject);
@@ -352,6 +375,10 @@ public class CustomerBook extends View {
 							if(!customerCoupleSeat){
 								bookingHandler.bookSeat(customerShowtime.getID(),customerRow,customerColumn,customerObject);
 							}
+						}
+						else if(paymentChoice.compareTo("2") == 0){
+							state = bookMenuState.END;
+							break;
 						}
 						else{
 							System.out.println("Invalid Input");
@@ -362,8 +389,16 @@ public class CustomerBook extends View {
 					catch(InputMismatchException e){
 						inputMismatchHandler();
 					}
+					catch(CustomerNullException e){
+						System.out.println("Error with creating customer credentials.");
+						System.out.println("Redirecting to entering customer details");
+						state = bookMenuState.CUSTOMERDETAILS;
+						waitForEnter(null);
+						break;
+					}
 				case END:
-					System.out.println("Leaving movigoer view!");
+					System.out.print("\033[H\033[2J");
+					System.out.println("Leaving Customer View");
 					complete = true;
 					break;
 			}// end switch

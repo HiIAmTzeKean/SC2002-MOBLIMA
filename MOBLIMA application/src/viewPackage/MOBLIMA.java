@@ -8,7 +8,6 @@ import customerpackage.BookingManager;
 import customerpackage.DiscountCode;
 import moviepackage.MovieManager;
 import showtimepackage.ShowtimeManager;
-import viewPackage.customerpackage.CustomerView;
 import viewPackage.customerpackage.newCustomerView;
 import viewPackage.staffpackage.StaffAuth;
 
@@ -24,11 +23,9 @@ public class MOBLIMA extends View {
         System.out.println("\tWELCOME TO MOBLIMA\t\t"); 
         System.out.println("-----------------------------------------");
 		waitForEnter(null);
-
 		startAllManagers();
         start();
 		//closeAllManagers();
-
         System.out.println("-----------------------------------------");
         System.out.println("\tEXITING MOBLIMA\t\t"); 
         System.out.println("-----------------------------------------");

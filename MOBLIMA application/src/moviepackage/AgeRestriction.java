@@ -1,5 +1,9 @@
 package moviepackage;
 
+/**
+ *  Enumeration of All Possible Age Restrictions for Movies.
+ *  Used in Customer and Staff Classes.
+ */
 public enum AgeRestriction {
 	GENERAL("General"),
 	PG("PG"),

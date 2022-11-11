@@ -98,7 +98,7 @@ public class CustomerView  extends View{
 			seatCol = cs.getseatCol();
 			
 			//STEP 4 - Get customer details — check for DiscountCode and CoupleSeat
-			cp.setCustomerDetails();
+			//cp.setCustomerDetails();
 			c = cp.getCustomer();
 			
 			//STEP 5 - select booking option and get projected price
@@ -159,7 +159,7 @@ public class CustomerView  extends View{
 			String reviewMovieName = scan.next();
 			if(reviewMovieName.compareTo("0") == 0) { //if string entered equals 0
 				CustomerReview r = null; 
-				r.setReviewAndRating(reviewMovieName);
+				//r.setReviewAndRating(reviewMovieName);
 				System.out.println("thanks for your review!");
 				System.out.println();
 			}
