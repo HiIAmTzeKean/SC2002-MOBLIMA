@@ -154,7 +154,7 @@ public class newCustomerView extends View {
         }
     }
     private static void makeNewBooking() {
-    	CustomerBook.bookMenu();
+    	CustomerBook.start();
     }
     private static void seeBookingHistory(){
     	CustomerBook.history();

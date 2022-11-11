@@ -201,7 +201,7 @@ public class MovieManager implements ISales, IReviews, IMovie {
 		System.out.println("|---------------------------------------------|");	
 		for(Iterator<Movie> it = movies.iterator(); it.hasNext();){
 			Movie m = it.next();
-			if(m.getMovieStatus()!=MovieStatus.END_OF_SHOWING){
+			if(m.getMovieStatus()==MovieStatus.NOW_SHOWING){
 				System.out.printf("|       %-30s        |\n",m.getMovieTitle());
 			}	
 		}
@@ -711,4 +711,19 @@ public class MovieManager implements ISales, IReviews, IMovie {
 		}
 		return result;
 	}
-}	
+	@Override
+	public Boolean isValidMovieName(String MovieName) throws IllegalArgumentException{
+		if(movies.size() == 0 || movies == null){
+			throw new IllegalArgumentException("There are no movies to find");
+		}
+		Boolean answer = false;
+		for(Movie m: movies){
+			if(m.getMovieTitle().compareTo(MovieName) == 0){
+				answer = true;
+				return answer;
+			}
+		}	
+		//throw new IllegalArgumentException("Movie not found");}
+		return false;
+	}
+}

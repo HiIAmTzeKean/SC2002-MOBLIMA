@@ -23,8 +23,8 @@ public class Movie implements Serializable{
 	//Rating Comparators and Sales Comparators are also instantiated to allow easy comparision between  movie objects.
 	static{
 		multiplier = new HashMap<MovieType, Double>();
-		multiplier.put(MovieType._2D,1.10);
-		multiplier.put(MovieType._3D,1.25);
+		multiplier.put(MovieType._2D,1.0);
+		multiplier.put(MovieType._3D,1.5);
 		multiplier.put(MovieType.BLOCKBUSTER,1.5);
 		ratingComparator2 = new SortByRating();
 		salesComparator2 = new SortBySales();

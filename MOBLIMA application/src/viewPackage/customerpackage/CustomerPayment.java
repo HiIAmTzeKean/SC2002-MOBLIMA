@@ -1,13 +1,19 @@
 package viewPackage.customerpackage;
 import java.util.*;
 
+import org.hamcrest.CustomMatcher;
+
 import agepackage.Age;
 import agepackage.IAge;
 import cinemapackage.CinemaType;
+import customerpackage.BookingManager;
 import customerpackage.Customer;
+import customerpackage.CustomerNullException;
 import customerpackage.DiscountCode;
 import showtimepackage.IShowtime;
+import showtimepackage.Showtime;
 import showtimepackage.ShowtimeManager;
+import viewPackage.staffpackage.StaffShowtime;
 
 
 	//public static void confirmPayment(){
@@ -22,6 +28,10 @@ public class CustomerPayment {
 	private String discountEntered = null;
 	private float price = 0;
 	
+	public enum paymentMethod{
+		CASH, VISA, MASTERCARD
+	};
+
 	public Customer getCustomer() {
 		return c;
 	}
@@ -93,6 +103,41 @@ public class CustomerPayment {
 	
 	/////////////////////////////////////////////////////////////////////////////////////////////////
 	
+	public float getBookingPrice(Customer customerObject, CinemaType cinemaType, String customerRow, int customerColumn, Showtime customerShowtime, Boolean customerCoupleSeat, String discountCodeTicket){
+		float price = 0.0f;		
+		IShowtime showtimeHandler = ShowtimeManager.getInstance();
+		int showtimeID = customerShowtime.getID();
+		try{
+			if(discountCodeTicket.compareTo("")==0){
+				if(customerCoupleSeat){
+					return(showtimeHandler.getPrice(showtimeID, customerObject,true));
+				}
+				else{
+					return(showtimeHandler.getPrice(showtimeID,customerObject));
+				}
+			}
+			else{
+				if(customerCoupleSeat){
+					return(showtimeHandler.getPrice(showtimeID, customerObject, true, discountCodeTicket));
+				}
+				else{
+					return(showtimeHandler.getPrice(showtimeID, customerObject, discountCodeTicket));
+				}
+			}
+		}
+		catch(CustomerNullException e){
+			System.out.println("An Error Occured. Please Try Again.");
+		}
+		return price;
+	}
+	
+	public Boolean isValidDiscountCode(String discountCode){
+		Boolean toReturn = false;
+		DiscountCode discountCodeHandler = DiscountCode.getInstance();
+		if(discountCodeHandler.checkValid(discountCode)) return true;
+		return toReturn;
+	}
+
 	public float getProjectedBookingPrice(CinemaType cType, String seatRow, int selectedShowtimeID) {
 		IShowtime showtimeHandler = ShowtimeManager.getInstance();
 		setBookingOption(cType, seatRow);
@@ -123,5 +168,6 @@ public class CustomerPayment {
 		}
 		return price;
 	}//end getProjectedBookingPrice
+	
 }
 

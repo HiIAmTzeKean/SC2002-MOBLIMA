@@ -54,6 +54,10 @@ public class CustomerShowtime {
 	public int getSelectedShowtimeID() {
 		return showtimeID;
 	}
+
+	public void setMovieName(String movieName){
+		this.selectedMovieName = movieName;
+	}
 	
 	public void printCineplexes(){
 		ICineplex cineplexHandler = CineplexManager.getInstance();
@@ -75,9 +79,23 @@ public class CustomerShowtime {
 			selectedCineplexID = 0; //reset value
 			return -1;
 		}
-		
 		selectedCineplexID = selectedCineplexObj.getID();
+		selectedCineplexName = selectedCineplexObj.getName();
 		return selectedCineplexID;	
+	}
+
+	public Boolean isValidCineplexName(String cineplexName){
+		ICineplex cineplexHandler = CineplexManager.getInstance();
+		Cineplex toCheck = null;
+		try{
+			toCheck = cineplexHandler.getCineplex(cineplexName);
+			if(toCheck != null) return true;
+		}
+		catch(IllegalArgumentException e){
+			System.out.println("Invalid Cineplex Name entered. Please try again");
+			return false;
+		}
+		return false;
 	}
 	
 	public int chooseCineplex() {
@@ -107,37 +125,55 @@ public class CustomerShowtime {
 		return selectedCineplexID;
 	}
 	
-	/* 
-	 *display menu to interact with the cineplexes and movies available, and 
-	 *view all possible showtime for a combination.
-	 *returns true if the display of showtimes accepter 
-	 *and false if the 
-	 */
-	public boolean displayShowtimes() {
+	
+	public void displayShowtimes(String movieName, String cineplexName){
 		IShowtime showtimeHandler = ShowtimeManager.getInstance(); 	
-			
+		ICineplex cineplexHandler = CineplexManager.getInstance();		
+		int cineplexID = cineplexHandler.getCineplex(cineplexName).getID();
+		try{
+			System.out.printf("Showtimes Available at %s for Movie %s:\n", cineplexName,movieName);
+			//System.out.printf("\nFollowing are the showtimes available for movie %s at cineplex %s:\n", selectedMovieName, selectedCineplexName);
+			showtimeHandler.printShowtimesByMovieNameAndCineplexID(movieName, cineplexID);
+			System.out.println();	
+		}
+		catch(IllegalArgumentException e){
+			System.out.println("No Showtimes exist for the Movie and Cineplex combination — please try again");
+		}	
+	}
+
+	public CinemaType isValidCinemaType(String cinemaType){
+		CinemaType toReturn = null;
+		try{
+			toReturn = CinemaType.valueOf(cinemaType);
+		}catch(IllegalArgumentException e){
+			System.out.println("Cinema Type Entered is Not Valid.");
+		}
+		return toReturn;
+	}
+
+	public Day isValidDateTime(String dateString, String timeString){
+		Day toReturn = null;
+		try{
+			toReturn = new Day(dateString,timeString);
+		}catch(IllegalArgumentException e){
+			throw new IllegalArgumentException("Invalid Date Format Entered. Please try again.");
+		}
+		return toReturn;
+	}
+
+
+	public void displayShowtimes() throws IllegalArgumentException{
+		IShowtime showtimeHandler = ShowtimeManager.getInstance(); 	
 			try {
-				System.out.printf("\nFollowing are the showtimes available for movie %s at cineplex %s:\n", selectedMovieName, selectedCineplexName);
+				//selectedCineplexName = 
+				System.out.print("\033[H\033[2J");
+				System.out.printf("Showtimes Available at %s for Movie %s:\n", selectedCineplexName,selectedMovieName);
+				//System.out.printf("\nFollowing are the showtimes available for movie %s at cineplex %s:\n", selectedMovieName, selectedCineplexName);
 				showtimeHandler.printShowtimesByMovieNameAndCineplexID(selectedMovieName, selectedCineplexID);
 				System.out.println();
 			}
 			catch(IllegalArgumentException e) {
-				System.out.println("No Showtimes exist for the Movie and Cineplex combination — please try again");
-				return false;
-			}
-			/*
-			 * If user does not like any of the showtimes available, 
-			 * allow to re-enter and movie and cinplex combination
-			 * and display another set of showtimes
-			 */
-			
-			System.out.println("To pick cineplex and movie again, for another set of showtimes, enter 0. Else enter any other character:");
-			String re_enter = scan.next();
-			if(re_enter.compareTo("0") == 0) {
-				return false;
-			}
-			else{//when try section executes and user doesn't wish to re-enter
-				return true; 
+				throw new IllegalArgumentException("No Showtimes exist for the Movie and Cineplex combination — please try again");
 			}
 	}// end of displayShowtimes
 	
@@ -149,7 +185,6 @@ public class CustomerShowtime {
 	 */
 	public Showtime selectShowtime() {
 		IShowtime showtimeHandler = ShowtimeManager.getInstance();
-		
 		//A) CinemaType
 		boolean cinemaTypeScanContd = false;
 		do {
@@ -243,5 +278,33 @@ public class CustomerShowtime {
 		seatCol = scan.nextInt();
 		System.out.println();
 	}
+
+	public Showtime getShowtime(String movieName, Day showtimeDay, String cineplexName, CinemaType cinemaType){
+		Showtime toReturn = null;	
+		try {
+			IShowtime showtimeHandler = ShowtimeManager.getInstance();
+			ICineplex cineplexHandler = CineplexManager.getInstance();
+			int cineplexID = cineplexHandler.getCineplex(cineplexName).getID();
+			toReturn = showtimeHandler.getShowtime(movieName, showtimeDay, cineplexID, cinemaType);	
+		} catch (IllegalArgumentException e) {
+			throw new IllegalArgumentException("Showtime not found.");	
+		}
+		return toReturn;	
+	}
+
+	public Boolean isValidSeatSelection(Showtime customerShowtime, String seatRow, int seatCol) throws IllegalArgumentException{
+		Boolean toReturn = false;
+		try{
+			int showtimeID = customerShowtime.getID();
+			IShowtime showtimeHandler = ShowtimeManager.getInstance();
+			if(!showtimeHandler.isBooked(showtimeID, seatRow, seatCol)){
+				toReturn = true;
+			}
+		}catch(IllegalArgumentException e){
+			throw new IllegalArgumentException("Seat selection is invalid.");
+		}
+		return toReturn;
+	}
+
 }
 

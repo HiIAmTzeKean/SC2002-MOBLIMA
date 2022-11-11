@@ -85,16 +85,18 @@ public class BookingManager {
 		System.out.println("|---------------------------------------------------- Transaction History ---------------------------------------------------|");
 		System.out.printf("| Customer email: %-30s                                                                             |\n",customerEmail);
 		System.out.println("|----------------------------------------------------------------------------------------------------------------------------|");
-		System.out.printf("|   %-15s   |  %-30s  |  %-15s  | %-8s |  %-5.2f | %-15s |\n",
+		System.out.printf("|   %-15s   |  %-30s  |  %-15s  | %-8s |  %-5s | %-15s |\n",
 					"Transcation ID",
 							"Movie Name",
 							"Cinema Type",
 							"Date",
 							"Price",
 							"Couple Seating");
+		//System.out.println(bookings.size());
         for (Iterator<Booking> it = bookings.iterator(); it.hasNext();) {
             Booking b = it.next();
-            if (b.getCustomerEmail().equals(customerEmail)){
+			//b.print();
+			if (b.getCustomerEmail().compareTo(customerEmail) == 0){
                 b.print();
             }
         }

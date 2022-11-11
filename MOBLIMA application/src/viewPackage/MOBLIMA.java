@@ -9,6 +9,7 @@ import customerpackage.DiscountCode;
 import moviepackage.MovieManager;
 import showtimepackage.ShowtimeManager;
 import viewPackage.customerpackage.CustomerView;
+import viewPackage.customerpackage.newCustomerView;
 import viewPackage.staffpackage.StaffAuth;
 
 /**
@@ -86,7 +87,7 @@ public class MOBLIMA extends View {
 					StaffAuth.login();
 					break;
 				case 2:
-					CustomerView.start();
+					newCustomerView.start();
 					break;
 				case 3:
 					return;

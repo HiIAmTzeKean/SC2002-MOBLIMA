@@ -14,7 +14,6 @@ import viewPackage.customerpackage.CustomerReview;
 public class TestData {
     public static void main(String args []) {
         createAllData();
-
         Scanner s = new Scanner(System.in);
         MovieManager movieManager = MovieManager.getInstance();
         ShowtimeManager showtimeManager = ShowtimeManager.getInstance();

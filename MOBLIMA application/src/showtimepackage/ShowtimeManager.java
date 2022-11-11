@@ -326,8 +326,9 @@ public class ShowtimeManager implements IShowtimeSystem {
 			Showtime s= it.next();
 			if (s.getMovieName().equals(movieName))
 				found = true;
+
 		}
-		if (!found) throw new IllegalArgumentException("Movie is not avaible in the cinplex");
+		if (!found) throw new IllegalArgumentException("Movie is not avaible in the cineplex");
 		MovieManager.close();
 		System.out.println("|----------------------------------------------------------- Showtimes ------------------------------------------------------|");
 		System.out.println("|----------------------------------------------------------------------------------------------------------------------------|");
