@@ -396,7 +396,7 @@ public class ShowtimeManager implements IShowtimeSystem {
 			showtimes.get(getShowtimeIndex(showtimeID)).printLayout();
 		}
 		catch (IllegalArgumentException ex){
-			throw new IllegalArgumentException("Error in retriving seat");
+			throw new IllegalArgumentException("Unable to find layout for showtime chosen!");
 		}
 	}
 
