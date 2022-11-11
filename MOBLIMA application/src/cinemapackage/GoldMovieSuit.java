@@ -109,6 +109,6 @@ public class GoldMovieSuit extends Cinema {
 
     @Override
     public float getMultiplier() {
-        return 1.5f;
+        return 1.25f;
     }
 }

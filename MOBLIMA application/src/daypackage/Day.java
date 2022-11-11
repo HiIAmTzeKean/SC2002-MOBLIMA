@@ -86,12 +86,12 @@ public class Day implements Serializable, IDay {
 				return multiplier*2;
 			}
 			else{
-				return multiplier*1.75f;
+				return multiplier*1.5f;
 			}
 		}
 		else{
 			if(this.dayOfWeek==DayOfWeek.SUN || this.dayOfWeek==DayOfWeek.SAT){
-				return multiplier*1.5f;
+				return multiplier*1.25f;
 			}
 			else{
 				return multiplier;
