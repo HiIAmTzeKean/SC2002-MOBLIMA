@@ -4,6 +4,7 @@ import daypackage.*;
 import cineplexpackage.*;
 import customerpackage.*;
 import moviepackage.*;
+import reviewpackage.ReviewHandler;
 import showtimepackage.IShowtime;
 import showtimepackage.ShowtimeManager;
 import viewPackage.*;
@@ -19,7 +20,7 @@ public class newCustomerView extends View {
             try{
                 System.out.println("Enter Choice");
                 choice = sc.nextInt();
-                if(choice<1 || choice>9){
+                if(choice<1 || choice>10){
                     System.out.println("Invalid input!");
                     waitForEnter(null);
                     continue;
@@ -76,6 +77,11 @@ public class newCustomerView extends View {
                     waitForEnter(null);
                     break;
                 case 9:
+                    System.out.print("\033[H\033[2J");    
+                    createReview();
+                    waitForEnter(null);
+                    break; 
+                case 10:
                     System.out.println("-------------------------------------");
                     System.out.println("\t\tExiting Customer Cinema Menu");
                     System.out.println("-------------------------------------");
@@ -114,11 +120,12 @@ public class newCustomerView extends View {
         //Instantiate booking manager object -> getInstance()
         //Print all transactions for customer(String customerEmail)
         System.out.println("Choice 8 : View Reviews");
+        System.out.println("Choice 9 : Create Review");
         //call customerreview class to do options
         //from moviemanager
         //print all movies that are not end of showing
         //get the movieid and string
-        System.out.println("Choice 9 : Return");
+        System.out.println("Choice 10 : Return");
         System.out.println("--------------------------------------");
     }
    
@@ -142,16 +149,10 @@ public class newCustomerView extends View {
     }
     private static void viewReviews(){
         //Specify the movie name?
-        Scanner reviewScanner = new Scanner(System.in);
-        IReviews reviewHandler = MovieManager.getInstance();
-        try{
-            System.out.println("Enter the name of the movie you want to get reviews for");
-            String toFind = reviewScanner.nextLine();
-            reviewHandler.printReviews(toFind);
-        }
-        catch(IllegalArgumentException e){
-            System.out.println(e);
-        }
+        CustomerReview.viewReviews();
+    }
+    private static void createReview(){
+        CustomerReview.createReview();
     }
     private static void makeNewBooking() {
     	CustomerBook.start();

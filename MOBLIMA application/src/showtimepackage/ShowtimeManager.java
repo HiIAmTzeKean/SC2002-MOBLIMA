@@ -343,17 +343,18 @@ public class ShowtimeManager implements IShowtimeSystem {
 		}
 		if (!found) throw new IllegalArgumentException("Movie is not avaible in the cineplex");
 		MovieManager.close();
-		System.out.println("|----------------------------------------------------------- Showtimes ------------------------------------------------------|");
-		System.out.println("|----------------------------------------------------------------------------------------------------------------------------|");
+		                     
+		System.out.println("|---------------------------------------------- Showtimes -----------------------------------------------------|");
+		System.out.println("|--------------------------------------------------------------------------------------------------------------|");
 		System.out.printf("|   %-15s   |  %-30s  |  %-15s  |   %-8s  |  %-5s |  %-7s |\n",
 						"Movie Status","Movie Name","Cinema Type","Date","Time","Holiday");
-		System.out.println("|----------------------------------------------------------------------------------------------------------------------------|");
+		System.out.println("|--------------------------------------------------------------------------------------------------------------|");	
 		for (Iterator<Showtime> it = showtimes.iterator(); it.hasNext();) {
 			Showtime s= it.next();
 			if (s.getMovieStatus() != MovieStatus.END_OF_SHOWING && s.getMovieName().equals(movieName) && s.getCineplexID()==cineplexID)
 				s.printShowtime();
 		}
-		System.out.println("|----------------------------------------------------------------------------------------------------------------------------|");
+		System.out.println("|--------------------------------------------------------------------------------------------------------------|");	
 	}
 	@Override
 	public void printShowtimeAdmin() {
