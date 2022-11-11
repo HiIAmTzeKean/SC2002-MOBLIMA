@@ -1,7 +1,7 @@
 package agepackage;
 
 /**
- * Superclass interface for age handling
+ * Interface for age class. Used in customer object
  * @author Gambhir Dhruv
  * @since 08-11-2022
  */

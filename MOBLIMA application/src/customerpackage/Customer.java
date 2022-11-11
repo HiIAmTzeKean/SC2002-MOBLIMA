@@ -19,6 +19,11 @@ public class Customer implements Serializable {
 	private Age age;
 
 	public Customer(String name, int mobile, String email, Age age) {
+		if (name==null || name.equals("") ||
+			mobile < 10000000 || mobile > 99999999 ||
+			email ==null || email.equals("") ||
+			age == null) throw new IllegalArgumentException("Inavlid parameters");
+
 		this.name = name;
 		this.mobile = mobile;
 		this.email = email;
