@@ -113,7 +113,7 @@ public class PlatinumMovieSuit extends Cinema {
 
 	@Override
 	public float getMultiplier() {
-		return 2.0f;
+		return 1.5f;
 	}
 
 	/**
