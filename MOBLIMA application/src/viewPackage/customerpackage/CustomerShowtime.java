@@ -189,23 +189,22 @@ public class CustomerShowtime {
 		boolean cinemaTypeScanContd = false;
 		do {
 			switch(selectedCinemaTypeName) {
-				case "Platinum": 
-					selectedCinemaType = CinemaType.PLATINUM;
-					break;
-				case "Gold": 
-					selectedCinemaType = CinemaType.GOLD;
-					break;
-				case "Silver": 
-					selectedCinemaType = CinemaType.Silver;
-					break;
-				default:
-					System.out.println("Erroneous value entered, please try again");
-					cinemaTypeScanContd = true;
-					System.out.print("Enter Cinema Class, from 'Platinum', 'Gold', 'Sliver' : ");
-					selectedCinemaTypeName = scan.nextLine();
-					System.out.println();
-					break;	
-				}//endswitch
+			case "Platinum": 
+				selectedCinemaType = CinemaType.PLATINUM;
+				cinemaTypeScanContd = false;
+				break;
+			case "Gold": 
+				selectedCinemaType = CinemaType.GOLD;
+				cinemaTypeScanContd = false;
+				break;
+			case "Silver": 
+				selectedCinemaType = CinemaType.SILVER;
+				cinemaTypeScanContd = false;
+				break;
+			default:
+				System.out.println("Erroneous value entered, please try again");
+				break;
+			}
 			}while(cinemaTypeScanContd);//endCinemaScan 		
 			
 		//B) Date - prompt until length 8

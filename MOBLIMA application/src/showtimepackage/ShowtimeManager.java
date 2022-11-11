@@ -121,12 +121,25 @@ public class ShowtimeManager implements IShowtimeSystem {
 		throw new IllegalArgumentException("Showtime is not found");
 	}
 
-	public void bookSeatAdmin(int showtimeID, String seatRow, int seatCol, int customerID) throws IllegalArgumentException{
+	public void bookSeatAdmin(int showtimeID, String seatRow, int seatCol, Customer customer) throws IllegalArgumentException{
 		try {
-			showtimes.get(getShowtimeIndex(showtimeID)).bookSeat(seatRow, seatCol, customerID);
+			showtimes.get(getShowtimeIndex(showtimeID)).bookSeat(seatRow, seatCol, customer.getID());
+			BookingManager bookingManager = BookingManager.getInstance();
+
+			bookingManager.addBooking(showtimes.get(getShowtimeIndex(showtimeID)).getCinemaCode()+
+										showtimes.get(getShowtimeIndex(showtimeID)).getDate()+
+										showtimes.get(getShowtimeIndex(showtimeID)).getTime(),
+									showtimes.get(getShowtimeIndex(showtimeID)),
+									showtimes.get(getShowtimeIndex(showtimeID)).getPrice(customer),
+									customer,
+									seatRow,
+									seatCol);
 		}
 		catch (IllegalArgumentException ex){
 			throw new IllegalArgumentException("Error in booking seat");
+		}
+		catch (CustomerNullException ex){
+			ex.printStackTrace();
 		}
 	}
 	@Override
@@ -140,7 +153,7 @@ public class ShowtimeManager implements IShowtimeSystem {
 
 				bookingManager.addBooking(showtimes.get(getShowtimeIndex(showtimeID)).getCinemaCode()+
 											showtimes.get(getShowtimeIndex(showtimeID)).getDate()+
-											showtimes.get(getShowtimeIndex(showtimeID)),
+											showtimes.get(getShowtimeIndex(showtimeID)).getTime(),
 										showtimes.get(getShowtimeIndex(showtimeID)),
                                         showtimes.get(getShowtimeIndex(showtimeID)).getPrice(customer),
 										customer,
@@ -171,7 +184,7 @@ public class ShowtimeManager implements IShowtimeSystem {
 
 				bookingManager.addBooking(showtimes.get(getShowtimeIndex(showtimeID)).getCinemaCode()+
 											showtimes.get(getShowtimeIndex(showtimeID)).getDate()+
-											showtimes.get(getShowtimeIndex(showtimeID)),
+											showtimes.get(getShowtimeIndex(showtimeID)).getTime(),
 										showtimes.get(getShowtimeIndex(showtimeID)),
                                         showtimes.get(getShowtimeIndex(showtimeID)).getPrice(customer),
 										customer,
@@ -348,15 +361,15 @@ public class ShowtimeManager implements IShowtimeSystem {
 			// exit before any looping is done
 			throw new IllegalArgumentException("No Cinema exist");
 		}
-		System.out.println("|----------------------------------------------------------- Showtimes ---------------------------------------------|");
-		System.out.println("|-------------------------------------------------------------------------------------------------------------------|");
+		System.out.println("|------------------------------------------------------ Showtimes ------------------------------------------------------------|");
+		System.out.println("|-----------------------------------------------------------------------------------------------------------------------------|");
 		System.out.printf("|  %-12s|   %-15s   |  %-30s  |  %-15s  |   %-8s  |  %-5s |  %-7s |\n",
 		"ShowtimeID","Movie Status","Movie Name","Cinema Type","Date","Time","Holiday");
-								System.out.println("|----------------------------------------------------------------------------------------------------------------------------|");
+		System.out.println("|-----------------------------------------------------------------------------------------------------------------------------|");
 		for (Iterator<Showtime> it = showtimes.iterator(); it.hasNext();) {
 			it.next().printShowtimeAdmin();
 		}
-		System.out.println("|-------------------------------------------------------------------------------------------------------------------|");
+		System.out.println("|-----------------------------------------------------------------------------------------------------------------------------|");
 	}
 	@Override
 	public void printSeats(int showtimeID) throws IllegalArgumentException{
@@ -384,7 +397,7 @@ public class ShowtimeManager implements IShowtimeSystem {
 			showtimes.get(getShowtimeIndex(showtimeID)).printLayout();
 		}
 		catch (IllegalArgumentException ex){
-			throw new IllegalArgumentException("Error in retriving seat");
+			throw new IllegalArgumentException("Unable to find layout for showtime chosen!");
 		}
 	}
 

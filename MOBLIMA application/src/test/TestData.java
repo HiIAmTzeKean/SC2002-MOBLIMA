@@ -17,6 +17,9 @@ public class TestData {
         Scanner s = new Scanner(System.in);
         MovieManager movieManager = MovieManager.getInstance();
         ShowtimeManager showtimeManager = ShowtimeManager.getInstance();
+        BookingManager bookingManager = BookingManager.getInstance();
+        bookingManager.printAllTransactionsForCustomer("april@gmail.com");
+        bookingManager.printAllTransactionsForCustomer("ali@gmail.com");
         MovieManager.close();
         CinemaManager.close();
         CineplexManager.close();
@@ -355,7 +358,7 @@ public class TestData {
                             int col = (int) ((int) 5*Math.random())+1;
                             int row = (int) ((int) 2*Math.random());
                             c = new Customer(nameList[col], mobileList[col], emailList[col], ageList[col]); 
-                            man.bookSeat(i, colList[row], col,c);
+                            man.bookSeatAdmin(i, colList[row], col,c);
                             mm.getMoviefromID(showtimeObj.getMovieID()).addSales(1);
                             // increament movie sale by 1
                         }
@@ -363,24 +366,24 @@ public class TestData {
                             int col = (int) ((int) 8*Math.random())+1;
                             int row = (int) ((int) 3*Math.random());
                             c = new Customer(nameList[col], mobileList[col], emailList[col], ageList[col]); 
-                            man.bookSeat(i, colList[row], col,c);
+                            man.bookSeatAdmin(i, colList[row], col,c);
                             mm.getMoviefromID(showtimeObj.getMovieID()).addSales(1);
                         }
                         else{
                             int col = (int) ((int) 8*Math.random())+1;
                             int row = (int) ((int) 5*Math.random());
                             c = new Customer(nameList[col], mobileList[col], emailList[col], ageList[col]); 
-                            man.bookSeat(i, colList[row], col,c);
+                            man.bookSeatAdmin(i, colList[row], col,c);
                             mm.getMoviefromID(showtimeObj.getMovieID()).addSales(1);
                         }  
                     }
                     catch(IllegalArgumentException ex){
                         continue;
                     }
-                    catch(CustomerNullException ex){
-                        ex.printStackTrace();
-                        continue;
-                    }
+                    // catch(CustomerNullException ex){
+                    //     ex.printStackTrace();
+                    //     continue;
+                    // }
                 }
                 continue;
             }
@@ -391,7 +394,7 @@ public class TestData {
                         int col = (int) ((int) 5*Math.random())+1;
                         int row = (int) ((int) 2*Math.random());
                         c = new Customer(nameList[col], mobileList[col], emailList[col], ageList[col]); 
-                        man.bookSeat(i, colList[row], col,c);
+                        man.bookSeatAdmin(i, colList[row], col,c);
                         mm.getMoviefromID(showtimeObj.getMovieID()).addSales(1);
                         // increament movie sale by 1
                     }
@@ -399,24 +402,24 @@ public class TestData {
                         int col = (int) ((int) 8*Math.random())+1;
                         int row = (int) ((int) 3*Math.random());
                         c = new Customer(nameList[col], mobileList[col], emailList[col], ageList[col]); 
-                        man.bookSeat(i, colList[row], col,c);
+                        man.bookSeatAdmin(i, colList[row], col,c);
                         mm.getMoviefromID(showtimeObj.getMovieID()).addSales(1);
                     }
                     else{
                         int col = (int) ((int) 8*Math.random())+1;
                         int row = (int) ((int) 5*Math.random());
                         c = new Customer(nameList[col], mobileList[col], emailList[col], ageList[col]); 
-                        man.bookSeat(i, colList[row], col,c);
+                        man.bookSeatAdmin(i, colList[row], col,c);
                         mm.getMoviefromID(showtimeObj.getMovieID()).addSales(1);
                     }  
                 }
                 catch(IllegalArgumentException ex){
                     continue;
                 }
-                catch(CustomerNullException ex){
-                    ex.printStackTrace();
-                    continue;
-                }
+                // catch(CustomerNullException ex){
+                //     ex.printStackTrace();
+                //     continue;
+                // }
             }
         }
         MovieManager.close();

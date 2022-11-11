@@ -79,7 +79,7 @@ public class DiscountCode{
 		System.out.printf("|-----------------------------|\n");
 		for (Iterator<DiscountCodeTicket> it = discountCodes.iterator(); it.hasNext();) {
 			DiscountCodeTicket c = it.next();
-			System.out.printf("| %-14s | %-2s |\n", c.getCode(), c.getDiscount());
+			System.out.printf("| %-14s |    %-2s     |\n", c.getCode(), c.getDiscount());
 		}
 		System.out.printf("|-----------------------------|\n");
 	}

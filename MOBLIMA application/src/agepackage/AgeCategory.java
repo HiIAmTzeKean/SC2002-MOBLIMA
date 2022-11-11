@@ -1,4 +1,9 @@
 package agepackage;
+/**
+ * Enum class for setting age category
+ * @author Gambhir Dhruv
+ * @since 08-11-2022
+ */
 public enum AgeCategory {
 	SENIOR("Senior Citizen"),
 	ADULT("Adult"),

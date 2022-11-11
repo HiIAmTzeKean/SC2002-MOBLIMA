@@ -1,9 +1,15 @@
 package cinemapackage;
 
+/**
+ * Eunm types for cinema
+ * 
+ * @author Ng Tze Kean
+ * @since 06-11-2022
+ */
 public enum CinemaType{
 	PLATINUM("Platinum"),
 	GOLD("Gold"),
-	Silver("Silver");
+	SILVER("Silver");
 	private String type;
 
 	CinemaType(String type) {

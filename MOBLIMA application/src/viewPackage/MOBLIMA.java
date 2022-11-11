@@ -20,17 +20,18 @@ import viewPackage.staffpackage.StaffAuth;
 public class MOBLIMA extends View {
     public static void main(String args []){ 
         System.out.print("\033[H\033[2J");
-        System.out.println("----------------------------------");
-        System.out.println("\t\tWELCOME TO MOBLIMA\t\t"); 
-        System.out.println("----------------------------------");
+        System.out.println("-----------------------------------------");
+        System.out.println("\tWELCOME TO MOBLIMA\t\t"); 
+        System.out.println("-----------------------------------------");
+		waitForEnter(null);
 
 		startAllManagers();
         start();
 		//closeAllManagers();
 
-        System.out.println("----------------------------------");
-        System.out.println("\t\tEXITING MOBLIMA\t\t"); 
-        System.out.println("----------------------------------");
+        System.out.println("-----------------------------------------");
+        System.out.println("\tEXITING MOBLIMA\t\t"); 
+        System.out.println("-----------------------------------------");
     }
 	/**
 	 * Menu to be printed for navigation
@@ -56,7 +57,7 @@ public class MOBLIMA extends View {
 		System.out.println("--------------------------------------");
 		System.out.println("Choice 1 : Staff");
 		System.out.println("Choice 2 : Customer");
-		System.out.println("choice 3 : exit MOBLIMA");
+		System.out.println("Choice 3 : Exit MOBLIMA");
 		System.out.println("--------------------------------------");
 	}
     /**
@@ -69,7 +70,7 @@ public class MOBLIMA extends View {
 		while (true) {
 			displayMenu();
 			try {
-				System.out.println("Enter choice");
+				System.out.println("Enter Choice");
 				choice = sc.nextInt();
 				if (choice>5 || choice<1) {
 					System.out.println("Invalid input!");
