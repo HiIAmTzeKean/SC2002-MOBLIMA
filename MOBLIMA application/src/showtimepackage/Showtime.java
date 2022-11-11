@@ -24,13 +24,13 @@ public class Showtime implements IBooking, Serializable{
 	private static final long serialVersionUID = 6266710308272298089L;
 	private Movie movie;
 	private ICinemaBooking cinema;
-	private static float basePrice = 5.0f;
+	private static float basePrice = 8.5f;
 	private IDay day;
 	private int id;
 	
 	Showtime() {
 		if (Showtime.basePrice == 0f){
-			Showtime.basePrice = 5.0f;
+			Showtime.basePrice = 8.5f;
 		}
 	}
 	Showtime(Movie movie, ICinemaBooking cinema, IDay day, int id) {
