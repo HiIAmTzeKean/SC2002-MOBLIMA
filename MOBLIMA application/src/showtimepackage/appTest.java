@@ -31,10 +31,10 @@ public class appTest {
         int mobileList[] = {11111111,22222222, 33333333,
                                 44444444,55555555,66666666,
                                 77777777,88888888,99999999};
-        Age ageList[] = {new Age(10,AgeCategory.CHILD), new Age(20,AgeCategory.ADULT), new Age(30,AgeCategory.ADULT),
-                        new Age(11,AgeCategory.CHILD), new Age(22,AgeCategory.ADULT), new Age(30,AgeCategory.ADULT),
-                        new Age(15,AgeCategory.CHILD), new Age(60,AgeCategory.SENIOR), new Age(50,AgeCategory.SENIOR)
-                        };
+        // Age ageList[] = {new Age(10,AgeCategory.CHILD), new Age(20,AgeCategory.ADULT), new Age(30,AgeCategory.ADULT),
+        //                 new Age(11,AgeCategory.CHILD), new Age(22,AgeCategory.ADULT), new Age(30,AgeCategory.ADULT),
+        //                 new Age(15,AgeCategory.CHILD), new Age(60,AgeCategory.SENIOR), new Age(50,AgeCategory.SENIOR)
+        //                 };
 
         //false
         //true

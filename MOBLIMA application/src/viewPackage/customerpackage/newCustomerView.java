@@ -14,6 +14,7 @@ public class newCustomerView extends View {
         System.out.println("MOBLIMA Customer View\n");
         int choice = 0;
         while(true){
+            //System.out.print("\033[H\033[2J");
             displayMenu();
             try{
                 System.out.println("Enter Choice");
@@ -120,12 +121,12 @@ public class newCustomerView extends View {
         System.out.println("Choice 9 : Return");
         System.out.println("--------------------------------------");
     }
-    //
+   
     private static void viewAvailableMovies(){
-        CustomerMovieListing.printMovies();
+        CustomerMovieListing.viewAvailableMovies();
     }
     private static void viewMovieDetails(){
-        CustomerMovieListing.printMovie();
+        CustomerMovieListing.viewMovieDetails();
     }
     private static void printTop5Sales(){
         ISales salesHandler = MovieManager.getInstance();
@@ -145,7 +146,7 @@ public class newCustomerView extends View {
         IReviews reviewHandler = MovieManager.getInstance();
         try{
             System.out.println("Enter the name of the movie you want to get reviews for");
-            String toFind = sc.nextLine();
+            String toFind = reviewScanner.nextLine();
             reviewHandler.printReviews(toFind);
         }
         catch(IllegalArgumentException e){
@@ -153,15 +154,9 @@ public class newCustomerView extends View {
         }
     }
     private static void makeNewBooking() {
-    	CustomerBook cb = new CustomerBook();
-    	cb.bookMenu();
+    	CustomerBook.bookMenu();
     }
     private static void seeBookingHistory(){
-    	CustomerBook cb = new CustomerBook();
-    	cb.history();
+    	CustomerBook.history();
     }
-    
-    
-    
-
 }

@@ -55,8 +55,31 @@ public class CustomerShowtime {
 		return showtimeID;
 	}
 	
+	public void printCineplexes(){
+		ICineplex cineplexHandler = CineplexManager.getInstance();
+		cineplexHandler.printCineplexes();
+	}
+	
+	public void setCinemaTypeName(String ctname) {
+		selectedCinemaTypeName = ctname;
+	}
 	
 	//returns cineplexID or -1 in case of an error
+	
+	public int chooseCineplexfromString(String cineplexName){
+		ICineplex cineplexHandler = CineplexManager.getInstance();
+		try {
+			selectedCineplexObj = cineplexHandler.getCineplex(cineplexName); 
+		}
+		catch(IllegalArgumentException e) {
+			selectedCineplexID = 0; //reset value
+			return -1;
+		}
+		
+		selectedCineplexID = selectedCineplexObj.getID();
+		return selectedCineplexID;	
+	}
+	
 	public int chooseCineplex() {
 		ICineplex cineplexHandler = CineplexManager.getInstance();
 		System.out.println("The Cineplexes are:");
@@ -128,12 +151,8 @@ public class CustomerShowtime {
 		IShowtime showtimeHandler = ShowtimeManager.getInstance();
 		
 		//A) CinemaType
-		boolean cinemaTypeScanContd = true;
+		boolean cinemaTypeScanContd = false;
 		do {
-			System.out.print("Cinema Class, from 'Platinum', 'Gold', 'Sliver' : ");
-			selectedCinemaTypeName = scan.next();
-			System.out.println();
-					
 			switch(selectedCinemaTypeName) {
 			case "Platinum": 
 				selectedCinemaType = CinemaType.PLATINUM;
@@ -156,7 +175,7 @@ public class CustomerShowtime {
 		//B) Date - prompt until length 8
 		do {
 			System.out.print("Date (length 8): ");
-			selectedDate = scan.next();
+			selectedDate = scan.nextLine();
 		}while(selectedDate.length() != 8); 
 		System.out.println();
 		
