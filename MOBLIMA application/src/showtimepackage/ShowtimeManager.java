@@ -151,7 +151,7 @@ public class ShowtimeManager implements IShowtimeSystem {
 			throw new IllegalArgumentException("No showtime exist");
 		}
 		int count = 0;
-		for (Iterator<Showtime> it = showtimes.iterator(); it.hasNext();) {
+	for (Iterator<Showtime> it = showtimes.iterator(); it.hasNext();) {
 			if (it.next().getID() == showtimeID) {
 				return count;
 			}
@@ -252,7 +252,7 @@ public class ShowtimeManager implements IShowtimeSystem {
 											showtimes.get(getShowtimeIndex(showtimeID)).getDate()+
 											showtimes.get(getShowtimeIndex(showtimeID)).getTime(),
 										showtimes.get(getShowtimeIndex(showtimeID)),
-                                        showtimes.get(getShowtimeIndex(showtimeID)).getPrice(customer),
+                                        showtimes.get(getShowtimeIndex(showtimeID)).getPrice(customer)*2,
 										customer,
 										seatRow,
 										seatCol);
@@ -262,7 +262,7 @@ public class ShowtimeManager implements IShowtimeSystem {
 			}
 		}
 		catch (IllegalArgumentException ex){
-			ex.printStackTrace();
+		ex.printStackTrace();
 			throw ex;
 		}
 		catch (CustomerNullException ex){
