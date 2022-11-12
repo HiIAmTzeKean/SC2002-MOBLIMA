@@ -81,7 +81,7 @@ public class StaffMovie extends View {
                 try {
                     System.out.println("[Enter 0 to go back]");
                     System.out.println("Enter Synopsis: ");
-                    movieSynopsis = sc.next();
+                    movieSynopsis = sc.nextLine();
                     if (movieSynopsis.equals("0")) {
                         state=createMovieEnum.TITLE;
                         break;
@@ -97,7 +97,7 @@ public class StaffMovie extends View {
                 try {
                     System.out.println("[Enter 0 to go back]");
                     System.out.println("Enter Director: ");
-                    movieDirector = sc.next();
+                    movieDirector = sc.nextLine();
                     if (movieDirector.equals("0")) {
                         state=createMovieEnum.SYNOPSIS;
                         break;
@@ -112,7 +112,7 @@ public class StaffMovie extends View {
                 try {
                     System.out.println("[Enter 0 to go back]");
                     System.out.println("Enter Cast: ");
-                    movieCast = sc.next();
+                    movieCast = sc.nextLine();
                     if (movieCast.equals("0")) {
                         state=createMovieEnum.DIRECTOR;
                         break;
@@ -127,12 +127,11 @@ public class StaffMovie extends View {
             case AGERESTRICTION:
             try {
                 System.out.println("[Enter 0 to go back]");
-                System.out.println("Enter Age Restriction: ");
-
                 AgeRestriction[] arr = AgeRestriction.values();
                 for(AgeRestriction ar:arr){ 
                     System.out.printf("choice %d : %s\n",(ar.ordinal()+1) ,ar.toString()); 
                 }
+                System.out.println("Enter choice of Age Restriction: ");
                 int input = sc.nextInt();
                 if (input == 0) {
                     state=createMovieEnum.CAST;
@@ -192,12 +191,13 @@ public class StaffMovie extends View {
             case TYPE:
             try {
                 System.out.println("[Enter 0 to go back]");
-                System.out.println("Enter Movie Type ");
+                
 
                 MovieType[] arr = MovieType.values();
                 for(MovieType ar:arr){ 
                     System.out.printf("choice %d : %s\n",(ar.ordinal()+1) ,ar.toString()); 
                 }
+                System.out.println("Enter choice of  Movie Type:");
                 int input = sc.nextInt();
                 if (input==0) {
                     state=createMovieEnum.STATUS;
@@ -331,7 +331,7 @@ public class StaffMovie extends View {
         setMovieTypeState state =  setMovieTypeState.ID;
         System.out.print("\033\143");
         System.out.println("--------------------------------------");
-        System.out.println("Set New Movie type");
+        System.out.println("         Set New Movie type");
         System.out.println("--------------------------------------");
         
         MovieHandler.printMoviesAdmin();
@@ -394,7 +394,7 @@ public class StaffMovie extends View {
         }
         MovieHandler.printMoviesAdmin();
         System.out.println("--------------------------------------");
-        System.out.println("\t\tNew Movie Type Set");
+        System.out.println("         New Movie Type Set");
         System.out.println("--------------------------------------");
         waitForEnter(null);
     }
@@ -433,6 +433,7 @@ public class StaffMovie extends View {
             }
         }
         
+        MovieHandler.printMoviesAdmin();
         System.out.println("--------------------------------------");
         System.out.println("\t Movie Deleted");
         System.out.println("--------------------------------------");
@@ -521,7 +522,7 @@ public class StaffMovie extends View {
 
         System.out.print("\033\143");
         System.out.println("--------------------------------------------");
-        System.out.println("\tSetting New Movie Status");
+        System.out.println("         Setting New Movie Status");
         System.out.println("--------------------------------------------");
         MovieHandler.printMoviesAdmin();
         while (!complete) {
@@ -539,19 +540,20 @@ public class StaffMovie extends View {
                 case STATUS:
                     try{
                         System.out.println("[Enter 0 to return]");
-                        System.out.println("Enter Movie Status :");
+                        
 
                         MovieStatus[] arr = MovieStatus.values();
 
                         for(MovieStatus ar:arr){ 
                             System.out.printf("Choice %d : %s\n",(ar.ordinal()+1) ,ar.toString()); 
                         }
+                        System.out.println("Enter choice of Movie Status:");
                         int input = sc.nextInt();
 
                         if (input==0) {
                             state=setMovieStatusState.ID;
                             break;
-                        }if (input > arr.length+1 || input < 0) {
+                        }if (input > arr.length || input < 1) {
                             state=setMovieStatusState.STATUS;
                             System.out.println("Enter a valid choice");
                             break;
@@ -569,15 +571,17 @@ public class StaffMovie extends View {
                         MovieHandler.setMovieStatus(ID, movieStatus);
                         stHandler.setMovieStatus(ID, movieStatus);
                         complete = true;
-                } catch(IllegalArgumentException e){
-                    System.out.println("Invalid Movie Status Input");
-                    state = setMovieStatusState.STATUS;
-                    break;
-                }
+                    } catch(IllegalArgumentException e){
+                        System.out.println(e.getMessage());
+                        System.out.println("Invalid Movie Status Input");
+                        state = setMovieStatusState.STATUS;
+                        break;
+                    }
             }
         }
+        MovieHandler.printMoviesAdmin();
         System.out.println("------------------------------------------");
-        System.out.println("\tNew Movie Status Set");
+        System.out.println("          New Movie Status Set");
         System.out.println("------------------------------------------");
         waitForEnter(null);
     }
