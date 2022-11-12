@@ -72,6 +72,8 @@ public class Day implements Serializable, IDay {
 			return true;
 		return false;
 	}
+	@Override
+	//TODO change this to day
 	public float getDayMultiplier() {
 		if(holiday){
 			if(this.dayOfWeek==DayOfWeek.SUN || this.dayOfWeek==DayOfWeek.SAT){
@@ -98,25 +100,26 @@ public class Day implements Serializable, IDay {
 	public static void setMultiplier(float newMulitplier) {
 		multiplier = newMulitplier;
 	}
+
 	public static float getMultiplier() {
 		return multiplier;
 	}
-
+	@Override
 	public void setHoliday() {
 		this.holiday = true;
 	}
-
+	@Override
 	public void removeHoliday() {
 		this.holiday = false;
 	}
-	
+	@Override
 	public boolean isHoliday() {
 		if(holiday)
 			return true;
 		else
 			return false;
 	}
-	
+	@Override
 	public void setDate(int dayNumber, int monthNumber, int yearNumber) {
 		this.dayNumber = dayNumber;
 		this.monthNumber = monthNumber;
@@ -137,6 +140,7 @@ public class Day implements Serializable, IDay {
 		}
 		this.fullDate = Integer.toString(this.yearNumber) + monthString + dayString;
 	}
+	@Override
 	public void setDate(String fullDate) throws IllegalArgumentException {
 		if (fullDate.length() != 8) {
 			throw new IllegalArgumentException("Invalid date string supplied");
@@ -148,18 +152,19 @@ public class Day implements Serializable, IDay {
 			throw new IllegalArgumentException("Invalid date string supplied");
 		}
 	}
+	@Override
 	public String getDate() {
 		return this.fullDate;
 	}
-	
+	@Override
 	public void setDayOfWeek(DayOfWeek day) {
 		this.dayOfWeek = day;
 	}
-	
+	@Override
 	public DayOfWeek getDayOfWeek() {
 		return this.dayOfWeek;
 	}
-	
+	@Override
 	public void setTime(String time) throws IllegalArgumentException{
 		if (time.length() != 4) {
 			throw new IllegalArgumentException("Invalid time string length supplied");
@@ -175,7 +180,7 @@ public class Day implements Serializable, IDay {
 			throw e;
 		}
 	}
-	
+	@Override
 	public String getTime(){
 		return this.time;
 	}

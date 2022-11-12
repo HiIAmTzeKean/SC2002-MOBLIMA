@@ -105,13 +105,24 @@ public class StaffShowtime extends View {
 				case DATE:
 					try {
 						System.out.println("[Enter 0 to return]");
-						System.out.println("Enter Day of the Month ");
+						System.out.println("Enter Day of the Month:");
 						dayNumber = sc.nextInt();
-						System.out.println("Enter Month  ");
+						if (dayNumber == 0 ) {
+							state = addShowtimeState.DATE;
+							break;
+						}
+						System.out.println("Enter Month:");
 						monthNumber = sc.nextInt();
-						System.out.println("Enter year  ");
+						if (monthNumber == 0 ) {
+							state = addShowtimeState.DATE;
+							break;
+						}
+						System.out.println("Enter Year:");
 						yearNumber = sc.nextInt();
-
+						if (yearNumber == 0 ) {
+							state = addShowtimeState.DATE;
+							break;
+						}
 						day.setDate(dayNumber, monthNumber, yearNumber);
 					} catch (InputMismatchException e) {
 						inputMismatchHandler();
@@ -329,6 +340,8 @@ public class StaffShowtime extends View {
 				ID = sc.nextInt();
 				if (ID == 0)
 					return;
+
+				ssHandler.removeShowtime(ID);
 				complete = true;
 			} catch (InputMismatchException e) {
 				inputMismatchHandler();
@@ -338,10 +351,14 @@ public class StaffShowtime extends View {
 				System.out.println("Please try again!");
 				waitForEnter(null);
 				break;
+			} catch (IllegalArgumentException e) {
+				System.out.println(e.getMessage());
+				System.out.println("Please try again!");
+				waitForEnter(null);
+				break;
 			}
 		}
-		ssHandler.removeShowtime(ID);
-
+		
 		ssHandler.printShowtimeAdmin();
 		System.out.println("-------------------------------------");
 		System.out.println("      Showtime Removed");
