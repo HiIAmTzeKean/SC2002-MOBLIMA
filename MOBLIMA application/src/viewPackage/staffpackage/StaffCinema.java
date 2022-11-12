@@ -20,14 +20,14 @@ import viewPackage.View;
 public class StaffCinema extends View {
     public static void displayMenu() {
         System.out.print("\033[H\033[2J");
-        System.out.println("--------------------------------------");
-        System.out.println("Cineplex Menu");
-        System.out.println("--------------------------------------");
+        System.out.println("-------------------------------------------------");
+        System.out.println("        Update Cineplex/Cineplex Menu");
+        System.out.println("-------------------------------------------------");
         System.out.println("Choice 1 : Create Cineplex");
         System.out.println("Choice 2 : Delete Cineplex");
         System.out.println("Choice 3 : Update Cineplex and Cinemas");
         System.out.println("Choice 4 : Return");
-        System.out.println("--------------------------------------");
+        System.out.println("-------------------------------------------------");
     }
 
     private static void createCineplex() {
@@ -182,7 +182,7 @@ public class StaffCinema extends View {
     private static void updateCinplexMenu() {
         System.out.print("\033[H\033[2J");
         System.out.println("--------------------------------------");
-        System.out.println("        Update Cineplex Menu ");
+        System.out.println("        Update Cinema Menu ");
         System.out.println("--------------------------------------");
         System.out.println("Choice 1 : Create Cinema");
         System.out.println("Choice 2 : Delete Cinema");
