@@ -383,6 +383,7 @@ public class CustomerBook extends View {
 								System.out.println("Invalid Discount Code Entered. Please Try Again.");
 								waitForEnter(null);
 								state = bookMenuState.DISPLAYPRICE;
+								break;
 							}
 							System.out.printf("Your Final Price with Discount is %.2f\n",cp.getBookingPrice(customerObject, cinemaType, customerRow, customerColumn, customerShowtime, customerCoupleSeat, customerDiscountCode));
 							customerBookingPrice = cp.getBookingPrice(customerObject, cinemaType, customerRow, customerColumn, customerShowtime, customerCoupleSeat, customerDiscountCode);
@@ -418,6 +419,12 @@ public class CustomerBook extends View {
 					catch(InputMismatchException e){
 						inputMismatchHandler();
 						state = bookMenuState.DISPLAYPRICE;
+						break;
+					}
+					catch(IllegalArgumentException e){
+						System.out.println("Invalid Discount Code Entered. Please Try Again.");
+						state = bookMenuState.DISPLAYPRICE;
+						waitForEnter(null);
 						break;
 					}
 				case PAYMENT:

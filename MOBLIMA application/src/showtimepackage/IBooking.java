@@ -50,7 +50,7 @@ public interface IBooking {
 	 */
 	void printSeat();
 	void printShowtime();
-	void isHoliday();
+	boolean isHoliday();
 	String getMovieName();
 	void changeDay(IDay day) throws IllegalArgumentException;
 }

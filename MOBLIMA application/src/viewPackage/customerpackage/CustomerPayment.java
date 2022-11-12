@@ -127,12 +127,12 @@ public class CustomerPayment {
 	 */
 	/////////////////////////////////////////////////////////////////////////////////////////////////
 	
-	public float getBookingPrice(Customer customerObject, CinemaType cinemaType, String customerRow, int customerColumn, Showtime customerShowtime, Boolean customerCoupleSeat, String discountCodeTicket){
+	public float getBookingPrice(Customer customerObject, CinemaType cinemaType, String customerRow, int customerColumn, Showtime customerShowtime, Boolean customerCoupleSeat, String discountCodeTicket) throws IllegalArgumentException{
 		float price = 0.0f;		
 		IShowtime showtimeHandler = ShowtimeManager.getInstance();
 		int showtimeID = customerShowtime.getID();
 		try{
-			if(discountCodeTicket.compareTo("")==0){
+			if(discountCodeTicket==null){
 				if(customerCoupleSeat){
 					return(showtimeHandler.getPrice(showtimeID, customerObject,true));
 				}
@@ -152,6 +152,10 @@ public class CustomerPayment {
 		catch(CustomerNullException e){
 			System.out.println("An Error Occured. Please Try Again.");
 		}
+		catch(IllegalArgumentException e){
+			throw e;
+			//System.out.println("Invalid Discount Code Entered. Please Try Again.");
+		}
 		return price;
 	}
 	
@@ -161,10 +165,8 @@ public class CustomerPayment {
 	 * @return Boolean
 	 */
 	public Boolean isValidDiscountCode(String discountCode){
-		Boolean toReturn = false;
 		DiscountCode discountCodeHandler = DiscountCode.getInstance();
-		if(discountCodeHandler.checkValid(discountCode)) return true;
-		return toReturn;
+		return(discountCodeHandler.checkValid(discountCode));
 	}
 
 	
