@@ -26,10 +26,11 @@ public class CustomerReview {
 			System.out.printf("Enter a Short Review for %s\n",toReview.getMovieTitle());
 			String review = scan.nextLine();
 			Review reviewToAdd = new Review(rating, review);
+			reviewHandler.addReview(toFind, review, rating);
 			toReview.addReview(reviewToAdd);
 		}
 		catch(IllegalArgumentException e){
-			System.out.println("An Error Occured. Please Try Again.");
+			System.out.println("Invalid Review Arguments. Please Try Again.");
 		}
 	}
 

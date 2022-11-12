@@ -113,10 +113,10 @@ public class CustomerView  extends View{
 				case "1":{
 					try { 
 						if(bookingOption == 2 || bookingOption == 4) {
-							showtimeHandler.bookCoupleSeat(selectedShowtimeID, seatRow, seatCol, c);
+							// showtimeHandler.bookCoupleSeat(selectedShowtimeID, seatRow, seatCol, c);
 						}
 						else {
-							showtimeHandler.bookSeat(selectedShowtimeID, seatRow, seatCol, c);
+							// showtimeHandler.bookSeat(selectedShowtimeID, seatRow, seatCol, c);
 						}
 					}
 					catch(Exception ebook) {//specific exceptions

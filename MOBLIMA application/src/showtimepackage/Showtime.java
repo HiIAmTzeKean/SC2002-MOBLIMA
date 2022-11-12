@@ -275,7 +275,7 @@ public class Showtime implements IBooking, Serializable{
 			return getPrice(customer) * discountMultiplier;
 		}
 		catch (IllegalArgumentException e){
-			e.printStackTrace();
+			//e.printStackTrace();
 			throw e;
 		}
 		catch (CustomerNullException ex){

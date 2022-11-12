@@ -258,7 +258,7 @@ public class MovieManager implements ISales, IReviews, IMovie {
 			throw new IllegalArgumentException("Review must not be empty");
 		}
 		//Check if review rating is within the preset bounds
-		if(rating <= 0 || rating >= 5.0){
+		if(rating <= 0.0F || rating >= 5.0F){
 			throw new IllegalArgumentException("Review rating is invalid");
 		}
 		Review newReview = new Review(rating, review);
