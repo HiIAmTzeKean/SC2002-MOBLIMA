@@ -52,6 +52,15 @@ public interface IShowtimeSystem extends IShowtime {
 	 */
 	void movieShowtimeEnd(int movieID);
 
+	/**
+	 * Returns day object if there exist a showtime with such a date in the array.
+	 * This is used to test if there is any
+	 * showtime with a target date in mind.
+	 * 
+	 * @param dateString
+	 * @return Day object
+	 * @throws IllegalArgumentException
+	 */
 	Day getDay(String dateString) throws IllegalArgumentException;
 
 	/**
@@ -63,8 +72,21 @@ public interface IShowtimeSystem extends IShowtime {
 	 */
 	void setMovieType(int movieID, MovieType type);
 
+	/**
+	 * Updates a MovieType in showtime
+	 * Function should be invoked with update MovieStatus from MovieManager
+	 * 
+	 * @param movieID
+	 * @param status
+	 */
 	void setMovieStatus(int movieID, MovieStatus status);
 
+	/**
+	 * Updates the movie director in Movie object
+	 * 
+	 * @param movieID
+	 * @param director
+	 */
 	void setMovieDirector(int movieID, String director);
 
 	/**
@@ -95,6 +117,16 @@ public interface IShowtimeSystem extends IShowtime {
 	 */
 	void changeShowtimeDay(int showtimeID, Day day) throws IllegalArgumentException;
 
+	/**
+	 * Removes a showtime in the array via its ID
+	 * 
+	 * @param showtimeID
+	 */
 	void removeShowtime(int showtimeID);
+
+	/**
+	 * Prints the showtimes with admin view. Used in staff view.
+	 * 
+	 */
 	void printShowtimeAdmin();
 }

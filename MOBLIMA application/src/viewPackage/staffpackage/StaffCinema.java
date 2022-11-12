@@ -218,6 +218,9 @@ public class StaffCinema extends View {
         System.out.println("--------------------------------------");
     }
 
+    /**
+     * Function to provide UI to create a new cinema object for staff view
+     */
     private static void createCinema() {
         enum createCinemaState {
             CODE, TYPE, CREATE
@@ -295,6 +298,9 @@ public class StaffCinema extends View {
         waitForEnter(null);
     }
 
+    /**
+     * Function to provide UI to delete a cinema object for staff view
+     */
     private static void deleteCinema() {
         ICineplex cineplexHandler = CineplexManager.getInstance();
         ICinema cinemaHandler = CinemaManager.getInstance();
@@ -334,6 +340,9 @@ public class StaffCinema extends View {
         waitForEnter(null);
     }
 
+    /**
+     * Function to provide UI to create update cineplex name for staff view
+     */
     private static void setCineplexName() {
         ICineplex cineplexHandler = CineplexManager.getInstance();
         enum setCineplexState {
@@ -398,6 +407,9 @@ public class StaffCinema extends View {
         waitForEnter(null);
     }
 
+    /**
+     * Function to provide UI to update cineplex locatino for staff view
+     */
     private static void setCineplexLocation() {
         ICineplex cineplexHandler = CineplexManager.getInstance();
         enum setCineplexLocation {
@@ -462,6 +474,9 @@ public class StaffCinema extends View {
         waitForEnter(null);
     }
 
+    /**
+     * Function to provide UI to create add a cinema to cineplex for staff view
+     */
     private static void addCinemaToCineplex() {
         ICineplex cineplexHandler = CineplexManager.getInstance();
         ICinema cinemaHandler = CinemaManager.getInstance();
@@ -542,6 +557,10 @@ public class StaffCinema extends View {
         waitForEnter(null);
     }
 
+    /**
+     * Function to provide UI to remoce a cinema object under cineplex for staff
+     * view
+     */
     private static void removeCinemaFromCineplex() {
         ICineplex cineplexHandler = CineplexManager.getInstance();
         ICinema cinemaHandler = CinemaManager.getInstance();
@@ -619,6 +638,9 @@ public class StaffCinema extends View {
         waitForEnter(null);
     }
 
+    /**
+     * Function to provide UI to create a update cinema object for staff view
+     */
     private static void updateCinemaCode() {
         enum updateCinema {
             ID, CODE, SET
@@ -692,6 +714,9 @@ public class StaffCinema extends View {
         waitForEnter(null);
     }
 
+    /**
+     * Function to provide UI to create a update cinema object for staff view
+     */
     private static void updateCinemaType() {
         enum updateCinemaType {
             ID, TYPE, SET
@@ -772,6 +797,9 @@ public class StaffCinema extends View {
         waitForEnter(null);
     }
 
+    /**
+     * Function to provide UI to create a update cineplex object for staff view
+     */
     private static void updateCineplex() {
         sc = new Scanner(System.in);
         int ch = 0;
