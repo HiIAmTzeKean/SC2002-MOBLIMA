@@ -486,6 +486,7 @@ public class ShowtimeManager implements IShowtimeSystem {
 	@Override
 	public void setMovieType(int movieID, MovieType type) {
 		for (Iterator<Showtime> it = showtimes.iterator(); it.hasNext();) {
+
 			Showtime s = it.next();
 			if (s.getMovieID() == movieID){
 				s.getMovieObject().setMovieType(type);

@@ -206,6 +206,7 @@ public class StaffShowtime extends View {
 					}
 				case CREATE:
 					try {
+
 						ssHandler.addShowtime(movie, cinema, day);
 						complete = true;
 					} catch (IllegalArgumentException e) {
