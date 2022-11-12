@@ -444,9 +444,9 @@ public class ShowtimeManager implements IShowtimeSystem {
 
 	@Override
 	public void movieShowtimeEnd(int movieID) {
-		if (showtimes== null || showtimes.size() == 0){
+		if (showtimes == null || showtimes.size() == 0){
 			// exit before any looping is done
-			throw new IllegalArgumentException("No Cinema exist");
+			throw new IllegalArgumentException("No showitmes with this movie exist");
 		}
 		for (Iterator<Showtime> it = showtimes.iterator(); it.hasNext();) {
 			Showtime s = it.next();
@@ -545,8 +545,7 @@ public class ShowtimeManager implements IShowtimeSystem {
 	@Override
 	public void removeShowtime(int showtimeID) {
 		try {
-			getShowtimeIndex(showtimeID);
-			showtimes.remove(showtimeID);
+			showtimes.remove(getShowtimeIndex(showtimeID));
 		} catch (IllegalArgumentException ex) {
 			throw ex;
 		} catch (IndexOutOfBoundsException ex) {
