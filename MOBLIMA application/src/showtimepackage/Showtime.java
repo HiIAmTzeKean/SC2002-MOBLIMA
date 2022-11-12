@@ -47,6 +47,7 @@ public class Showtime implements IBooking, Serializable{
 	public void setID(int id){
 		this.id = id;
 	}
+	@Override
 	public void printShowtime(){
 		System.out.printf("|   %-15s   |  %-30s  |  %-15s  |   %-8s  |  %-5s |  %-7s |\n",
 						movie.getMovieStatus().toString(),
@@ -185,11 +186,7 @@ public class Showtime implements IBooking, Serializable{
 		cinema.removeBooking(cinemaID, seatRow, seatCol);
 	}
 	
-	/** 
-	 * @param seatRow
-	 * @param seatCol
-	 * @return boolean
-	 */
+	@Override
 	public boolean isBooked(String seatRow, int seatCol){
 		return cinema.isBooked(seatRow, seatCol);
 	}
@@ -208,29 +205,18 @@ public class Showtime implements IBooking, Serializable{
 		Showtime.basePrice = basePrice;
 	}
 	
-	/** 
-	 * @return String
-	 */
+	@Override
 	public String getMovieName()
 	{
 		return movie.getMovieTitle();
 	}
 	
-	/** 
-	 * @param day
-	 * @throws IllegalArgumentException
-	 */
+	@Override
 	public void changeDay(IDay day) throws IllegalArgumentException{
 		if (day==null) throw new IllegalArgumentException("Day object null");
 		this.day = day;
 	}
 	
-	/** 
-	 * @param seatRow
-	 * @param seatCol
-	 * @param customerID
-	 * @throws IllegalArgumentException
-	 */
 	@Override
 	public void bookSeat(String seatRow, int seatCol, int customerID) throws IllegalArgumentException{
 		System.out.println("===== Seat booking in progress =====");
@@ -246,12 +232,7 @@ public class Showtime implements IBooking, Serializable{
 		System.out.println("===== Seat booking finish =====");
 	}
 	
-	/** 
-	 * @param seatRow
-	 * @param seatCol
-	 * @param customerID
-	 * @throws IllegalArgumentException
-	 */
+	@Override
 	public void bookCoupleSeat(String seatRow, int seatCol, int customerID) throws IllegalArgumentException{
 		System.out.println("===== Seat booking in progress =====");
 
@@ -269,12 +250,6 @@ public class Showtime implements IBooking, Serializable{
 		System.out.println("===== Seat booking finish =====");
 	}
 	
-	/** 
-	 * @param customer
-	 * @return float
-	 * @throws IllegalArgumentException
-	 * @throws CustomerNullException
-	 */
 	@Override
 	public float getPrice(Customer customer) throws IllegalArgumentException, CustomerNullException {
 		if (customer == null) throw new CustomerNullException();
@@ -291,13 +266,6 @@ public class Showtime implements IBooking, Serializable{
 		}
 	}
 	
-	/** 
-	 * @param customer
-	 * @param discountCodeTicket
-	 * @return float
-	 * @throws IllegalArgumentException
-	 * @throws CustomerNullException
-	 */
 	@Override
 	public float getPrice(Customer customer, String discountCodeTicket) throws IllegalArgumentException, CustomerNullException{
 		try{
@@ -315,14 +283,6 @@ public class Showtime implements IBooking, Serializable{
 		}
 	}
 	
-	/** 
-	 * @param customer
-	 * @param isCoupleSeat
-	 * @param discountCodeTicket
-	 * @return float
-	 * @throws IllegalArgumentException
-	 * @throws CustomerNullException
-	 */
 	@Override
 	public float getPrice(Customer customer, boolean isCoupleSeat, String discountCodeTicket) throws IllegalArgumentException, CustomerNullException{
 		if (isCoupleSeat) {
