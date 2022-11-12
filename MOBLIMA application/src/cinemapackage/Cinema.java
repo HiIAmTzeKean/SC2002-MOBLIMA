@@ -212,10 +212,10 @@ public abstract class Cinema implements Serializable, ICinemaBooking {
 			else
 				return true;
 		} catch (SeatRowException e) {
-			e.printStackTrace();
+			//e.printStackTrace();
 			throw new IllegalArgumentException("Seat row input not valid");
 		} catch (IndexOutOfBoundsException ex) {
-			System.out.println(seatRow + seatCol + getCinemaType());
+			//System.out.println(seatRow + seatCol + getCinemaType());
 			throw new IllegalArgumentException("Seat col/row input out of range");
 		}
 	}
