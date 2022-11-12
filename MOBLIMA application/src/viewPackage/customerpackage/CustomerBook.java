@@ -1,8 +1,5 @@
 package viewPackage.customerpackage;
-
-import java.nio.file.WatchEvent;
 import java.util.*;
-
 import agepackage.Age;
 import cinemapackage.CinemaType;
 import customerpackage.BookingManager;
@@ -27,7 +24,6 @@ public class CustomerBook extends View {
 		CustomerPayment cp = new CustomerPayment();
 		IShowtime showtimeHandler = ShowtimeManager.getInstance();
 		Scanner scan = new Scanner(System.in);
-		
 		bookMenuState state = bookMenuState.SELECTCINEPLEX;
 		boolean complete = false;
 		//Initializing Input Strings from User
@@ -39,21 +35,22 @@ public class CustomerBook extends View {
 		String timeString = null;
 		String customerRow = null;
 		int customerColumn = 0;
-		Day customerDay = null;
+		Day customerDay = new Day();
 		Showtime customerShowtime = null;
 		Customer customerObject = null;
 		Boolean customerCoupleSeat = false;
 		Boolean customerIsStudent = false;
 		String customerDiscountCode = null;
 		float customerBookingPrice = 0f;
+		Boolean customerBookingDone = false;
 		System.out.print("\033[H\033[2J");
 		System.out.println("-------------------------------------");
 		while (!complete) {
 			switch (state) {
 				case SELECTCINEPLEX:
+					System.out.println("Choose a Cineplex");
 					System.out.print("\033[H\033[2J");
 					cs.printCineplexes();
-					System.out.println("Choose a Cineplex");
 					System.out.println("[Enter 0 to Return]");
 					try {
 						cineplexName = scan.nextLine();
@@ -159,25 +156,34 @@ public class CustomerBook extends View {
 						}
 					}
 				case SELECTDATETIME:
-					System.out.println("Enter the Date of the Showtime");
-					System.out.println("Format: YYYYMMDD");
-					System.out.println("[Enter 0 to Return]");
-					dateString = sc.next();
-					if(dateString.compareTo("0") == 0){
-						state = bookMenuState.SELECTCINEMATYPE;
-					}
-					System.out.println("Enter the Time of the Showtime");
-					System.out.println("Format: 24 Hours MMHH");
-					System.out.println("[Enter 0 to Return]");
-					timeString = sc.next();
-					if(timeString.compareTo("0") == 0){
-						state = bookMenuState.SELECTCINEMATYPE;
-					}
 					try{
-						customerDay = cs.isValidDateTime(dateString, timeString); 
-					}catch(IllegalArgumentException e){
-						System.out.printf("Invalid Date and Time Entered. Please Try Again.");
+						System.out.println("Enter the Date of the Showtime");
+						System.out.println("Format: YYYYMMDD");
+						System.out.println("[Enter 0 to Return]");
+						dateString = sc.next();
+						if(dateString.compareTo("0") == 0){
+							state = bookMenuState.SELECTCINEMATYPE;
+							break;
+						}
+						customerDay.setDate(dateString);
+						System.out.println("Enter the Time of the Showtime");
+						System.out.println("Format: 24 Hours MMHH");
+						System.out.println("[Enter 0 to Return]");
+						timeString = sc.next();
+						if(timeString.compareTo("0") == 0){
+							state = bookMenuState.SELECTCINEMATYPE;
+							break;
+						}
+						customerDay.setTime(timeString);
+					}
+					catch(IllegalArgumentException e){
+						System.out.printf("Invalid Date or Time Entered. Please Try Again.");
 						waitForEnter(null);	
+						state = bookMenuState.SELECTDATETIME;
+						break;
+					}
+					catch(InputMismatchException e){
+						inputMismatchHandler();
 						state = bookMenuState.SELECTDATETIME;
 						break;
 					}
@@ -217,6 +223,8 @@ public class CustomerBook extends View {
 					}
 					catch(InputMismatchException e){
 						inputMismatchHandler();
+						state = bookMenuState.GETSHOWTIME;
+						break;
 					}
 				case SELECTSEAT:
 					try{
@@ -239,10 +247,12 @@ public class CustomerBook extends View {
 							String seatContinue = sc.next();
 							if(seatContinue.compareTo("0") == 0){
 								state = bookMenuState.SELECTSEAT;
+								sc.nextLine();
 								break;
 							}	
 							else{
 								state = bookMenuState.CUSTOMERDETAILS;
+								sc.nextLine();
 								break;
 							}
 						}
@@ -254,11 +264,13 @@ public class CustomerBook extends View {
 					}
 					catch(InputMismatchException e){
 						inputMismatchHandler();
+						state = bookMenuState.SELECTSEAT;
+						break;
 					}
 				case CUSTOMERDETAILS:
+					//TODO: FIX
 					System.out.print("\033[H\033[2J");	
 					System.out.println("Please Enter your Personal Details for Booking");
-					sc.nextLine();
 					try{
 						System.out.println("Are you a Student? [Y/N]");
 						String studentChoice = sc.nextLine();
@@ -268,15 +280,45 @@ public class CustomerBook extends View {
 						else if(studentChoice.compareTo("N")==0){
 							customerIsStudent = false;
 						}
+						else{
+							System.out.printf("Invalid Input Entered. Please Try Again.");
+							waitForEnter(null);
+							state = bookMenuState.CUSTOMERDETAILS;
+							break;	
+						}
 						System.out.println("Name");
 						String customerName = sc.nextLine();
+						if(customerName.compareTo("")==0 || customerName.compareTo(" ")==0){
+							System.out.printf("Invalid Input Entered. Please Try Again.");
+							waitForEnter(null);
+							state = bookMenuState.CUSTOMERDETAILS;
+							break;		
+						}
 						System.out.println("Mobile No.");
 						int customerMobile = sc.nextInt();
+						if(String.valueOf(customerMobile).length() != 8){
+							System.out.printf("Invalid Input Entered. Please Try Again.");
+							waitForEnter(null);
+							state = bookMenuState.CUSTOMERDETAILS;
+							break;		
+						}
 						System.out.println("Email");
 						sc.nextLine();
 						String customerEmail = sc.nextLine();
+						if(customerEmail.compareTo("")==0 || customerEmail.compareTo(" ")==0){
+							System.out.printf("Invalid Input Entered. Please Try Again.");
+							waitForEnter(null);
+							state = bookMenuState.CUSTOMERDETAILS;
+							break;		
+						}
 						System.out.println("Age");
 						int customerAgeInteger = sc.nextInt();
+						if(customerAgeInteger <= 0){
+							System.out.printf("Invalid Input Entered. Please Try Again.");
+							waitForEnter(null);
+							state = bookMenuState.CUSTOMERDETAILS;
+							break;		
+						}
 						Age customerAge = new Age(customerAgeInteger);
 						customerObject = new Customer(customerName, customerMobile, customerEmail, customerAge, customerIsStudent);
 					}
@@ -305,8 +347,8 @@ public class CustomerBook extends View {
 						System.out.printf("Mobile No. : %d\n",customerObject.getMobile());
 						System.out.printf("Email : %s\n",customerObject.getEmail());
 						System.out.printf("Age: %d\n", customerObject.getAge().getAgeNumber());
-						System.out.println("[Enter 1 to Confirm Your Details]");
 						System.out.println("[Enter 0 to Change Your Details]");
+						System.out.println("[Enter 1 to Confirm Your Details]");
 						String customerDetailsChoice = sc.next();
 						if(customerDetailsChoice.compareTo("0")==0){
 							state = bookMenuState.CUSTOMERDETAILS;
@@ -324,6 +366,8 @@ public class CustomerBook extends View {
 						}	
 					} catch (InputMismatchException e) {
 						inputMismatchHandler();
+						state = bookMenuState.CONFIRMCUSTOMERDETAILS;
+						break;
 					}
 				case DISPLAYPRICE:
 					try{
@@ -365,10 +409,13 @@ public class CustomerBook extends View {
 							System.out.printf("Invalid Input Entered. Please Try Again.");
 							waitForEnter(null);
 							state = bookMenuState.DISPLAYPRICE;
+							break;
 						}
 					}
 					catch(InputMismatchException e){
 						inputMismatchHandler();
+						state = bookMenuState.DISPLAYPRICE;
+						break;
 					}
 				case PAYMENT:
 					try{
@@ -381,12 +428,12 @@ public class CustomerBook extends View {
 						System.out.println("|--------------------------------------------------------------------------------------------------------------|");
 						customerShowtime.printShowtime();
 						System.out.println("|--------------------------------------------------------------------------------------------------------------|");
-						System.out.printf("Seat Number : %s %d\n",customerShowtime.getMovieName());	
+						System.out.printf("Seat Number : %s %d\n",customerRow, customerColumn);	
 						System.out.printf("Final Price : %f \n",customerBookingPrice);
 						System.out.println("Would You Like to Confirm Payment?");
-						System.out.println("[Enter 2 to Cancel Payment and Return to Main Menu]");
-						System.out.println("[Enter 1 to Confirm Payment]");
 						System.out.println("[Enter 0 to Cancel Payment and Select Another Movie]");
+						System.out.println("[Enter 1 to Confirm Payment]");
+						System.out.println("[Enter 2 to Cancel Payment and Return to Main Menu]");
 						String paymentChoice = sc.next();
 						if(paymentChoice.compareTo("0") == 0){
 							state = bookMenuState.SELECTMOVIE;
@@ -403,6 +450,7 @@ public class CustomerBook extends View {
 							if(!customerCoupleSeat){
 								bookingHandler.bookSeat(customerShowtime.getID(),customerRow,customerColumn,customerObject);
 							}
+							customerBookingDone = true;
 						}
 						else if(paymentChoice.compareTo("2") == 0){
 							state = bookMenuState.END;
@@ -417,6 +465,8 @@ public class CustomerBook extends View {
 					}
 					catch(InputMismatchException e){
 						inputMismatchHandler();
+						state = bookMenuState.PAYMENT;
+						break;
 					}
 					catch(CustomerNullException e){
 						System.out.println("Error with creating customer credentials.");
@@ -427,6 +477,10 @@ public class CustomerBook extends View {
 					}
 				case END:
 					System.out.print("\033[H\033[2J");
+					if(customerBookingDone){
+						System.out.println("Booking Completed.");
+						System.out.println("Thank You For Using MOBLIMA!");
+					}
 					System.out.println("Leaving Customer View");
 					complete = true;
 					break;
@@ -435,11 +489,15 @@ public class CustomerBook extends View {
 	}// end bookMenu()
 
 	public static void history() {
-		Scanner scan = new Scanner(System.in);
-		BookingManager hist = BookingManager.getInstance();
-		System.out.println("Enter your Email to view your booking history");
-		String email = scan.nextLine();
-		hist.printAllTransactionsForCustomer(email);
-		System.out.println();
+		try{
+			Scanner scan = new Scanner(System.in);
+			BookingManager hist = BookingManager.getInstance();
+			System.out.println("Enter your Email to view your booking history");
+			String email = scan.nextLine();
+			hist.printAllTransactionsForCustomer(email);
+			System.out.println();
+		}catch(IllegalArgumentException e){
+			System.out.println("There are no Booking Records Found for This Email.");
+		}
 	}
 }
