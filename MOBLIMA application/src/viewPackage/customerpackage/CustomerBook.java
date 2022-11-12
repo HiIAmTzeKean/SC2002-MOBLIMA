@@ -431,15 +431,13 @@ public class CustomerBook extends View {
 						System.out.println("|--------------------------------------------------------------------------------------------------------------|");
 						customerShowtime.printShowtime();
 						System.out.println("|--------------------------------------------------------------------------------------------------------------|");
+						System.out.printf("Cineplex Name : %s\n",cineplexName);
 						System.out.printf("Seat Number : %s %d\n",customerRow, customerColumn);	
-						//Different dates
-						//Different ages
-						//Different cinema type
-						//Discount code
-						//Couple seat
 						System.out.printf("Seat Type Booked : %s\n", customerCoupleSeat ?  "Couple Seat" : "Regular Seat");
 						System.out.printf("Customer Age : %d\n", customerObject.getAge().getAgeNumber());
 						System.out.printf("Final Price : %.2f \n",customerBookingPrice);
+						System.out.printf("Discount Code Used : %s\n", customerDiscountCode == null ? "No" : "Yes");
+						System.out.printf("Student Pricing Used : %s\n\n", customerIsStudent ? "Yes" : "No");
 						System.out.println("Would You Like to Confirm Payment?");
 						System.out.println("[Enter 0 to Cancel Payment and Select Another Movie]");
 						System.out.println("[Enter 1 to Confirm Payment]");
