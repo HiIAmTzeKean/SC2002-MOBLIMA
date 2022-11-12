@@ -18,7 +18,7 @@ import viewPackage.staffpackage.StaffAuth;
  */
 public class MOBLIMA extends View {
     /**
-     * MOBLIMA Main Method that instantiates all managers and calls the start() method.
+     * MOBLIMA Main Method that instantiat0es all managers and calls the start() method.
 	 * After completion of start() method, all managers are closed and data is written to the binary data files.
      */
     public static void main(String args []){ 
