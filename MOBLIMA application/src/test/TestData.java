@@ -327,7 +327,8 @@ public class TestData {
         man.addShowtimeSystem(movieMan.getMoviefromID(14), cinemaManager.cloneCinemaByID(3), new Day("20211230", "2000"));
         // Preview movies
         man.addShowtimeSystem(movieMan.getMoviefromID(8), cinemaManager.cloneCinemaByID(1), d0_t0);
-        man.addShowtimeSystem(movieMan.getMoviefromID(8), cinemaManager.cloneCinemaByID(1), d0_t1);
+        man.addShowtimeSystem(movieMan.getMoviefromID(8), cinemaManager.cloneCinemaByID(3), new Day("20220101", "1200"));
+        man.addShowtimeSystem(movieMan.getMoviefromID(8), cinemaManager.cloneCinemaByID(1), new Day("20220104", "1200"));
         man.addShowtimeSystem(movieMan.getMoviefromID(9), cinemaManager.cloneCinemaByID(2), d0_t1);
         // Now showing movies
         man.addShowtimeSystem(movieMan.getMoviefromID(1), cinemaManager.cloneCinemaByID(3), new Day("20220103", "1600"));
