@@ -374,7 +374,7 @@ public class CustomerShowtime {
 	 * @return Boolean
 	 * @throws IllegalArgumentException
 	 */
-	public Boolean isValidSeatSelection(Showtime customerShowtime, String seatRow, int seatCol) throws IllegalArgumentException{
+	 public Boolean isValidSeatSelection(Showtime customerShowtime, String seatRow, int seatCol) throws IllegalArgumentException{
 		Boolean toReturn = false;
 		try{
 			int showtimeID = customerShowtime.getID();

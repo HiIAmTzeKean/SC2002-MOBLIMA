@@ -133,7 +133,7 @@ public class PlatinumMovieSuit extends Cinema {
 	 * @throws IllegalArgumentException
 	 */
 	protected void bookCoupleSeat(String seatRow, int seatCol, int customerID) throws IllegalArgumentException {
-		if ((seatCol != 1 && seatCol != 3 && seatCol != 5) || seatRow != "C")
+		if ((seatCol != 1 && seatCol != 3 && seatCol != 5) || !seatRow.equals("C"))
 			throw new IllegalArgumentException("Invalid column/Row selection");
 
 		if (!isBooked(seatRow, seatCol) && !isBooked(seatRow, seatCol + 1)) {
