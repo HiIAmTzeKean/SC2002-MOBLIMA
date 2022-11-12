@@ -18,6 +18,11 @@ public class StaffAuth extends View {
 	private static String[] usernameDB = { "u1", "username2", "username3", "username4", "username5", "username6",
 			"username7", "username8", "username9", "username10" };
 
+	/**
+	 * Handles the login functionality for staff by checking if their username and password.
+	 * Upon succesfull login, staff is pointed to staffView.
+	 * Staff has a maximum of three attempts before function terminates automatically.
+	 */
 	public static void login() {
 		String password;
 		String username;

@@ -50,6 +50,11 @@ public class CineplexManager implements ICineplex {
 		return largest;
 	}
 
+	
+	/** 
+	 * @param filename
+	 * @return ArrayList<Cineplex>
+	 */
 	private static ArrayList<Cineplex> deseraliseCineplexes(String filename) {
 		ArrayList<Cineplex> c = null;
 		try {
@@ -68,6 +73,11 @@ public class CineplexManager implements ICineplex {
 		return c;
 	}
 
+	
+	/** 
+	 * @param filename
+	 * @param c
+	 */
 	private static void seraliseCineplexes(String filename, ArrayList<Cineplex> c) {
 		try {
 			FileOutputStream fos = new FileOutputStream(filename);
@@ -79,6 +89,10 @@ public class CineplexManager implements ICineplex {
 		}
 	}
 
+	
+	/** 
+	 * @return CineplexManager
+	 */
 	public static CineplexManager getInstance() {
 		if (cineplexManager == null) {
 			ArrayList<Cineplex> c = CineplexManager
@@ -114,6 +128,11 @@ public class CineplexManager implements ICineplex {
 		throw new IllegalArgumentException("Cineplex is not found");
 	}
 
+	
+	/** 
+	 * @param name
+	 * @param location
+	 */
 	@Override
 	public void createCineplex(String name, String location) {
 		System.out.printf("===== Creating new Cinplex =====\n");
@@ -123,6 +142,11 @@ public class CineplexManager implements ICineplex {
 		System.out.printf("===== Cinplex created =====\n");
 	}
 
+	
+	/** 
+	 * @param id
+	 * @throws IllegalArgumentException
+	 */
 	@Override
 	public void deleteCineplex(int id) throws IllegalArgumentException {
 		try {
@@ -160,6 +184,11 @@ public class CineplexManager implements ICineplex {
 				"|------------------------------------------------------------------------------------------------------|\n");
 	}
 
+	
+	/** 
+	 * @param id
+	 * @return String
+	 */
 	@Override
 	public String getName(int id) {
 		try {
@@ -170,6 +199,11 @@ public class CineplexManager implements ICineplex {
 		}
 	}
 
+	
+	/** 
+	 * @param id
+	 * @param name
+	 */
 	@Override
 	public void setName(int id, String name) {
 		try {
@@ -190,6 +224,12 @@ public class CineplexManager implements ICineplex {
 		}
 	}
 
+	
+	/** 
+	 * @param id
+	 * @param location
+	 * @throws IllegalArgumentException
+	 */
 	@Override
 	public void setLocation(int id, String location) throws IllegalArgumentException {
 		try {
@@ -210,6 +250,12 @@ public class CineplexManager implements ICineplex {
 		}
 	}
 
+	
+	/** 
+	 * @param id
+	 * @return String
+	 * @throws IllegalArgumentException
+	 */
 	@Override
 	public String getLocation(int id) throws IllegalArgumentException {
 		try {
@@ -220,6 +266,12 @@ public class CineplexManager implements ICineplex {
 		}
 	}
 
+	
+	/** 
+	 * @param id
+	 * @param cinema
+	 * @throws IllegalArgumentException
+	 */
 	@Override
 	public void addCinema(int id, Cinema cinema) throws IllegalArgumentException {
 		int target = 0;
@@ -243,6 +295,10 @@ public class CineplexManager implements ICineplex {
 		printCinemas(target);
 	}
 
+	
+	/** 
+	 * @param cineplexIndexPosition
+	 */
 	private void printCinemas(int cineplexIndexPosition) {
 		System.out.printf(
 				"|--------------------------------------------------------------------------------------------|\n");
@@ -254,6 +310,10 @@ public class CineplexManager implements ICineplex {
 				"|--------------------------------------------------------------------------------------------|\n");
 	}
 
+	
+	/** 
+	 * @param cineplexID
+	 */
 	public void printCinemasUnderCineplex(int cineplexID) {
 		try {
 			printCinemas(findCineplex(cineplexID));
@@ -262,6 +322,12 @@ public class CineplexManager implements ICineplex {
 		}
 	}
 
+	
+	/** 
+	 * @param id
+	 * @param cinema
+	 * @throws IllegalArgumentException
+	 */
 	@Override
 	public void removeCinema(int id, Cinema cinema) throws IllegalArgumentException {
 		int target = 0;
@@ -281,6 +347,11 @@ public class CineplexManager implements ICineplex {
 		printCinemas(target);
 	}
 
+	
+	/** 
+	 * @param cinema
+	 * @throws IllegalArgumentException
+	 */
 	@Override
 	public void removeCinema(Cinema cinema) throws IllegalArgumentException {
 		if (cinema.getCineplexID() != -1) {
@@ -303,6 +374,12 @@ public class CineplexManager implements ICineplex {
 		// Do not need to throw error since cinema might not exist
 	}
 
+	
+	/** 
+	 * @param id
+	 * @return Cineplex
+	 * @throws IllegalArgumentException
+	 */
 	@Override
 	public Cineplex getCineplex(int id) throws IllegalArgumentException {
 		for (Iterator<Cineplex> it = cineplexes.iterator(); it.hasNext();) {
@@ -315,6 +392,12 @@ public class CineplexManager implements ICineplex {
 		throw new IllegalArgumentException("Cineplex is not found");
 	}
 
+	
+	/** 
+	 * @param name
+	 * @return Cineplex
+	 * @throws IllegalArgumentException
+	 */
 	@Override
 	public Cineplex getCineplex(String name) throws IllegalArgumentException {
 		for (Iterator<Cineplex> it = cineplexes.iterator(); it.hasNext();) {

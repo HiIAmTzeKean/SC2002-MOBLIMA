@@ -719,6 +719,12 @@ public class MovieManager implements ISales, IReviews, IMovie {
 		}
 		return result;
 	}
+	
+	/** 
+	 * @param MovieName
+	 * @return Boolean
+	 * @throws IllegalArgumentException
+	 */
 	@Override
 	public Boolean isValidMovieName(String MovieName) throws IllegalArgumentException{
 		if(movies.size() == 0 || movies == null){
