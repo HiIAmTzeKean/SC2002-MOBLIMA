@@ -25,12 +25,12 @@ public class StaffMovie extends View {
         System.out.println("--------------------------------------");
         System.out.println("\tUpdate Movie Listings");
         System.out.println("--------------------------------------");
-        System.out.println("choice 1 : Create Movie");
-        System.out.println("choice 2 : Delete Movie");
-        System.out.println("choice 3 : Update Movie");
-        System.out.println("choice 4 : View Top 5 Movies");
-        System.out.println("choice 5 : Print all Movies");
-        System.out.println("choice 6 : Return");
+        System.out.println("Choice 1 : Create Movie");
+        System.out.println("Choice 2 : Delete Movie");
+        System.out.println("Choice 3 : Update Movie");
+        System.out.println("Choice 4 : View Top 5 Movies");
+        System.out.println("Choice 5 : Print all Movies");
+        System.out.println("Choice 6 : Return");
         System.out.println("--------------------------------------");
     }
     /**
@@ -72,7 +72,7 @@ public class StaffMovie extends View {
                     if (movieTitle.equals("0")) return;
                 }
                 catch(InputMismatchException e){
-                    System.out.println("Input not valid!");
+                    System.out.println("Invalid Input Entered. Please Try Again.");
                     sc.nextLine(); 
                     state = createMovieEnum.TITLE;
                     break;

@@ -266,11 +266,11 @@ public class ShowtimeManager implements IShowtimeSystem {
 			// exit before any looping is done
 			throw new IllegalArgumentException("No showtime exist");
 		}
-		System.out.println("|----------------------------------------------------------- Showtimes ------------------------------------------------------|");
-		System.out.println("|----------------------------------------------------------------------------------------------------------------------------|");
+		System.out.println("|----------------------------------------------------------- Showtimes ----------------------------------------|");
+		System.out.println("|--------------------------------------------------------------------------------------------------------------|");
 		System.out.printf("|   %-15s   |  %-30s  |  %-15s  |   %-8s  |  %-5s |  %-7s |\n",
 						"Movie Status","Movie Name","Cinema Type","Date","Time","Holiday");
-		System.out.println("|----------------------------------------------------------------------------------------------------------------------------|");
+		System.out.println("|--------------------------------------------------------------------------------------------------------------|");
 		for (Iterator<Showtime> it = showtimes.iterator(); it.hasNext();) {
 			Showtime s= it.next();
 			if (s.getMovieStatus() != MovieStatus.END_OF_SHOWING && s.getMovieStatus()==MovieStatus.PREVIEW)
@@ -286,7 +286,7 @@ public class ShowtimeManager implements IShowtimeSystem {
 			if (s.getMovieStatus() != MovieStatus.END_OF_SHOWING && s.getMovieStatus()==MovieStatus.COMING_SOON)
 				s.printShowtime();
 		}
-		System.out.println("|----------------------------------------------------------------------------------------------------------------------------|");
+		System.out.println("|--------------------------------------------------------------------------------------------------------------|");
 	}
 	public void printShowtimesByMovieName(String movieName) throws IllegalArgumentException{
 		if (showtimes== null || showtimes.size() == 0){

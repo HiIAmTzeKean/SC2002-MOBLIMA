@@ -1,5 +1,6 @@
 package viewPackage.customerpackage;
 
+import java.nio.file.WatchEvent;
 import java.util.*;
 
 import agepackage.Age;
@@ -60,7 +61,8 @@ public class CustomerBook extends View {
 							return;
 						}
 						if(!cs.isValidCineplexName(cineplexName)){
-							System.out.println("Please Enter a Valid Cineplex Name");
+							System.out.printf("Please Enter a Valid Cineplex Name.");
+							waitForEnter(null);
 							state = bookMenuState.SELECTCINEPLEX;
 							break;
 						}
@@ -80,7 +82,8 @@ public class CustomerBook extends View {
 							break;
 						} 
 						else if(!CustomerMovieListing.isValidMovieName(movieName)){
-							System.out.println("Please Enter a Valid Movie Name.");
+							System.out.printf("Please Enter a Valid Movie Name.");
+							waitForEnter(null);
 							state = bookMenuState.SELECTMOVIE;
 							break;
 						}
@@ -112,21 +115,23 @@ public class CustomerBook extends View {
 							break;
 						}
 						else{
-							System.out.println("Enter Valid Input!");
+							System.out.printf("Invalid Input Entered. Please Try Again.");
+							waitForEnter(null);
 							state = bookMenuState.DISPLAYSHOWTIMES;
 							break;
 						}
 					}
 					catch(IllegalArgumentException e){
-						System.out.println("No showtimes available for the current movie at the current cineplex.");
-						System.out.println("Rerouting you to select cineplex again.");
+						System.out.println("No Showtimes Available for Current Movie at Selected Cineplex.");
+						System.out.printf("Rerouting you to Select Cineplex Menu.");
+						waitForEnter(null);
 						state = bookMenuState.SELECTCINEPLEX;
 						break;
 					}
 				case SELECTCINEMATYPE:
 					//Select a Cinema Class
 					System.out.println("Choose a Cinema Class");
-					System.out.print("Available Options : ");
+					System.out.print("Available Options Are : ");
 					for(CinemaType type : CinemaType.values()){
 						System.out.print(type.toString() + " ");
 					}
@@ -140,8 +145,14 @@ public class CustomerBook extends View {
 					else{
 						try{
 							cinemaType = cs.isValidCinemaType(cinemaTypeInput);
+							if(cinemaType == null){
+								System.out.printf("Cinema Type Entered is Invalid. Please Try Again.");
+								waitForEnter(null);
+								state = bookMenuState.SELECTCINEMATYPE;
+								break;	
+							}
 						}catch(IllegalArgumentException e){
-							System.out.println("Cinema Type Entered is Invalid. Please Try Again.");
+							System.out.printf("Cinema Type Entered is Invalid. Please Try Again.");
 							waitForEnter(null);
 							state = bookMenuState.SELECTCINEMATYPE;
 							break;
@@ -159,13 +170,13 @@ public class CustomerBook extends View {
 					System.out.println("Format: 24 Hours MMHH");
 					System.out.println("[Enter 0 to Return]");
 					timeString = sc.next();
-					if(dateString.compareTo("0") == 0){
+					if(timeString.compareTo("0") == 0){
 						state = bookMenuState.SELECTCINEMATYPE;
 					}
 					try{
 						customerDay = cs.isValidDateTime(dateString, timeString); 
 					}catch(IllegalArgumentException e){
-						System.out.println("Invalid Date and Time Entered. Please try again.");
+						System.out.printf("Invalid Date and Time Entered. Please Try Again.");
 						waitForEnter(null);	
 						state = bookMenuState.SELECTDATETIME;
 						break;
@@ -175,7 +186,7 @@ public class CustomerBook extends View {
 						System.out.println();
 						customerShowtime = cs.getShowtime(movieName, customerDay, cineplexName, cinemaType);
 						System.out.print("\033[H\033[2J");	                                                             
-						System.out.println("|-----------------------------------------------------------Selected Showtime ---------------------------------|");
+						System.out.println("|-----------------------------------------------------------Selected Showtime----------------------------------|");
 						System.out.println("|--------------------------------------------------------------------------------------------------------------|");
 						System.out.printf("|   %-15s   |  %-30s  |  %-15s  |   %-8s  |  %-5s |  %-7s |\n",
 										"Movie Status","Movie Name","Cinema Type","Date","Time","Holiday");
@@ -192,8 +203,9 @@ public class CustomerBook extends View {
 							state = bookMenuState.SELECTSEAT;
 						}
 						else{
-							System.out.println("Invalid Input!");
+							System.out.printf("Invalid Input Entered. Please Try Again.");
 							state = bookMenuState.GETSHOWTIME;
+							waitForEnter(null);
 							return;
 						}
 					}
@@ -218,12 +230,9 @@ public class CustomerBook extends View {
 						customerColumn = sc.nextInt();
 						if(cs.isValidSeatSelection(customerShowtime, customerRow, customerColumn)){
 							System.out.printf("Your Selected Seat is: Row %s Column %s\n", customerRow, customerColumn);
-							if(cinemaType == CinemaType.PLATINUM){
-								System.out.println("Would You Like to Book a Couple Seat? [Y/N]");
-								String coupleSeatChoice = sc.next();
-								if(coupleSeatChoice.compareTo("Y") == 0){
-									customerCoupleSeat = true;
-								}
+							if(cinemaType == CinemaType.PLATINUM && customerRow.compareTo("C") == 0){
+								System.out.println("You Have Selected A Couple Seat.");
+								customerCoupleSeat = true;
 							}
 							System.out.println("[Enter 1 to Confirm Your Seat Selection]");
 							System.out.println("[Enter 0 to Return]");
@@ -272,7 +281,7 @@ public class CustomerBook extends View {
 						customerObject = new Customer(customerName, customerMobile, customerEmail, customerAge, customerIsStudent);
 					}
 					catch(IllegalArgumentException e){
-						System.out.println("Invalid Customer Details Entered. Please try again.");
+						System.out.println("Invalid Customer Details Entered. Please Try Again.");
 						waitForEnter(null);
 						state = bookMenuState.CUSTOMERDETAILS;
 						break;
@@ -306,7 +315,8 @@ public class CustomerBook extends View {
 							break;
 						}
 						else{
-							System.out.println("Invalid Input.");
+							System.out.println("Invalid Input Entered. Please Try Again.");
+							waitForEnter(null);
 							state = bookMenuState.CONFIRMCUSTOMERDETAILS;
 							break;
 						}	
@@ -322,7 +332,8 @@ public class CustomerBook extends View {
 							System.out.println("Please Enter Your Discount Code:");
 							customerDiscountCode = sc.next();	
 							if(!cp.isValidDiscountCode(customerDiscountCode)){
-								System.out.println("Invalid Discount Code Entered.");
+								System.out.println("Invalid Discount Code Entered. Pleae Try Again.");
+								waitForEnter(null);
 								state = bookMenuState.DISPLAYPRICE;
 							}
 							System.out.printf("Your Final Price with Discount is %.2f\n",cp.getBookingPrice(customerObject, cinemaType, customerRow, customerColumn, customerShowtime, customerCoupleSeat, customerDiscountCode));
@@ -348,23 +359,38 @@ public class CustomerBook extends View {
 							state = bookMenuState.DISPLAYPRICE;
 							break;
 						}
+						else{
+							System.out.printf("Invalid Input Entered. Please Try Again.");
+							waitForEnter(null);
+							state = bookMenuState.DISPLAYPRICE;
+						}
 					}
 					catch(InputMismatchException e){
 						inputMismatchHandler();
 					}
 				case PAYMENT:
 					try{
-						System.out.print("\033[H\033[2J");			
+						System.out.print("\033[H\033[2J");
+						System.out.println("Booking Summary:");
+						System.out.println("|-----------------------------------------------------------Selected Showtime----------------------------------|");
+						System.out.println("|--------------------------------------------------------------------------------------------------------------|");
+						System.out.printf("|   %-15s   |  %-30s  |  %-15s  |   %-8s  |  %-5s |  %-7s |\n",
+										"Movie Status","Movie Name","Cinema Type","Date","Time","Holiday");
+						System.out.println("|--------------------------------------------------------------------------------------------------------------|");
+						customerShowtime.printShowtime();
+						System.out.println("|--------------------------------------------------------------------------------------------------------------|");
+						System.out.printf("Seat Number : %s %d\n",customerShowtime.getMovieName());	
+						System.out.printf("Final Price : %f \n",customerBookingPrice);
 						System.out.println("Would You Like to Confirm Payment?");
 						System.out.println("[Enter 2 to Cancel Payment and Return to Main Menu]");
 						System.out.println("[Enter 1 to Confirm Payment]");
-						System.out.println("[Enter 0 to Return]");
+						System.out.println("[Enter 0 to Cancel Payment and Select Another Movie]");
 						String paymentChoice = sc.next();
 						if(paymentChoice.compareTo("0") == 0){
 							state = bookMenuState.SELECTMOVIE;
 							System.out.println("Cancelling Payment.");
 							System.out.println("Please Select Another Movie at the Same Cineplex");
-
+							waitForEnter(null);
 							break;
 						}
 						else if(paymentChoice.compareTo("1") == 0){
@@ -381,7 +407,8 @@ public class CustomerBook extends View {
 							break;
 						}
 						else{
-							System.out.println("Invalid Input");
+							System.out.println("Invalid Input Entered. Please Try Again.");
+							waitForEnter(null);
 							state = bookMenuState.PAYMENT;
 							break;
 						}
