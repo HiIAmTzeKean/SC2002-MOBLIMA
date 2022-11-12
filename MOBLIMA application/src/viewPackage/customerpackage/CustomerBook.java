@@ -217,6 +217,8 @@ public class CustomerBook extends View {
 					}
 					catch(InputMismatchException e){
 						inputMismatchHandler();
+						state = bookMenuState.GETSHOWTIME;
+						break;
 					}
 				case SELECTSEAT:
 					try{
@@ -254,6 +256,8 @@ public class CustomerBook extends View {
 					}
 					catch(InputMismatchException e){
 						inputMismatchHandler();
+						state = bookMenuState.SELECTSEAT;
+						break;
 					}
 				case CUSTOMERDETAILS:
 					System.out.print("\033[H\033[2J");	
@@ -288,6 +292,8 @@ public class CustomerBook extends View {
 					}
 					catch(InputMismatchException e){
 						inputMismatchHandler();
+						state = bookMenuState.CUSTOMERDETAILS;
+						break;
 					}
 				case CONFIRMCUSTOMERDETAILS:
 					try {
@@ -322,6 +328,8 @@ public class CustomerBook extends View {
 						}	
 					} catch (InputMismatchException e) {
 						inputMismatchHandler();
+						state = bookMenuState.CONFIRMCUSTOMERDETAILS;
+						break;
 					}
 				case DISPLAYPRICE:
 					try{
@@ -363,10 +371,13 @@ public class CustomerBook extends View {
 							System.out.printf("Invalid Input Entered. Please Try Again.");
 							waitForEnter(null);
 							state = bookMenuState.DISPLAYPRICE;
+							break;
 						}
 					}
 					catch(InputMismatchException e){
 						inputMismatchHandler();
+						state = bookMenuState.DISPLAYPRICE;
+						break;
 					}
 				case PAYMENT:
 					try{
@@ -415,6 +426,8 @@ public class CustomerBook extends View {
 					}
 					catch(InputMismatchException e){
 						inputMismatchHandler();
+						state = bookMenuState.PAYMENT;
+						break;
 					}
 					catch(CustomerNullException e){
 						System.out.println("Error with creating customer credentials.");
