@@ -38,24 +38,48 @@ public class CustomerShowtime {
 	
 	private static Scanner scan = new Scanner(System.in);
 	
+	
+	/** 
+	 * @return String
+	 */
 	public String getseatRow() {
 		return seatRow;
 	}
+	
+	/** 
+	 * @return int
+	 */
 	public int getseatCol() {
 		return seatCol;
 	}
 	
+	
+	/** 
+	 * @return CinemaType
+	 */
 	public CinemaType getCinemaType() {
 		return selectedCinemaType;
 	}
 	
+	
+	/** 
+	 * @return Showtime
+	 */
 	public Showtime getSelectedShowtime() {
 		return selectedShowtime;
 	}
+	
+	/** 
+	 * @return int
+	 */
 	public int getSelectedShowtimeID() {
 		return showtimeID;
 	}
 
+	
+	/** 
+	 * @param movieName
+	 */
 	public void setMovieName(String movieName){
 		this.selectedMovieName = movieName;
 	}
@@ -65,10 +89,19 @@ public class CustomerShowtime {
 		cineplexHandler.printCineplexes();
 	}
 	
+	
+	/** 
+	 * @param ctname
+	 */
 	public void setCinemaTypeName(String ctname) {
 		selectedCinemaTypeName = ctname;
 	}
 	
+	
+	/** 
+	 * @param cineplexName
+	 * @return int
+	 */
 	//returns cineplexID or -1 in case of an error
 	
 	public int chooseCineplexfromString(String cineplexName){
@@ -85,6 +118,11 @@ public class CustomerShowtime {
 		return selectedCineplexID;	
 	}
 
+	
+	/** 
+	 * @param cineplexName
+	 * @return Boolean
+	 */
 	public Boolean isValidCineplexName(String cineplexName){
 		ICineplex cineplexHandler = CineplexManager.getInstance();
 		Cineplex toCheck = null;
@@ -99,6 +137,10 @@ public class CustomerShowtime {
 		return false;
 	}
 	
+	
+	/** 
+	 * @return int
+	 */
 	public int chooseCineplex() {
 		ICineplex cineplexHandler = CineplexManager.getInstance();
 		System.out.println("The Cineplexes are:");
@@ -127,6 +169,11 @@ public class CustomerShowtime {
 	}
 	
 	
+	
+	/** 
+	 * @param movieName
+	 * @param cineplexName
+	 */
 	public void displayShowtimes(String movieName, String cineplexName){
 		IShowtime showtimeHandler = ShowtimeManager.getInstance(); 	
 		ICineplex cineplexHandler = CineplexManager.getInstance();		
@@ -142,6 +189,11 @@ public class CustomerShowtime {
 		}	
 	}
 
+	
+	/** 
+	 * @param cinemaType
+	 * @return CinemaType
+	 */
 	public CinemaType isValidCinemaType(String cinemaType){
 		CinemaType toReturn = null;
 		try{
@@ -152,6 +204,12 @@ public class CustomerShowtime {
 		return toReturn;
 	}
 
+	
+	/** 
+	 * @param dateString
+	 * @param timeString
+	 * @return Day
+	 */
 	public Day isValidDateTime(String dateString, String timeString){
 		Day toReturn = null;
 		try{
@@ -163,6 +221,10 @@ public class CustomerShowtime {
 	}
 
 
+	
+	/** 
+	 * @throws IllegalArgumentException
+	 */
 	public void displayShowtimes() throws IllegalArgumentException{
 		IShowtime showtimeHandler = ShowtimeManager.getInstance(); 	
 			try {
@@ -178,6 +240,10 @@ public class CustomerShowtime {
 			}
 	}// end of displayShowtimes
 	
+	
+	/** 
+	 * @return Showtime
+	 */
 	/////////////////////////////////////////////////////////////////////////////////////////////////
 	
 	/* sets selectedShowtime attribute by taking input of CinemaType, Date, and Time
@@ -279,6 +345,14 @@ public class CustomerShowtime {
 		System.out.println();
 	}
 
+	
+	/** 
+	 * @param movieName
+	 * @param showtimeDay
+	 * @param cineplexName
+	 * @param cinemaType
+	 * @return Showtime
+	 */
 	public Showtime getShowtime(String movieName, Day showtimeDay, String cineplexName, CinemaType cinemaType){
 		Showtime toReturn = null;	
 		try {
@@ -292,6 +366,14 @@ public class CustomerShowtime {
 		return toReturn;	
 	}
 
+	
+	/** 
+	 * @param customerShowtime
+	 * @param seatRow
+	 * @param seatCol
+	 * @return Boolean
+	 * @throws IllegalArgumentException
+	 */
 	public Boolean isValidSeatSelection(Showtime customerShowtime, String seatRow, int seatCol) throws IllegalArgumentException{
 		Boolean toReturn = false;
 		try{

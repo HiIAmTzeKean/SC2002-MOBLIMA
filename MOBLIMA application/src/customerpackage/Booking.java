@@ -107,6 +107,10 @@ public class Booking implements Serializable {
         this.customer = customer;
     }
 
+    
+    /** 
+     * @return String
+     */
     public String getCustomerEmail() {
         return customer.getEmail();
     }

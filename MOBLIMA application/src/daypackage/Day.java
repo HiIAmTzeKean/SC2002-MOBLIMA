@@ -57,6 +57,11 @@ public class Day implements Serializable, IDay {
 		this.fullDate = fullDate;
 		if (multiplier == 0f) multiplier = 1f;
 	}
+	
+	/** 
+	 * @param anotherDay
+	 * @return boolean
+	 */
 	public boolean equals(Day anotherDay){
 		if (anotherDay.dayNumber == dayNumber &&
 			anotherDay.monthNumber == monthNumber &&
@@ -65,6 +70,11 @@ public class Day implements Serializable, IDay {
 			return true;
 		return false;
 	}
+	
+	/** 
+	 * @param anotherDay
+	 * @return boolean
+	 */
 	public boolean equalsDate(Day anotherDay){
 		if (anotherDay.dayNumber == dayNumber &&
 			anotherDay.monthNumber == monthNumber &&
@@ -72,6 +82,10 @@ public class Day implements Serializable, IDay {
 			return true;
 		return false;
 	}
+	
+	/** 
+	 * @return float
+	 */
 	public float getDayMultiplier() {
 		if(holiday){
 			if(this.dayOfWeek==DayOfWeek.SUN || this.dayOfWeek==DayOfWeek.SAT){
@@ -98,6 +112,10 @@ public class Day implements Serializable, IDay {
 	public static void setMultiplier(float newMulitplier) {
 		multiplier = newMulitplier;
 	}
+	
+	/** 
+	 * @return float
+	 */
 	public static float getMultiplier() {
 		return multiplier;
 	}
@@ -110,6 +128,10 @@ public class Day implements Serializable, IDay {
 		this.holiday = false;
 	}
 	
+	
+	/** 
+	 * @return boolean
+	 */
 	public boolean isHoliday() {
 		if(holiday)
 			return true;
@@ -117,6 +139,12 @@ public class Day implements Serializable, IDay {
 			return false;
 	}
 	
+	
+	/** 
+	 * @param dayNumber
+	 * @param monthNumber
+	 * @param yearNumber
+	 */
 	public void setDate(int dayNumber, int monthNumber, int yearNumber) {
 		this.dayNumber = dayNumber;
 		this.monthNumber = monthNumber;
@@ -137,6 +165,11 @@ public class Day implements Serializable, IDay {
 		}
 		this.fullDate = Integer.toString(this.yearNumber) + monthString + dayString;
 	}
+	
+	/** 
+	 * @param fullDate
+	 * @throws IllegalArgumentException
+	 */
 	public void setDate(String fullDate) throws IllegalArgumentException {
 		if (fullDate.length() != 8) {
 			throw new IllegalArgumentException("Invalid date string supplied");
@@ -148,18 +181,35 @@ public class Day implements Serializable, IDay {
 			throw new IllegalArgumentException("Invalid date string supplied");
 		}
 	}
+	
+	/** 
+	 * @return String
+	 */
 	public String getDate() {
 		return this.fullDate;
 	}
 	
+	
+	/** 
+	 * @param day
+	 */
 	public void setDayOfWeek(DayOfWeek day) {
 		this.dayOfWeek = day;
 	}
 	
+	
+	/** 
+	 * @return DayOfWeek
+	 */
 	public DayOfWeek getDayOfWeek() {
 		return this.dayOfWeek;
 	}
 	
+	
+	/** 
+	 * @param time
+	 * @throws IllegalArgumentException
+	 */
 	public void setTime(String time) throws IllegalArgumentException{
 		if (time.length() != 4) {
 			throw new IllegalArgumentException("Invalid time string length supplied");
@@ -176,6 +226,10 @@ public class Day implements Serializable, IDay {
 		}
 	}
 	
+	
+	/** 
+	 * @return String
+	 */
 	public String getTime(){
 		return this.time;
 	}

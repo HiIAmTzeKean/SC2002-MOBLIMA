@@ -28,6 +28,10 @@ public class Review implements Serializable{
 	public float getRating(){
 		return this.rating;
 	}
+	
+	/** 
+	 * @return String
+	 */
 	/* (non-Javadoc)
 	 * @see java.lang.Object#toString()
 	 * Overloaded method of toString() to faciliate printing values of reviews.

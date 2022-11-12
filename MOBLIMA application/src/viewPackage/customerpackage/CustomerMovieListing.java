@@ -9,6 +9,10 @@ import viewPackage.View;
 public class CustomerMovieListing extends View {
 	private String selectedMovieName = null; 
 	private static Scanner scan = new Scanner(System.in);	
+	
+	/** 
+	 * @return String
+	 */
 	public String getSelectedMovieName(){
 		return selectedMovieName;
 	}
@@ -27,6 +31,11 @@ public class CustomerMovieListing extends View {
 		}
 		while(choice < 6 && choice > 0);
 	}
+	
+	/** 
+	 * @param movieName
+	 * @return Boolean
+	 */
 	public static Boolean isValidMovieName(String movieName){
 		IMovie MovieHandler = MovieManager.getInstance();
 		return(MovieHandler.isValidMovieName(movieName));

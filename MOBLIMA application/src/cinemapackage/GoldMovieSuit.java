@@ -55,6 +55,10 @@ public class GoldMovieSuit extends Cinema {
         this.seats = seats;
     }
 
+    
+    /** 
+     * @return Cinema
+     */
     @Override
     public Cinema cloneCinema() {
         ArrayList<ArrayList<Seat>> seatcopy = new ArrayList<ArrayList<Seat>>();
@@ -107,6 +111,10 @@ public class GoldMovieSuit extends Cinema {
         printLegend();
     }
 
+    
+    /** 
+     * @return float
+     */
     @Override
     public float getMultiplier() {
         return 1.25f;

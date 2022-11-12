@@ -32,10 +32,18 @@ public class CustomerPayment {
 		CASH, VISA, MASTERCARD
 	};
 
+	
+	/** 
+	 * @return Customer
+	 */
 	public Customer getCustomer() {
 		return c;
 	}
 	
+	
+	/** 
+	 * @param name
+	 */
 	public void setCustomerDetails(String name) {
 		name = null;
 		IAge age = null;
@@ -64,6 +72,11 @@ public class CustomerPayment {
 		//customerID = c.getID();
 	}//edd of setCustomerDetails()
 	
+	
+	/** 
+	 * @param cType
+	 * @param seatRow
+	 */
 	/////////////////////////////////////////////////////////////////////////////////////////////////
 	
 	/*
@@ -101,6 +114,17 @@ public class CustomerPayment {
 		}//endif
 	}//end setBookingOption()
 	
+	
+	/** 
+	 * @param customerObject
+	 * @param cinemaType
+	 * @param customerRow
+	 * @param customerColumn
+	 * @param customerShowtime
+	 * @param customerCoupleSeat
+	 * @param discountCodeTicket
+	 * @return float
+	 */
 	/////////////////////////////////////////////////////////////////////////////////////////////////
 	
 	public float getBookingPrice(Customer customerObject, CinemaType cinemaType, String customerRow, int customerColumn, Showtime customerShowtime, Boolean customerCoupleSeat, String discountCodeTicket){
@@ -131,6 +155,11 @@ public class CustomerPayment {
 		return price;
 	}
 	
+	
+	/** 
+	 * @param discountCode
+	 * @return Boolean
+	 */
 	public Boolean isValidDiscountCode(String discountCode){
 		Boolean toReturn = false;
 		DiscountCode discountCodeHandler = DiscountCode.getInstance();
@@ -138,6 +167,13 @@ public class CustomerPayment {
 		return toReturn;
 	}
 
+	
+	/** 
+	 * @param cType
+	 * @param seatRow
+	 * @param selectedShowtimeID
+	 * @return float
+	 */
 	public float getProjectedBookingPrice(CinemaType cType, String seatRow, int selectedShowtimeID) {
 		IShowtime showtimeHandler = ShowtimeManager.getInstance();
 		setBookingOption(cType, seatRow);
