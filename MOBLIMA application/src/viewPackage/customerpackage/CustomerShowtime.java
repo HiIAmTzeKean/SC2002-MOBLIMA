@@ -375,17 +375,16 @@ public class CustomerShowtime {
 	 * @throws IllegalArgumentException
 	 */
 	 public Boolean isValidSeatSelection(Showtime customerShowtime, String seatRow, int seatCol) throws IllegalArgumentException{
-		Boolean toReturn = false;
 		try{
 			int showtimeID = customerShowtime.getID();
 			IShowtime showtimeHandler = ShowtimeManager.getInstance();
 			if(!showtimeHandler.isBooked(showtimeID, seatRow, seatCol)){
-				toReturn = true;
+				return true;	
 			}
 		}catch(IllegalArgumentException e){
 			throw new IllegalArgumentException("Seat selection is invalid.");
 		}
-		return toReturn;
+		return false;
 	}
 
 }

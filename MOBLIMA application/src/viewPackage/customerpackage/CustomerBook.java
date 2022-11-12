@@ -261,6 +261,12 @@ public class CustomerBook extends View {
 								break;
 							}
 						}
+						else{
+							System.out.println("Seat Selected Has Already Been Booked. Please Try Again.");
+							state = bookMenuState.SELECTSEAT;
+							waitForEnter(null);
+							break;
+						}
 					}catch(IllegalArgumentException e){
 						System.out.println("Invalid Row and Column Entered. Please try again");
 						waitForEnter(null);
