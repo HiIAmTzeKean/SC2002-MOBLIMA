@@ -1,0 +1,1 @@
+typeSearchIndex = [{"p":"agepackage","l":"Age"},{"p":"agepackage","l":"AgeCategory"},{"l":"All Classes and Interfaces","u":"allclasses-index.html"},{"p":"agepackage","l":"IAge"}];updateSearchResults();

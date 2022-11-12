@@ -38,6 +38,11 @@ public class ShowtimeManager implements IShowtimeSystem {
 		lastID = showtimes.size();
 	}
 
+	
+	/** 
+	 * @param filename
+	 * @return ArrayList<Showtime>
+	 */
 	private static ArrayList<Showtime> deseraliseShowtimes(String filename){
 		ArrayList<Showtime>  c = null;
 		try {
@@ -56,6 +61,11 @@ public class ShowtimeManager implements IShowtimeSystem {
 		return c;
 	}
 
+	
+	/** 
+	 * @param filename
+	 * @param c
+	 */
 	private static void seraliseShowtimes(String filename, ArrayList<Showtime> c) {
 		try{
 			FileOutputStream fos = new FileOutputStream(filename);
@@ -68,6 +78,10 @@ public class ShowtimeManager implements IShowtimeSystem {
 		}
 	}
 
+	
+	/** 
+	 * @return ShowtimeManager
+	 */
 	public static ShowtimeManager getInstance(){
 		if (ShowtimeManager.showtimeManager == null){
 			ArrayList<Showtime> c = ShowtimeManager.deseraliseShowtimes("./MOBLIMA application/data/showtime/showtime.dat");
@@ -84,9 +98,20 @@ public class ShowtimeManager implements IShowtimeSystem {
 		ShowtimeManager.showtimeManager = null;
 	}
 
+	
+	/** 
+	 * @param movie
+	 * @param cinema
+	 * @param day
+	 */
 	public void addShowtimeSystem(Movie movie, ICinemaBooking cinema, IDay day){
 		ShowtimeManager.showtimes.add(new Showtime(movie,cinema,day,++lastID));
 	}
+	
+	/** 
+	 * @param showtimeID
+	 * @return Showtime
+	 */
 	public Showtime getShowtimeByID(int showtimeID){
 		for (Iterator<Showtime> it = showtimes.iterator(); it.hasNext();) {
 			Showtime s = it.next();
@@ -96,6 +121,15 @@ public class ShowtimeManager implements IShowtimeSystem {
 		}
 		throw new IllegalArgumentException("Showtime is not found");
 	}
+	
+	/** 
+	 * @param movieName
+	 * @param day
+	 * @param cineplexID
+	 * @param cinemaType
+	 * @return Showtime
+	 * @throws IllegalArgumentException
+	 */
 	public Showtime getShowtime(String movieName, Day day, int cineplexID, CinemaType cinemaType) throws IllegalArgumentException{
 		for (Iterator<Showtime> it = showtimes.iterator(); it.hasNext();) {
 			Showtime s = it.next();
@@ -105,6 +139,12 @@ public class ShowtimeManager implements IShowtimeSystem {
 		}
 		throw new IllegalArgumentException("Showtime is not found");
 	}
+	
+	/** 
+	 * @param showtimeID
+	 * @return int
+	 * @throws IllegalArgumentException
+	 */
 	public int getShowtimeIndex(int showtimeID) throws IllegalArgumentException {
 		if (showtimes== null || showtimes.size() == 0){
 			// exit before any looping is done
@@ -121,6 +161,14 @@ public class ShowtimeManager implements IShowtimeSystem {
 		throw new IllegalArgumentException("Showtime is not found");
 	}
 
+	
+	/** 
+	 * @param showtimeID
+	 * @param seatRow
+	 * @param seatCol
+	 * @param customer
+	 * @throws IllegalArgumentException
+	 */
 	public void bookSeatAdmin(int showtimeID, String seatRow, int seatCol, Customer customer) throws IllegalArgumentException{
 		try {
 			showtimes.get(getShowtimeIndex(showtimeID)).bookSeat(seatRow, seatCol, customer.getID());
@@ -142,6 +190,15 @@ public class ShowtimeManager implements IShowtimeSystem {
 			ex.printStackTrace();
 		}
 	}
+	
+	/** 
+	 * @param showtimeID
+	 * @param seatRow
+	 * @param seatCol
+	 * @param customer
+	 * @throws IllegalArgumentException
+	 * @throws CustomerNullException
+	 */
 	@Override
 	public void bookSeat(int showtimeID, String seatRow, int seatCol, Customer customer) throws IllegalArgumentException, CustomerNullException{
 		try {
@@ -173,6 +230,15 @@ public class ShowtimeManager implements IShowtimeSystem {
 			throw ex;
 		}
 	}
+	
+	/** 
+	 * @param showtimeID
+	 * @param seatRow
+	 * @param seatCol
+	 * @param customer
+	 * @throws IllegalArgumentException
+	 * @throws CustomerNullException
+	 */
 	@Override
 	public void bookCoupleSeat(int showtimeID, String seatRow, int seatCol, Customer customer) throws IllegalArgumentException, CustomerNullException{
 		try {
@@ -204,6 +270,14 @@ public class ShowtimeManager implements IShowtimeSystem {
 			throw ex;
 		}
 	}
+	
+	/** 
+	 * @param showtimeID
+	 * @param seatRow
+	 * @param seatCol
+	 * @return boolean
+	 * @throws IllegalArgumentException
+	 */
 	@Override
 	public boolean isBooked(int showtimeID, String seatRow, int seatCol) throws IllegalArgumentException{
 		try {
@@ -214,6 +288,14 @@ public class ShowtimeManager implements IShowtimeSystem {
 		}
 	}
 
+	
+	/** 
+	 * @param showtimeID
+	 * @param customer
+	 * @return float
+	 * @throws IllegalArgumentException
+	 * @throws CustomerNullException
+	 */
 	@Override
 	public float getPrice(int showtimeID, Customer customer) throws IllegalArgumentException, CustomerNullException{
 		try {
@@ -226,6 +308,15 @@ public class ShowtimeManager implements IShowtimeSystem {
 			throw ex;
 		}
 	}
+	
+	/** 
+	 * @param showtimeID
+	 * @param customer
+	 * @param discountCodeTicket
+	 * @return float
+	 * @throws IllegalArgumentException
+	 * @throws CustomerNullException
+	 */
 	public float getPrice(int showtimeID, Customer customer, String discountCodeTicket) throws IllegalArgumentException, CustomerNullException{
 		try {
 			return showtimes.get(getShowtimeIndex(showtimeID)).getPrice(customer,discountCodeTicket);
@@ -237,6 +328,15 @@ public class ShowtimeManager implements IShowtimeSystem {
 			throw ex;
 		}
 	}
+	
+	/** 
+	 * @param showtimeID
+	 * @param customer
+	 * @param isCoupleSeat
+	 * @return float
+	 * @throws IllegalArgumentException
+	 * @throws CustomerNullException
+	 */
 	public float getPrice(int showtimeID, Customer customer, boolean isCoupleSeat) throws IllegalArgumentException, CustomerNullException{
 		try {
 			return showtimes.get(getShowtimeIndex(showtimeID)).getPrice(customer,isCoupleSeat);
@@ -248,6 +348,16 @@ public class ShowtimeManager implements IShowtimeSystem {
 			throw ex;
 		}
 	}
+	
+	/** 
+	 * @param showtimeID
+	 * @param customer
+	 * @param isCoupleSeat
+	 * @param discountCodeTicket
+	 * @return float
+	 * @throws IllegalArgumentException
+	 * @throws CustomerNullException
+	 */
 	public float getPrice(int showtimeID, Customer customer, boolean isCoupleSeat, String discountCodeTicket) throws IllegalArgumentException, CustomerNullException{
 		try {
 			return showtimes.get(getShowtimeIndex(showtimeID)).getPrice(customer,isCoupleSeat,discountCodeTicket);
@@ -260,6 +370,10 @@ public class ShowtimeManager implements IShowtimeSystem {
 		}
 	}
 
+	
+	/** 
+	 * @throws IllegalArgumentException
+	 */
 	@Override
 	public void printShowtimes() throws IllegalArgumentException{
 		if (showtimes== null || showtimes.size() == 0){
@@ -288,6 +402,11 @@ public class ShowtimeManager implements IShowtimeSystem {
 		}
 		System.out.println("|--------------------------------------------------------------------------------------------------------------|");
 	}
+	
+	/** 
+	 * @param movieName
+	 * @throws IllegalArgumentException
+	 */
 	public void printShowtimesByMovieName(String movieName) throws IllegalArgumentException{
 		if (showtimes== null || showtimes.size() == 0){
 			// exit before any looping is done
@@ -321,6 +440,12 @@ public class ShowtimeManager implements IShowtimeSystem {
 		}
 		System.out.println("|----------------------------------------------------------------------------------------------------------------------------|");
 	}
+	
+	/** 
+	 * @param movieName
+	 * @param cineplexID
+	 * @throws IllegalArgumentException
+	 */
 	public void printShowtimesByMovieNameAndCineplexID(String movieName, int cineplexID) throws IllegalArgumentException{
 		if (showtimes== null || showtimes.size() == 0){
 			// exit before any looping is done
@@ -371,6 +496,11 @@ public class ShowtimeManager implements IShowtimeSystem {
 		}
 		System.out.println("|-----------------------------------------------------------------------------------------------------------------------------|");
 	}
+	
+	/** 
+	 * @param showtimeID
+	 * @throws IllegalArgumentException
+	 */
 	@Override
 	public void printSeats(int showtimeID) throws IllegalArgumentException{
 		try {
@@ -381,6 +511,11 @@ public class ShowtimeManager implements IShowtimeSystem {
 		}
 	}
 
+	
+	/** 
+	 * @param showtimeID
+	 * @throws IllegalArgumentException
+	 */
 	@Override
 	public void printMovie(int showtimeID) throws IllegalArgumentException{
 		try {
@@ -391,6 +526,11 @@ public class ShowtimeManager implements IShowtimeSystem {
 		}
 	}
 
+	
+	/** 
+	 * @param showtimeID
+	 * @throws IllegalArgumentException
+	 */
 	@Override
 	public void printCinemaLayout(int showtimeID) throws IllegalArgumentException{
 		try {
@@ -401,6 +541,11 @@ public class ShowtimeManager implements IShowtimeSystem {
 		}
 	}
 
+	
+	/** 
+	 * @param showtimeID
+	 * @throws IllegalArgumentException
+	 */
 	@Override
 	public void printCineplex(int showtimeID) throws IllegalArgumentException{
 		try {
@@ -411,6 +556,12 @@ public class ShowtimeManager implements IShowtimeSystem {
 		}
 	}
 
+	
+	/** 
+	 * @param showtimeID
+	 * @return String
+	 * @throws IllegalArgumentException
+	 */
 	@Override
 	public String getCinemaCode(int showtimeID) throws IllegalArgumentException{
 		try {
@@ -421,16 +572,31 @@ public class ShowtimeManager implements IShowtimeSystem {
 		}
 	}
 
+	
+	/** 
+	 * @param basePrice
+	 */
 	@Override
 	public void setBasePrice(float basePrice) {
 		Showtime.setBasePrice(basePrice);
 	}
 
+	
+	/** 
+	 * @return float
+	 */
 	@Override
 	public float getBasePrice() {
 		return Showtime.getBasePrice();
 	}
 
+	
+	/** 
+	 * @param movie
+	 * @param cinema
+	 * @param day
+	 * @throws IllegalArgumentException
+	 */
 	@Override
 	public void addShowtime(Movie movie, ICinemaBooking cinema, IDay day) throws IllegalArgumentException{ 
 		if (movie.getMovieStatus()==MovieStatus.COMING_SOON || 
@@ -442,6 +608,10 @@ public class ShowtimeManager implements IShowtimeSystem {
 		throw new IllegalArgumentException("Movie status is not Coming, Showing or Preview");
 	}
 
+	
+	/** 
+	 * @param movieID
+	 */
 	@Override
 	public void movieShowtimeEnd(int movieID) {
 		if (showtimes== null || showtimes.size() == 0){
@@ -455,6 +625,12 @@ public class ShowtimeManager implements IShowtimeSystem {
 			}
 		}
 	}
+	
+	/** 
+	 * @param showtimeID
+	 * @return String
+	 * @throws IllegalArgumentException
+	 */
 	@Override
 	public String getTime(int showtimeID) throws IllegalArgumentException {
 		try {
@@ -464,6 +640,12 @@ public class ShowtimeManager implements IShowtimeSystem {
 			throw new IllegalArgumentException("Error in retriving seat");
 		}
 	}
+	
+	/** 
+	 * @param showtimeID
+	 * @return String
+	 * @throws IllegalArgumentException
+	 */
 	@Override
 	public String getDate(int showtimeID) throws IllegalArgumentException{
 		try {
@@ -473,6 +655,12 @@ public class ShowtimeManager implements IShowtimeSystem {
 			throw new IllegalArgumentException("Error in retriving seat");
 		}
 	}
+	
+	/** 
+	 * @param dateString
+	 * @return Day
+	 * @throws IllegalArgumentException
+	 */
 	@Override
 	public Day getDay(String dateString) throws IllegalArgumentException {
 		for (Iterator<Showtime> it = showtimes.iterator(); it.hasNext();) {
@@ -483,6 +671,11 @@ public class ShowtimeManager implements IShowtimeSystem {
 		}
 		throw new IllegalArgumentException("No such date in showtimes");
 	}
+	
+	/** 
+	 * @param movieID
+	 * @param type
+	 */
 	@Override
 	public void setMovieType(int movieID, MovieType type) {
 		for (Iterator<Showtime> it = showtimes.iterator(); it.hasNext();) {
@@ -492,6 +685,11 @@ public class ShowtimeManager implements IShowtimeSystem {
 			}
 		}
 	}
+	
+	/** 
+	 * @param movieID
+	 * @param status
+	 */
 	@Override
 	public void setMovieStatus(int movieID, MovieStatus status) {
 		for (Iterator<Showtime> it = showtimes.iterator(); it.hasNext();) {
@@ -501,6 +699,11 @@ public class ShowtimeManager implements IShowtimeSystem {
 			}
 		}
 	}
+	
+	/** 
+	 * @param movieID
+	 * @param director
+	 */
 	@Override
 	public void setMovieDirector(int movieID, String director){
 		for (Iterator<Showtime> it = showtimes.iterator(); it.hasNext();) {
@@ -510,6 +713,11 @@ public class ShowtimeManager implements IShowtimeSystem {
 			}
 		}
 	}
+	
+	/** 
+	 * @param day
+	 * @throws IllegalArgumentException
+	 */
 	@Override
 	public void setHoliday(Day day) throws IllegalArgumentException {
 		int flag = 0;
@@ -522,6 +730,11 @@ public class ShowtimeManager implements IShowtimeSystem {
 		}
 		if (flag == 0) throw new IllegalArgumentException("Showtime with date and timing provided exist");
 	}
+	
+	/** 
+	 * @param day
+	 * @throws IllegalArgumentException
+	 */
 	@Override
 	public void unsetHoliday(Day day) throws IllegalArgumentException {
 		int flag = 0;
@@ -534,6 +747,12 @@ public class ShowtimeManager implements IShowtimeSystem {
 		}
 		if (flag == 0) throw new IllegalArgumentException("Showtime with date and timing provided exist");
 	}
+	
+	/** 
+	 * @param showtimeID
+	 * @param day
+	 * @throws IllegalArgumentException
+	 */
 	@Override
 	public void changeShowtimeDay(int showtimeID, Day day) throws IllegalArgumentException {
 		try {
@@ -542,6 +761,10 @@ public class ShowtimeManager implements IShowtimeSystem {
 			throw ex;
 		}
 	}
+	
+	/** 
+	 * @param showtimeID
+	 */
 	@Override
 	public void removeShowtime(int showtimeID) {
 		try {

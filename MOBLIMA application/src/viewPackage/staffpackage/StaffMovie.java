@@ -490,6 +490,9 @@ public class StaffMovie extends View {
         }
     }
     
+    /*
+     * 
+     */
     private static void updateMovieMenu(){
         System.out.print("\033\143");
         System.out.println("--------------------------------------------");
