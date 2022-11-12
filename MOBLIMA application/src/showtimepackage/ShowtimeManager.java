@@ -543,5 +543,16 @@ public class ShowtimeManager implements IShowtimeSystem {
 			throw ex;
 		}
 	}
+	@Override
+	public void removeShowtime(int showtimeID) {
+		try {
+			getShowtimeIndex(showtimeID);
+			showtimes.remove(showtimeID);
+		} catch (IllegalArgumentException ex) {
+			throw ex;
+		} catch (IndexOutOfBoundsException ex) {
+			throw new IllegalArgumentException("Showtime not found!");
+		}
+	}
 }
 

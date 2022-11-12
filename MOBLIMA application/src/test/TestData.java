@@ -1,8 +1,6 @@
 package test;
 
 import java.io.*;
-import java.util.Scanner;
-import java.util.ArrayList;
 import agepackage.*;
 import cinemapackage.*;
 import cineplexpackage.*;
@@ -10,16 +8,10 @@ import customerpackage.*;
 import daypackage.*;
 import moviepackage.*;
 import showtimepackage.*;
-import viewPackage.customerpackage.CustomerReview;
+
 public class TestData {
     public static void main(String args []) {
         createAllData();
-        Scanner s = new Scanner(System.in);
-        MovieManager movieManager = MovieManager.getInstance();
-        ShowtimeManager showtimeManager = ShowtimeManager.getInstance();
-        BookingManager bookingManager = BookingManager.getInstance();
-        bookingManager.printAllTransactionsForCustomer("april@gmail.com");
-        bookingManager.printAllTransactionsForCustomer("ali@gmail.com");
         MovieManager.close();
         CinemaManager.close();
         CineplexManager.close();
@@ -239,13 +231,13 @@ public class TestData {
         catch (IOException ex){}
         
         CinemaManager cm = CinemaManager.getInstance();
-        cm.createCinema("WG1","Platinum");
-        cm.createCinema("WG2","Gold");
-        cm.createCinema("WG3","Silver");
-        cm.createCinema("JE1","Platinum");
-        cm.createCinema("JE2","Gold");
-        cm.createCinema("JE3","Gold");
-        cm.createCinema("JE4","Silver");
+        cm.createCinema("WGP","Platinum");
+        cm.createCinema("WGG","Gold");
+        cm.createCinema("WGS","Silver");
+        cm.createCinema("JEP","Platinum");
+        cm.createCinema("JEG","Gold");
+        cm.createCinema("JEX","Gold");
+        cm.createCinema("JES","Silver");
         CinemaManager.close();
     }
     public static void createCineplex(){
@@ -324,6 +316,12 @@ public class TestData {
         d3_t2.setTime("2000");
         d3_t2.setDayOfWeek(DayOfWeek.FRI);
 
+        // End showtime
+        man.addShowtimeSystem(movieMan.getMoviefromID(15), cinemaManager.cloneCinemaByID(1), new Day("20211231", "1600"));
+        man.addShowtimeSystem(movieMan.getMoviefromID(15), cinemaManager.cloneCinemaByID(2), new Day("20211230", "2000"));
+        man.addShowtimeSystem(movieMan.getMoviefromID(14), cinemaManager.cloneCinemaByID(3), new Day("20211231", "1600"));
+        man.addShowtimeSystem(movieMan.getMoviefromID(14), cinemaManager.cloneCinemaByID(1), new Day("20211230", "1600"));
+        man.addShowtimeSystem(movieMan.getMoviefromID(14), cinemaManager.cloneCinemaByID(3), new Day("20211230", "2000"));
         // Preview movies
         man.addShowtimeSystem(movieMan.getMoviefromID(8), cinemaManager.cloneCinemaByID(1), d0_t0);
         man.addShowtimeSystem(movieMan.getMoviefromID(8), cinemaManager.cloneCinemaByID(1), d0_t1);
@@ -340,12 +338,7 @@ public class TestData {
         man.addShowtimeSystem(movieMan.getMoviefromID(11), cinemaManager.cloneCinemaByID(3), new Day("20220310", "2000"));
         man.addShowtimeSystem(movieMan.getMoviefromID(11), cinemaManager.cloneCinemaByID(1), new Day("20220312", "1600"));
         man.addShowtimeSystem(movieMan.getMoviefromID(10), cinemaManager.cloneCinemaByID(3), new Day("20220312", "2000"));
-        // End showtime
-        man.addShowtimeSystem(movieMan.getMoviefromID(7), cinemaManager.cloneCinemaByID(1), d2_t0);
-        man.addShowtimeSystem(movieMan.getMoviefromID(7), cinemaManager.cloneCinemaByID(2), d2_t0);
-        man.addShowtimeSystem(movieMan.getMoviefromID(7), cinemaManager.cloneCinemaByID(3), d2_t0);
-        man.addShowtimeSystem(movieMan.getMoviefromID(7), cinemaManager.cloneCinemaByID(1), d2_t1);
-        man.addShowtimeSystem(movieMan.getMoviefromID(7), cinemaManager.cloneCinemaByID(3), d2_t2);
+        
         MovieManager mm = MovieManager.getInstance();
         for (int i = 1; i < 18; i ++) {
             if (i>=14){
