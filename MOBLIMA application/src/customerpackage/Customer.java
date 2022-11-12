@@ -33,6 +33,7 @@ public class Customer implements Serializable {
 
 	public Customer(String name, int mobile, String email, Age age, boolean isStudent) {
 		this(name, mobile, email, age);
+		this.isStudent = isStudent;
 	}
 
 	/**
