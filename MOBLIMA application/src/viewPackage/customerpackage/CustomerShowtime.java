@@ -93,7 +93,7 @@ public class CustomerShowtime {
 			if(toCheck != null) return true;
 		}
 		catch(IllegalArgumentException e){
-			System.out.println("Invalid Cineplex Name entered. Please try again");
+			//System.out.println("Invalid Cineplex Name entered. Please try again");
 			return false;
 		}
 		return false;
@@ -147,7 +147,7 @@ public class CustomerShowtime {
 		try{
 			toReturn = CinemaType.valueOf(cinemaType);
 		}catch(IllegalArgumentException e){
-			System.out.println("Cinema Type Entered is Not Valid.");
+			//System.out.println("Cinema Type Entered is Not Valid.");
 		}
 		return toReturn;
 	}

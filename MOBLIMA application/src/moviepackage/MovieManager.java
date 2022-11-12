@@ -472,7 +472,7 @@ public class MovieManager implements ISales, IReviews, IMovie {
 		int counter = 0;
 		ArrayList<Movie> moviecopy = this.getMovies();
 		Collections.sort(moviecopy, Movie.ratingComparator2);
-		if(moviecopy.size() > 5){
+		if(moviecopy.size() >= 5){
 			limit = 5;
 		}
 		else{
@@ -487,7 +487,7 @@ public class MovieManager implements ISales, IReviews, IMovie {
 								"Average Rating");
 		System.out.println("|--------------------------------------------------------------------------------------------------------------------|");
 		for(Iterator<Movie> it = moviecopy.iterator(); it.hasNext();){
-			if(counter == limit-1) break;
+			if(counter == limit) break;
 			//System.out.println(counter);
 			Movie m = it.next();
 			String movieDuration = Integer.toString(m.getDuration());
@@ -518,7 +518,7 @@ public class MovieManager implements ISales, IReviews, IMovie {
 		int counter = 0;
 		ArrayList<Movie> moviecopy = this.getMovies();
 		Collections.sort(moviecopy, Movie.salesComparator2);
-		if(moviecopy.size() > 5){
+		if(moviecopy.size() >= 5){
 			limit = 5;
 		}
 		else{
@@ -533,7 +533,7 @@ public class MovieManager implements ISales, IReviews, IMovie {
 								"Sales");
 		System.out.println("|--------------------------------------------------------------------------------------------------------------------|");
 		for(Iterator<Movie> it = moviecopy.iterator(); it.hasNext();){
-			if(counter == limit-1) break;
+			if(counter == limit) break;
 			//System.out.println(counter);
 			Movie m = it.next();
 			System.out.printf("|       %-30s        |    %-10s     |  %-15s  |  %-10s | %-14s |\n",
