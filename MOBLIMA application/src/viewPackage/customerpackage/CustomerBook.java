@@ -244,6 +244,9 @@ public class CustomerBook extends View {
 								System.out.println("You Have Selected A Couple Seat.");
 								customerCoupleSeat = true;
 							}
+							else{
+								customerCoupleSeat = false;
+							}
 							System.out.println("[Enter 1 to Confirm Your Seat Selection]");
 							System.out.println("[Enter 0 to Return]");
 							String seatContinue = sc.next();
@@ -385,13 +388,13 @@ public class CustomerBook extends View {
 								state = bookMenuState.DISPLAYPRICE;
 								break;
 							}
-							System.out.printf("Your Final Price with Discount is %.2f\n",cp.getBookingPrice(customerObject, cinemaType, customerRow, customerColumn, customerShowtime, customerCoupleSeat, customerDiscountCode));
 							customerBookingPrice = cp.getBookingPrice(customerObject, cinemaType, customerRow, customerColumn, customerShowtime, customerCoupleSeat, customerDiscountCode);
+							System.out.printf("Your Final Price with Discount is %.2f\n",customerBookingPrice);
 						}
 						else if(discountCodeIndication.compareTo("N") == 0){
 							customerDiscountCode = null;
 							customerBookingPrice = cp.getBookingPrice(customerObject, cinemaType, customerRow, customerColumn, customerShowtime, customerCoupleSeat, customerDiscountCode);
-							System.out.printf("Your Final Price is %.2f\n",cp.getBookingPrice(customerObject, cinemaType, customerRow, customerColumn, customerShowtime, customerCoupleSeat, customerDiscountCode));	
+							System.out.printf("Your Final Price is %.2f\n",customerBookingPrice);	
 						}
 						System.out.println("[Enter 0 to Return to Seat Selection]");
 						System.out.println("[Enter 1 to Proceed to Payment]");
