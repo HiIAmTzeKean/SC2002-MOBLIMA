@@ -1,7 +1,6 @@
 package moviepackage;
 import java.util.Collections;
 import java.util.Iterator;
-import org.junit.runners.model.InvalidTestClassError;
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
 import java.io.ObjectInputStream;
@@ -273,7 +272,7 @@ public class MovieManager implements ISales, IReviews, IMovie {
 	@Override
 	public void createMovie(String movieTitle, MovieStatus movieStatus, String synopsis, String director, String cast, AgeRestriction ageRestriction, MovieType movieType, int duration)throws IllegalArgumentException {
 		//Do a check for other invalid entry cases
-		if(movieTitle=="" || synopsis == "" || director == "" || cast == "" || duration == 0){
+		if(movieTitle=="" || movieTitle== " " || synopsis == "" || synopsis == " " | director == "" || director == " " || cast == "" || cast == " " || duration == 0 || movieType == null || ageRestriction == null){
 			throw new IllegalArgumentException("Insufficient details added for creating movie.");
 		}
 		//Finally, create the movie object and add it to the movie array

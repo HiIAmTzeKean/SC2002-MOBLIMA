@@ -1,8 +1,6 @@
 package viewPackage;
-
 import java.util.InputMismatchException;
 import java.util.Scanner;
-
 import cinemapackage.CinemaManager;
 import customerpackage.BookingManager;
 import customerpackage.DiscountCode;
