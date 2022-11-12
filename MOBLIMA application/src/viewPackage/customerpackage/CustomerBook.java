@@ -388,7 +388,7 @@ public class CustomerBook extends View {
 							customerBookingPrice = cp.getBookingPrice(customerObject, cinemaType, customerRow, customerColumn, customerShowtime, customerCoupleSeat, customerDiscountCode);
 						}
 						else if(discountCodeIndication.compareTo("N") == 0){
-							customerDiscountCode = "";
+							customerDiscountCode = null;
 							customerBookingPrice = cp.getBookingPrice(customerObject, cinemaType, customerRow, customerColumn, customerShowtime, customerCoupleSeat, customerDiscountCode);
 							System.out.printf("Your Final Price is %.2f\n",cp.getBookingPrice(customerObject, cinemaType, customerRow, customerColumn, customerShowtime, customerCoupleSeat, customerDiscountCode));	
 						}
@@ -453,10 +453,10 @@ public class CustomerBook extends View {
 						else if(paymentChoice.compareTo("1") == 0){
 							IShowtime bookingHandler = ShowtimeManager.getInstance();
 							if(customerCoupleSeat){
-								bookingHandler.bookCoupleSeat(customerShowtime.getID(),customerRow,customerColumn,customerObject);
+								bookingHandler.bookCoupleSeat(customerShowtime.getID(),customerRow,customerColumn,customerObject,customerCoupleSeat, customerDiscountCode);
 							}
 							if(!customerCoupleSeat){
-								bookingHandler.bookSeat(customerShowtime.getID(),customerRow,customerColumn,customerObject);
+								bookingHandler.bookSeat(customerShowtime.getID(),customerRow,customerColumn,customerObject, customerDiscountCode);
 							}
 							customerBookingDone = true;
 						}
