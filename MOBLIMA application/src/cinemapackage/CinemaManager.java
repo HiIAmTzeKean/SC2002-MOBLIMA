@@ -158,11 +158,6 @@ public class CinemaManager implements ICinema {
 				"|--------------------------------------------------------------------------------------------|\n");
 	}
 
-	
-	/** 
-	 * @param id
-	 * @param cineplexManager
-	 */
 	@Override
 	public void deleteCinema(int id, ICineplex cineplexManager) {
 		for (Iterator<Cinema> it = cinemas.iterator(); it.hasNext();) {
@@ -177,11 +172,6 @@ public class CinemaManager implements ICinema {
 		throw new IllegalArgumentException("Cinema is not found");
 	}
 
-	
-	/** 
-	 * @param code
-	 * @param type
-	 */
 	@Override
 	public void createCinema(String code, String type) {
 		try {
@@ -232,11 +222,6 @@ public class CinemaManager implements ICinema {
 		printCinemaEnder();
 	}
 
-	
-	/** 
-	 * @param id
-	 * @return Cinema
-	 */
 	@Override
 	public Cinema getCinema(int id) {
 		if (cinemas == null || cinemas.size() == 0) {
@@ -254,8 +239,7 @@ public class CinemaManager implements ICinema {
 		throw new IllegalArgumentException("Cinema is not found");
 	}
 
-	
-	/** 
+	/**
 	 * @param code
 	 * @return Cinema
 	 */
@@ -275,11 +259,6 @@ public class CinemaManager implements ICinema {
 		throw new IllegalArgumentException("Cinema is not found");
 	}
 
-	
-	/** 
-	 * @param cinemaID
-	 * @return String
-	 */
 	@Override
 	public String getCinemaCode(int cinemaID) {
 		try {
@@ -289,11 +268,6 @@ public class CinemaManager implements ICinema {
 		}
 	}
 
-	
-	/** 
-	 * @param cinemaID
-	 * @param code
-	 */
 	@Override
 	public void setCinemaCode(int cinemaID, String code) {
 		try {
@@ -303,11 +277,6 @@ public class CinemaManager implements ICinema {
 		}
 	}
 
-	
-	/** 
-	 * @param cinemaID
-	 * @return CinemaType
-	 */
 	@Override
 	public CinemaType getCinemaType(int cinemaID) {
 		try {
@@ -317,12 +286,6 @@ public class CinemaManager implements ICinema {
 		}
 	}
 
-	
-	/** 
-	 * @param cinemaID
-	 * @param type
-	 * @throws IllegalArgumentException
-	 */
 	@Override
 	public void setCinemaType(int cinemaID, CinemaType type) throws IllegalArgumentException {
 		try {
@@ -332,11 +295,6 @@ public class CinemaManager implements ICinema {
 		}
 	}
 
-	
-	/** 
-	 * @param cinemaID
-	 * @return int
-	 */
 	@Override
 	public int getCineplexID(int cinemaID) {
 
@@ -347,11 +305,6 @@ public class CinemaManager implements ICinema {
 		}
 	}
 
-	
-	/** 
-	 * @param code
-	 * @return int
-	 */
 	@Override
 	public int getCineplexID(String code) {
 
@@ -362,11 +315,6 @@ public class CinemaManager implements ICinema {
 		}
 	}
 
-	
-	/** 
-	 * @param cinemaID
-	 * @param cineplexID
-	 */
 	@Override
 	public void setCineplexID(int cinemaID, int cineplexID) {
 
@@ -377,10 +325,6 @@ public class CinemaManager implements ICinema {
 		}
 	}
 
-	
-	/** 
-	 * @param cinemaID
-	 */
 	@Override
 	public void printCinemaLayout(int cinemaID) {
 
@@ -391,10 +335,6 @@ public class CinemaManager implements ICinema {
 		}
 	}
 
-	
-	/** 
-	 * @param code
-	 */
 	@Override
 	public void printCinemaLayout(String code) {
 
@@ -405,11 +345,6 @@ public class CinemaManager implements ICinema {
 		}
 	}
 
-	
-	/** 
-	 * @param id
-	 * @return Cinema
-	 */
 	@Override
 	public Cinema cloneCinemaByID(int id) {
 		return getCinema(id).cloneCinema();

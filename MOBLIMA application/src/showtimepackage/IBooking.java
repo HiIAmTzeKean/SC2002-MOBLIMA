@@ -2,6 +2,7 @@ package showtimepackage;
 
 import customerpackage.Customer;
 import customerpackage.CustomerNullException;
+import daypackage.IDay;
 
 /**
  * Implemented by Showtime class
@@ -48,4 +49,8 @@ public interface IBooking {
 	 * Prints the seats of the cinema object composited within showtime
 	 */
 	void printSeat();
+	void printShowtime();
+	void isHoliday();
+	String getMovieName();
+	void changeDay(IDay day) throws IllegalArgumentException;
 }

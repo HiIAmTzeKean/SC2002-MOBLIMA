@@ -40,6 +40,7 @@ public abstract class Cinema implements Serializable, ICinemaBooking {
 
 	/**
 	 * Constructor to be used for cloning if needed
+	 * 
 	 * @param code
 	 * @param id
 	 * @param type
@@ -54,14 +55,6 @@ public abstract class Cinema implements Serializable, ICinemaBooking {
 		this.seats = seats;
 	}
 
-	
-	
-	/** 
-	 * @return Cinema
-	 */
-	/** 
-	 * @return Cinema
-	 */
 	/**
 	 * Allows cloning of the subclass
 	 * Returns a clone cinema object
@@ -97,16 +90,16 @@ public abstract class Cinema implements Serializable, ICinemaBooking {
 		this.code = code;
 	}
 
-	
-	/** 
+	/**
 	 * @return int
 	 */
 	public int getID() {
 		return this.id;
 	}
 
-	
-	/** 
+	/**
+	 * Setter for ID
+	 * 
 	 * @param id
 	 */
 	public void setID(int id) {
@@ -166,16 +159,6 @@ public abstract class Cinema implements Serializable, ICinemaBooking {
 		System.out.println("-----------------------------------");
 	}
 
-	
-	
-	/** 
-	 * @param seatRow
-	 * @throws SeatRowException
-	 */
-	/** 
-	 * @param seatRow
-	 * @throws SeatRowException
-	 */
 	/**
 	 * Prints the layout of a cinema.
 	 * Each subclass will specialise and print different formats.
@@ -183,18 +166,6 @@ public abstract class Cinema implements Serializable, ICinemaBooking {
 	 */
 	public abstract void printLayout();
 
-	
-	
-	/** 
-	 * @param seatRow
-	 * @return float
-	 * @throws SeatRowException
-	 */
-	/** 
-	 * @param seatRow
-	 * @return float
-	 * @throws SeatRowException
-	 */
 	@Override
 	public abstract float getMultiplier();
 
@@ -220,13 +191,6 @@ public abstract class Cinema implements Serializable, ICinemaBooking {
 		throw new SeatRowException();
 	}
 
-	
-	/** 
-	 * @param seatRow
-	 * @param seatCol
-	 * @param customerID
-	 * @throws IllegalArgumentException
-	 */
 	@Override
 	public void bookSeat(String seatRow, int seatCol, int customerID) throws IllegalArgumentException {
 		int row = 0;
@@ -246,13 +210,6 @@ public abstract class Cinema implements Serializable, ICinemaBooking {
 		}
 	}
 
-	
-	/** 
-	 * @param seatRow
-	 * @param seatCol
-	 * @return boolean
-	 * @throws IllegalArgumentException
-	 */
 	@Override
 	public boolean isBooked(String seatRow, int seatCol) throws IllegalArgumentException {
 		seatCol = seatCol - 1;
@@ -264,21 +221,14 @@ public abstract class Cinema implements Serializable, ICinemaBooking {
 			else
 				return true;
 		} catch (SeatRowException e) {
-			//e.printStackTrace();
+			// e.printStackTrace();
 			throw new IllegalArgumentException("Seat row input not valid");
 		} catch (IndexOutOfBoundsException ex) {
-			//System.out.println(seatRow + seatCol + getCinemaType());
+			// System.out.println(seatRow + seatCol + getCinemaType());
 			throw new IllegalArgumentException("Seat col/row input out of range");
 		}
 	}
 
-	
-	/** 
-	 * @param cinemaID
-	 * @param seatRow
-	 * @param seatCol
-	 * @throws IllegalArgumentException
-	 */
 	@Override
 	public void removeBooking(int cinemaID, String seatRow, int seatCol) throws IllegalArgumentException {
 		int row = 0;
@@ -306,46 +256,26 @@ public abstract class Cinema implements Serializable, ICinemaBooking {
 		this.printLayout();
 	}
 
-	
-	/** 
-	 * @return String
-	 */
 	@Override
 	public String getCinemaCode() {
 		return code;
 	}
 
-	
-	/** 
-	 * @return int
-	 */
 	@Override
 	public int getCineplexID() {
 		return this.Cineplexid;
 	}
 
-	
-	/** 
-	 * @return CinemaType
-	 */
 	@Override
 	public CinemaType getCinemaType() {
 		return cinemaType;
 	}
 
-	
-	/** 
-	 * @param code
-	 */
 	@Override
 	public void setCinemaCode(String code) {
 		this.code = code;
 	}
 
-	
-	/** 
-	 * @return String
-	 */
 	@Override
 	public String getCinemaClass() {
 		return this.cinemaType.toString();

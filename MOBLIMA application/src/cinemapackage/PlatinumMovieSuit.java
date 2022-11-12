@@ -12,11 +12,11 @@ import java.util.Iterator;
  */
 public class PlatinumMovieSuit extends Cinema {
 	/**
-     * Default constructor for class
-     * 
-     * @param code
-     * @param id
-     */
+	 * Default constructor for class
+	 * 
+	 * @param code
+	 * @param id
+	 */
 	public PlatinumMovieSuit(String code, int id) {
 		super(code, id);
 		super.setCinemaType(CinemaType.PLATINUM);
@@ -30,16 +30,17 @@ public class PlatinumMovieSuit extends Cinema {
 			}
 		}
 	}
+
 	/**
-     * Constructor with all params for cloning purpose. Should only be used within
-     * package
-     * 
-     * @param code
-     * @param id
-     * @param type
-     * @param Cineplexid
-     * @param seats
-     */
+	 * Constructor with all params for cloning purpose. Should only be used within
+	 * package
+	 * 
+	 * @param code
+	 * @param id
+	 * @param type
+	 * @param Cineplexid
+	 * @param seats
+	 */
 	public PlatinumMovieSuit(String code, int id, CinemaType type, int Cineplexid, ArrayList<ArrayList<Seat>> seats) {
 		this.code = code;
 		this.id = id;
@@ -48,10 +49,6 @@ public class PlatinumMovieSuit extends Cinema {
 		this.seats = seats;
 	}
 
-	
-	/** 
-	 * @return Cinema
-	 */
 	public Cinema cloneCinema() {
 		ArrayList<ArrayList<Seat>> seatcopy = new ArrayList<ArrayList<Seat>>();
 		int count = 0;
@@ -115,17 +112,14 @@ public class PlatinumMovieSuit extends Cinema {
 		printLegend();
 	}
 
-	
-	/** 
-	 * @return float
-	 */
 	@Override
 	public float getMultiplier() {
 		return 1.5f;
 	}
 
 	/**
-	 * Function helper to book coupleSeat. Unique to Platinum suit as only this class has couple seating
+	 * Function helper to book coupleSeat. Unique to Platinum suit as only this
+	 * class has couple seating
 	 * 
 	 * @param seatRow
 	 * @param seatCol
@@ -144,13 +138,6 @@ public class PlatinumMovieSuit extends Cinema {
 			throw new IllegalArgumentException("Seat was not booked since there is already a booking by someone else");
 	}
 
-	
-	/** 
-	 * @param seatRow
-	 * @param seatCol
-	 * @param customerID
-	 * @throws IllegalArgumentException
-	 */
 	@Override
 	public void bookSeat(String seatRow, int seatCol, int customerID) throws IllegalArgumentException {
 		int row = 0;
@@ -172,13 +159,6 @@ public class PlatinumMovieSuit extends Cinema {
 		}
 	}
 
-	
-	/** 
-	 * @param cinemaID
-	 * @param seatRow
-	 * @param seatCol
-	 * @throws IllegalArgumentException
-	 */
 	@Override
 	public void removeBooking(int cinemaID, String seatRow, int seatCol) throws IllegalArgumentException {
 		int row = 0;

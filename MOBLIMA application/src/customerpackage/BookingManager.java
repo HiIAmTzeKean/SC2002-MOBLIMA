@@ -130,6 +130,10 @@ public class BookingManager {
 			int seatCol) {
 		bookings.add(new Booking(transactionID, showtime, price, customer, seatRow, seatCol));
 	}
+	public void addBooking(String transactionID, Showtime showtime, float price, Customer customer, String seatRow,
+			int seatCol, boolean coupleSeating) {
+		bookings.add(new Booking(transactionID, showtime, price, customer, seatRow, seatCol,coupleSeating));
+	}
 
 	/**
 	 * Delete booking function should only be used once other classes

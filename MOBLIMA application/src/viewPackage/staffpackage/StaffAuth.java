@@ -19,9 +19,11 @@ public class StaffAuth extends View {
 			"username7", "username8", "username9", "username10" };
 
 	/**
-	 * Handles the login functionality for staff by checking if their username and password.
+	 * Handles the login functionality for staff by checking if their username and
+	 * password.
 	 * Upon succesfull login, staff is pointed to staffView.
-	 * Staff has a maximum of three attempts before function terminates automatically.
+	 * Staff has a maximum of three attempts before function terminates
+	 * automatically.
 	 */
 	public static void login() {
 		String password;

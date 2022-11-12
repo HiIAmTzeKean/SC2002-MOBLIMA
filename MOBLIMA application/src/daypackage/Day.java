@@ -1,9 +1,11 @@
 package daypackage;
 
 import java.io.Serializable;
+
 /**
  * Day object class. Day object is serialisable and is composited in
  * Showtime object
+ * 
  * @apiNote IDay
  * @author Ng Tze Kean
  * @since 06-11-2022
@@ -11,7 +13,7 @@ import java.io.Serializable;
 public class Day implements Serializable, IDay {
 	private boolean holiday;
 	private DayOfWeek dayOfWeek;
-	private static float multiplier=1f;;
+	private static float multiplier = 1f;;
 	// range 1 - 30. DD format
 	private int dayNumber;
 	// range 1 - 12. MM format
@@ -23,7 +25,7 @@ public class Day implements Serializable, IDay {
 	// "1300" means 1pm
 	private String time;
 
-	public Day(){
+	public Day() {
 		this.holiday = false;
 		this.dayNumber = 01;
 		this.monthNumber = 01;
@@ -31,13 +33,16 @@ public class Day implements Serializable, IDay {
 		this.dayOfWeek = DayOfWeek.SAT;
 		time = "1200";
 		setDate(dayNumber, monthNumber, yearNumber);
-		if (multiplier == 0f) multiplier = 1f;
+		if (multiplier == 0f)
+			multiplier = 1f;
 	}
-	public Day(String date){
-		this(date,"1200");
+
+	public Day(String date) {
+		this(date, "1200");
 	}
-	public Day(int dayNumber,int monthNumber, int yearNumber, String time){
-		if (dayNumber>31 || dayNumber <1 || monthNumber>12 || monthNumber<1) {
+
+	public Day(int dayNumber, int monthNumber, int yearNumber, String time) {
+		if (dayNumber > 31 || dayNumber < 1 || monthNumber > 12 || monthNumber < 1) {
 			throw new IllegalArgumentException("Invalid date string supplied");
 		}
 		this.holiday = false;
@@ -47,64 +52,69 @@ public class Day implements Serializable, IDay {
 		this.dayOfWeek = null;
 		this.time = time;
 		setDate(dayNumber, monthNumber, yearNumber);
-		if (multiplier == 0f) multiplier = 1f;
+		if (multiplier == 0f)
+			multiplier = 1f;
 	}
-	public Day(String fullDate, String time){
+
+	public Day(String fullDate, String time) {
 		setDate(fullDate);
 		this.holiday = false;
 		this.dayOfWeek = null;
 		this.time = time;
 		this.fullDate = fullDate;
-		if (multiplier == 0f) multiplier = 1f;
+		if (multiplier == 0f)
+			multiplier = 1f;
 	}
-	
-	/** 
+
+	/**
+	 * Function to check if another day object equals this object
+	 * 
 	 * @param anotherDay
 	 * @return boolean
 	 */
-	public boolean equals(Day anotherDay){
+	public boolean equals(Day anotherDay) {
 		if (anotherDay.dayNumber == dayNumber &&
-			anotherDay.monthNumber == monthNumber &&
-			anotherDay.yearNumber == yearNumber &&
-			anotherDay.time.equals(time))
+				anotherDay.monthNumber == monthNumber &&
+				anotherDay.yearNumber == yearNumber &&
+				anotherDay.time.equals(time))
 			return true;
 		return false;
 	}
-	
-	/** 
+
+	/**
+	 * Checks if the date within the day object is the same
+	 * 
 	 * @param anotherDay
 	 * @return boolean
 	 */
-	public boolean equalsDate(Day anotherDay){
+	public boolean equalsDate(Day anotherDay) {
 		if (anotherDay.dayNumber == dayNumber &&
-			anotherDay.monthNumber == monthNumber &&
-			anotherDay.yearNumber == yearNumber)
+				anotherDay.monthNumber == monthNumber &&
+				anotherDay.yearNumber == yearNumber)
 			return true;
 		return false;
 	}
+
 	@Override
-	//TODO change this to day
 	public float getDayMultiplier() {
-		if(holiday){
-			if(this.dayOfWeek==DayOfWeek.SUN || this.dayOfWeek==DayOfWeek.SAT){
-				return multiplier*2;
+		if (holiday) {
+			if (this.dayOfWeek == DayOfWeek.SUN || this.dayOfWeek == DayOfWeek.SAT) {
+				return multiplier * 2;
+			} else {
+				return multiplier * 1.5f;
 			}
-			else{
-				return multiplier*1.5f;
-			}
-		}
-		else{
-			if(this.dayOfWeek==DayOfWeek.SUN || this.dayOfWeek==DayOfWeek.SAT){
-				return multiplier*1.25f;
-			}
-			else{
+		} else {
+			if (this.dayOfWeek == DayOfWeek.SUN || this.dayOfWeek == DayOfWeek.SAT) {
+				return multiplier * 1.25f;
+			} else {
 				return multiplier;
 			}
 		}
 	}
-	
+
 	/**
 	 * Sets multiplier
+	 * 
 	 * @param newMulitplier
 	 */
 	public static void setMultiplier(float newMulitplier) {
@@ -114,21 +124,25 @@ public class Day implements Serializable, IDay {
 	public static float getMultiplier() {
 		return multiplier;
 	}
+
 	@Override
 	public void setHoliday() {
 		this.holiday = true;
 	}
+
 	@Override
 	public void removeHoliday() {
 		this.holiday = false;
 	}
+
 	@Override
 	public boolean isHoliday() {
-		if(holiday)
+		if (holiday)
 			return true;
 		else
 			return false;
 	}
+
 	@Override
 	public void setDate(int dayNumber, int monthNumber, int yearNumber) {
 		this.dayNumber = dayNumber;
@@ -136,20 +150,19 @@ public class Day implements Serializable, IDay {
 		this.yearNumber = yearNumber;
 		String monthString;
 		String dayString;
-		if (monthNumber<10){
-			monthString = "0"+Integer.toString(this.monthNumber);
-		}
-		else{
+		if (monthNumber < 10) {
+			monthString = "0" + Integer.toString(this.monthNumber);
+		} else {
 			monthString = Integer.toString(this.monthNumber);
 		}
-		if (dayNumber<10){
-			dayString = "0"+Integer.toString(this.dayNumber);
-		}
-		else{
+		if (dayNumber < 10) {
+			dayString = "0" + Integer.toString(this.dayNumber);
+		} else {
 			dayString = Integer.toString(this.dayNumber);
 		}
 		this.fullDate = Integer.toString(this.yearNumber) + monthString + dayString;
 	}
+
 	@Override
 	public void setDate(String fullDate) throws IllegalArgumentException {
 		if (fullDate.length() != 8) {
@@ -158,29 +171,33 @@ public class Day implements Serializable, IDay {
 		this.dayNumber = Integer.valueOf(fullDate.substring(6, 8));
 		this.monthNumber = Integer.valueOf(fullDate.substring(4, 6));
 		this.yearNumber = Integer.valueOf(fullDate.substring(0, 4));
-		if (dayNumber>31 || dayNumber <1 || monthNumber>12 || monthNumber<1) {
+		if (dayNumber > 31 || dayNumber < 1 || monthNumber > 12 || monthNumber < 1) {
 			throw new IllegalArgumentException("Invalid date string supplied");
 		}
 	}
+
 	@Override
 	public String getDate() {
 		return this.fullDate;
 	}
+
 	@Override
 	public void setDayOfWeek(DayOfWeek day) {
 		this.dayOfWeek = day;
 	}
+
 	@Override
 	public DayOfWeek getDayOfWeek() {
 		return this.dayOfWeek;
 	}
+
 	@Override
-	public void setTime(String time) throws IllegalArgumentException{
+	public void setTime(String time) throws IllegalArgumentException {
 		if (time.length() != 4) {
 			throw new IllegalArgumentException("Invalid time string length supplied");
 		}
 		try {
-			if (Integer.parseInt(time)>2359 || Integer.parseInt(time)<0) {
+			if (Integer.parseInt(time) > 2359 || Integer.parseInt(time) < 0) {
 				throw new IllegalArgumentException("Invalid time string supplied");
 			}
 			this.time = time;
@@ -190,9 +207,10 @@ public class Day implements Serializable, IDay {
 			throw e;
 		}
 	}
+
 	@Override
-	public String getTime(){
+	public String getTime() {
 		return this.time;
 	}
-	
+
 }

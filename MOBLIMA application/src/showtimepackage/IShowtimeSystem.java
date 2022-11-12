@@ -96,4 +96,5 @@ public interface IShowtimeSystem extends IShowtime {
 	void changeShowtimeDay(int showtimeID, Day day) throws IllegalArgumentException;
 
 	void removeShowtime(int showtimeID);
+	void printShowtimeAdmin();
 }

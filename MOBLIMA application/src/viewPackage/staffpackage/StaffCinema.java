@@ -18,8 +18,10 @@ import viewPackage.View;
  * @since 05-11-2022
  */
 public class StaffCinema extends View {
-    /*
-     * Function that displays possible options for Staff interactions with Cineplexes
+    /**
+     * Function that displays possible options for Staff interactions with
+     * Cineplexes
+     * 
      */
     public static void displayMenu() {
         System.out.print("\033[H\033[2J");
@@ -33,10 +35,12 @@ public class StaffCinema extends View {
         System.out.println("-------------------------------------------------");
     }
 
-    /*
+    /**
      * Uses an instantiated CineplexManager to create a cineplex.
-     * Uses enumeration values to enable staff to backtrack through the attribute input process if required.
-     */ 
+     * Uses enumeration values to enable staff to backtrack through the attribute
+     * input process if required.
+     * 
+     */
     private static void createCineplex() {
         enum createCineplexState {
             NAME, LOCATION, CREATE
@@ -148,7 +152,8 @@ public class StaffCinema extends View {
     }
 
     /**
-     * Main function of StaffCinema class that takes user inputs and calls subsequent functions.
+     * Main function of StaffCinema class that takes user inputs and calls
+     * subsequent functions.
      */
     public static void start() {
         sc = new Scanner(System.in);
@@ -193,7 +198,8 @@ public class StaffCinema extends View {
     }
 
     /**
-     * Function that lists possible options for the update cinema functionality for Staff.
+     * Function that lists possible options for the update cinema functionality for
+     * Staff.
      */
     private static void updateCinplexMenu() {
         System.out.print("\033[H\033[2J");
