@@ -57,6 +57,11 @@ public class Day implements Serializable, IDay {
 		this.fullDate = fullDate;
 		if (multiplier == 0f) multiplier = 1f;
 	}
+	
+	/** 
+	 * @param anotherDay
+	 * @return boolean
+	 */
 	public boolean equals(Day anotherDay){
 		if (anotherDay.dayNumber == dayNumber &&
 			anotherDay.monthNumber == monthNumber &&
@@ -65,6 +70,11 @@ public class Day implements Serializable, IDay {
 			return true;
 		return false;
 	}
+	
+	/** 
+	 * @param anotherDay
+	 * @return boolean
+	 */
 	public boolean equalsDate(Day anotherDay){
 		if (anotherDay.dayNumber == dayNumber &&
 			anotherDay.monthNumber == monthNumber &&

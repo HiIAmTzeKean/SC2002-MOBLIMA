@@ -24,10 +24,18 @@ public class Cineplex implements Serializable{
 		cinemas = new ArrayList<Cinema>();
 	}
 
+	
+	/** 
+	 * @param cinema
+	 */
 	public void addCinema(Cinema cinema){
 		cinemas.add(cinema);
 	}
 
+	
+	/** 
+	 * @param cinema
+	 */
 	public void removeCinema(Cinema cinema) {
 		int target=0;
 		for (Iterator<Cinema> it = cinemas.iterator(); it.hasNext();) {
@@ -41,25 +49,49 @@ public class Cineplex implements Serializable{
 		// Not found
 		throw new IllegalArgumentException("Cinema is not found");
 	}
+	
+	/** 
+	 * @return String
+	 */
 	public String getName() {
 		return name;
 	}
 
+	
+	/** 
+	 * @param name
+	 */
 	public void setName(String name) {
 		this.name = name;
 	}
 
+	
+	/** 
+	 * @return String
+	 */
 	public String getLocation() {
 		return location;
 	}
 
+	
+	/** 
+	 * @param location
+	 */
 	public void setLocation(String location) {
 		this.location = location;
 	}
 	
+	
+	/** 
+	 * @return int
+	 */
 	public int getID() {
 		return id;
 	}
+	
+	/** 
+	 * @param id
+	 */
 	public void setID(int id) {
 		this.id = id;
 	}

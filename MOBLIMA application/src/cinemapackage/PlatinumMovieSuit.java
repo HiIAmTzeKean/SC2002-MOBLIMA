@@ -48,6 +48,10 @@ public class PlatinumMovieSuit extends Cinema {
 		this.seats = seats;
 	}
 
+	
+	/** 
+	 * @return Cinema
+	 */
 	public Cinema cloneCinema() {
 		ArrayList<ArrayList<Seat>> seatcopy = new ArrayList<ArrayList<Seat>>();
 		int count = 0;
@@ -111,6 +115,10 @@ public class PlatinumMovieSuit extends Cinema {
 		printLegend();
 	}
 
+	
+	/** 
+	 * @return float
+	 */
 	@Override
 	public float getMultiplier() {
 		return 1.5f;
@@ -125,7 +133,7 @@ public class PlatinumMovieSuit extends Cinema {
 	 * @throws IllegalArgumentException
 	 */
 	protected void bookCoupleSeat(String seatRow, int seatCol, int customerID) throws IllegalArgumentException {
-		if ((seatCol != 1 && seatCol != 3 && seatCol != 5) || seatRow != "C")
+		if ((seatCol != 1 && seatCol != 3 && seatCol != 5) || !seatRow.equals("C"))
 			throw new IllegalArgumentException("Invalid column/Row selection");
 
 		if (!isBooked(seatRow, seatCol) && !isBooked(seatRow, seatCol + 1)) {
@@ -136,6 +144,13 @@ public class PlatinumMovieSuit extends Cinema {
 			throw new IllegalArgumentException("Seat was not booked since there is already a booking by someone else");
 	}
 
+	
+	/** 
+	 * @param seatRow
+	 * @param seatCol
+	 * @param customerID
+	 * @throws IllegalArgumentException
+	 */
 	@Override
 	public void bookSeat(String seatRow, int seatCol, int customerID) throws IllegalArgumentException {
 		int row = 0;
@@ -157,6 +172,13 @@ public class PlatinumMovieSuit extends Cinema {
 		}
 	}
 
+	
+	/** 
+	 * @param cinemaID
+	 * @param seatRow
+	 * @param seatCol
+	 * @throws IllegalArgumentException
+	 */
 	@Override
 	public void removeBooking(int cinemaID, String seatRow, int seatCol) throws IllegalArgumentException {
 		int row = 0;

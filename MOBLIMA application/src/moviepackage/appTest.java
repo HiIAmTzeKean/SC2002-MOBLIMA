@@ -19,6 +19,10 @@ public class appTest {
         deepCopy.addReview(new Review(1,"Nice movie"));
         assertNotEquals(newmovie.getReviews(),deepCopy.getReviews());
     }
+    
+    /** 
+     * @param String[]args
+     */
     public static void main(String[]args){
         boolean createData = false;
         if(createData){

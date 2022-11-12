@@ -35,19 +35,35 @@ public class Age implements Serializable, IAge {
 		}
 		
 	}
+	
+	/** 
+	 * @param ageNumber
+	 */
 	@Override
 	public void setAgeNumber(int ageNumber){
 		this.ageNumber=ageNumber;
 		setAgeCategory();
 	}
+	
+	/** 
+	 * @return int
+	 */
 	@Override
 	public int getAgeNumber(){
 		return this.ageNumber;
 	}
+	
+	/** 
+	 * @return AgeCategory
+	 */
 	@Override
 	public AgeCategory getAgeCategory(){
 		return this.category;
 	}
+	
+	/** 
+	 * @return float
+	 */
 	@Override
 	public float getAgeMultiplier() {
 		if(this.category == AgeCategory.SENIOR){

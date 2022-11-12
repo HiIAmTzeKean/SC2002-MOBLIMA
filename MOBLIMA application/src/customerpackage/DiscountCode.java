@@ -13,7 +13,11 @@ public class DiscountCode{
     private static ArrayList<DiscountCodeTicket> discountCodes;
     private static DiscountCode discountCode;
     private DiscountCode(){}
-    public static DiscountCode getInstance(){
+    
+	/** 
+	 * @return DiscountCode
+	 */
+	public static DiscountCode getInstance(){
         if (discountCode == null){
 			DiscountCode.deseraliseDiscountCode("./MOBLIMA application/data/discountcode/discountcode.dat");
 			DiscountCode.discountCode = new DiscountCode();
@@ -27,7 +31,11 @@ public class DiscountCode{
 			discountCode = null;
 		}
     }
-    private static void deseraliseDiscountCode(String filename){
+    
+	/** 
+	 * @param filename
+	 */
+	private static void deseraliseDiscountCode(String filename){
         ArrayList<DiscountCodeTicket>  c = null;
 		try {
 			FileInputStream fileIn = new FileInputStream(filename);
@@ -46,7 +54,12 @@ public class DiscountCode{
 		}
 		DiscountCode.discountCodes = c;
     }
-    private static void seraliseDiscountCode(String filename, ArrayList<DiscountCodeTicket> c) {
+    
+	/** 
+	 * @param filename
+	 * @param c
+	 */
+	private static void seraliseDiscountCode(String filename, ArrayList<DiscountCodeTicket> c) {
 		try{
 			FileOutputStream fos = new FileOutputStream(filename);
 			ObjectOutputStream oos = new ObjectOutputStream(fos);
@@ -57,9 +70,19 @@ public class DiscountCode{
 			i.printStackTrace();
 		}
 	}
+	
+	/** 
+	 * @param code
+	 * @param discount
+	 */
 	public void addDiscountCodeTicket(String code, float discount){
 		discountCodes.add(new DiscountCodeTicket(code, discount));
 	}
+	
+	/** 
+	 * @param code
+	 * @throws IllegalArgumentException
+	 */
 	public void removeDiscountCode(String code)  throws IllegalArgumentException{
 		int target = 0;
 		boolean found = false;
@@ -83,6 +106,11 @@ public class DiscountCode{
 		}
 		System.out.printf("|-----------------------------|\n");
 	}
+	
+	/** 
+	 * @param code
+	 * @return boolean
+	 */
 	public boolean checkValid(String code){
 		for (Iterator<DiscountCodeTicket> it = discountCodes.iterator(); it.hasNext();) {
 			if(it.next().getCode().compareTo(code)==0)
@@ -90,6 +118,12 @@ public class DiscountCode{
 		}
 		return false;
 	}
+	
+	/** 
+	 * @param code
+	 * @return float
+	 * @throws IllegalArgumentException
+	 */
 	public float getMultiplier(String code) throws IllegalArgumentException{
 		for (Iterator<DiscountCodeTicket> it = discountCodes.iterator(); it.hasNext();) {
 			DiscountCodeTicket c = it.next();
@@ -99,6 +133,10 @@ public class DiscountCode{
 		// Not found
 		throw new IllegalArgumentException("Invalid discount code provided");	
 	}
+	
+	/** 
+	 * @param code
+	 */
 	public void printMulitplier(String code){
 		float discount = getMultiplier(code);
 		System.out.printf("Discount given is: %.2f%%", discount*100);

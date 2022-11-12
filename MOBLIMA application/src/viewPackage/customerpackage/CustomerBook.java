@@ -93,6 +93,8 @@ public class CustomerBook extends View {
 						state = bookMenuState.SELECTMOVIE;
 						break;
 					} catch (IllegalArgumentException e) {
+						System.out.printf("Only Preview and Now Showing Movies are Available for Booking");
+						waitForEnter(null);
 						state = bookMenuState.SELECTMOVIE;
 						break;
 					}
@@ -378,11 +380,12 @@ public class CustomerBook extends View {
 							System.out.println("Please Enter Your Discount Code:");
 							customerDiscountCode = sc.next();	
 							if(!cp.isValidDiscountCode(customerDiscountCode)){
-								System.out.println("Invalid Discount Code Entered. Pleae Try Again.");
+								System.out.println("Invalid Discount Code Entered. Please Try Again.");
 								waitForEnter(null);
 								state = bookMenuState.DISPLAYPRICE;
 							}
 							System.out.printf("Your Final Price with Discount is %.2f\n",cp.getBookingPrice(customerObject, cinemaType, customerRow, customerColumn, customerShowtime, customerCoupleSeat, customerDiscountCode));
+							customerBookingPrice = cp.getBookingPrice(customerObject, cinemaType, customerRow, customerColumn, customerShowtime, customerCoupleSeat, customerDiscountCode);
 						}
 						else if(discountCodeIndication.compareTo("N") == 0){
 							customerDiscountCode = "";
@@ -429,7 +432,14 @@ public class CustomerBook extends View {
 						customerShowtime.printShowtime();
 						System.out.println("|--------------------------------------------------------------------------------------------------------------|");
 						System.out.printf("Seat Number : %s %d\n",customerRow, customerColumn);	
-						System.out.printf("Final Price : %f \n",customerBookingPrice);
+						//Different dates
+						//Different ages
+						//Different cinema type
+						//Discount code
+						//Couple seat
+						System.out.printf("Seat Type Booked : %s\n", customerCoupleSeat ?  "Couple Seat" : "Regular Seat");
+						System.out.printf("Customer Age : %d\n", customerObject.getAge().getAgeNumber());
+						System.out.printf("Final Price : %.2f \n",customerBookingPrice);
 						System.out.println("Would You Like to Confirm Payment?");
 						System.out.println("[Enter 0 to Cancel Payment and Select Another Movie]");
 						System.out.println("[Enter 1 to Confirm Payment]");
@@ -472,6 +482,13 @@ public class CustomerBook extends View {
 						System.out.println("Error with creating customer credentials.");
 						System.out.println("Redirecting to entering customer details");
 						state = bookMenuState.CUSTOMERDETAILS;
+						waitForEnter(null);
+						break;
+					}
+					catch(IllegalArgumentException e){
+						System.out.println("Error with Creating Booking.");
+						System.out.println("Redirecting to Seat Selection");
+						state = bookMenuState.SELECTSEAT;
 						waitForEnter(null);
 						break;
 					}

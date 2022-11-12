@@ -31,6 +31,11 @@ public class BookingManager {
 		BookingManager.bookings = bookings;
 	}
 
+	
+	/** 
+	 * @param filename
+	 * @return ArrayList<Booking>
+	 */
 	private static ArrayList<Booking> deseraliseBookings(String filename) {
 		ArrayList<Booking> c = null;
 		try {
@@ -50,6 +55,11 @@ public class BookingManager {
 		return c;
 	}
 
+	
+	/** 
+	 * @param filename
+	 * @param c
+	 */
 	private static void seraliseBookings(String filename, ArrayList<Booking> c) {
 		try {
 			FileOutputStream fos = new FileOutputStream(filename);
@@ -61,6 +71,10 @@ public class BookingManager {
 		}
 	}
 
+	
+	/** 
+	 * @return BookingManager
+	 */
 	public static BookingManager getInstance() {
 		if (BookingManager.bookingManager == null) {
 			ArrayList<Booking> c = BookingManager.deseraliseBookings("./MOBLIMA application/data/booking/booking.dat");

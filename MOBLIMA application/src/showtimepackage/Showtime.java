@@ -40,6 +40,10 @@ public class Showtime implements IBooking, Serializable{
 		this.day = day;
 		this.id = id;
 	}
+	
+	/** 
+	 * @param id
+	 */
 	public void setID(int id){
 		this.id = id;
 	}
@@ -62,6 +66,10 @@ public class Showtime implements IBooking, Serializable{
 						day.getTime(),
 						day.isHoliday()?"YES":"NO");
 	}
+	
+	/** 
+	 * @return String
+	 */
 	public String getTime(){
 		return day.getTime();
 	}
@@ -71,24 +79,52 @@ public class Showtime implements IBooking, Serializable{
 	public void unsetHoliday(){
 		day.removeHoliday();
 	}
+	
+	/** 
+	 * @return boolean
+	 */
 	public boolean isHoliday(){
 		return day.isHoliday();
 	}
+	
+	/** 
+	 * @return String
+	 */
 	public String getDate() {
 		return day.getDate();
 	}
+	
+	/** 
+	 * @return int
+	 */
 	public int getID() {
 		return id;
 	}
+	
+	/** 
+	 * @return Day
+	 */
 	public Day getDayObject(){
 		return (Day)day;
 	}
+	
+	/** 
+	 * @return CinemaType
+	 */
 	public CinemaType getCinemaType(){
 		return cinema.getCinemaType();
 	}
+	
+	/** 
+	 * @return int
+	 */
 	public int getCineplexID(){
 		return cinema.getCineplexID();
 	}
+	
+	/** 
+	 * @return Movie
+	 */
 	public Movie getMovieObject(){
 		return movie;
 	}
@@ -104,41 +140,97 @@ public class Showtime implements IBooking, Serializable{
 		CineplexManager cm = CineplexManager.getInstance();
 		cm.getCineplex(cineplexID).printCineplex();
 	}
+	
+	/** 
+	 * @return String
+	 */
 	public String getCinemaCode(){
 		return cinema.getCinemaCode();
 	}
+	
+	/** 
+	 * @return String
+	 */
 	public String getCinemaClass(){
 		return cinema.getCinemaClass();
 	}
+	
+	/** 
+	 * @return int
+	 */
 	public int getMovieID() {
 		return movie.getID();
 	}
+	
+	/** 
+	 * @return MovieStatus
+	 */
 	public MovieStatus getMovieStatus(){
 		return movie.getMovieStatus();
 	}
+	
+	/** 
+	 * @param status
+	 */
 	public void setMovieStatus(MovieStatus status){
 		movie.setMovieStatus(status);
 	}
+	
+	/** 
+	 * @param cinemaID
+	 * @param seatRow
+	 * @param seatCol
+	 */
 	public void removeBooking(int cinemaID, String seatRow, int seatCol){
 		cinema.removeBooking(cinemaID, seatRow, seatCol);
 	}
+	
+	/** 
+	 * @param seatRow
+	 * @param seatCol
+	 * @return boolean
+	 */
 	public boolean isBooked(String seatRow, int seatCol){
 		return cinema.isBooked(seatRow, seatCol);
 	}
+	
+	/** 
+	 * @return float
+	 */
 	public static float getBasePrice(){
 		return Showtime.basePrice;
 	}
+	
+	/** 
+	 * @param basePrice
+	 */
 	public static void setBasePrice(float basePrice){
 		Showtime.basePrice = basePrice;
 	}
+	
+	/** 
+	 * @return String
+	 */
 	public String getMovieName()
 	{
 		return movie.getMovieTitle();
 	}
+	
+	/** 
+	 * @param day
+	 * @throws IllegalArgumentException
+	 */
 	public void changeDay(IDay day) throws IllegalArgumentException{
 		if (day==null) throw new IllegalArgumentException("Day object null");
 		this.day = day;
 	}
+	
+	/** 
+	 * @param seatRow
+	 * @param seatCol
+	 * @param customerID
+	 * @throws IllegalArgumentException
+	 */
 	@Override
 	public void bookSeat(String seatRow, int seatCol, int customerID) throws IllegalArgumentException{
 		System.out.println("===== Seat booking in progress =====");
@@ -153,6 +245,13 @@ public class Showtime implements IBooking, Serializable{
 		}
 		System.out.println("===== Seat booking finish =====");
 	}
+	
+	/** 
+	 * @param seatRow
+	 * @param seatCol
+	 * @param customerID
+	 * @throws IllegalArgumentException
+	 */
 	public void bookCoupleSeat(String seatRow, int seatCol, int customerID) throws IllegalArgumentException{
 		System.out.println("===== Seat booking in progress =====");
 
@@ -169,6 +268,13 @@ public class Showtime implements IBooking, Serializable{
 		}
 		System.out.println("===== Seat booking finish =====");
 	}
+	
+	/** 
+	 * @param customer
+	 * @return float
+	 * @throws IllegalArgumentException
+	 * @throws CustomerNullException
+	 */
 	@Override
 	public float getPrice(Customer customer) throws IllegalArgumentException, CustomerNullException {
 		if (customer == null) throw new CustomerNullException();
@@ -183,6 +289,14 @@ public class Showtime implements IBooking, Serializable{
 			throw e;
 		}
 	}
+	
+	/** 
+	 * @param customer
+	 * @param discountCodeTicket
+	 * @return float
+	 * @throws IllegalArgumentException
+	 * @throws CustomerNullException
+	 */
 	@Override
 	public float getPrice(Customer customer, String discountCodeTicket) throws IllegalArgumentException, CustomerNullException{
 		try{
@@ -199,6 +313,15 @@ public class Showtime implements IBooking, Serializable{
 			throw ex;
 		}
 	}
+	
+	/** 
+	 * @param customer
+	 * @param isCoupleSeat
+	 * @param discountCodeTicket
+	 * @return float
+	 * @throws IllegalArgumentException
+	 * @throws CustomerNullException
+	 */
 	@Override
 	public float getPrice(Customer customer, boolean isCoupleSeat, String discountCodeTicket) throws IllegalArgumentException, CustomerNullException{
 		if (isCoupleSeat) {
@@ -209,6 +332,14 @@ public class Showtime implements IBooking, Serializable{
 		}
 		
 	}
+	
+	/** 
+	 * @param customer
+	 * @param isCoupleSeat
+	 * @return float
+	 * @throws IllegalArgumentException
+	 * @throws CustomerNullException
+	 */
 	@Override
 	public float getPrice(Customer customer, boolean isCoupleSeat) throws IllegalArgumentException, CustomerNullException{
 		if (isCoupleSeat)

@@ -6,6 +6,10 @@ import java.io.IOException;
 import cinemapackage.*;
 
 public class appTest {
+    
+    /** 
+     * @param []
+     */
     public static void main(String args []){
         boolean createDat = true;
         if (createDat){
