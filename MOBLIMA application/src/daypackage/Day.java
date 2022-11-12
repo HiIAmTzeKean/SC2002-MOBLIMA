@@ -50,16 +50,8 @@ public class Day implements Serializable, IDay {
 		if (multiplier == 0f) multiplier = 1f;
 	}
 	public Day(String fullDate, String time){
-		if (fullDate.length() != 8) {
-			throw new IllegalArgumentException("Invalid date string supplied");
-		}
+		setDate(fullDate);
 		this.holiday = false;
-		this.dayNumber = Integer.valueOf(fullDate.substring(6, 8));
-		this.monthNumber = Integer.valueOf(fullDate.substring(4, 6));
-		this.yearNumber = Integer.valueOf(fullDate.substring(0, 4));
-		if (dayNumber>31 || dayNumber <1 || monthNumber>12 || monthNumber<1) {
-			throw new IllegalArgumentException("Invalid date string supplied");
-		}
 		this.dayOfWeek = null;
 		this.time = time;
 		this.fullDate = fullDate;
@@ -145,7 +137,17 @@ public class Day implements Serializable, IDay {
 		}
 		this.fullDate = Integer.toString(this.yearNumber) + monthString + dayString;
 	}
-
+	public void setDate(String fullDate) throws IllegalArgumentException {
+		if (fullDate.length() != 8) {
+			throw new IllegalArgumentException("Invalid date string supplied");
+		}
+		this.dayNumber = Integer.valueOf(fullDate.substring(6, 8));
+		this.monthNumber = Integer.valueOf(fullDate.substring(4, 6));
+		this.yearNumber = Integer.valueOf(fullDate.substring(0, 4));
+		if (dayNumber>31 || dayNumber <1 || monthNumber>12 || monthNumber<1) {
+			throw new IllegalArgumentException("Invalid date string supplied");
+		}
+	}
 	public String getDate() {
 		return this.fullDate;
 	}
@@ -158,8 +160,20 @@ public class Day implements Serializable, IDay {
 		return this.dayOfWeek;
 	}
 	
-	public void setTime(String time){
-		this.time = time;
+	public void setTime(String time) throws IllegalArgumentException{
+		if (time.length() != 4) {
+			throw new IllegalArgumentException("Invalid time string length supplied");
+		}
+		try {
+			if (Integer.parseInt(time)>2359 || Integer.parseInt(time)<0) {
+				throw new IllegalArgumentException("Invalid time string supplied");
+			}
+			this.time = time;
+		} catch (NumberFormatException e) {
+			throw new IllegalArgumentException("Invalid time string supplied");
+		} catch (IllegalArgumentException e) {
+			throw e;
+		}
 	}
 	
 	public String getTime(){

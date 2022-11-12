@@ -31,6 +31,7 @@ public interface IDay {
 	 * @param yearNumber
 	 */
 	void setDate(int dayNumber, int monthNumber, int yearNumber);
+	void setDate(String fullDate);
 	/**
 	 * Returns the date of Day object in YYYYMMDD format
 	 * @return String
@@ -51,7 +52,7 @@ public interface IDay {
 	 * Paramter time passed in to be in 24H format 1359H
 	 * @param time
 	 */
-	void setTime(String time);
+	void setTime(String time) throws IllegalArgumentException;
 	/**
 	 * Returns the time stored in Day object
 	 * @return String

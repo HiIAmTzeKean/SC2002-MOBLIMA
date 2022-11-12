@@ -288,6 +288,8 @@ public class CustomerBook extends View {
 					}
 					catch(InputMismatchException e){
 						inputMismatchHandler();
+						state = bookMenuState.CUSTOMERDETAILS;
+						break;
 					}
 				case CONFIRMCUSTOMERDETAILS:
 					try {

@@ -138,7 +138,7 @@ public class CustomerShowtime {
 			System.out.println();	
 		}
 		catch(IllegalArgumentException e){
-			System.out.println("No Showtimes exist for the Movie and Cineplex combination — please try again");
+			throw e;
 		}	
 	}
 
