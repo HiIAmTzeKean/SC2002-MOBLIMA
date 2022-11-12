@@ -282,7 +282,8 @@ public class Showtime implements IBooking, Serializable{
 			float movieMultiplier = (float)movie.getMultiplier();
 			float customerMulitplier = customer.getMultiplier();
 			float cinemaMultiplier = cinema.getMultiplier();
-			return basePrice * (movieMultiplier * cinemaMultiplier * customerMulitplier);
+			float dayMultiplier = day.getDayMultiplier();
+			return basePrice * (movieMultiplier * cinemaMultiplier * customerMulitplier * dayMultiplier);
 		}
 		catch (IllegalArgumentException e){
 			e.printStackTrace();

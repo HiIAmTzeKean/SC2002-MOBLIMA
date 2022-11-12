@@ -15,6 +15,8 @@ public class TestData {
      */
     public static void main(String args []) {
         createAllData();
+        ShowtimeManager sm = ShowtimeManager.getInstance();
+        sm.setHoliday(new Day("20220101"));
         MovieManager.close();
         CinemaManager.close();
         CineplexManager.close();
