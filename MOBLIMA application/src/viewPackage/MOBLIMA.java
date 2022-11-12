@@ -31,7 +31,7 @@ public class MOBLIMA extends View {
 		waitForEnter(null);
 		startAllManagers();
 		start();
-		// closeAllManagers();
+		closeAllManagers();
 		System.out.println("-----------------------------------------");
 		System.out.println("\tEXITING MOBLIMA\t\t");
 		System.out.println("-----------------------------------------");

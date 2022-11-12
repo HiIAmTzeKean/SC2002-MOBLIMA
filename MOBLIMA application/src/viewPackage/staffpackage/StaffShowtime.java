@@ -320,6 +320,11 @@ public class StaffShowtime extends View {
 		waitForEnter(null);
 	}
 
+	/**
+	 * Allows the staff to remove a showtime in the data file.
+	 * 
+	 * @apiNote IShowtimeSystem
+	 */
 	private static void removeAShowtime() {
 		IShowtimeSystem ssHandler = ShowtimeManager.getInstance();
 

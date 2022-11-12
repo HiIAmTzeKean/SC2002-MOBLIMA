@@ -84,10 +84,23 @@ public class ShowtimeManager implements IShowtimeSystem {
 		ShowtimeManager.showtimeManager = null;
 	}
 
+	/**
+	 * Function used to create test data. Used with admin rights to bypass all checks to add a new showtime object.
+	 * 
+	 * @param movie
+	 * @param cinema
+	 * @param day
+	 */
 	public void addShowtimeSystem(Movie movie, ICinemaBooking cinema, IDay day) {
 		ShowtimeManager.showtimes.add(new Showtime(movie, cinema, day, ++lastID));
 	}
 
+	/**
+	 * Function used to create test data. Used with admin rights to obtain showtime object via its ID.
+	 * 
+	 * @param showtimeID
+	 * @return
+	 */
 	public Showtime getShowtimeByID(int showtimeID) {
 		for (Iterator<Showtime> it = showtimes.iterator(); it.hasNext();) {
 			Showtime s = it.next();
@@ -98,6 +111,7 @@ public class ShowtimeManager implements IShowtimeSystem {
 		throw new IllegalArgumentException("Showtime is not found");
 	}
 
+	@Override
 	public Showtime getShowtime(String movieName, Day day, int cineplexID, CinemaType cinemaType)
 			throws IllegalArgumentException {
 		for (Iterator<Showtime> it = showtimes.iterator(); it.hasNext();) {
@@ -110,7 +124,14 @@ public class ShowtimeManager implements IShowtimeSystem {
 		throw new IllegalArgumentException("Showtime is not found");
 	}
 
-	public int getShowtimeIndex(int showtimeID) throws IllegalArgumentException {
+	/**
+	 * Returns the index of the showtime object in the array
+	 * 
+	 * @param showtimeID
+	 * @return
+	 * @throws IllegalArgumentException
+	 */
+	protected int getShowtimeIndex(int showtimeID) throws IllegalArgumentException {
 		if (showtimes == null || showtimes.size() == 0) {
 			// exit before any looping is done
 			throw new IllegalArgumentException("No showtime exist");
@@ -126,6 +147,16 @@ public class ShowtimeManager implements IShowtimeSystem {
 		throw new IllegalArgumentException("Showtime is not found");
 	}
 
+	/**
+	 * Allows booking of seat without normal functional checks that will be done for a normal user.
+	 * Assumes there is privilege access given.
+	 * 
+	 * @param showtimeID
+	 * @param seatRow
+	 * @param seatCol
+	 * @param customer
+	 * @throws IllegalArgumentException
+	 */
 	public void bookSeatAdmin(int showtimeID, String seatRow, int seatCol, Customer customer)
 			throws IllegalArgumentException {
 		try {

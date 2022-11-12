@@ -31,7 +31,12 @@ public class StaffSystem extends View {
         System.out.println("------------------------------------------------------------------");
     }
 
-    public static void addDiscountCode() {
+    /**
+	 * Allows the staff to add a new discount code which is stored in DiscountCode class
+	 * 
+	 * @apiNote DiscountCode
+	 */
+    private static void addDiscountCode() {
         DiscountCode DC = DiscountCode.getInstance();
         enum setDiscoundEnum {
             CODE, DISCOUNT, CREATE
@@ -87,7 +92,13 @@ public class StaffSystem extends View {
         waitForEnter(null);
     }
 
-    public static void removeDiscountCode() {
+    /**
+	 * Allows the staff to update the showtime date and time
+	 * that is stored in the data file
+	 * 
+	 * @apiNote IShowtimeSystem
+	 */
+    private static void removeDiscountCode() {
         DiscountCode DC = DiscountCode.getInstance();
         enum removeDiscoundEnum {
             CODE, CREATE
