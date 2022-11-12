@@ -10,8 +10,8 @@ import customerpackage.CustomerNullException;
  * @since 05-11-2022
  */
 public interface IShowtime {
-    void bookSeat(int showtimeID, String seatRow, int seatCol, Customer customer)throws IllegalArgumentException, CustomerNullException;
-    void bookCoupleSeat(int showtimeID, String seatRow, int seatCol, Customer customer)throws IllegalArgumentException, CustomerNullException;
+    void bookSeat(int showtimeID, String seatRow, int seatCol, Customer customer, String discountCodeTicket)throws IllegalArgumentException, CustomerNullException;
+    void bookCoupleSeat(int showtimeID, String seatRow, int seatCol, Customer customer, boolean isCoupleSeat, String discountCodeTicket)throws IllegalArgumentException, CustomerNullException;
 	/**
 	 * Check if the requested seat is booked
 	 * @return
