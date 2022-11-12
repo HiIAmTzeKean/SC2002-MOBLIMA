@@ -148,7 +148,7 @@ public class ShowtimeManager implements IShowtimeSystem {
 	}
 
 	@Override
-	public void bookSeat(int showtimeID, String seatRow, int seatCol, Customer customer)
+	public void bookSeat(int showtimeID, String seatRow, int seatCol, Customer customer, String discountCodeTicket)
 			throws IllegalArgumentException, CustomerNullException {
 		try {
 			Showtime s = showtimes.get(getShowtimeIndex(showtimeID));
@@ -157,7 +157,8 @@ public class ShowtimeManager implements IShowtimeSystem {
 				showtimes.get(getShowtimeIndex(showtimeID)).bookSeat(seatRow, seatCol, customer.getID());
 				BookingManager bookingManager = BookingManager.getInstance();
 
-				bookingManager.addBooking(showtimes.get(getShowtimeIndex(showtimeID)).getCinemaCode() +
+				if (discountCodeTicket == null){
+					bookingManager.addBooking(showtimes.get(getShowtimeIndex(showtimeID)).getCinemaCode() +
 						showtimes.get(getShowtimeIndex(showtimeID)).getDate() +
 						showtimes.get(getShowtimeIndex(showtimeID)).getTime(),
 						showtimes.get(getShowtimeIndex(showtimeID)),
@@ -165,6 +166,18 @@ public class ShowtimeManager implements IShowtimeSystem {
 						customer,
 						seatRow,
 						seatCol);
+				}
+				else {
+					bookingManager.addBooking(showtimes.get(getShowtimeIndex(showtimeID)).getCinemaCode() +
+						showtimes.get(getShowtimeIndex(showtimeID)).getDate() +
+						showtimes.get(getShowtimeIndex(showtimeID)).getTime(),
+						showtimes.get(getShowtimeIndex(showtimeID)),
+						showtimes.get(getShowtimeIndex(showtimeID)).getPrice(customer, discountCodeTicket),
+						customer,
+						seatRow,
+						seatCol);
+				}
+
 			} else {
 				throw new IllegalArgumentException("Error in booking seat");
 			}
@@ -178,24 +191,39 @@ public class ShowtimeManager implements IShowtimeSystem {
 	}
 
 	@Override
-	public void bookCoupleSeat(int showtimeID, String seatRow, int seatCol, Customer customer)
+	public void bookCoupleSeat(int showtimeID, String seatRow, int seatCol, Customer customer, boolean isCoupleSeat, String discountCodeTicket)
 			throws IllegalArgumentException, CustomerNullException {
 		try {
 			Showtime s = showtimes.get(getShowtimeIndex(showtimeID));
 			if (s.getMovieStatus() != MovieStatus.END_OF_SHOWING ||
 					s.getMovieStatus() != MovieStatus.COMING_SOON) {
 				showtimes.get(getShowtimeIndex(showtimeID)).bookCoupleSeat(seatRow, seatCol, customer.getID());
+				
 				BookingManager bookingManager = BookingManager.getInstance();
-
-				bookingManager.addBooking(showtimes.get(getShowtimeIndex(showtimeID)).getCinemaCode() +
+				
+				if (discountCodeTicket == null){
+					bookingManager.addBooking(showtimes.get(getShowtimeIndex(showtimeID)).getCinemaCode() +
+					showtimes.get(getShowtimeIndex(showtimeID)).getDate() +
+					showtimes.get(getShowtimeIndex(showtimeID)).getTime(),
+					showtimes.get(getShowtimeIndex(showtimeID)),
+					showtimes.get(getShowtimeIndex(showtimeID)).getPrice(customer,isCoupleSeat),
+					customer,
+					seatRow,
+					seatCol,
+					true);
+				}
+				else {
+					bookingManager.addBooking(showtimes.get(getShowtimeIndex(showtimeID)).getCinemaCode() +
 						showtimes.get(getShowtimeIndex(showtimeID)).getDate() +
 						showtimes.get(getShowtimeIndex(showtimeID)).getTime(),
 						showtimes.get(getShowtimeIndex(showtimeID)),
-						showtimes.get(getShowtimeIndex(showtimeID)).getPrice(customer) * 2,
+						showtimes.get(getShowtimeIndex(showtimeID)).getPrice(customer,isCoupleSeat,discountCodeTicket),
 						customer,
 						seatRow,
 						seatCol,
 						true);
+				}
+				
 			} else {
 				throw new IllegalArgumentException("Error in booking seat");
 			}
