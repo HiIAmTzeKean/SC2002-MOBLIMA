@@ -19,6 +19,7 @@ import viewPackage.View;
  * Staff showtime view
  * Allows modification of showtime data file
  * Staff must be logged in to use this class
+ * 
  * @author Ng Tze Kean
  * @since 05-11-2022
  */
@@ -29,21 +30,26 @@ public class StaffShowtime extends View {
 		System.out.println("          Update Showtimes");
 		System.out.println("--------------------------------------");
 		System.out.println("Choice 1 : Add Showtimes");
-		System.out.println("Choice 2 : Update Showtime Day");
+		System.out.println("Choice 2 : Update Showtime Day/Time");
 		System.out.println("Choice 3 : List Showtimes");
-		System.out.println("Choice 4 : Return");
+		System.out.println("Choice 4 : Remove a Showtime");
+		System.out.println("Choice 5 : Return");
 		System.out.println("-------------------------------------");
 	}
-	
+
 	/**
 	 * Allows the staff to add a showtime to the showtime data file
+	 * 
 	 * @apiNote IMovie,ICinema,IShowtimeSystem
 	 */
 	private static void addShowtime() {
 		IMovie MovieHandler = MovieManager.getInstance();
 		ICinema CinemaHandler = CinemaManager.getInstance();
 		IShowtimeSystem ssHandler = ShowtimeManager.getInstance();
-		enum addShowtimeState {MOVIE, CINEMA, DAY, DATE, TIME, HOLIDAY, CREATE};
+		enum addShowtimeState {
+			MOVIE, CINEMA, DAY, DATE, TIME, HOLIDAY, CREATE
+		}
+		;
 		// Variables
 		addShowtimeState state = addShowtimeState.MOVIE;
 		boolean complete = false;
@@ -59,21 +65,22 @@ public class StaffShowtime extends View {
 		System.out.println("--------------------------------------");
 
 		while (!complete) {
-            switch (state) {
-                case MOVIE:
+			switch (state) {
+				case MOVIE:
 					try {
 						MovieHandler.printMoviesAdmin();
 						System.out.println("[Enter 0 to return]");
 						System.out.println("Enter Movie ID");
 						ID = sc.nextInt();
 
-						if (ID == 0) return;
+						if (ID == 0)
+							return;
 						movie = MovieHandler.getMoviefromID(ID);
 					} catch (InputMismatchException e) {
 						inputMismatchHandler();
 						state = addShowtimeState.MOVIE;
 						break;
-					} catch (IllegalArgumentException e){
+					} catch (IllegalArgumentException e) {
 						System.out.println("Invalid Movie ID chosen!");
 						state = addShowtimeState.MOVIE;
 						break;
@@ -81,7 +88,7 @@ public class StaffShowtime extends View {
 				case CINEMA:
 					try {
 						CinemaHandler.printCinemasAdmin();
-			
+
 						System.out.println("[Enter 0 to return]");
 						System.out.println("Enter Cinema ID");
 						ID = sc.nextInt();
@@ -110,7 +117,7 @@ public class StaffShowtime extends View {
 						inputMismatchHandler();
 						state = addShowtimeState.DATE;
 						break;
-					} catch (IllegalArgumentException e){
+					} catch (IllegalArgumentException e) {
 						state = addShowtimeState.DATE;
 						break;
 					}
@@ -123,25 +130,23 @@ public class StaffShowtime extends View {
 						System.out.println("choice 5 : THURS");
 						System.out.println("choice 6 : FRI");
 						System.out.println("choice 7 : SAT");
-						
+
 						System.out.println("[Enter 0 to return]");
 						System.out.println("Enter Choice for Day of the Week [integer]: ");
 
-						
-						DayOfWeek[] arr = {DayOfWeek.SUN,DayOfWeek.MON,DayOfWeek.TUE,DayOfWeek.WED,
-											DayOfWeek.THU,DayOfWeek.FRI,DayOfWeek.SAT};
+						DayOfWeek[] arr = { DayOfWeek.SUN, DayOfWeek.MON, DayOfWeek.TUE, DayOfWeek.WED,
+								DayOfWeek.THU, DayOfWeek.FRI, DayOfWeek.SAT };
 
 						ID = sc.nextInt();
 						if (ID == 0) {
 							state = addShowtimeState.DATE;
 							break;
-						}
-						else if(ID>7 || ID<1){
+						} else if (ID > 7 || ID < 1) {
 							System.out.println("Invalid choice");
 							state = addShowtimeState.DAY;
 							break;
 						}
-						day.setDayOfWeek(arr[ID-1]);
+						day.setDayOfWeek(arr[ID - 1]);
 					} catch (InputMismatchException e) {
 						inputMismatchHandler();
 						state = addShowtimeState.DAY;
@@ -152,11 +157,10 @@ public class StaffShowtime extends View {
 						System.out.println("[Enter 0 to return]");
 						System.out.println("Enter time (24HR FORMAT EG: 2000)");
 						time = sc.next();
-						if (time.equals("0")){
+						if (time.equals("0")) {
 							state = addShowtimeState.DAY;
 							break;
-						}
-						else if(time.length()!=4) {
+						} else if (time.length() != 4) {
 							System.out.println("Invalid time input!");
 							state = addShowtimeState.TIME;
 							break;
@@ -166,7 +170,7 @@ public class StaffShowtime extends View {
 						inputMismatchHandler();
 						state = addShowtimeState.TIME;
 						break;
-					} catch (IllegalArgumentException e){
+					} catch (IllegalArgumentException e) {
 						System.out.println("Invalid time input!");
 						state = addShowtimeState.TIME;
 						break;
@@ -178,7 +182,7 @@ public class StaffShowtime extends View {
 						System.out.println("Choice 1 : Yes");
 						System.out.println("Choice 2 : No");
 						ID = sc.nextInt();
-						if (ID == 0){
+						if (ID == 0) {
 							state = addShowtimeState.TIME;
 							break;
 						}
@@ -190,15 +194,15 @@ public class StaffShowtime extends View {
 						break;
 					}
 				case CREATE:
-				try {
-					ssHandler.addShowtime(movie, cinema, day);
-					complete=true;
-				} catch (IllegalArgumentException e) {
-					System.out.println("Unable to add showtime as Movie has ended its showing");
-					System.out.println("Exiting function!");
-					waitForEnter(null);
-					return;
-				}
+					try {
+						ssHandler.addShowtime(movie, cinema, day);
+						complete = true;
+					} catch (IllegalArgumentException e) {
+						System.out.println("Unable to add showtime as Movie has ended its showing");
+						System.out.println("Exiting function!");
+						waitForEnter(null);
+						return;
+					}
 			}
 		}
 		System.out.println("--------------------------------------");
@@ -206,20 +210,25 @@ public class StaffShowtime extends View {
 		System.out.println("--------------------------------------");
 		waitForEnter(null);
 	}
+
 	/**
 	 * Allows the staff to update the showtime date and time
 	 * that is stored in the data file
+	 * 
 	 * @apiNote IShowtimeSystem
 	 */
 	private static void updateShowtime() {
 		IShowtimeSystem ssHandler = ShowtimeManager.getInstance();
-		enum setDayShowtime { ID, FULLDATE, TIME, CREATE  };
-		
+		enum setDayShowtime {
+			ID, FULLDATE, TIME, CREATE
+		}
+		;
+
 		boolean complete = false;
 		sc = new Scanner(System.in);
-		String FullDate=null, Time=null;
+		String FullDate = null, Time = null;
 		Day day = new Day();
-		setDayShowtime state = setDayShowtime.ID; 
+		setDayShowtime state = setDayShowtime.ID;
 		int ID = 0;
 
 		System.out.print("\033[H\033[2J");
@@ -230,76 +239,119 @@ public class StaffShowtime extends View {
 		ssHandler.printShowtimeAdmin();
 
 		while (!complete) {
-            switch (state) {
-                case ID:
-                try {
+			switch (state) {
+				case ID:
+					try {
 
-                    System.out.println("[Enter 0 to return]");
-                    System.out.println("Enter Showtime ID:");
-                    ID = sc.nextInt();
-                    if (ID==0) return;
+						System.out.println("[Enter 0 to return]");
+						System.out.println("Enter Showtime ID:");
+						ID = sc.nextInt();
+						if (ID == 0)
+							return;
 
-                } catch (InputMismatchException e) {
-                    inputMismatchHandler();
-                    state = setDayShowtime.ID;
-                    break;
-                }
-                case FULLDATE:
-                    try {
-                        System.out.println("[Enter 0 to return]");
-                        System.out.println("Enter New Showtime Date (Format: YYYYMMDD)");
-                        FullDate = sc.next();
-                        if (FullDate.equals("0")) {
-                            state = setDayShowtime.ID;
-                            break;
-                        }
-                    } catch (InputMismatchException e) {
-                        inputMismatchHandler();
-                        state = setDayShowtime.FULLDATE;
-                        break;
-                    }
+					} catch (InputMismatchException e) {
+						inputMismatchHandler();
+						state = setDayShowtime.ID;
+						break;
+					}
+				case FULLDATE:
+					try {
+						System.out.println("[Enter 0 to return]");
+						System.out.println("Enter New Showtime Date (Format: YYYYMMDD)");
+						FullDate = sc.next();
+						if (FullDate.equals("0")) {
+							state = setDayShowtime.ID;
+							break;
+						}
+					} catch (InputMismatchException e) {
+						inputMismatchHandler();
+						state = setDayShowtime.FULLDATE;
+						break;
+					}
 				case TIME:
-                    try {
-                        System.out.println("[Enter 0 to return]");
-                        System.out.println("Enter New Showtime Time");
-                        Time = sc.next();
-                        if (Time.equals("0")) {
-                            state = setDayShowtime.FULLDATE;
-                            break;
-                        }
-                    } catch (InputMismatchException e) {
-                        inputMismatchHandler();
-                        state = setDayShowtime.TIME;
-                        break;
-                    }
-                case CREATE:
+					try {
+						System.out.println("[Enter 0 to return]");
+						System.out.println("Enter New Showtime Time");
+						Time = sc.next();
+						if (Time.equals("0")) {
+							state = setDayShowtime.FULLDATE;
+							break;
+						}
+					} catch (InputMismatchException e) {
+						inputMismatchHandler();
+						state = setDayShowtime.TIME;
+						break;
+					}
+				case CREATE:
 					try {
 						day = new Day(FullDate, Time);
 					} catch (IllegalArgumentException e) {
 						System.out.println("Invalid date/time");
 						state = setDayShowtime.FULLDATE;
-						break; 
+						break;
 					}
-                    try {
-                        ssHandler.changeShowtimeDay(ID, day);
-                        complete = true;
-                    } catch (IllegalArgumentException e) {
-                        System.out.println("Unable to set new day for showtime ");
-                        System.out.println("Exiting function!");
-                        waitForEnter(null);
-                        return;
-                    }
-            }
-        }
+					try {
+						ssHandler.changeShowtimeDay(ID, day);
+						complete = true;
+					} catch (IllegalArgumentException e) {
+						System.out.println("Unable to set new day for showtime ");
+						System.out.println("Exiting function!");
+						waitForEnter(null);
+						return;
+					}
+			}
+		}
 		ssHandler.printShowtimeAdmin();
 		System.out.println("-------------------------------------");
-        System.out.println("      New Day Set for Showtime");
-        System.out.println("-------------------------------------");
-        waitForEnter(null);
+		System.out.println("      New Day Set for Showtime");
+		System.out.println("-------------------------------------");
+		waitForEnter(null);
 	}
-	
+
+	private static void removeAShowtime() {
+		IShowtimeSystem ssHandler = ShowtimeManager.getInstance();
+
+		boolean complete = false;
+		sc = new Scanner(System.in);
+		int ID = 0;
+
+		System.out.print("\033[H\033[2J");
+		System.out.println("--------------------------------------");
+		System.out.println("       Remove Showtime");
+		System.out.println("--------------------------------------");
+
+		ssHandler.printShowtimeAdmin();
+
+		while (!complete) {
+			try {
+				System.out.println("[Enter 0 to return]");
+				System.out.println("Enter Showtime ID to remove:");
+				ID = sc.nextInt();
+				if (ID == 0)
+					return;
+				complete = true;
+			} catch (InputMismatchException e) {
+				inputMismatchHandler();
+				break;
+			} catch (IndexOutOfBoundsException e) {
+				System.out.println(e.getMessage());
+				System.out.println("Please try again!");
+				waitForEnter(null);
+				break;
+			}
+		}
+		ssHandler.removeShowtime(ID);
+
+		ssHandler.printShowtimeAdmin();
+		System.out.println("-------------------------------------");
+		System.out.println("      Showtime Removed");
+		System.out.println("-------------------------------------");
+		waitForEnter(null);
+	}
+
 	/**
 	 * Controls showtime view logic
+	 * 
 	 * @apiNote IShowtimeSystem
 	 */
 	public static void start() {
@@ -309,18 +361,18 @@ public class StaffShowtime extends View {
 		while (true) {
 			displayMenu();
 			try {
-                System.out.println("Enter choice");
-                choice = sc.nextInt();
-                if (choice>4 || choice<1) {
-                    System.out.println("Invalid input!");
+				System.out.println("Enter choice");
+				choice = sc.nextInt();
+				if (choice > 5 || choice < 1) {
+					System.out.println("Invalid input!");
 					waitForEnter(null);
-                    continue;
-                }
-            } catch (InputMismatchException e) {
-                inputMismatchHandler();
+					continue;
+				}
+			} catch (InputMismatchException e) {
+				inputMismatchHandler();
 				waitForEnter(null);
-                continue;
-            }
+				continue;
+			}
 
 			switch (choice) {
 				case 1:
@@ -330,7 +382,7 @@ public class StaffShowtime extends View {
 					updateShowtime();
 					break;
 				case 3:
-					try{
+					try {
 						IShowtimeSystem showtimeSys = ShowtimeManager.getInstance();
 						showtimeSys.printShowtimeAdmin();
 					} catch (IllegalArgumentException e) {
@@ -339,6 +391,9 @@ public class StaffShowtime extends View {
 					waitForEnter(null);
 					break;
 				case 4:
+					removeAShowtime();
+					break;
+				case 5:
 					System.out.println("--------------------------------------");
 					System.out.println("     Exiting Staff Showtime Menu");
 					System.out.println("--------------------------------------");

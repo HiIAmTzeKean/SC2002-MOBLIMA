@@ -81,27 +81,27 @@ public class BookingManager {
 	 * 
 	 * @param customerEmail
 	 */
-	public void printAllTransactionsForCustomer(String customerEmail) {
-		System.out.println(
-				"|---------------------------------------------------- Transaction History ---------------------------------------------------|");
-		System.out.printf(
-				"| Customer email: %-30s                                                                             |\n",
+	public void printAllTransactionsForCustomer(String customerEmail) throws IllegalArgumentException{
+		System.out.println("|---------------------------------------------------- Transaction History ---------------------------------------------------|");
+		System.out.printf("| Customer email: %-30s                                                                             |\n",
 				customerEmail);
-		System.out.println(
-				"|----------------------------------------------------------------------------------------------------------------------------|");
+		System.out.println("|----------------------------------------------------------------------------------------------------------------------------|");
 		System.out.printf("|   %-15s   |  %-40s  |  %-15s  | %-8s |  %-5s | %-15s |\n",
-				"Transcation ID", "Movie Name", "Cinema Type",
+				"Transaction ID", "Movie Name", "Cinema Type",
 				"Date", "Price", "Couple Seating");
-		System.out.println(
-				"|----------------------------------------------------------------------------------------------------------------------------|");
+		System.out.println("|----------------------------------------------------------------------------------------------------------------------------|");
+		boolean found = false;
 		for (Iterator<Booking> it = bookings.iterator(); it.hasNext();) {
 			Booking b = it.next();
 			if (b.getCustomerEmail().equals(customerEmail)) {
 				b.print();
+				found = true;
 			}
 		}
-		System.out.println(
-				"|--------------------------------------------------------- END --------------------------------------------------------------|");
+		System.out.println("|--------------------------------------------------------- END --------------------------------------------------------------|");
+		if (!found){
+			throw new IllegalArgumentException("Email provided does not have any booking history!");
+		}
 	}
 
 	/**

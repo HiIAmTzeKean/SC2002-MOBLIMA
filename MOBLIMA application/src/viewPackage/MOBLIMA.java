@@ -17,6 +17,10 @@ import viewPackage.staffpackage.StaffAuth;
  * @since 05-11-2022
  */
 public class MOBLIMA extends View {
+    /**
+     * MOBLIMA Main Method that instantiates all managers and calls the start() method.
+	 * After completion of start() method, all managers are closed and data is written to the binary data files.
+     */
     public static void main(String args []){ 
         System.out.print("\033[H\033[2J");
         System.out.println("-----------------------------------------");
@@ -40,6 +44,9 @@ public class MOBLIMA extends View {
 		CinemaManager.getInstance();
 		ShowtimeManager.getInstance();
 	}
+	/**
+	 * Closes all instantiated objects and writes the object state the data files. 
+	 */
 	private static void closeAllManagers(){
 		BookingManager.close();
 		DiscountCode.close();
@@ -47,6 +54,9 @@ public class MOBLIMA extends View {
 		CinemaManager.close();
 		ShowtimeManager.close();
 	}
+    /**
+     * Helper function to print out a menu with options for the user.
+     */
     public static void displayMenu() {
 		System.out.print("\033[H\033[2J");
 		System.out.println("--------------------------------------");
@@ -69,7 +79,7 @@ public class MOBLIMA extends View {
 			try {
 				System.out.println("Enter Choice");
 				choice = sc.nextInt();
-				if (choice>5 || choice<1) {
+				if (choice>5 || choice<1){
 					System.out.println("Invalid input!");
 					waitForEnter(null);
 					continue;
@@ -79,7 +89,6 @@ public class MOBLIMA extends View {
 				waitForEnter(null);
 				continue;
 			}
-			
 			switch (choice) {
 				case 1:
 					StaffAuth.login();
@@ -90,7 +99,7 @@ public class MOBLIMA extends View {
 				case 3:
 					return;
 				default:
-					System.out.println("Enter valid choice");
+					System.out.println("Invalid Choice Entered. Please Try Again.");
 					choice = 0;
 			}
 		}
