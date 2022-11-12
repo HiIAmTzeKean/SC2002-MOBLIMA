@@ -255,7 +255,8 @@ public class ShowtimeManager implements IShowtimeSystem {
                                         showtimes.get(getShowtimeIndex(showtimeID)).getPrice(customer)*2,
 										customer,
 										seatRow,
-										seatCol);
+										seatCol,
+										true);
 			}
 			else {
 				throw new IllegalArgumentException("Error in booking seat");
