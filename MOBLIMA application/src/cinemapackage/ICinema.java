@@ -24,8 +24,8 @@ public interface ICinema {
 	 * found, success
 	 * message will be printed else
 	 * 
-	 * @param cinemaID
-	 * @param cineplexManager
+	 * @param cinemaID integer variable
+	 * @param cineplexManager ICineplex object
 	 */
 	void deleteCinema(int cinemaID, ICineplex cineplexManager) throws IllegalArgumentException;
 
@@ -47,7 +47,7 @@ public interface ICinema {
 	 * by staff object to modify Cinema template
 	 * Used in showtime class.
 	 * 
-	 * @param cinemaID
+	 * @param cinemaID integer variable
 	 * @return Cinema
 	 * @throws IllegalArgumentException if cinemaID not found
 	 */
@@ -56,7 +56,7 @@ public interface ICinema {
 	/**
 	 * Finds requested cinemaID in and returns the cinema code of target
 	 * 
-	 * @param cinemaID
+	 * @param cinemaID integer variable
 	 * @return String of cinema code
 	 * @throws IllegalArgumentException if cinemaID not found
 	 */
@@ -66,7 +66,7 @@ public interface ICinema {
 	 * Sets cinema code of target cinema. Finds the ID of the cinema in array
 	 * and updates the Cinema code.
 	 * 
-	 * @param cinemaID
+	 * @param cinemaID integer variable
 	 * @return String of cinema code
 	 * @throws IllegalArgumentException if cinemaID not found
 	 */
@@ -75,7 +75,7 @@ public interface ICinema {
 	/**
 	 * Returns an enum of the type of cinema requested
 	 * 
-	 * @param cinemaID
+	 * @param cinemaID integer variable
 	 * @return CinemaType enum type
 	 * @throws IllegalArgumentException
 	 */
@@ -84,8 +84,8 @@ public interface ICinema {
 	/**
 	 * Setter to modify the cinema type
 	 * 
-	 * @param cinemaID
-	 * @param type
+	 * @param cinemaID integer variable
+	 * @param type CinemaType variable
 	 * @throws IllegalArgumentException
 	 */
 	void setCinemaType(int cinemaID, CinemaType type) throws IllegalArgumentException;
@@ -94,8 +94,8 @@ public interface ICinema {
 	 * Returns the cineplex ID the cinema belongs to.
 	 * Returns -1 if there is no valid cineplex
 	 * 
-	 * @param cinemaID
-	 * @return
+	 * @param cinemaID integer variable
+	 * @return integer of the cineplex cinema belongs to
 	 * @throws IllegalArgumentException
 	 */
 	int getCineplexID(int cinemaID) throws IllegalArgumentException;
@@ -103,8 +103,8 @@ public interface ICinema {
 	/**
 	 * Returns the cineplex ID of a cinema
 	 * 
-	 * @param cinemaCode
-	 * @return
+	 * @param cinemaCode integer variable
+	 * @return integer CineplexID target
 	 * @throws IllegalArgumentException
 	 */
 	int getCineplexID(String cinemaCode) throws IllegalArgumentException;
@@ -112,8 +112,8 @@ public interface ICinema {
 	/**
 	 * Setter for a cinema object to change the cineplex it belongs to
 	 * 
-	 * @param cinemaID
-	 * @param cineplexID
+	 * @param cinemaID integer variable
+	 * @param cineplexID integer variable
 	 * @throws IllegalArgumentException
 	 */
 	void setCineplexID(int cinemaID, int cineplexID) throws IllegalArgumentException;
@@ -121,14 +121,14 @@ public interface ICinema {
 	/**
 	 * Prints the target Cinema layout
 	 * 
-	 * @param cinemaID
+	 * @param cinemaID integer variable
 	 */
 	void printCinemaLayout(int cinemaID) throws IllegalArgumentException;
 
 	/**
 	 * Prints the target Cinema layout
 	 * 
-	 * @param cinemaCode
+	 * @param cinemaCode integer variable
 	 * @throws IllegalArgumentException
 	 */
 	void printCinemaLayout(String cinemaCode) throws IllegalArgumentException;
@@ -137,8 +137,8 @@ public interface ICinema {
 	 * Clones a cinema object within manager
 	 * Allows showtime object to store another cinema object through deep clone
 	 * 
-	 * @param id
-	 * @return
+	 * @param ID integer variable
+	 * @return Cinema object target
 	 */
-	Cinema cloneCinemaByID(int id);
+	Cinema cloneCinemaByID(int ID);
 }

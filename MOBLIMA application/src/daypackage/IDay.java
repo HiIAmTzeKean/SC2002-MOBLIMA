@@ -39,7 +39,7 @@ public interface IDay {
 	String getDate();
 	/**
 	 * Sets the day of the week. [Mon, Tues ... Sun]
-	 * @param DayOfWeek enum
+	 * @param day enum
 	 */
 	void setDayOfWeek(DayOfWeek day);
 	/**
