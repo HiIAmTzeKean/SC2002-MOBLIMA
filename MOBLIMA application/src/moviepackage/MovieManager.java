@@ -201,7 +201,7 @@ public class MovieManager implements ISales, IReviews, IMovie {
 		System.out.println("|---------------------------------------------|");	
 		for(Iterator<Movie> it = movies.iterator(); it.hasNext();){
 			Movie m = it.next();
-			if(m.getMovieStatus()==MovieStatus.NOW_SHOWING){
+			if(m.getMovieStatus()!=MovieStatus.END_OF_SHOWING){
 				System.out.printf("|       %-30s        |\n",m.getMovieTitle());
 			}	
 		}

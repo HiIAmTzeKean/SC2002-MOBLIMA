@@ -40,12 +40,13 @@ public class CustomerMovieListing extends View {
 		try{
 			IMovie MovieHandler = MovieManager.getInstance();
 			MovieHandler.printMovieTitles();
-			System.out.println("Enter name of movie to see details of:");
+			System.out.println("Enter the Name of the Movie You Wish to See Details For:");
 			String movieName = sc.nextLine();
 			MovieHandler.findMoviebyName(movieName).printMovieComplete();
 		}
 		catch(IllegalArgumentException e){
-			System.out.println(e);
+			System.out.printf("Requested Movie Not Found. Please Try Again.");
+			//System.out.println(e);
 		}	
 	}
 	public static void printMovieTitles(){

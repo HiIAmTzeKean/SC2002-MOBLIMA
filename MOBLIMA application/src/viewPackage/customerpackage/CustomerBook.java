@@ -247,10 +247,12 @@ public class CustomerBook extends View {
 							String seatContinue = sc.next();
 							if(seatContinue.compareTo("0") == 0){
 								state = bookMenuState.SELECTSEAT;
+								sc.nextLine();
 								break;
 							}	
 							else{
 								state = bookMenuState.CUSTOMERDETAILS;
+								sc.nextLine();
 								break;
 							}
 						}
@@ -266,9 +268,9 @@ public class CustomerBook extends View {
 						break;
 					}
 				case CUSTOMERDETAILS:
+					//TODO: FIX
 					System.out.print("\033[H\033[2J");	
 					System.out.println("Please Enter your Personal Details for Booking");
-					sc.nextLine();
 					try{
 						System.out.println("Are you a Student? [Y/N]");
 						String studentChoice = sc.nextLine();
@@ -279,7 +281,7 @@ public class CustomerBook extends View {
 							customerIsStudent = false;
 						}
 						else{
-							System.out.println("Invalid Input Entered. Please Try Again.");
+							System.out.printf("Invalid Input Entered. Please Try Again.");
 							waitForEnter(null);
 							state = bookMenuState.CUSTOMERDETAILS;
 							break;	
@@ -287,7 +289,7 @@ public class CustomerBook extends View {
 						System.out.println("Name");
 						String customerName = sc.nextLine();
 						if(customerName.compareTo("")==0 || customerName.compareTo(" ")==0){
-							System.out.println("Invalid Input Entered. Please Try Again.");
+							System.out.printf("Invalid Input Entered. Please Try Again.");
 							waitForEnter(null);
 							state = bookMenuState.CUSTOMERDETAILS;
 							break;		
@@ -295,7 +297,7 @@ public class CustomerBook extends View {
 						System.out.println("Mobile No.");
 						int customerMobile = sc.nextInt();
 						if(String.valueOf(customerMobile).length() != 8){
-							System.out.println("Invalid Input Entered. Please Try Again.");
+							System.out.printf("Invalid Input Entered. Please Try Again.");
 							waitForEnter(null);
 							state = bookMenuState.CUSTOMERDETAILS;
 							break;		
@@ -304,7 +306,7 @@ public class CustomerBook extends View {
 						sc.nextLine();
 						String customerEmail = sc.nextLine();
 						if(customerEmail.compareTo("")==0 || customerEmail.compareTo(" ")==0){
-							System.out.println("Invalid Input Entered. Please Try Again.");
+							System.out.printf("Invalid Input Entered. Please Try Again.");
 							waitForEnter(null);
 							state = bookMenuState.CUSTOMERDETAILS;
 							break;		
@@ -312,7 +314,7 @@ public class CustomerBook extends View {
 						System.out.println("Age");
 						int customerAgeInteger = sc.nextInt();
 						if(customerAgeInteger <= 0){
-							System.out.println("Invalid Input Entered. Please Try Again.");
+							System.out.printf("Invalid Input Entered. Please Try Again.");
 							waitForEnter(null);
 							state = bookMenuState.CUSTOMERDETAILS;
 							break;		
@@ -487,11 +489,15 @@ public class CustomerBook extends View {
 	}// end bookMenu()
 
 	public static void history() {
-		Scanner scan = new Scanner(System.in);
-		BookingManager hist = BookingManager.getInstance();
-		System.out.println("Enter your Email to view your booking history");
-		String email = scan.nextLine();
-		hist.printAllTransactionsForCustomer(email);
-		System.out.println();
+		try{
+			Scanner scan = new Scanner(System.in);
+			BookingManager hist = BookingManager.getInstance();
+			System.out.println("Enter your Email to view your booking history");
+			String email = scan.nextLine();
+			hist.printAllTransactionsForCustomer(email);
+			System.out.println();
+		}catch(IllegalArgumentException e){
+			System.out.println("There are no Booking Records Found for This Email.");
+		}
 	}
 }
