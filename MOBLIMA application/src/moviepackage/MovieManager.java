@@ -23,7 +23,7 @@ public class MovieManager implements ISales, IReviews, IMovie {
 		movies = new ArrayList<Movie>();
 	}
 	/**
-	 * Alternate Constructor for MovieManager that is used when serialising data - assigns the 
+	 * Alternate Constructor for MovieManager that is used when serialising data. 
 	 * @param movies the ArrayList of movies that is assigned to the instantiated object.
 	 */
 	private MovieManager(ArrayList<Movie> movies){

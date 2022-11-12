@@ -37,6 +37,6 @@ public class Review implements Serializable{
 	 * Overloaded method of toString() to faciliate printing values of reviews.
 	 */
 	public String toString(){
-		return "Rating(" + String.valueOf(rating) + "): \n Review:" + this.getReview(); 
+		return "Rating: (" + String.valueOf(rating) + ")\nReview: " + this.getReview(); 
 	}
 }
