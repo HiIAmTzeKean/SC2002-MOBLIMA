@@ -347,6 +347,11 @@ public class ShowtimeManager implements IShowtimeSystem {
 			if (s.getMovieStatus() != MovieStatus.END_OF_SHOWING && s.getMovieStatus() == MovieStatus.NOW_SHOWING)
 				s.printShowtime();
 		}
+		for (Iterator<Showtime> it = showtimes.iterator(); it.hasNext();) {
+			Showtime s = it.next();
+			if (s.getMovieStatus() != MovieStatus.END_OF_SHOWING && s.getMovieStatus() == MovieStatus.COMING_SOON)
+				s.printShowtime();
+		}
 		System.out.println(
 				"|--------------------------------------------------------------------------------------------------------------|");
 	}
