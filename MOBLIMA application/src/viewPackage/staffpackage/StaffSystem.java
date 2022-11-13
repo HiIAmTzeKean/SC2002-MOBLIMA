@@ -1,13 +1,12 @@
-package viewPackage.staffpackage;
+package viewpackage.staffpackage;
 
 import java.util.InputMismatchException;
 import java.util.Scanner;
-
 import customerpackage.DiscountCode;
 import daypackage.Day;
 import showtimepackage.IShowtimeSystem;
 import showtimepackage.ShowtimeManager;
-import viewPackage.View;
+import viewpackage.View;
 
 /**
  * Provides UI to staff to modify system settings

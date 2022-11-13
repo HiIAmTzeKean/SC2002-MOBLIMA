@@ -1,4 +1,4 @@
-package viewPackage.customerpackage;
+package viewpackage.customerviewpackage;
 import java.util.*;
 import agepackage.Age;
 import cinemapackage.CinemaType;
@@ -8,7 +8,7 @@ import customerpackage.CustomerNullException;
 import daypackage.Day;
 import showtimepackage.IShowtime;
 import showtimepackage.ShowtimeManager;
-import viewPackage.View;
+import viewpackage.View;
 import showtimepackage.Showtime;
 
 public class CustomerBook extends View {

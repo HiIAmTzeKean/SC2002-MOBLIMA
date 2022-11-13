@@ -1,4 +1,4 @@
-package viewPackage.customerpackage;
+package viewpackage.customerviewpackage;
 
 import java.util.Scanner;
 import moviepackage.IReviews;

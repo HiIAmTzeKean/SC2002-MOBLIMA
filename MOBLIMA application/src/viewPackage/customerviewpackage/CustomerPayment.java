@@ -1,25 +1,17 @@
-package viewPackage.customerpackage;
+package viewpackage.customerviewpackage;
 import java.util.*;
-
-import org.hamcrest.CustomMatcher;
 
 import agepackage.Age;
 import agepackage.IAge;
 import cinemapackage.CinemaType;
-import customerpackage.BookingManager;
 import customerpackage.Customer;
 import customerpackage.CustomerNullException;
 import customerpackage.DiscountCode;
 import showtimepackage.IShowtime;
 import showtimepackage.Showtime;
 import showtimepackage.ShowtimeManager;
-import viewPackage.staffpackage.StaffShowtime;
 
-
-	//public static void confirmPayment(){
-		//TODO: Confirmation of Payment (yes/no)
-	//}	
-public class CustomerPayment {
+public class CustomerPayment{
 	private static Scanner scan = new Scanner(System.in);
 	private Customer c = null;
 	private CustomerBook cb = null;

@@ -1,4 +1,4 @@
-package viewPackage;
+package viewpackage;
 
 import java.util.InputMismatchException;
 import java.util.Scanner;
@@ -7,8 +7,8 @@ import customerpackage.BookingManager;
 import customerpackage.DiscountCode;
 import moviepackage.MovieManager;
 import showtimepackage.ShowtimeManager;
-import viewPackage.customerpackage.newCustomerView;
-import viewPackage.staffpackage.StaffAuth;
+import viewpackage.customerviewpackage.newCustomerView;
+import viewpackage.staffpackage.StaffAuth;
 
 /**
  * Controller class for MOBLIMA application

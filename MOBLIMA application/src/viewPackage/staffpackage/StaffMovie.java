@@ -1,11 +1,11 @@
-package viewPackage.staffpackage;
+package viewpackage.staffpackage;
 
 import moviepackage.MovieManager;
 import moviepackage.MovieStatus;
 import moviepackage.MovieType;
 import showtimepackage.IShowtimeSystem;
 import showtimepackage.ShowtimeManager;
-import viewPackage.View;
+import viewpackage.View;
 import moviepackage.AgeRestriction;
 import moviepackage.IMovie;
 import moviepackage.ISales;

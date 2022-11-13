@@ -1,6 +1,6 @@
-package viewPackage.staffpackage;
+package viewpackage.staffpackage;
 
-import viewPackage.View;
+import viewpackage.View;
 import java.util.Arrays;
 import java.util.InputMismatchException;
 

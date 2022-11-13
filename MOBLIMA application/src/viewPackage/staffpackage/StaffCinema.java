@@ -1,4 +1,4 @@
-package viewPackage.staffpackage;
+package viewpackage.staffpackage;
 
 import java.util.InputMismatchException;
 import java.util.Scanner;
@@ -7,7 +7,7 @@ import cinemapackage.CinemaType;
 import cinemapackage.ICinema;
 import cineplexpackage.CineplexManager;
 import cineplexpackage.ICineplex;
-import viewPackage.View;
+import viewpackage.View;
 
 /**
  * Staff cinema view

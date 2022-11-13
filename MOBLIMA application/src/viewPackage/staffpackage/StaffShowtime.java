@@ -1,4 +1,4 @@
-package viewPackage.staffpackage;
+package viewpackage.staffpackage;
 
 import java.util.InputMismatchException;
 import java.util.Scanner;
@@ -13,7 +13,7 @@ import moviepackage.Movie;
 import moviepackage.MovieManager;
 import showtimepackage.IShowtimeSystem;
 import showtimepackage.ShowtimeManager;
-import viewPackage.View;
+import viewpackage.View;
 
 /**
  * Staff showtime view
