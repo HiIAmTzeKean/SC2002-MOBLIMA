@@ -344,7 +344,7 @@ public class TestData {
         man.addShowtimeSystem(movieMan.getMoviefromID(10), cinemaManager.cloneCinemaByID(3), new Day("20220312", "2000"));
         
         MovieManager mm = MovieManager.getInstance();
-        for (int i = 1; i < 18; i ++) {
+        for (int i = 1; i < 15; i ++) {
             if (i>=14){
                 for (int j=0; j<20; j++){
                     try{

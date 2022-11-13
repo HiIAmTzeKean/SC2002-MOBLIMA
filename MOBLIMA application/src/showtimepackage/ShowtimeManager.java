@@ -347,11 +347,6 @@ public class ShowtimeManager implements IShowtimeSystem {
 			if (s.getMovieStatus() != MovieStatus.END_OF_SHOWING && s.getMovieStatus() == MovieStatus.NOW_SHOWING)
 				s.printShowtime();
 		}
-		for (Iterator<Showtime> it = showtimes.iterator(); it.hasNext();) {
-			Showtime s = it.next();
-			if (s.getMovieStatus() != MovieStatus.END_OF_SHOWING && s.getMovieStatus() == MovieStatus.COMING_SOON)
-				s.printShowtime();
-		}
 		System.out.println(
 				"|--------------------------------------------------------------------------------------------------------------|");
 	}
@@ -367,6 +362,9 @@ public class ShowtimeManager implements IShowtimeSystem {
 		MovieManager MM = MovieManager.getInstance();
 		if (MM.findMoviebyName(movieName).getMovieStatus() == MovieStatus.END_OF_SHOWING) {
 			throw new IllegalArgumentException("Movie is no longer showing");
+		}
+		else if (MM.findMoviebyName(movieName).getMovieStatus() == MovieStatus.COMING_SOON){
+			throw new IllegalArgumentException("Movie is coming soon cannot be booked");
 		}
 
 		// Check if movie exist in the showtime
@@ -388,7 +386,7 @@ public class ShowtimeManager implements IShowtimeSystem {
 				"|----------------------------------------------------------------------------------------------------------------------------|");
 		for (Iterator<Showtime> it = showtimes.iterator(); it.hasNext();) {
 			Showtime s = it.next();
-			if (s.getMovieStatus() != MovieStatus.END_OF_SHOWING && s.getMovieName().equals(movieName))
+			if (s.getMovieStatus() != MovieStatus.END_OF_SHOWING & s.getMovieStatus() != MovieStatus.COMING_SOON && s.getMovieName().equals(movieName))
 				s.printShowtime();
 		}
 		System.out.println(
@@ -407,6 +405,9 @@ public class ShowtimeManager implements IShowtimeSystem {
 		MovieManager MM = MovieManager.getInstance();
 		if (MM.findMoviebyName(movieName).getMovieStatus() == MovieStatus.END_OF_SHOWING) {
 			throw new IllegalArgumentException("Movie is no longer showing");
+		}
+		else if (MM.findMoviebyName(movieName).getMovieStatus() == MovieStatus.COMING_SOON){
+			throw new IllegalArgumentException("Movie is coming soon cannot be booked");
 		}
 
 		// Check if movie exist with cineplex selection
@@ -430,7 +431,7 @@ public class ShowtimeManager implements IShowtimeSystem {
 				"|--------------------------------------------------------------------------------------------------------------|");
 		for (Iterator<Showtime> it = showtimes.iterator(); it.hasNext();) {
 			Showtime s = it.next();
-			if (s.getMovieStatus() != MovieStatus.END_OF_SHOWING && s.getMovieName().equals(movieName)
+			if (s.getMovieStatus() != MovieStatus.END_OF_SHOWING && s.getMovieStatus() != MovieStatus.COMING_SOON && s.getMovieName().equals(movieName)
 					&& s.getCineplexID() == cineplexID)
 				s.printShowtime();
 		}
