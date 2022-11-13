@@ -8,7 +8,7 @@ import customerpackage.DiscountCode;
 import moviepackage.MovieManager;
 import showtimepackage.ShowtimeManager;
 import viewpackage.customerviewpackage.CustomerView;
-import viewpackage.staffpackage.StaffAuth;
+import viewpackage.staffviewpackage.StaffAuth;
 
 /**
  * Controller class for MOBLIMA application

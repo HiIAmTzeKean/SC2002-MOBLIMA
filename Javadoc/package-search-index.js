@@ -1,0 +1,1 @@
+packageSearchIndex = [{"l":"agepackage"},{"l":"All Packages","u":"allpackages-index.html"},{"l":"cinemapackage"},{"l":"cineplexpackage"},{"l":"customerpackage"},{"l":"daypackage"},{"l":"moviepackage"},{"l":"showtimepackage"},{"l":"testpackage"},{"l":"viewpackage"},{"l":"viewpackage.customerviewpackage"},{"l":"viewpackage.staffviewpackage"}];updateSearchResults();

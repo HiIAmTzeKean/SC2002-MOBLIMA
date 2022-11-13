@@ -279,7 +279,6 @@ public class CustomerBook extends View {
 						break;
 					}
 				case CUSTOMERDETAILS:
-					//TODO: FIX
 					System.out.print("\033[H\033[2J");	
 					System.out.println("Please Enter your Personal Details for Booking");
 					try{
