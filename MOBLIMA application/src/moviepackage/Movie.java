@@ -295,14 +295,9 @@ public class Movie implements Serializable{
 			System.out.printf("Average Review Score: %.1f\n",this.getReviewScores());
 			System.out.println("---------------------------------------");
 			System.out.printf("Past Reviews:\n");
-			int counter = 1;
 			for(Iterator<Review> it = reviews.iterator(); it.hasNext();){
-				if(counter<=3){
-					break;
-				}
-				Review re = it.next();
-				System.out.printf("%.1f : %s", re.getRating(), re.getReview());
-				counter++;
+				System.out.println(it.next());
+				System.out.println("---------------------------------------");
 			}
 		}
 	}

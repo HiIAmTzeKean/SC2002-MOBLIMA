@@ -1,4 +1,4 @@
-package viewPackage.customerpackage;
+package viewpackage.customerviewpackage;
 
 import java.util.Scanner;
 import moviepackage.IReviews;
@@ -25,11 +25,10 @@ public class CustomerReview {
 			scan.nextLine();
 			System.out.printf("Enter a Short Review for %s\n",toReview.getMovieTitle());
 			String review = scan.nextLine();
-			Review reviewToAdd = new Review(rating, review);
-			toReview.addReview(reviewToAdd);
+			reviewHandler.addReview(toFind, review, rating);
 		}
 		catch(IllegalArgumentException e){
-			System.out.println("An Error Occured. Please Try Again.");
+			System.out.println("Invalid Review Arguments. Please Try Again.");
 		}
 	}
 

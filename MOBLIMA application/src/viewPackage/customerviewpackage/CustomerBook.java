@@ -1,4 +1,4 @@
-package viewPackage.customerpackage;
+package viewpackage.customerviewpackage;
 import java.util.*;
 import agepackage.Age;
 import cinemapackage.CinemaType;
@@ -8,7 +8,7 @@ import customerpackage.CustomerNullException;
 import daypackage.Day;
 import showtimepackage.IShowtime;
 import showtimepackage.ShowtimeManager;
-import viewPackage.View;
+import viewpackage.View;
 import showtimepackage.Showtime;
 
 public class CustomerBook extends View {
@@ -244,6 +244,9 @@ public class CustomerBook extends View {
 								System.out.println("You Have Selected A Couple Seat.");
 								customerCoupleSeat = true;
 							}
+							else{
+								customerCoupleSeat = false;
+							}
 							System.out.println("[Enter 1 to Confirm Your Seat Selection]");
 							System.out.println("[Enter 0 to Return]");
 							String seatContinue = sc.next();
@@ -257,6 +260,12 @@ public class CustomerBook extends View {
 								sc.nextLine();
 								break;
 							}
+						}
+						else{
+							System.out.println("Seat Selected Has Already Been Booked. Please Try Again.");
+							state = bookMenuState.SELECTSEAT;
+							waitForEnter(null);
+							break;
 						}
 					}catch(IllegalArgumentException e){
 						System.out.println("Invalid Row and Column Entered. Please try again");
@@ -383,14 +392,15 @@ public class CustomerBook extends View {
 								System.out.println("Invalid Discount Code Entered. Please Try Again.");
 								waitForEnter(null);
 								state = bookMenuState.DISPLAYPRICE;
+								break;
 							}
-							System.out.printf("Your Final Price with Discount is %.2f\n",cp.getBookingPrice(customerObject, cinemaType, customerRow, customerColumn, customerShowtime, customerCoupleSeat, customerDiscountCode));
 							customerBookingPrice = cp.getBookingPrice(customerObject, cinemaType, customerRow, customerColumn, customerShowtime, customerCoupleSeat, customerDiscountCode);
+							System.out.printf("Your Final Price with Discount is %.2f\n",customerBookingPrice);
 						}
 						else if(discountCodeIndication.compareTo("N") == 0){
-							customerDiscountCode = "";
+							customerDiscountCode = null;
 							customerBookingPrice = cp.getBookingPrice(customerObject, cinemaType, customerRow, customerColumn, customerShowtime, customerCoupleSeat, customerDiscountCode);
-							System.out.printf("Your Final Price is %.2f\n",cp.getBookingPrice(customerObject, cinemaType, customerRow, customerColumn, customerShowtime, customerCoupleSeat, customerDiscountCode));	
+							System.out.printf("Your Final Price is %.2f\n",customerBookingPrice);	
 						}
 						System.out.println("[Enter 0 to Return to Seat Selection]");
 						System.out.println("[Enter 1 to Proceed to Payment]");
@@ -420,6 +430,12 @@ public class CustomerBook extends View {
 						state = bookMenuState.DISPLAYPRICE;
 						break;
 					}
+					catch(IllegalArgumentException e){
+						System.out.println("Invalid Discount Code Entered. Please Try Again.");
+						state = bookMenuState.DISPLAYPRICE;
+						waitForEnter(null);
+						break;
+					}
 				case PAYMENT:
 					try{
 						System.out.print("\033[H\033[2J");
@@ -431,15 +447,13 @@ public class CustomerBook extends View {
 						System.out.println("|--------------------------------------------------------------------------------------------------------------|");
 						customerShowtime.printShowtime();
 						System.out.println("|--------------------------------------------------------------------------------------------------------------|");
+						System.out.printf("Cineplex Name : %s\n",cineplexName);
 						System.out.printf("Seat Number : %s %d\n",customerRow, customerColumn);	
-						//Different dates
-						//Different ages
-						//Different cinema type
-						//Discount code
-						//Couple seat
 						System.out.printf("Seat Type Booked : %s\n", customerCoupleSeat ?  "Couple Seat" : "Regular Seat");
 						System.out.printf("Customer Age : %d\n", customerObject.getAge().getAgeNumber());
 						System.out.printf("Final Price : %.2f \n",customerBookingPrice);
+						System.out.printf("Discount Code Used : %s\n", customerDiscountCode == null ? "No" : "Yes");
+						System.out.printf("Student Pricing Used : %s\n\n", customerIsStudent ? "Yes" : "No");
 						System.out.println("Would You Like to Confirm Payment?");
 						System.out.println("[Enter 0 to Cancel Payment and Select Another Movie]");
 						System.out.println("[Enter 1 to Confirm Payment]");
@@ -455,10 +469,10 @@ public class CustomerBook extends View {
 						else if(paymentChoice.compareTo("1") == 0){
 							IShowtime bookingHandler = ShowtimeManager.getInstance();
 							if(customerCoupleSeat){
-								bookingHandler.bookCoupleSeat(customerShowtime.getID(),customerRow,customerColumn,customerObject);
+								bookingHandler.bookCoupleSeat(customerShowtime.getID(),customerRow,customerColumn,customerObject,customerCoupleSeat, customerDiscountCode);
 							}
 							if(!customerCoupleSeat){
-								bookingHandler.bookSeat(customerShowtime.getID(),customerRow,customerColumn,customerObject);
+								bookingHandler.bookSeat(customerShowtime.getID(),customerRow,customerColumn,customerObject, customerDiscountCode);
 							}
 							customerBookingDone = true;
 						}

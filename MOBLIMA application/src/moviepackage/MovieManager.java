@@ -23,7 +23,7 @@ public class MovieManager implements ISales, IReviews, IMovie {
 		movies = new ArrayList<Movie>();
 	}
 	/**
-	 * Alternate Constructor for MovieManager that is used when serialising data - assigns the 
+	 * Alternate Constructor for MovieManager that is used when serialising data. 
 	 * @param movies the ArrayList of movies that is assigned to the instantiated object.
 	 */
 	private MovieManager(ArrayList<Movie> movies){
@@ -207,6 +207,28 @@ public class MovieManager implements ISales, IReviews, IMovie {
 		}
 		System.out.println("|---------------------------------------------|");
 	}
+	@Override
+	/**
+	 * Prints a tabular output of movie titles. 
+	 * Used to support customer class functions to help user to choose a movie.
+	 * Ignores movies that have been marked as "End of Showing".
+	 * @throws IllegalArgumentException if movie array is empty.
+	 */	
+	public void printAvailableMovieTitles() throws IllegalArgumentException{
+		if(movies.size() == 0 || movies == null){
+			throw new IllegalArgumentException("There are no movies to find");
+		}
+		System.out.println("|---------------------------------------------|");
+		System.out.printf("|       %-30s        |\n","Movie Name");
+		System.out.println("|---------------------------------------------|");	
+		for(Iterator<Movie> it = movies.iterator(); it.hasNext();){
+			Movie m = it.next();
+			if(m.getMovieStatus()==MovieStatus.PREVIEW || m.getMovieStatus() == MovieStatus.NOW_SHOWING){
+				System.out.printf("|       %-30s        |\n",m.getMovieTitle());
+			}	
+		}
+		System.out.println("|---------------------------------------------|");	
+	}
 	/**
 	 * Prints a tabular output of movie information. 
 	 * Used to support staff class functions.
@@ -258,7 +280,7 @@ public class MovieManager implements ISales, IReviews, IMovie {
 			throw new IllegalArgumentException("Review must not be empty");
 		}
 		//Check if review rating is within the preset bounds
-		if(rating <= 0 || rating >= 5.0){
+		if(rating < 0.0F || rating > 5.0F){
 			throw new IllegalArgumentException("Review rating is invalid");
 		}
 		Review newReview = new Review(rating, review);
@@ -733,8 +755,8 @@ public class MovieManager implements ISales, IReviews, IMovie {
 		Boolean answer = false;
 		for(Movie m: movies){
 			if(m.getMovieTitle().compareTo(MovieName) == 0){
-				if(m.getMovieStatus()==MovieStatus.END_OF_SHOWING){
-					throw new IllegalArgumentException("Requested Movie is No Longer Showing.");
+				if(m.getMovieStatus()==MovieStatus.END_OF_SHOWING || m.getMovieStatus()==MovieStatus.COMING_SOON){
+					throw new IllegalArgumentException("Requested Movie is Not Available for Booking.");
 				}
 				else{
 					answer = true;

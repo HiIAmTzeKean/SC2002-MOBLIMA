@@ -1,10 +1,10 @@
-package viewPackage.customerpackage;
+package viewpackage.customerviewpackage;
 import java.util.InputMismatchException;
 import java.util.Scanner;
 import moviepackage.IMovie;
 import moviepackage.ISales;
 import moviepackage.MovieManager;
-import viewPackage.View;
+import viewpackage.View;
 //update ranking functions for customer
 public class CustomerMovieListing extends View {
 	private String selectedMovieName = null; 
@@ -60,7 +60,7 @@ public class CustomerMovieListing extends View {
 	}
 	public static void printMovieTitles(){
 		IMovie movieDisplayHander = MovieManager.getInstance();
-		movieDisplayHander.printMovieTitles();
+		movieDisplayHander.printAvailableMovieTitles();
 	}
 	public void movieSelection() {
 		IMovie movieDisplayHandler = MovieManager.getInstance(); 

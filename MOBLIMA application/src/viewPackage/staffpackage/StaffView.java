@@ -1,5 +1,5 @@
-package viewPackage.staffpackage;
-import viewPackage.View;
+package viewpackage.staffpackage;
+import viewpackage.View;
 import java.util.InputMismatchException;
 import java.util.Scanner;
 /**

@@ -8,11 +8,13 @@ import daypackage.*;
 import moviepackage.*;
 import showtimepackage.*;
 
+/**
+ * Class to create dummy data for testing and demo
+ * 
+ * @author Ng Tze Kean
+ */
 public class TestData {
     
-    /** 
-     * @param []
-     */
     public static void main(String args []) {
         createAllData();
         ShowtimeManager sm = ShowtimeManager.getInstance();
@@ -289,7 +291,6 @@ public class TestData {
         ShowtimeManager man = ShowtimeManager.getInstance();
         MovieManager movieMan = MovieManager.getInstance();
         CinemaManager cinemaManager = CinemaManager.getInstance();
-        BookingManager bookingManager = BookingManager.getInstance();
         IDay d0_t0 = new Day();
         IDay d0_t1 = new Day();
         d0_t1.setTime("1600");
@@ -305,9 +306,6 @@ public class TestData {
         d1_t2.setDate(2, 1, 2022);
         d1_t2.setTime("2000");
         
-        IDay d2_t0 = new Day(2,1,2022,"1200");
-        IDay d2_t1 = new Day(2, 1, 2022,"1600");
-        IDay d2_t2 = new Day(2, 1, 2022,"2000");
 
         IDay d3_t0 = new Day();
         d3_t0.setDate(31, 12, 2021);
@@ -346,7 +344,7 @@ public class TestData {
         man.addShowtimeSystem(movieMan.getMoviefromID(10), cinemaManager.cloneCinemaByID(3), new Day("20220312", "2000"));
         
         MovieManager mm = MovieManager.getInstance();
-        for (int i = 1; i < 18; i ++) {
+        for (int i = 1; i < 15; i ++) {
             if (i>=14){
                 for (int j=0; j<20; j++){
                     try{

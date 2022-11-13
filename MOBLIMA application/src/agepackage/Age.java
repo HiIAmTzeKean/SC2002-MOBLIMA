@@ -59,11 +59,11 @@ public class Age implements Serializable, IAge {
 	@Override
 	public float getAgeMultiplier() {
 		if (this.category == AgeCategory.SENIOR) {
-			return (float) 0.5;
+			return (float) 0.5f;
 		} else if (this.category == AgeCategory.CHILD) {
-			return (float) 0.7;
+			return (float) 0.7f;
 		} else {
-			return 1;
+			return 1.0f;
 		}
 	}
 }

@@ -1,4 +1,4 @@
-package viewPackage;
+package viewpackage;
 
 import java.util.Scanner;
 import java.io.Console;

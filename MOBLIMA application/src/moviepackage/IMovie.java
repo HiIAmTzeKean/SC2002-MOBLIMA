@@ -96,7 +96,21 @@ public interface IMovie {
 	 */
 	void setMovieType(int movieID, MovieType movieType)throws IllegalArgumentException;
 
+	/**
+	 * Returns a deep clone of the movie object by calling a protected constructor
+	 * @param movieID to make a deep clone for
+	 * @return deep clone of movie object
+	 * @throws IllegalArgumentException if movie cannot be found
+	 */
 	public Movie getClone(int movieID) throws IllegalArgumentException;
+	
+	/**
+	 * Overloaded method of getClone. 
+	 * Returns a deep clone of the movie object by calling a protected constructor
+	 * @param movieName to make a deep clone for
+	 * @return deep clone of movie object
+	 * @throws IllegalArgumentException if movie cannot be found
+	 */
 	public Movie getClone(String movieName) throws IllegalArgumentException;
 	
 	/**
@@ -105,8 +119,32 @@ public interface IMovie {
 	 */
 	void printMovies() throws IllegalArgumentException;
 	
+	/**
+	 * Prints all available Movie Titles.
+	 * Used in Customer and Staff View.
+	 * @throws IllegalArgumentException if movies array is empty
+	 */
 	void printMovieTitles() throws IllegalArgumentException;
 
+	/**
+	 * Prints all available Movie Titles for booking.
+	 * Used in Customer.
+	 * @throws IllegalArgumentException if movies array is empty
+	 */
+	void printAvailableMovieTitles() throws IllegalArgumentException;
+
+	/**
+	 * Prints all available Movie Titles for Staff
+	 * Contains additional information that cannot be seen by customer
+	 * @throws IllegalArgumentException if movies array is empty
+	 */
 	void printMoviesAdmin() throws IllegalArgumentException;
+
+	/**
+	 * Function that checks if the Customer has entered a valid movie name for booking.
+	 * @param MovieName to search for
+	 * @return true if movie name exists in movie array.
+	 * @throws IllegalArgumentException if movie is not found
+	 */
 	Boolean isValidMovieName(String MovieName) throws IllegalArgumentException;
 }

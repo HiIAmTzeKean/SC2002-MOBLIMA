@@ -33,6 +33,7 @@ public class Customer implements Serializable {
 
 	public Customer(String name, int mobile, String email, Age age, boolean isStudent) {
 		this(name, mobile, email, age);
+		this.isStudent = isStudent;
 	}
 
 	/**
@@ -164,6 +165,6 @@ public class Customer implements Serializable {
 	public float getMultiplier() throws IllegalArgumentException {
 		if (age == null)
 			throw new IllegalArgumentException("Age not set");
-		return isStudent ? age.getAgeMultiplier() * 0.8f : age.getAgeMultiplier();
+		return isStudent ? age.getAgeMultiplier() * 0.7f : age.getAgeMultiplier();
 	}
 }

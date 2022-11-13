@@ -1,4 +1,4 @@
-package viewPackage;
+package viewpackage;
 
 import java.util.InputMismatchException;
 import java.util.Scanner;
@@ -7,8 +7,8 @@ import customerpackage.BookingManager;
 import customerpackage.DiscountCode;
 import moviepackage.MovieManager;
 import showtimepackage.ShowtimeManager;
-import viewPackage.customerpackage.newCustomerView;
-import viewPackage.staffpackage.StaffAuth;
+import viewpackage.customerviewpackage.CustomerView;
+import viewpackage.staffpackage.StaffAuth;
 
 /**
  * Controller class for MOBLIMA application
@@ -31,7 +31,7 @@ public class MOBLIMA extends View {
 		waitForEnter(null);
 		startAllManagers();
 		start();
-		// closeAllManagers();
+		closeAllManagers();
 		System.out.println("-----------------------------------------");
 		System.out.println("\tEXITING MOBLIMA\t\t");
 		System.out.println("-----------------------------------------");
@@ -100,7 +100,7 @@ public class MOBLIMA extends View {
 					StaffAuth.login();
 					break;
 				case 2:
-					newCustomerView.start();
+					CustomerView.start();
 					break;
 				case 3:
 					return;

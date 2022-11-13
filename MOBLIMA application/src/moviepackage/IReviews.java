@@ -1,7 +1,6 @@
 package moviepackage;
 import java.util.ArrayList;
 public interface IReviews {
-	//TODO: Add documentation for the functions in this interface
 	/**
 	 * Searches the movie array for the movie with the same title as MovieName and verifies that review and rating are valid arguments.
 	 * If the movie is found and arguments are validated, a Review object is instantiated and appended to the movie's review array. 
