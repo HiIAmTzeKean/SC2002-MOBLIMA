@@ -60,7 +60,7 @@ public class CustomerMovieListing extends View {
 	}
 	public static void printMovieTitles(){
 		IMovie movieDisplayHander = MovieManager.getInstance();
-		movieDisplayHander.printMovieTitles();
+		movieDisplayHander.printAvailableMovieTitles();
 	}
 	public void movieSelection() {
 		IMovie movieDisplayHandler = MovieManager.getInstance(); 

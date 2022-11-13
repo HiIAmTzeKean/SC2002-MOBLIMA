@@ -7,7 +7,7 @@ import customerpackage.BookingManager;
 import customerpackage.DiscountCode;
 import moviepackage.MovieManager;
 import showtimepackage.ShowtimeManager;
-import viewpackage.customerviewpackage.newCustomerView;
+import viewpackage.customerviewpackage.CustomerView;
 import viewpackage.staffpackage.StaffAuth;
 
 /**
@@ -100,7 +100,7 @@ public class MOBLIMA extends View {
 					StaffAuth.login();
 					break;
 				case 2:
-					newCustomerView.start();
+					CustomerView.start();
 					break;
 				case 3:
 					return;

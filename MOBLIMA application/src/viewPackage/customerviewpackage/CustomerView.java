@@ -5,7 +5,7 @@ import showtimepackage.IShowtime;
 import showtimepackage.ShowtimeManager;
 import viewpackage.*;
 
-public class newCustomerView extends View {
+public class CustomerView extends View {
     public static void start(){
         Scanner sc = new Scanner(System.in);
         System.out.println("MOBLIMA Customer View\n");
