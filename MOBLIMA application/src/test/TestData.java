@@ -14,7 +14,10 @@ import showtimepackage.*;
  * @author Ng Tze Kean
  */
 public class TestData {
-    
+    /**
+     * Main function to create all data for the demo
+     * @param args
+     */
     public static void main(String args []) {
         createAllData();
         ShowtimeManager sm = ShowtimeManager.getInstance();

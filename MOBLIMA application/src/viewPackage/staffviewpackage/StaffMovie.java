@@ -1,4 +1,4 @@
-package viewpackage.staffpackage;
+package viewpackage.staffviewpackage;
 
 import moviepackage.MovieManager;
 import moviepackage.MovieStatus;
